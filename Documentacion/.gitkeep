@@ -1,0 +1,12 @@
+# Esta carpeta contendrá los archivos del PRD generados por los prompts
+
+## Archivos esperados:
+- 0-FichaProyecto.md
+- 1-DescripcionGeneral.md
+- 2-ArquitecturaSistema.md
+- 3-ModeloDatos.md
+- 4-EspecificacionAPI.md
+- 5-HistoriasUsuario.md
+- 6-TicketsTrabajo.md
+- 7-PullRequests.md
+
