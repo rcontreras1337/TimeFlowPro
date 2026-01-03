@@ -729,17 +729,32 @@ jobs:
       
       - run: pnpm install --frozen-lockfile
       
-      - name: Lint
+      - name: 🔍 Lint
         run: pnpm lint
       
-      - name: Type Check
+      - name: 📝 Type Check
         run: pnpm type-check
       
-      - name: Test
+      - name: 🧪 Unit Tests
         run: pnpm test -- --coverage
       
-      - name: Build
+      - name: 🔗 Integration Tests
+        run: pnpm test:integration
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_TEST_KEY }}
+      
+      # ⚠️ E2E Tests NO se ejecutan en CI
+      # Se corren localmente: pnpm test:e2e
+      # Razón: Alto consumo de recursos y tiempo
+      
+      - name: 🏗️ Build
         run: pnpm build
+      
+      - name: 📊 Upload Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
 
   deploy-preview:
     needs: quality
@@ -753,6 +768,242 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
 ```
+
+> 💡 **¿Por qué E2E solo en local?**
+> - Los tests E2E con Playwright requieren ~5-10 minutos adicionales
+> - Consumen browsers headless que aumentan costos de CI
+> - Son más útiles para validación visual durante desarrollo
+> - Unit + Integration cubren el 95% de regresiones
+
+### 2.5.4 Git Hooks con Husky 🐶
+
+Husky permite ejecutar scripts automáticamente en eventos de Git, asegurando que el código cumpla estándares **antes** de llegar al repositorio.
+
+#### Hooks Configurados
+
+```mermaid
+flowchart LR
+    subgraph PreCommit["🔒 pre-commit"]
+        LC["lint-staged"]
+        LC --> Lint["ESLint"]
+        LC --> Format["Prettier"]
+        LC --> Types["Type Check"]
+    end
+
+    subgraph CommitMsg["📝 commit-msg"]
+        CL["commitlint"]
+        CL --> Conv["Conventional Commits"]
+    end
+
+    subgraph PrePush["🚀 pre-push"]
+        Tests["Unit Tests"]
+    end
+
+    Dev["git commit"] --> PreCommit
+    PreCommit -->|"✅ Pass"| CommitMsg
+    CommitMsg -->|"✅ Pass"| Save["Commit guardado"]
+    
+    Push["git push"] --> PrePush
+    PrePush -->|"✅ Pass"| Remote["Push a GitHub"]
+    
+    PreCommit -->|"❌ Fail"| Fix1["Arreglar antes de commit"]
+    CommitMsg -->|"❌ Fail"| Fix2["Corregir mensaje"]
+    PrePush -->|"❌ Fail"| Fix3["Arreglar tests"]
+
+    style PreCommit fill:#4CAF50,color:#fff
+    style CommitMsg fill:#2196F3,color:#fff
+    style PrePush fill:#FF9800,color:#fff
+```
+
+#### Instalación y Configuración
+
+```bash
+# Instalar dependencias
+pnpm add -D husky lint-staged @commitlint/cli @commitlint/config-conventional
+```
+
+**Estructura de archivos:**
+
+```
+timeflowpro/
+├── .husky/
+│   ├── pre-commit           # Lint + Format
+│   ├── commit-msg           # Validar mensaje
+│   └── pre-push             # Tests antes de push
+├── .lintstagedrc.js         # Configuración lint-staged
+├── commitlint.config.js     # Reglas de commits
+└── package.json
+```
+
+#### Configuración de Hooks
+
+**.husky/pre-commit:**
+```bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+pnpm lint-staged
+```
+
+**.husky/commit-msg:**
+```bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "📝 Validating commit message..."
+pnpm commitlint --edit $1
+```
+
+**.husky/pre-push:**
+```bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🧪 Running tests before push..."
+pnpm test --run
+```
+
+#### Configuración de lint-staged
+
+**.lintstagedrc.js:**
+```javascript
+module.exports = {
+  // TypeScript/JavaScript
+  '*.{ts,tsx,js,jsx}': [
+    'eslint --fix',
+    'prettier --write',
+  ],
+  // Archivos de estilo
+  '*.{css,scss}': [
+    'prettier --write',
+  ],
+  // JSON, Markdown
+  '*.{json,md}': [
+    'prettier --write',
+  ],
+  // Type check en archivos TS modificados
+  '*.{ts,tsx}': () => 'tsc --noEmit',
+};
+```
+
+#### Configuración de Commitlint
+
+**commitlint.config.js:**
+```javascript
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',     // Nueva funcionalidad
+        'fix',      // Corrección de bug
+        'docs',     // Documentación
+        'style',    // Formato (no afecta lógica)
+        'refactor', // Refactorización
+        'perf',     // Mejora de performance
+        'test',     // Tests
+        'chore',    // Mantenimiento
+        'ci',       // CI/CD
+        'revert',   // Revertir commit
+      ],
+    ],
+    'subject-max-length': [2, 'always', 72],
+    'body-max-line-length': [2, 'always', 100],
+  },
+};
+```
+
+#### Ejemplos de Commits Válidos
+
+```bash
+# ✅ Válidos
+git commit -m "feat(appointments): add duration suggestion feature"
+git commit -m "fix(calendar): resolve timezone offset bug"
+git commit -m "docs: update README with installation steps"
+git commit -m "refactor(auth): simplify OAuth flow"
+
+# ❌ Inválidos (serán rechazados)
+git commit -m "fixed stuff"           # No sigue formato
+git commit -m "FEAT: add feature"     # Tipo en mayúsculas
+git commit -m "feat: this is a very long commit message that exceeds the maximum allowed length"
+```
+
+#### Flujo Completo con Husky
+
+```mermaid
+sequenceDiagram
+    actor Dev as 👨‍💻 Developer
+    participant Git as 🔀 Git
+    participant Husky as 🐶 Husky
+    participant Lint as 🔍 Lint-staged
+    participant CL as 📝 Commitlint
+    participant Tests as 🧪 Tests
+
+    Dev->>Git: git add .
+    Dev->>Git: git commit -m "feat: add feature"
+    
+    Git->>Husky: Trigger pre-commit
+    Husky->>Lint: Run lint-staged
+    Lint->>Lint: ESLint + Prettier + tsc
+    
+    alt Lint fails
+        Lint-->>Dev: ❌ Fix errors first
+    else Lint passes
+        Lint-->>Husky: ✅ OK
+        Husky->>CL: Run commitlint
+        CL->>CL: Validate message format
+        
+        alt Message invalid
+            CL-->>Dev: ❌ Fix commit message
+        else Message valid
+            CL-->>Husky: ✅ OK
+            Husky-->>Git: Commit saved
+        end
+    end
+
+    Dev->>Git: git push
+    Git->>Husky: Trigger pre-push
+    Husky->>Tests: Run unit tests
+    
+    alt Tests fail
+        Tests-->>Dev: ❌ Fix tests before push
+    else Tests pass
+        Tests-->>Husky: ✅ OK
+        Husky-->>Git: Push to remote
+    end
+```
+
+#### Beneficios
+
+| Sin Husky | Con Husky |
+|-----------|-----------|
+| Errores de lint llegan a PR | ❌ Bloqueados en commit |
+| Mensajes de commit inconsistentes | ✅ Formato estandarizado |
+| Tests rotos llegan a CI | ❌ Detectados antes de push |
+| CI falla por formato | ✅ Arreglado localmente |
+| Tiempo de CI desperdiciado | ⏱️ CI más rápido |
+
+#### Scripts en package.json
+
+```json
+{
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "commitlint": "commitlint --edit"
+  }
+}
+```
+
+> 💡 **Tip:** Al clonar el repo, ejecutar `pnpm install` automáticamente instala los hooks gracias al script `prepare`.
 
 ---
 
@@ -919,10 +1170,12 @@ flowchart TB
 
 | Tipo | Herramienta | Ubicación | Cobertura Target | Ejecuta en |
 |------|-------------|-----------|------------------|------------|
-| **Unit** | Vitest | `*.test.ts` junto al código | >80% | Cada push |
-| **Integration** | Vitest + Supabase | `__tests__/integration/` | Casos críticos | Cada PR |
-| **E2E** | Playwright | `e2e/` | Flujos principales | Pre-deploy |
-| **Visual** | Playwright | `e2e/` | Componentes UI | Opcional |
+| **Unit** | Vitest | `*.test.ts` junto al código | >80% | ☁️ GitHub Actions (cada push) |
+| **Integration** | Vitest + Supabase | `__tests__/integration/` | Casos críticos | ☁️ GitHub Actions (cada PR) |
+| **E2E** | Playwright | `e2e/` | Flujos principales | 💻 **Solo Local** |
+| **Visual** | Playwright | `e2e/` | Componentes UI | 💻 **Solo Local** |
+
+> ⚠️ **Nota sobre E2E:** Los tests E2E con Playwright consumen muchos recursos (browser headless, timeouts, screenshots). Se ejecutan **solo en local** antes de crear PRs importantes. Esto reduce costos de CI y tiempos de build.
 
 ### 2.7.3 Ejemplos de Tests
 
@@ -1020,13 +1273,62 @@ test('client can book appointment', async ({ page }) => {
 
 ### 2.7.4 Métricas de Calidad
 
-| Métrica | Umbral | Acción si falla |
-|---------|--------|-----------------|
-| Cobertura Unit Tests | >80% | ❌ CI falla |
-| Tests Integration pasando | 100% | ❌ CI falla |
-| Tests E2E pasando | 100% | ❌ Deploy bloqueado |
-| Lighthouse Performance | >90 | ⚠️ Warning |
-| Bundle Size | <500KB | ⚠️ Warning |
+| Métrica | Umbral | Acción si falla | Ejecuta en |
+|---------|--------|-----------------|------------|
+| Cobertura Unit Tests | >80% | ❌ CI falla | ☁️ GitHub Actions |
+| Tests Integration pasando | 100% | ❌ CI falla | ☁️ GitHub Actions |
+| Tests E2E pasando | 100% | ⚠️ Revisar antes de PR | 💻 Local only |
+| Lighthouse Performance | >90 | ⚠️ Warning | ☁️ GitHub Actions |
+| Bundle Size | <500KB | ⚠️ Warning | ☁️ GitHub Actions |
+
+### 2.7.5 Flujo de Testing Recomendado
+
+```mermaid
+flowchart LR
+    subgraph Local["💻 Desarrollo Local"]
+        Dev["Escribir código"]
+        Unit1["pnpm test<br/>(Unit tests)"]
+        E2E1["pnpm test:e2e<br/>(E2E con Playwright)"]
+    end
+
+    subgraph CI["☁️ GitHub Actions"]
+        Lint["Lint + Type Check"]
+        Unit2["Unit Tests"]
+        Int["Integration Tests"]
+        Build["Build"]
+    end
+
+    subgraph Deploy["🚀 Deploy"]
+        Preview["Preview Deploy"]
+        Prod["Production"]
+    end
+
+    Dev --> Unit1
+    Unit1 -->|"Antes de PR importante"| E2E1
+    E2E1 -->|"git push"| Lint
+    Lint --> Unit2 --> Int --> Build
+    Build --> Preview
+    Preview -->|"Aprobación"| Prod
+
+    style Local fill:#e3f2fd
+    style CI fill:#fff3e0
+    style Deploy fill:#e8f5e9
+```
+
+**Comandos de testing:**
+
+```bash
+# Desarrollo diario (rápido)
+pnpm test              # Unit tests con Vitest
+pnpm test:watch        # Watch mode
+
+# Antes de PR importante (completo)
+pnpm test:e2e          # E2E con Playwright
+pnpm test:e2e:ui       # E2E con UI de Playwright
+
+# CI ejecuta automáticamente
+pnpm test:ci           # Unit + Integration (sin E2E)
+```
 
 ---
 
@@ -1038,8 +1340,10 @@ test('client can book appointment', async ({ page }) => {
 - [x] **Estructura de ficheros:** Feature Slices con justificación
 - [x] **Infraestructura separada:** Diagrama independiente de arquitectura lógica
 - [x] **Pipeline CI/CD:** GitHub Actions con stages
+- [x] **Git Hooks con Husky:** pre-commit, commit-msg, pre-push configurados
+- [x] **Conventional Commits:** Commitlint con reglas definidas
 - [x] **Seguridad multinivel:** Auth, RLS, secretos, protección API
-- [x] **Tests estratificados:** Pirámide con ejemplos reales
+- [x] **Tests estratificados:** Pirámide con ejemplos reales (E2E solo local)
 - [x] **Sin credenciales visibles:** Solo placeholders
 
 ---
