@@ -1,0 +1,104 @@
+# =============================================================================
+# TimeFlowPro - PR Check
+# =============================================================================
+# Validaciones adicionales para Pull Requests
+# =============================================================================
+
+name: PR Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  # ============================================
+  # Validar titulo del PR (Conventional Commits)
+  # ============================================
+  pr-title:
+    name: 📝 Validate PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📝 Check PR Title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            perf
+            test
+            chore
+            ci
+          requireScope: false
+          subjectPattern: ^.+$
+          subjectPatternError: |
+            El titulo del PR debe seguir el formato de Conventional Commits.
+            Ejemplo: "feat: Add user authentication"
+            Ejemplo: "fix(auth): Resolve login issue"
+
+  # ============================================
+  # Etiquetar PR segun tamano
+  # ============================================
+  size-label:
+    name: 📏 Add Size Label
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: 📏 Label PR Size
+        uses: codelytv/pr-size-labeler@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          xs_label: 'size/XS'
+          xs_max_size: 10
+          s_label: 'size/S'
+          s_max_size: 100
+          m_label: 'size/M'
+          m_max_size: 500
+          l_label: 'size/L'
+          l_max_size: 1000
+          xl_label: 'size/XL'
+          fail_if_xl: false
+          message_if_xl: >
+            Este PR es muy grande (XL). Considera dividirlo en PRs mas pequenos
+            para facilitar la revision.
+
+  # ============================================
+  # Verificar archivos sensibles
+  # ============================================
+  sensitive-files:
+    name: 🔒 Check Sensitive Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔒 Check for sensitive files
+        run: |
+          # Lista de patrones de archivos sensibles
+          SENSITIVE_PATTERNS=(
+            ".env.local"
+            ".env.production"
+            "*.pem"
+            "*.key"
+            "*secret*"
+          )
+          
+          FOUND_SENSITIVE=false
+          
+          for pattern in "${SENSITIVE_PATTERNS[@]}"; do
+            if git diff --name-only origin/main...HEAD | grep -q "$pattern"; then
+              echo "::warning::Archivo sensible detectado: $pattern"
+              FOUND_SENSITIVE=true
+            fi
+          done
+          
+          if [ "$FOUND_SENSITIVE" = true ]; then
+            echo "::warning::Se detectaron archivos potencialmente sensibles. Por favor, revisa antes de mergear."
+          fi
+

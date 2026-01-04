@@ -12,14 +12,22 @@ export default defineConfig({
       './tests/**/*.test.ts',
       './tests/**/*.test.tsx',
     ],
+    exclude: [
+      'node_modules/',
+      'dist/',
+      '.next/',
+    ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'lcov'],
+      reportsDirectory: './coverage',
       exclude: [
         'node_modules/',
         'tests/',
         '**/*.d.ts',
         '**/*.config.*',
+        '.next/',
+        'src/types/',
       ],
     },
   },

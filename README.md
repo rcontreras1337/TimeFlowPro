@@ -201,7 +201,7 @@ TimeFlowPro/
 
 | Sprint | Tema | Estado |
 |--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (3/6) |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (4/6) |
 | [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
 | [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
@@ -372,6 +372,40 @@ apps/web/
 ├── .env.example             # Template de variables
 └── src/types/
     └── database.types.ts    # Tipos auto-generados
+```
+
+#### T-0-04: GitHub Actions CI/CD Pipeline ✅
+- 🔄 **CI Pipeline** configurado con GitHub Actions:
+  - Lint + TypeCheck en cada PR a main
+  - Tests unitarios con coverage
+  - Build de producción
+  - Deploy automático a Vercel en push a main
+- 📝 **PR Check Workflow**:
+  - Validación de títulos (Conventional Commits)
+  - Etiquetado automático por tamaño del PR
+  - Verificación de archivos sensibles
+- 🤖 **Dependabot** configurado para actualizaciones automáticas
+- 🧪 **Tests unitarios** para componentes UI
+- 📊 **Coverage** con Codecov integrado
+
+#### Archivos Añadidos T-0-04
+```
+.github/
+├── workflows/
+│   ├── ci.yml               # Pipeline principal CI/CD
+│   └── pr-check.yml         # Validaciones de PR
+└── dependabot.yml           # Configuración Dependabot
+
+apps/web/
+├── vitest.config.ts         # Config actualizada con coverage
+└── tests/
+    └── unit/
+        ├── components/
+        │   └── button.test.tsx
+        ├── lib/
+        │   └── example.test.ts
+        └── utils/
+            └── cn.test.ts
 ```
 
 ---
