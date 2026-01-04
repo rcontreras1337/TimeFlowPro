@@ -67,20 +67,24 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 | US-17 | Dashboard de Gestión de Profesionales | Superadmin | 🔴 Crítica | M (5 pts) | 1 |
 | US-18 | Notificaciones de Registro y Trial | Superadmin | 🟡 Alta | S (3 pts) | 2 |
 | US-19 | Cuenta en Modo Solo Lectura | Sistema | 🔴 Crítica | M (5 pts) | 2 |
+| US-20 | Cancelación de Cita por Cliente | Cliente | 🔴 Crítica | M (5 pts) | 4 |
+| US-21 | Reagendamiento de Cita | Cliente/Prof | 🔴 Crítica | M (5 pts) | 4 |
+| US-22 | Bloqueos Personales (Almuerzo, Vacaciones) | Profesional | 🟡 Alta | M (5 pts) | 3 |
+| US-23 | Términos y Condiciones al Reservar | Cliente | 🟡 Alta | S (3 pts) | 4 |
 
-**Total MVP:** 19 Historias | ~94 Story Points | ~5 Sprints
+**Total MVP:** 23 Historias | ~112 Story Points | ~6 Sprints
 
 ### Fase 2: Post-MVP
 
 | ID | Título | Actor | Prioridad | Estimación |
 |----|--------|-------|-----------|------------|
-| US-20 | Cálculo Automático de Traslado (Google Maps) | Sistema | 🟡 Alta | L (8 pts) |
-| US-21 | Sugerencias de Optimización de Jornada | Profesional | 🟢 Media | L (8 pts) |
-| US-22 | Pagos con MercadoPago | Cliente | 🟢 Media | L (8 pts) |
-| US-23 | Gestión Multi-Profesional (Equipos) | Superadmin | 🟢 Media | L (8 pts) |
-| US-24 | Reportes y Estadísticas | Profesional | 🟢 Media | M (5 pts) |
-| US-25 | Importación Masiva de Clientes | Profesional | 🟢 Media | S (3 pts) |
-| US-26 | Recordatorios Automáticos (WhatsApp) | Sistema | 🟢 Media | L (8 pts) |
+| US-24 | Cálculo Automático de Traslado (Google Maps) | Sistema | 🟡 Alta | L (8 pts) |
+| US-25 | Sugerencias de Optimización de Jornada | Profesional | 🟢 Media | L (8 pts) |
+| US-26 | Pagos con MercadoPago | Cliente | 🟢 Media | L (8 pts) |
+| US-27 | Gestión Multi-Profesional (Equipos) | Superadmin | 🟢 Media | L (8 pts) |
+| US-28 | Reportes y Estadísticas | Profesional | 🟢 Media | M (5 pts) |
+| US-29 | Importación Masiva de Clientes | Profesional | 🟢 Media | S (3 pts) |
+| US-30 | Recordatorios Automáticos (WhatsApp) | Sistema | 🟢 Media | L (8 pts) |
 
 ---
 
@@ -1239,11 +1243,280 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
+### US-20: Cancelación de Cita por Cliente
+
+#### Definición
+
+**Como** cliente que reservó una cita,  
+**quiero** poder cancelarla con anticipación desde el enlace de confirmación,  
+**para** liberar el horario si no puedo asistir.
+
+#### Criterios de Aceptación
+
+**Escenario 1: Cancelación con anticipación suficiente**
+- **Dado que** tengo una cita para mañana a las 15:00
+- **Y** la política del profesional requiere 24 horas de anticipación
+- **Y** son las 10:00 de hoy (29 horas antes)
+- **Cuando** hago clic en "Cancelar cita" desde el email de confirmación
+- **Entonces** la cita se cancela exitosamente
+- **Y** recibo confirmación de cancelación por email
+- **Y** el profesional es notificado
+
+**Escenario 2: Cancelación sin anticipación suficiente**
+- **Dado que** tengo una cita para hoy a las 15:00
+- **Y** son las 12:00 (3 horas antes)
+- **Y** la política requiere 24 horas
+- **Cuando** intento cancelar
+- **Entonces** veo mensaje: "No es posible cancelar con menos de 24 horas de anticipación"
+- **Y** veo opción de contactar al profesional
+
+**Escenario 3: Profesional puede cancelar en cualquier momento**
+- **Dado que** soy el profesional dueño de la cita
+- **Cuando** cancelo una cita sin importar la anticipación
+- **Entonces** la cita se cancela
+- **Y** puedo asignar el horario a otro cliente
+
+**Escenario 4: Cancelación libera bloque de traslado**
+- **Dado que** la cita tenía un bloque de traslado asociado
+- **Cuando** se cancela la cita
+- **Entonces** el bloque de traslado también se elimina
+
+**Escenario 5: Cancelación con pago online (Fase 2)**
+- **Dado que** la cita fue pagada online
+- **Y** la política es "no reembolsable"
+- **Cuando** el cliente cancela
+- **Entonces** veo advertencia: "Esta cita no es reembolsable"
+- **Y** debe confirmar que entiende antes de cancelar
+
+#### Prioridad y Estimación
+
+| Prioridad | Estimación | Dependencias |
+|-----------|------------|--------------|
+| 🔴 Crítica | M (5 pts) | US-13 |
+
+#### Especificación de Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Validación de anticipación mínima | `tests/unit/appointments/cancellation-policy.test.ts` |
+| Unit | Cálculo de horas restantes con timezone | `tests/unit/appointments/hours-until-appointment.test.ts` |
+| Integration | Cancelación elimina travel_block | `tests/integration/appointments/cancel-with-travel.test.ts` |
+| Integration | Notificación a profesional | `tests/integration/appointments/cancel-notification.test.ts` |
+| E2E | Cliente cancela desde email de confirmación | `tests/e2e/appointments/client-cancellation.spec.ts` |
+
+#### Referencias Técnicas
+
+- **Modelo de Datos:** `appointments`, `travel_blocks`, `profiles.settings.cancellation_policy`
+- **API Endpoints:** `POST /public/appointments/:id/cancel`
+- **Componentes UI:** `CancellationPage`, `CancellationConfirmation`, `PolicyWarning`
+
+---
+
+### US-21: Reagendamiento de Cita
+
+#### Definición
+
+**Como** cliente o profesional,  
+**quiero** poder mover una cita a otro horario disponible,  
+**para** no perder la reserva cuando hay imprevistos.
+
+#### Criterios de Aceptación
+
+**Escenario 1: Cliente reagenda con anticipación**
+- **Dado que** tengo una cita para el viernes
+- **Y** la política permite reagendar con 24 horas de anticipación
+- **Y** faltan más de 24 horas
+- **Cuando** selecciono "Reagendar" y elijo un nuevo horario disponible
+- **Entonces** la cita se mueve al nuevo horario
+- **Y** recibo confirmación del cambio
+- **Y** el profesional es notificado
+
+**Escenario 2: Cliente no puede reagendar sin anticipación**
+- **Dado que** faltan menos de 24 horas para mi cita
+- **Cuando** intento reagendar
+- **Entonces** veo mensaje: "Contacta al profesional para cambiar tu cita"
+
+**Escenario 3: Profesional puede reagendar siempre**
+- **Dado que** soy el profesional
+- **Cuando** muevo una cita a otro horario
+- **Entonces** la cita se actualiza
+- **Y** el cliente recibe notificación del cambio
+- **Y** el bloque de traslado se recalcula si aplica
+
+**Escenario 4: Reagendar respeta disponibilidad**
+- **Dado que** el cliente quiere reagendar
+- **Cuando** ve los horarios disponibles
+- **Entonces** solo ve slots que respetan working_hours y traslados
+- **Y** no puede elegir horarios ya ocupados
+
+**Escenario 5: Historial de cambios**
+- **Dado que** una cita se reagendó
+- **Cuando** veo los detalles de la cita
+- **Entonces** puedo ver "Reagendada desde: [fecha original]"
+
+#### Prioridad y Estimación
+
+| Prioridad | Estimación | Dependencias |
+|-----------|------------|--------------|
+| 🔴 Crítica | M (5 pts) | US-20 |
+
+#### Especificación de Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Validación de política de reagendamiento | `tests/unit/appointments/reschedule-policy.test.ts` |
+| Unit | Recálculo de travel_block en reagendamiento | `tests/unit/appointments/reschedule-travel.test.ts` |
+| Integration | Flujo completo de reagendamiento | `tests/integration/appointments/reschedule-flow.test.ts` |
+| E2E | Cliente reagenda desde portal | `tests/e2e/appointments/client-reschedule.spec.ts` |
+
+#### Referencias Técnicas
+
+- **Modelo de Datos:** `appointments` (campos: `rescheduled_from`, `rescheduled_at`), `travel_blocks`
+- **API Endpoints:** `PUT /appointments/:id/reschedule`, `PUT /public/appointments/:id/reschedule`
+- **Componentes UI:** `RescheduleWizard`, `SlotSelector`, `RescheduleConfirmation`
+
+---
+
+### US-22: Bloqueos Personales (Almuerzo, Vacaciones)
+
+#### Definición
+
+**Como** profesional,  
+**quiero** bloquear tiempo en mi agenda para actividades personales,  
+**para** que no se agenden citas en esos períodos.
+
+#### Criterios de Aceptación
+
+**Escenario 1: Crear bloqueo único (almuerzo)**
+- **Dado que** quiero bloquear mi hora de almuerzo el lunes
+- **Cuando** creo un bloqueo de 13:00 a 14:00 con título "Almuerzo"
+- **Entonces** ese horario aparece ocupado en el calendario
+- **Y** no está disponible para reservas online
+
+**Escenario 2: Crear bloqueo recurrente**
+- **Dado que** siempre almuerzo de 13:00 a 14:00 de lunes a viernes
+- **Cuando** creo un bloqueo recurrente
+- **Entonces** todos los días L-V tienen ese horario bloqueado
+
+**Escenario 3: Crear bloqueo de vacaciones (varios días)**
+- **Dado que** estaré de vacaciones del 15 al 22 de febrero
+- **Cuando** creo un bloqueo de "todo el día" para esas fechas
+- **Entonces** esos días no muestran disponibilidad
+- **Y** el portal muestra "No disponible" para esas fechas
+
+**Escenario 4: Bloqueo se muestra en calendario**
+- **Dado que** tengo bloqueos configurados
+- **Cuando** veo mi calendario
+- **Entonces** los bloqueos aparecen con color distintivo (gris)
+- **Y** puedo distinguirlos de las citas
+
+**Escenario 5: Editar/Eliminar bloqueo**
+- **Dado que** cambié mi hora de almuerzo
+- **Cuando** edito el bloqueo
+- **Entonces** el nuevo horario se refleja inmediatamente
+
+**Escenario 6: Bloqueo no afecta citas existentes**
+- **Dado que** tengo una cita a las 13:30
+- **Cuando** creo un bloqueo de 13:00 a 14:00
+- **Entonces** veo advertencia de conflicto
+- **Y** debo decidir si mover la cita o ajustar el bloqueo
+
+#### Prioridad y Estimación
+
+| Prioridad | Estimación | Dependencias |
+|-----------|------------|--------------|
+| 🟡 Alta | M (5 pts) | US-09 |
+
+#### Especificación de Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Generación de bloqueos recurrentes | `tests/unit/blocks/recurring-blocks.test.ts` |
+| Unit | Detección de conflictos con citas | `tests/unit/blocks/conflict-detection.test.ts` |
+| Integration | CRUD de bloqueos personales | `tests/integration/blocks/personal-blocks-crud.test.ts` |
+| Integration | Bloqueos excluidos de disponibilidad | `tests/integration/blocks/availability-exclusion.test.ts` |
+| E2E | Crear bloqueo y verificar en calendario | `tests/e2e/blocks/create-personal-block.spec.ts` |
+
+#### Referencias Técnicas
+
+- **Modelo de Datos:** `personal_blocks` (nueva tabla)
+- **API Endpoints:** `CRUD /personal-blocks`
+- **Componentes UI:** `BlockForm`, `BlockCard`, `RecurrenceSelector`, `VacationPicker`
+
+---
+
+### US-23: Términos y Condiciones al Reservar
+
+#### Definición
+
+**Como** profesional,  
+**quiero** que los clientes acepten mis términos y condiciones al reservar,  
+**para** protegerme legalmente y establecer expectativas claras.
+
+#### Criterios de Aceptación
+
+**Escenario 1: Configurar términos obligatorios**
+- **Dado que** quiero que los clientes acepten mis términos
+- **Cuando** activo "Requerir aceptación de términos" en configuración
+- **Y** ingreso el texto de mis términos
+- **Entonces** el portal de reservas mostrará checkbox obligatorio
+
+**Escenario 2: Cliente debe aceptar para reservar**
+- **Dado que** el profesional requiere aceptación de términos
+- **Cuando** intento completar una reserva sin marcar el checkbox
+- **Entonces** veo error: "Debes aceptar los términos y condiciones"
+- **Y** no puedo continuar
+
+**Escenario 3: Aceptación se registra**
+- **Dado que** acepto los términos y reservo
+- **Cuando** se crea la cita
+- **Entonces** se guarda `terms_accepted_at` con la fecha/hora
+- **Y** el profesional puede ver que el cliente aceptó
+
+**Escenario 4: Términos con política de no reembolso (Fase 2)**
+- **Dado que** el profesional tiene política de no reembolso
+- **Cuando** el cliente ve los términos
+- **Entonces** incluyen texto claro sobre la política
+- **Y** el checkbox menciona explícitamente "no reembolsable"
+
+**Escenario 5: Términos desactivados**
+- **Dado que** el profesional no configuró términos
+- **Cuando** el cliente reserva
+- **Entonces** no aparece checkbox de términos
+- **Y** puede reservar directamente
+
+**Escenario 6: Ver términos completos**
+- **Dado que** los términos son largos
+- **Cuando** el cliente hace clic en "Ver términos completos"
+- **Entonces** se abre modal o página con el texto completo
+
+#### Prioridad y Estimación
+
+| Prioridad | Estimación | Dependencias |
+|-----------|------------|--------------|
+| 🟡 Alta | S (3 pts) | US-13 |
+
+#### Especificación de Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Validación de aceptación obligatoria | `tests/unit/booking/terms-validation.test.ts` |
+| Integration | Guardar timestamp de aceptación | `tests/integration/booking/terms-acceptance.test.ts` |
+| E2E | Cliente ve y acepta términos | `tests/e2e/booking/terms-acceptance.spec.ts` |
+
+#### Referencias Técnicas
+
+- **Modelo de Datos:** `profiles.settings.terms_required`, `profiles.settings.terms_text`, `appointments.terms_accepted_at`
+- **API Endpoints:** `GET /public/professionals/:slug/terms`
+- **Componentes UI:** `TermsCheckbox`, `TermsModal`, `TermsConfig`
+
+---
+
 ## 4.3 Historias de Usuario - Fase 2 (Post-MVP)
 
 ---
 
-### US-20: Cálculo Automático de Traslado (Google Maps)
+### US-24: Cálculo Automático de Traslado (Google Maps)
 
 #### Definición
 
@@ -1282,7 +1555,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-21: Sugerencias de Optimización de Jornada
+### US-25: Sugerencias de Optimización de Jornada
 
 #### Definición
 
@@ -1310,7 +1583,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-22: Pagos con MercadoPago
+### US-26: Pagos con MercadoPago
 
 #### Definición
 
@@ -1343,7 +1616,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-23: Gestión Multi-Profesional (Equipos)
+### US-27: Gestión Multi-Profesional (Equipos)
 
 #### Definición
 
@@ -1371,7 +1644,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-24: Reportes y Estadísticas
+### US-28: Reportes y Estadísticas
 
 #### Definición
 
@@ -1399,7 +1672,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-25: Importación Masiva de Clientes
+### US-29: Importación Masiva de Clientes
 
 #### Definición
 
@@ -1427,7 +1700,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 
 ---
 
-### US-26: Recordatorios Automáticos (WhatsApp)
+### US-30: Recordatorios Automáticos (WhatsApp)
 
 #### Definición
 
@@ -1474,6 +1747,9 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 | US-14, US-15 | `google_calendar_tokens`, `google_calendar_events` |
 | **US-16, US-17, US-18** | `system_config` (nueva), `profiles` |
 | **US-19** | `profiles` (account_status transitions) |
+| **US-20, US-21** | `appointments`, `profiles.settings.cancellation_policy` |
+| **US-22** | `personal_blocks` (nueva tabla) |
+| **US-23** | `profiles.settings.terms_*`, `appointments.terms_accepted_at` |
 
 ### Historias → Endpoints API (Preview)
 
@@ -1496,7 +1772,11 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 | **US-16** | `GET/PATCH /admin/config` |
 | **US-17** | `GET /admin/professionals`, `PATCH /admin/professionals/:id/status` |
 | **US-18** | `GET /admin/trials-expiring` |
-| **US-19** | Middleware de permisos + Cron `expire-trials`
+| **US-19** | Middleware de permisos + Cron `expire-trials` |
+| **US-20** | `POST /public/appointments/:id/cancel` |
+| **US-21** | `PUT /appointments/:id/reschedule`, `PUT /public/appointments/:id/reschedule` |
+| **US-22** | `CRUD /personal-blocks` |
+| **US-23** | `GET /public/professionals/:slug/terms`
 
 ---
 
@@ -1539,20 +1819,27 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.1.0  
-**Total Historias MVP:** 19  
+**Versión del documento:** 1.2.0  
+**Total Historias MVP:** 23  
 **Total Historias Fase 2:** 7  
-**Story Points MVP:** ~94 pts
+**Story Points MVP:** ~112 pts
 
 ---
 
-## 📋 Cambios en v1.1.0
+## 📋 Historial de Cambios
 
+### v1.2.0
+- **US-20 nueva:** Cancelación de Cita por Cliente
+- **US-21 nueva:** Reagendamiento de Cita
+- **US-22 nueva:** Bloqueos Personales (Almuerzo, Vacaciones)
+- **US-23 nueva:** Términos y Condiciones al Reservar
+- **US-24 a US-30:** Renumeradas (antes US-20 a US-26)
+
+### v1.1.0
 - **US-01 actualizada:** Incluye trial automático y estados de cuenta
 - **US-13 actualizada:** Explícito que cliente NO necesita cuenta + bloqueo de portal inactivo
 - **US-16 nueva:** Configuración de Trial por Superadmin
 - **US-17 nueva:** Dashboard de Gestión de Profesionales
 - **US-18 nueva:** Notificaciones de Registro y Trial
 - **US-19 nueva:** Cuenta en Modo Solo Lectura
-- **US-20 a US-26:** Renumeradas (antes US-16 a US-22)
 

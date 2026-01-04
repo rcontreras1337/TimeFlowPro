@@ -87,11 +87,16 @@ Los profesionales móviles que trabajan en múltiples ubicaciones (kinesiólogos
 | 3 | **Duración adaptativa** | Profesional puede ajustar duración por cliente/servicio | Build |
 | 4 | **Bloqueo de traslado (manual)** | Profesional indica tiempo de viaje entre ubicaciones | Build |
 | 5 | **Reserva dual** | Profesional y cliente pueden crear citas | Build |
-| 6 | **Portal de reservas público** | Enlace compartible para que clientes agenden | Build |
+| 6 | **Portal de reservas público** | Enlace compartible para que clientes agenden (sin necesidad de cuenta) | Build |
 | 7 | **Sincronización Google Calendar** | Citas se reflejan en GCal del profesional | Buy (Google Calendar API) |
-| 8 | **Autenticación Google** | Login con cuenta Google | Buy (Supabase Auth) |
+| 8 | **Autenticación Google** | Login con cuenta Google + trial automático | Buy (Supabase Auth) |
 | 9 | **Gestión de clientes** | CRUD de clientes con notas y historial | Build |
 | 10 | **Gestión de servicios** | Profesional define servicios con duración base y precio | Build |
+| 11 | **Cancelación y reagendamiento** | Cliente puede cancelar/reagendar con anticipación mínima configurable | Build |
+| 12 | **Bloqueos personales** | Profesional bloquea almuerzo, vacaciones, tiempo personal | Build |
+| 13 | **Términos y condiciones** | Checkbox obligatorio al reservar (configurable) | Build |
+| 14 | **Gestión de profesionales (Admin)** | Superadmin activa, suspende y gestiona trials | Build |
+| 15 | **Modo solo lectura** | Cuenta con trial expirado puede ver pero no crear | Build |
 
 ### Funcionalidades Futuras (Post-MVP)
 

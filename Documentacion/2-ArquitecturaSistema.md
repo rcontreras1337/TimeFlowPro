@@ -440,12 +440,23 @@ flowchart LR
         Travel["calculate-travel<br/>Tiempo traslado (F2)"]
         Notify["send-notification<br/>Emails/SMS (F2)"]
         Webhook["webhook-handler<br/>MercadoPago (F2)"]
+        ExpireTrials["expire-trials<br/>⏰ Cron diario"]
+        AdminNotify["admin-notify<br/>📧 Notificaciones admin"]
     end
 
     Trigger["🔔 Triggers"] --> EdgeFunctions
     API["🌐 HTTP"] --> EdgeFunctions
+    Cron["⏰ Cron Jobs"] --> ExpireTrials
     EdgeFunctions --> External["🔗 APIs Externas"]
 ```
+
+**Edge Functions MVP:**
+
+| Función | Trigger | Descripción |
+|---------|---------|-------------|
+| `calendar-sync` | Trigger PostgreSQL | Sincroniza citas con Google Calendar |
+| `expire-trials` | Cron (diario 00:00) | Cambia trials expirados a `readonly` |
+| `admin-notify` | Trigger PostgreSQL | Notifica al admin en registros y eventos |
 
 **Responsabilidades:**
 - ✅ Lógica que no puede ser RLS/SQL
@@ -553,10 +564,15 @@ timeflowpro/
 │   ├── 📁 functions/                    # Edge Functions
 │   │   ├── 📁 calendar-sync/
 │   │   │   └── index.ts
+│   │   ├── 📁 expire-trials/
+│   │   │   └── index.ts                 # Cron diario - expira trials
+│   │   ├── 📁 admin-notify/
+│   │   │   └── index.ts                 # Notificaciones al admin
 │   │   ├── 📁 calculate-travel/
-│   │   │   └── index.ts
+│   │   │   └── index.ts                 # Fase 2
 │   │   └── 📁 _shared/
-│   │       └── cors.ts
+│   │       ├── cors.ts
+│   │       └── email.ts                 # Utilidades de email
 │   ├── seed.sql                         # Datos de prueba
 │   └── config.toml
 │

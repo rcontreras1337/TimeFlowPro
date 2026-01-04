@@ -33,6 +33,9 @@ erDiagram
     
     APPOINTMENTS ||--o| TRAVEL_BLOCKS : "preceded_by"
     APPOINTMENTS ||--o| GOOGLE_CALENDAR_EVENTS : "synced_to"
+    APPOINTMENTS ||--o| APPOINTMENTS : "rescheduled_from"
+    
+    PROFILES ||--o{ PERSONAL_BLOCKS : "blocks"
 
     %% ========================================
     %% ENTITY DEFINITIONS
@@ -197,6 +200,31 @@ erDiagram
         timestamptz created_at
         timestamptz updated_at
     }
+
+    SYSTEM_CONFIG {
+        uuid id PK
+        string key UK "Clave de config"
+        jsonb value "Valor"
+        text description "Descripcion"
+        uuid updated_by FK "Quien actualizo"
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    PERSONAL_BLOCKS {
+        uuid id PK
+        uuid user_id FK "Profesional"
+        string title "Almuerzo Vacaciones"
+        enum block_type "lunch vacation personal other"
+        timestamptz start_time "Inicio bloqueo"
+        timestamptz end_time "Fin bloqueo"
+        boolean all_day "Dia completo"
+        enum recurrence_type "none daily weekly monthly"
+        date recurrence_end_date "Hasta cuando"
+        boolean is_active "Activo"
+        timestamptz created_at
+        timestamptz updated_at
+    }
 ```
 
 ### 3.1.2 Diagrama de Relaciones Simplificado
@@ -224,6 +252,11 @@ flowchart TB
         GCE["📆 google_calendar_events"]
     end
 
+    subgraph Admin["⚙️ Administración"]
+        SC["🔧 system_config"]
+        PB["🚫 personal_blocks"]
+    end
+
     P --> C
     P --> L
     P --> S
@@ -241,10 +274,12 @@ flowchart TB
     
     P --> GCT
     A --> GCE
+    P --> PB
 
     style Core fill:#4CAF50,color:#fff
     style Support fill:#2196F3,color:#fff
     style Integration fill:#FF9800,color:#fff
+    style Admin fill:#9C27B0,color:#fff
 ```
 
 ---
@@ -265,15 +300,42 @@ flowchart TB
 | `timezone` | `VARCHAR(50)` | NOT NULL | `'America/Santiago'` | Zona horaria IANA |
 | `avatar_url` | `TEXT` | - | NULL | URL de foto de perfil |
 | `role` | `user_role` | NOT NULL | `'professional'` | Enum: professional, superadmin |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Cuenta activa |
-| `settings` | `JSONB` | NOT NULL | `'{}'` | Configuraciones personalizadas |
+| `account_status` | `account_status` | NOT NULL | `'trial'` | Estado de la cuenta |
+| `trial_expires_at` | `TIMESTAMPTZ` | - | NULL | Fecha expiración del trial |
+| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Cuenta activa (legacy, usar account_status) |
+| `settings` | `JSONB` | NOT NULL | Ver estructura | Configuraciones personalizadas |
 | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+
+**Estructura de `settings` (JSONB):**
+
+```json
+{
+  "cancellation_policy": {
+    "min_hours_advance": 24,
+    "allow_client_cancel": true,
+    "allow_client_reschedule": true
+  },
+  "refund_policy": {
+    "enabled": false,
+    "message": "No se realizan reembolsos por cancelaciones."
+  },
+  "terms_required": true,
+  "terms_text": "Texto de términos y condiciones...",
+  "notification_preferences": {
+    "email_new_booking": true,
+    "email_cancellation": true
+  }
+}
+```
 
 **Índices:**
 ```sql
 CREATE INDEX idx_profiles_slug ON profiles(slug);
 CREATE INDEX idx_profiles_email ON profiles(email);
+CREATE INDEX idx_profiles_status ON profiles(account_status);
+CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at) 
+    WHERE account_status = 'trial';
 ```
 
 ---
@@ -375,11 +437,16 @@ CREATE INDEX idx_clients_name ON clients(user_id, name) WHERE deleted_at IS NULL
 | `start_time` | `TIMESTAMPTZ` | NOT NULL | - | Inicio de la cita |
 | `end_time` | `TIMESTAMPTZ` | NOT NULL | - | Fin de la cita |
 | `duration_minutes` | `INTEGER` | NOT NULL | - | Duración real en minutos |
+| `price_at_booking` | `DECIMAL(10,2)` | NOT NULL | - | Precio al momento de agendar |
 | `status` | `appointment_status` | NOT NULL | `'pending'` | Estado de la cita |
 | `notes` | `TEXT` | - | NULL | Notas de la cita |
 | `cancellation_reason` | `TEXT` | - | NULL | Razón de cancelación |
+| `cancelled_by` | `VARCHAR(20)` | - | NULL | 'client' o 'professional' |
 | `source` | `appointment_source` | NOT NULL | `'manual'` | Origen |
 | `google_event_id` | `VARCHAR(255)` | - | NULL | ID del evento en GCal |
+| `terms_accepted_at` | `TIMESTAMPTZ` | - | NULL | Cuándo aceptó términos |
+| `rescheduled_from` | `UUID` | FK | NULL | ID cita original si fue reagendada |
+| `rescheduled_at` | `TIMESTAMPTZ` | - | NULL | Cuándo se reagendó |
 | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
 | `deleted_at` | `TIMESTAMPTZ` | - | NULL | Soft delete |
@@ -391,6 +458,12 @@ ALTER TABLE appointments ADD CONSTRAINT check_end_after_start
 
 ALTER TABLE appointments ADD CONSTRAINT check_duration_positive 
     CHECK (duration_minutes > 0);
+
+ALTER TABLE appointments ADD CONSTRAINT check_price_non_negative 
+    CHECK (price_at_booking >= 0);
+
+ALTER TABLE appointments ADD CONSTRAINT check_cancelled_by_valid 
+    CHECK (cancelled_by IS NULL OR cancelled_by IN ('client', 'professional'));
 ```
 
 **Índices:**
@@ -410,6 +483,10 @@ CREATE INDEX idx_appointments_location ON appointments(location_id, start_time)
 -- Índice para sincronización con Google Calendar
 CREATE INDEX idx_appointments_google ON appointments(google_event_id) 
     WHERE google_event_id IS NOT NULL;
+
+-- Índice para citas reagendadas
+CREATE INDEX idx_appointments_rescheduled ON appointments(rescheduled_from) 
+    WHERE rescheduled_from IS NOT NULL;
 ```
 
 ---
@@ -588,11 +665,89 @@ ALTER TABLE location_services
 
 ---
 
+### 3.2.13 Tabla: `system_config`
+
+> Configuración global del sistema, gestionada por el superadmin.
+
+| Campo | Tipo | Constraints | Default | Descripción |
+|-------|------|-------------|---------|-------------|
+| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
+| `key` | `VARCHAR(100)` | UNIQUE, NOT NULL | - | Clave de configuración |
+| `value` | `JSONB` | NOT NULL | - | Valor de configuración |
+| `description` | `TEXT` | - | NULL | Descripción de la config |
+| `updated_by` | `UUID` | FK | NULL | Quién actualizó |
+| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
+| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+
+**Configuraciones iniciales:**
+
+| key | value | Descripción |
+|-----|-------|-------------|
+| `trial_days` | `{"value": 7}` | Días de trial por defecto |
+| `admin_email` | `{"value": "admin@timeflowpro.com"}` | Email del superadmin |
+| `trial_alert_threshold` | `{"value": 3}` | Días antes de vencer para alertar |
+
+**Índices:**
+```sql
+CREATE INDEX idx_system_config_key ON system_config(key);
+```
+
+---
+
+### 3.2.14 Tabla: `personal_blocks`
+
+> Bloqueos personales del profesional (almuerzo, vacaciones, etc.).
+
+| Campo | Tipo | Constraints | Default | Descripción |
+|-------|------|-------------|---------|-------------|
+| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
+| `user_id` | `UUID` | FK, NOT NULL | - | Profesional dueño |
+| `title` | `VARCHAR(100)` | NOT NULL | - | Título: "Almuerzo", "Vacaciones" |
+| `block_type` | `block_type` | NOT NULL | `'personal'` | Tipo de bloqueo |
+| `start_time` | `TIMESTAMPTZ` | NOT NULL | - | Inicio del bloqueo |
+| `end_time` | `TIMESTAMPTZ` | NOT NULL | - | Fin del bloqueo |
+| `all_day` | `BOOLEAN` | NOT NULL | `FALSE` | ¿Bloqueo de día completo? |
+| `recurrence_type` | `recurrence_type` | NOT NULL | `'none'` | Tipo de recurrencia |
+| `recurrence_end_date` | `DATE` | - | NULL | Hasta cuándo se repite |
+| `recurrence_days` | `INTEGER[]` | - | NULL | Días de la semana (0=Dom, 1=Lun...) |
+| `notes` | `TEXT` | - | NULL | Notas adicionales |
+| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Activo |
+| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
+| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+
+**Constraints:**
+```sql
+ALTER TABLE personal_blocks ADD CONSTRAINT check_block_end_after_start 
+    CHECK (end_time > start_time);
+```
+
+**Índices:**
+```sql
+-- Índice para consultas de calendario
+CREATE INDEX idx_personal_blocks_calendar ON personal_blocks(user_id, start_time, end_time) 
+    WHERE is_active = TRUE;
+
+-- Índice para bloqueos recurrentes
+CREATE INDEX idx_personal_blocks_recurrence ON personal_blocks(user_id, recurrence_type) 
+    WHERE recurrence_type != 'none';
+```
+
+---
+
 ## 3.3 Tipos Enumerados (ENUMs)
 
 ```sql
 -- Rol del usuario
 CREATE TYPE user_role AS ENUM ('professional', 'superadmin');
+
+-- Estado de cuenta del profesional
+CREATE TYPE account_status AS ENUM (
+    'trial',            -- En período de prueba
+    'active',           -- Cuenta activa (pagada o activada manualmente)
+    'readonly',         -- Trial expirado, solo lectura
+    'suspended',        -- Suspendida por admin
+    'pending_activation' -- Esperando activación manual (trial=0)
+);
 
 -- Origen del cliente
 CREATE TYPE client_source AS ENUM ('manual', 'online_booking', 'import');
@@ -618,6 +773,22 @@ CREATE TYPE travel_source AS ENUM ('manual', 'google_maps');
 
 -- Estado de sincronización
 CREATE TYPE sync_status AS ENUM ('pending', 'synced', 'error');
+
+-- Tipo de bloqueo personal
+CREATE TYPE block_type AS ENUM (
+    'lunch',        -- Almuerzo
+    'vacation',     -- Vacaciones
+    'personal',     -- Personal genérico
+    'other'         -- Otro
+);
+
+-- Frecuencia de recurrencia
+CREATE TYPE recurrence_type AS ENUM (
+    'none',         -- Sin recurrencia (único)
+    'daily',        -- Diario
+    'weekly',       -- Semanal
+    'monthly'       -- Mensual
+);
 ```
 
 ---
