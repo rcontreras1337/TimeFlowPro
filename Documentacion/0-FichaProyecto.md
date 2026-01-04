@@ -319,8 +319,8 @@ flowchart TB
 | Arquitectura del Sistema | `Documentacion/2-ArquitecturaSistema.md` | ✅ |
 | Modelo de Datos | `Documentacion/3-ModeloDatos.md` | ✅ |
 | Historias de Usuario | `Documentacion/4-HistoriasUsuario.md` | ✅ |
-| Especificación API | `Documentacion/5-EspecificacionAPI.md` | 🔜 |
-| Tickets de Trabajo | `Documentacion/6-TicketsTrabajo.md` | 🔜 |
+| Especificación API | `Documentacion/5-EspecificacionAPI.md` | ✅ |
+| Tickets de Trabajo | `Documentacion/6-TicketsTrabajo.md` | 🔄 |
 | Pull Requests | `Documentacion/7-PullRequests.md` | 🔜 |
 
 ---
