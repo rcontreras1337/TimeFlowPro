@@ -201,7 +201,7 @@ TimeFlowPro/
 
 | Sprint | Tema | Estado |
 |--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (2/6) |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (3/6) |
 | [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
 | [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
@@ -331,6 +331,47 @@ packages/shared/
 └── src/
     ├── types/               # Shared types
     └── utils/               # Shared utilities
+```
+
+#### T-0-03: Configuración Supabase Local (Docker) ✅
+- 🐳 **Supabase CLI** instalado y configurado
+- 🔧 **config.toml** configurado con:
+  - PostgreSQL 16 en puerto 54322
+  - API REST en puerto 54321
+  - Supabase Studio en puerto 54323
+  - Auth con Google OAuth habilitado
+  - Storage y Realtime habilitados
+- 📦 **Scripts de Supabase** en package.json:
+  - `supabase:start`, `supabase:stop`, `supabase:status`
+  - `supabase:reset`, `supabase:types`, `supabase:migrate`
+- 🔄 **Generación automática de tipos** TypeScript desde el schema
+- 🧪 **Tests de integración** para validar conexión a Supabase
+- 🧪 **Tests unitarios** para clientes Supabase (browser/server)
+
+#### Archivos Añadidos T-0-03
+```
+./
+├── supabase/
+│   ├── config.toml          # Configuración Supabase local
+│   ├── seed.sql             # Datos de prueba (vacío)
+│   └── migrations/
+│       └── .gitkeep         # Mantener carpeta en git
+├── vitest.config.ts         # Configuración tests integración
+└── tests/
+    ├── integration/
+    │   └── supabase-connection.test.ts
+    └── unit/
+        └── lib/
+            └── supabase-client.test.ts
+
+apps/web/
+├── vitest.config.ts         # Configuración tests unitarios
+├── tests/
+│   └── setup.ts             # Setup de tests
+├── .env.local               # Variables de entorno local
+├── .env.example             # Template de variables
+└── src/types/
+    └── database.types.ts    # Tipos auto-generados
 ```
 
 ---
