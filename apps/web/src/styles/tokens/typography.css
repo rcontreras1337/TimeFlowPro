@@ -1,0 +1,176 @@
+/**
+ * TimeFlowPro - Typography Design Tokens
+ * 
+ * Font System:
+ * - Primary: Plus Jakarta Sans (modern, professional, readable)
+ * - Mono: JetBrains Mono (code, data, technical)
+ * 
+ * Scale: 1.25 (Major Third) for harmonious proportions
+ * 
+ * @see Documentacion/6-TicketsTrabajo.md - T-0-01
+ */
+
+:root {
+  /* ============================================
+   * FONT FAMILIES
+   * ============================================ */
+  --font-family-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 
+                      'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 
+                      'Monaco', 'Consolas', monospace;
+
+  /* ============================================
+   * FONT SIZES
+   * Scale: 1.25 (Major Third)
+   * ============================================ */
+  --font-size-xs: 0.75rem;     /* 12px - Captions, labels */
+  --font-size-sm: 0.875rem;    /* 14px - Secondary text */
+  --font-size-base: 1rem;      /* 16px - Body text */
+  --font-size-lg: 1.125rem;    /* 18px - Large body */
+  --font-size-xl: 1.25rem;     /* 20px - Small headings */
+  --font-size-2xl: 1.5rem;     /* 24px - H4 */
+  --font-size-3xl: 1.875rem;   /* 30px - H3 */
+  --font-size-4xl: 2.25rem;    /* 36px - H2 */
+  --font-size-5xl: 3rem;       /* 48px - H1 */
+  --font-size-6xl: 3.75rem;    /* 60px - Display */
+
+  /* ============================================
+   * FONT WEIGHTS
+   * ============================================ */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ============================================
+   * LINE HEIGHTS
+   * ============================================ */
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* ============================================
+   * LETTER SPACING
+   * ============================================ */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+}
+
+/* ============================================
+ * TYPOGRAPHY PRESETS
+ * Use these as utility classes or extend
+ * ============================================ */
+
+/* Display - Hero sections */
+.text-display {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-none);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Heading 1 */
+.text-h1 {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Heading 2 */
+.text-h2 {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Heading 3 */
+.text-h3 {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Heading 4 */
+.text-h4 {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Heading 5 */
+.text-h5 {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Body Large */
+.text-body-lg {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Body Regular */
+.text-body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+/* Body Small */
+.text-body-sm {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+/* Caption */
+.text-caption {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Overline */
+.text-overline {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+}
+
+/* Code/Mono */
+.text-code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+}
+

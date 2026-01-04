@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![TimeFlowPro Logo](./assets/logo.svg)
+![TimeFlowPro Logo](./apps/web/public/logo.svg)
 
 **Sistema de agendamiento inteligente para profesionales móviles**
 
@@ -201,7 +201,7 @@ TimeFlowPro/
 
 | Sprint | Tema | Estado |
 |--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 📋 Pendiente |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (1/6) |
 | [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
 | [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
@@ -242,6 +242,47 @@ pnpm test:e2e
 - **Código:** ESLint + Prettier
 - **Idioma código:** Inglés
 - **Mensajes usuario:** Español (via `messages.es.yml`)
+
+---
+
+## 📝 Changelog
+
+### v0.1.0 (2026-01-04) - Sprint 0
+
+#### T-0-01: Brand Identity ✅
+- 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
+- 🎨 **Design Tokens** definidos:
+  - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
+  - Sistema tipográfico (Plus Jakarta Sans)
+  - Espaciado y layout (8px base grid)
+  - Sombras y elevación
+- 🎨 **Favicons y PWA Icons** configurados (SVG base)
+- 🎨 **Open Graph Image** para redes sociales
+- 📄 **Web Manifest** para PWA
+- 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
+
+#### Archivos Añadidos
+```
+apps/web/
+├── public/
+│   ├── logo.svg
+│   ├── logo-dark.svg
+│   ├── logo-icon.svg
+│   ├── favicon.svg
+│   ├── apple-touch-icon.svg
+│   ├── og-image.svg
+│   └── site.webmanifest
+├── src/styles/
+│   ├── globals.css
+│   └── tokens/
+│       ├── colors.css
+│       ├── typography.css
+│       └── spacing.css
+└── BRAND-ASSETS.md
+
+scripts/
+└── generate-icons.js
+```
 
 ---
 

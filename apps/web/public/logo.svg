@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none">
+  <!-- TimeFlowPro Logo - Light Mode -->
+  <defs>
+    <!-- Gradient for the clock/flow symbol -->
+    <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3F83F8"/>
+      <stop offset="50%" stop-color="#0694A2"/>
+      <stop offset="100%" stop-color="#16BDCA"/>
+    </linearGradient>
+    <!-- Accent gradient for arrows -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5A1F"/>
+      <stop offset="100%" stop-color="#FF8A4C"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Clock Circle with Flow -->
+  <g transform="translate(6, 6)">
+    <!-- Outer ring -->
+    <circle cx="24" cy="24" r="22" stroke="url(#flowGradient)" stroke-width="3" fill="none"/>
+    
+    <!-- Flow arrows (spiral effect) -->
+    <path d="M24 8 L24 24 L36 24" stroke="url(#flowGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    
+    <!-- Dynamic flow indicator - top right arc -->
+    <path d="M38 10 C44 16, 44 32, 38 38" stroke="url(#accentGradient)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    
+    <!-- Dynamic flow indicator - bottom left arc -->
+    <path d="M10 38 C4 32, 4 16, 10 10" stroke="url(#flowGradient)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+    
+    <!-- Center dot -->
+    <circle cx="24" cy="24" r="3" fill="url(#flowGradient)"/>
+  </g>
+  
+  <!-- Text: TimeFlowPro -->
+  <g font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Time -->
+    <text x="62" y="38" font-size="26" font-weight="700" fill="#1F2937">Time</text>
+    <!-- Flow -->
+    <text x="118" y="38" font-size="26" font-weight="700" fill="url(#flowGradient)">Flow</text>
+    <!-- Pro -->
+    <text x="178" y="38" font-size="26" font-weight="600" fill="#6B7280">Pro</text>
+  </g>
+</svg>
+

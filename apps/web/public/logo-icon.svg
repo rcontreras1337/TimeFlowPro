@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- TimeFlowPro Icon Only -->
+  <defs>
+    <!-- Gradient for the clock/flow symbol -->
+    <linearGradient id="iconFlowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3F83F8"/>
+      <stop offset="50%" stop-color="#0694A2"/>
+      <stop offset="100%" stop-color="#16BDCA"/>
+    </linearGradient>
+    <!-- Accent gradient for arrows -->
+    <linearGradient id="iconAccentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5A1F"/>
+      <stop offset="100%" stop-color="#FF8A4C"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Clock Circle with Flow -->
+  <g transform="translate(4, 4)">
+    <!-- Outer ring -->
+    <circle cx="20" cy="20" r="18" stroke="url(#iconFlowGradient)" stroke-width="2.5" fill="none"/>
+    
+    <!-- Clock hands forming arrow/flow -->
+    <path d="M20 6 L20 20 L32 20" stroke="url(#iconFlowGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    
+    <!-- Dynamic flow indicator - outer arc -->
+    <path d="M34 8 C40 14, 40 26, 34 32" stroke="url(#iconAccentGradient)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    
+    <!-- Dynamic flow indicator - inner arc -->
+    <path d="M6 32 C0 26, 0 14, 6 8" stroke="url(#iconFlowGradient)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+    
+    <!-- Center dot -->
+    <circle cx="20" cy="20" r="2.5" fill="url(#iconFlowGradient)"/>
+  </g>
+</svg>
+
