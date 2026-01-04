@@ -1,0 +1,95 @@
+/**
+ * TimeFlowPro - Global Styles
+ * Main entry point for styles
+ */
+
+/* Import design tokens */
+@import '../styles/tokens/colors.css';
+@import '../styles/tokens/typography.css';
+@import '../styles/tokens/spacing.css';
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base layer customizations */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary-200 text-primary-900;
+  }
+}
+
+/* Component layer utilities */
+@layer components {
+  /* Container utility */
+  .container-app {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card base */
+  .card {
+    @apply rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700;
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    @apply absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
+/* Utility layer additions */
+@layer utilities {
+  /* Calendar colors */
+  .bg-calendar-appointment {
+    background-color: var(--color-appointment);
+  }
+  .bg-calendar-travel {
+    background-color: var(--color-travel-block);
+  }
+  .bg-calendar-personal {
+    background-color: var(--color-personal-block);
+  }
+  .bg-calendar-available {
+    background-color: var(--color-available);
+  }
+  .bg-calendar-unavailable {
+    background-color: var(--color-unavailable);
+  }
+
+  /* Text gradient for branding */
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+

@@ -1,0 +1,37 @@
+{
+  "name": "timeflowpro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sistema de agendamiento inteligente para profesionales móviles",
+  "author": "Ruben Contreras <4tipruben@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rcontreras1337/TimeFlowPro.git"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@9.14.4",
+  "scripts": {
+    "dev": "pnpm --filter @timeflowpro/web dev",
+    "build": "pnpm --filter @timeflowpro/web build",
+    "start": "pnpm --filter @timeflowpro/web start",
+    "lint": "pnpm --filter @timeflowpro/web lint",
+    "test": "pnpm --filter @timeflowpro/web test",
+    "test:coverage": "pnpm --filter @timeflowpro/web test:coverage",
+    "typecheck": "pnpm --filter @timeflowpro/web typecheck",
+    "clean": "pnpm -r exec rm -rf node_modules .next .turbo dist",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:migrate": "supabase db push",
+    "supabase:reset": "supabase db reset",
+    "supabase:types": "supabase gen types typescript --local > apps/web/src/types/database.types.ts",
+    "db:seed": "supabase db reset --seed-only"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
+
