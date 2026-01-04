@@ -908,9 +908,12 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 - **Cuando** el cambio se procesa
 - **Entonces** el evento en GCal se elimina o marca cancelado
 
-**Escenario 4: Sincronización bidireccional (opcional MVP)**
+**Escenario 4: Sincronización bidireccional (⚠️ POST-MVP / Fase 2)**
+
+> **Nota:** Este escenario requiere webhooks de Google Calendar y verificación de dominio. Se implementará en Fase 2.
+
 - **Dado que** creo evento directo en GCal
-- **Cuando** el sistema sincroniza
+- **Cuando** el webhook de GCal notifica a TimeFlowPro
 - **Entonces** el bloque aparece ocupado en TimeFlowPro
 
 **Escenario 5: Desconectar Google Calendar**
@@ -1819,7 +1822,7 @@ Cada Historia de Usuario sigue esta estructura para garantizar completitud y tra
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.2.0  
+**Versión del documento:** 1.3.0  
 **Total Historias MVP:** 23  
 **Total Historias Fase 2:** 7  
 **Story Points MVP:** ~112 pts

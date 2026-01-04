@@ -314,27 +314,35 @@ flowchart TB
 | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
 
-**Estructura de `settings` (JSONB):**
+**Estructura de `settings` (JSONB) - Híbrida:**
 
 ```json
 {
-  "cancellation_policy": {
-    "min_hours_advance": 24,
-    "allow_client_cancel": true,
-    "allow_client_reschedule": true
+  "appointment": {
+    "default_duration": 45,
+    "buffer_minutes": 5
   },
-  "refund_policy": {
-    "enabled": false,
-    "message": "No se realizan reembolsos por cancelaciones."
+  "cancellation": {
+    "hours_before": 24,
+    "allow_client": true
   },
-  "terms_required": true,
-  "terms_text": "Texto de términos y condiciones...",
-  "notification_preferences": {
-    "email_new_booking": true,
-    "email_cancellation": true
+  "reschedule": {
+    "hours_before": 24,
+    "allow_client": true
+  },
+  "terms": {
+    "required": false,
+    "text": ""
+  },
+  "refund_policy": "",
+  "notifications": {
+    "email_on_booking": true,
+    "email_on_cancel": true
   }
 }
 ```
+
+> **Nota:** Estructura híbrida con agrupaciones lógicas de un solo nivel para facilitar acceso (`settings->'cancellation'->>'hours_before'`).
 
 **Índices:**
 ```sql
@@ -686,13 +694,14 @@ ALTER TABLE location_services
 | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
 
-**Configuraciones iniciales:**
+**Configuraciones iniciales (keys agrupadas):**
 
 | key | value | Descripción |
 |-----|-------|-------------|
-| `trial_days` | `{"value": 7}` | Días de trial por defecto |
-| `admin_email` | `{"value": "admin@timeflowpro.com"}` | Email del superadmin |
-| `trial_alert_threshold` | `{"value": 3}` | Días antes de vencer para alertar |
+| `trial_settings` | `{"default_trial_days": 14, "warning_days_before": 3, "extend_max_days": 30}` | Configuración del período de prueba |
+| `admin_settings` | `{"notify_email": "admin@timeflowpro.com", "notify_on_signup": true, "notify_on_trial_expire": true}` | Configuración de notificaciones admin |
+
+> **Nota:** Se usa estructura de keys agrupadas para facilitar extensibilidad. Cada key agrupa configuraciones relacionadas.
 
 **Índices:**
 ```sql
@@ -716,8 +725,9 @@ CREATE INDEX idx_system_config_key ON system_config(key);
 | `all_day` | `BOOLEAN` | NOT NULL | `FALSE` | ¿Bloqueo de día completo? |
 | `recurrence_type` | `recurrence_type` | NOT NULL | `'none'` | Tipo de recurrencia |
 | `recurrence_end_date` | `DATE` | - | NULL | Hasta cuándo se repite |
-| `recurrence_days` | `INTEGER[]` | - | NULL | Días de la semana (0=Dom, 1=Lun...) |
 | `notes` | `TEXT` | - | NULL | Notas adicionales |
+
+> **Nota Fase 2:** Campo `recurrence_days INTEGER[]` para patrones personalizados (ej: "solo Lun-Mié-Vie") será agregado en Fase 2. Para MVP, `weekly` repite el mismo día de la semana.
 | `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Activo |
 | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
@@ -1407,5 +1417,5 @@ CREATE INDEX idx_working_hours_lookup ON working_hours(user_id, location_id, day
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.1.0
+**Versión del documento:** 1.2.0
 

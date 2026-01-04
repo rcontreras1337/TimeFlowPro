@@ -49,6 +49,7 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 | T-0-03 | Configuración Supabase Local (Docker) | Infra | 🔴 P0 | 3 | - | T-0-02 |
 | T-0-04 | GitHub Actions CI/CD Pipeline | Infra | 🔴 P0 | 5 | - | T-0-02 |
 | T-0-05 | Husky + Commitlint + ESLint + Prettier | Infra | 🟠 P1 | 2 | - | T-0-02 |
+| T-0-06 | Sistema de Mensajes (i18n) | Infra | 🔴 P0 | 3 | - | T-0-02 |
 
 ### Sprint 1: Autenticación y Perfil Base
 
@@ -79,13 +80,14 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 
 | ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
 |----|--------|------|-----------|-----|------|--------------|
-| T-3-01 | CRUD Clientes (API + RLS) | Backend | 🔴 P0 | 5 | US-05 | T-1-01 |
-| T-3-02 | UI Gestión de Clientes | Frontend | 🔴 P0 | 5 | US-05 | T-3-01 |
-| T-3-03 | API Crear Cita con validaciones | Backend | 🔴 P0 | 8 | US-08 | T-3-01, T-2-01 |
-| T-3-04 | Motor de disponibilidad | Backend | 🔴 P0 | 8 | US-08, US-09 | T-2-05, T-2-07 |
-| T-3-05 | Calendario visual de citas | Frontend | 🔴 P0 | 8 | US-09 | T-3-03 |
-| T-3-06 | Bloqueos personales (almuerzo, vacaciones) | Backend | 🟠 P1 | 5 | US-22 | T-3-04 |
-| T-3-07 | UI Bloqueos personales | Frontend | 🟠 P1 | 3 | US-22 | T-3-06 |
+| T-3-01 | CRUD Clientes (API + RLS) | Backend | 🔴 P0 | 5 | US-07 | T-1-01 |
+| T-3-02 | UI Gestión de Clientes | Frontend | 🔴 P0 | 5 | US-07, US-08 | T-3-01 |
+| T-3-03 | API Crear Cita con validaciones | Backend | 🔴 P0 | 8 | US-09 | T-3-01, T-2-01 |
+| T-3-04 | Motor de disponibilidad | Backend | 🔴 P0 | 8 | US-09 | T-2-05, T-2-07 |
+| T-3-05 | Calendario visual de citas | Frontend | 🔴 P0 | 5 | US-09 | T-3-03 |
+| T-3-06 | Crear cita desde calendario | Frontend | 🔴 P0 | 5 | US-09 | T-3-04, T-3-05 |
+
+> **Nota:** Los bloqueos personales (US-22) se implementan en Sprint 5 junto con Google Calendar.
 
 ### Sprint 4: Portal Público y Reservas Online
 
@@ -101,17 +103,20 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 | T-4-08 | Cancelación por cliente | Backend | 🔴 P0 | 5 | US-20 | T-4-02 |
 | T-4-09 | Reagendamiento de citas | Backend | 🔴 P0 | 5 | US-21 | T-4-02 |
 
-### Sprint 5: Google Calendar Integration
+### Sprint 5: Google Calendar + Bloqueos Personales
 
 | ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
 |----|--------|------|-----------|-----|------|--------------|
-| T-5-01 | OAuth Google Calendar | Backend | 🟠 P1 | 5 | US-14 | T-1-02 |
-| T-5-02 | Sincronización bidireccional GCal | Backend | 🟠 P1 | 8 | US-14 | T-5-01 |
-| T-5-03 | UI Conexión Google Calendar | Frontend | 🟠 P1 | 3 | US-14 | T-5-01 |
-| T-5-04 | Webhook handler para GCal | Backend | 🟠 P1 | 5 | US-15 | T-5-02 |
-| T-5-05 | Edge Function: expire-trials | Backend | 🟠 P1 | 3 | US-19 | T-1-06 |
-| T-5-06 | Notificaciones admin por email | Backend | 🟠 P1 | 3 | US-18 | T-1-06 |
-| T-5-07 | Modo solo lectura UI | Frontend | 🔴 P0 | 5 | US-19 | T-5-05 |
+| T-5-01 | OAuth Google Calendar | Backend | 🔴 P0 | 8 | US-14 | T-1-02 |
+| T-5-02 | Sincronización unidireccional (→GCal) | Backend | 🔴 P0 | 8 | US-14 | T-5-01 |
+| T-5-03 | UI Conexión Google Calendar | Frontend | 🔴 P0 | 5 | US-14 | T-5-01 |
+| T-5-04 | Leer eventos GCal (disponibilidad) | Backend | 🔴 P0 | 5 | US-15 | T-5-01, T-3-04 |
+| T-5-05 | CRUD Bloqueos personales | Backend | 🔴 P0 | 5 | US-22 | T-1-01 |
+| T-5-06 | UI Bloqueos personales | Frontend | 🔴 P0 | 5 | US-22 | T-5-05, T-3-05 |
+| T-5-07 | Bloqueos en disponibilidad | Backend | 🟠 P1 | 3 | US-22 | T-5-05, T-3-04 |
+| T-5-08 | Visualización bloqueos en calendario | Frontend | 🟠 P1 | 3 | US-22 | T-5-06, T-3-05 |
+
+> **⚠️ Nota MVP:** Sincronización **unidireccional** (TimeFlowPro → GCal). Webhooks bidireccionales = Fase 2.
 
 ---
 
@@ -1917,6 +1922,575 @@ timeflowpro/
 
 ---
 
+### T-0-06: [Infra] Sistema de Mensajes (i18n)
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Infra |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 0 - Setup |
+| **HDUs Relacionadas** | Todas (Transversal) |
+| **Bloqueado por** | T-0-02 |
+| **Bloquea a** | T-1-03, T-1-05, T-1-07 (todos los tickets de Frontend) |
+
+#### Descripción
+
+Implementar un sistema centralizado de mensajes para el usuario en español:
+- Todos los textos visibles al usuario deben estar en español
+- Los textos deben estar en un archivo YML para facilitar cambios
+- Las variables de código permanecen en inglés
+- Helper function para acceder a los mensajes
+
+#### Justificación
+
+**Problema identificado:** Los tickets tienen mensajes mezclados en inglés y español (ej: `toast.success('Appointment created')` cuando debería ser `toast.success('Cita creada exitosamente')`).
+
+**Solución:** Centralizar todos los mensajes en un archivo YML que:
+1. Facilita la traducción y consistencia
+2. Permite cambiar textos sin tocar código
+3. Prepara el proyecto para futura internacionalización (i18n)
+
+#### Estructura de Archivos
+
+```
+apps/web/src/lib/messages/
+├── index.ts           # Exportación principal y helper
+├── messages.es.yml    # Mensajes en español (principal)
+└── types.ts           # Tipos TypeScript generados
+```
+
+#### Archivo Principal de Mensajes
+
+```yaml
+# apps/web/src/lib/messages/messages.es.yml
+# ===========================================
+# MENSAJES DE USUARIO - TIMEFLOWPRO
+# ===========================================
+# Todos los textos visibles para el usuario
+# Organizado por módulo/funcionalidad
+# ===========================================
+
+# === COMUNES ===
+common:
+  loading: "Cargando..."
+  saving: "Guardando..."
+  error: "Ha ocurrido un error"
+  success: "Operación exitosa"
+  cancel: "Cancelar"
+  confirm: "Confirmar"
+  save: "Guardar"
+  edit: "Editar"
+  delete: "Eliminar"
+  back: "Volver"
+  next: "Siguiente"
+  close: "Cerrar"
+  search: "Buscar"
+  filter: "Filtrar"
+  noResults: "No se encontraron resultados"
+  required: "Este campo es obligatorio"
+
+# === AUTENTICACIÓN ===
+auth:
+  login:
+    title: "Iniciar sesión"
+    subtitle: "Accede a tu cuenta de TimeFlowPro"
+    withGoogle: "Continuar con Google"
+    loading: "Iniciando sesión..."
+    success: "¡Bienvenido!"
+    error: "Error al iniciar sesión"
+  logout:
+    button: "Cerrar sesión"
+    success: "Has cerrado sesión correctamente"
+  errors:
+    invalidCredentials: "Credenciales inválidas"
+    sessionExpired: "Tu sesión ha expirado"
+    unauthorized: "No tienes permiso para acceder"
+
+# === CUENTA ===
+account:
+  trial:
+    active: "Período de prueba activo"
+    daysRemaining: "Te quedan {days} días de prueba"
+    expired: "Tu período de prueba ha expirado"
+    readOnlyMode: "Estás en modo solo lectura"
+    contactAdmin: "Contacta al administrador para activar tu cuenta"
+  status:
+    active: "Activa"
+    trial: "En prueba"
+    suspended: "Suspendida"
+    readonly: "Solo lectura"
+
+# === PERFIL ===
+profile:
+  title: "Mi perfil"
+  edit: "Editar perfil"
+  fields:
+    name: "Nombre completo"
+    email: "Correo electrónico"
+    phone: "Teléfono"
+    slug: "URL personalizada"
+    timezone: "Zona horaria"
+  save:
+    success: "Perfil actualizado correctamente"
+    error: "Error al actualizar el perfil"
+  validation:
+    slugTaken: "Esta URL ya está en uso"
+    slugInvalid: "La URL solo puede contener letras, números y guiones"
+
+# === UBICACIONES ===
+locations:
+  title: "Ubicaciones"
+  add: "Agregar ubicación"
+  edit: "Editar ubicación"
+  fields:
+    name: "Nombre"
+    address: "Dirección"
+    color: "Color"
+  create:
+    success: "Ubicación creada correctamente"
+    error: "Error al crear la ubicación"
+  update:
+    success: "Ubicación actualizada"
+    error: "Error al actualizar"
+  delete:
+    confirm: "¿Estás seguro de eliminar esta ubicación?"
+    success: "Ubicación eliminada"
+    error: "Error al eliminar"
+    hasAppointments: "No se puede eliminar: hay citas asociadas"
+
+# === SERVICIOS ===
+services:
+  title: "Servicios"
+  add: "Agregar servicio"
+  edit: "Editar servicio"
+  fields:
+    name: "Nombre del servicio"
+    description: "Descripción"
+    duration: "Duración (minutos)"
+    price: "Precio"
+    color: "Color"
+    allowOnlineBooking: "Permitir reserva online"
+  create:
+    success: "Servicio creado correctamente"
+    error: "Error al crear el servicio"
+  update:
+    success: "Servicio actualizado"
+    error: "Error al actualizar"
+  delete:
+    confirm: "¿Estás seguro de eliminar este servicio?"
+    success: "Servicio eliminado"
+    error: "Error al eliminar"
+
+# === CLIENTES ===
+clients:
+  title: "Clientes"
+  add: "Agregar cliente"
+  edit: "Editar cliente"
+  fields:
+    name: "Nombre"
+    email: "Email"
+    phone: "Teléfono"
+    notes: "Notas"
+  create:
+    success: "Cliente agregado correctamente"
+    error: "Error al agregar cliente"
+  update:
+    success: "Cliente actualizado"
+    error: "Error al actualizar"
+  delete:
+    confirm: "¿Estás seguro de eliminar este cliente?"
+    success: "Cliente eliminado"
+    error: "Error al eliminar"
+
+# === CITAS ===
+appointments:
+  title: "Citas"
+  add: "Nueva cita"
+  edit: "Editar cita"
+  fields:
+    client: "Cliente"
+    service: "Servicio"
+    location: "Ubicación"
+    date: "Fecha"
+    time: "Hora"
+    duration: "Duración"
+    notes: "Notas"
+  status:
+    pending: "Pendiente"
+    confirmed: "Confirmada"
+    completed: "Completada"
+    cancelled: "Cancelada"
+    noShow: "No asistió"
+  create:
+    success: "Cita creada exitosamente"
+    error: "Error al crear la cita"
+  update:
+    success: "Cita actualizada"
+    error: "Error al actualizar"
+  complete:
+    title: "Completar cita"
+    actualDuration: "Duración real"
+    success: "Cita completada. Duración registrada."
+    error: "Error al completar"
+  cancel:
+    title: "Cancelar cita"
+    confirm: "¿Estás seguro de cancelar esta cita?"
+    reason: "Motivo de cancelación"
+    success: "Cita cancelada"
+    error: "Error al cancelar"
+    byClient: "Cancelada por el cliente"
+    byProfessional: "Cancelada por el profesional"
+    tooLate: "No se puede cancelar con menos de {hours} horas de anticipación"
+  reschedule:
+    title: "Reagendar cita"
+    success: "Cita reagendada exitosamente"
+    error: "Error al reagendar"
+    tooLate: "No se puede reagendar con menos de {hours} horas de anticipación"
+  noShow:
+    mark: "Marcar como no asistió"
+    success: "Cita marcada como no asistió"
+
+# === CALENDARIO ===
+calendar:
+  title: "Calendario"
+  today: "Hoy"
+  week: "Semana"
+  day: "Día"
+  noAppointments: "No hay citas para este día"
+  travelBlock: "Tiempo de traslado"
+  personalBlock: "Bloqueo personal"
+
+# === BLOQUEOS PERSONALES ===
+personalBlocks:
+  title: "Bloqueos"
+  add: "Bloquear tiempo"
+  edit: "Editar bloqueo"
+  types:
+    lunch: "Almuerzo"
+    vacation: "Vacaciones"
+    personal: "Personal"
+    other: "Otro"
+  fields:
+    title: "Título"
+    type: "Tipo"
+    startTime: "Inicio"
+    endTime: "Fin"
+    recurrence: "Repetir"
+  recurrence:
+    none: "Sin repetición"
+    daily: "Todos los días"
+    weekly: "Cada semana"
+    monthly: "Cada mes"
+    until: "Repetir hasta"
+  create:
+    success: "Bloqueo creado"
+    error: "Error al crear bloqueo"
+  delete:
+    confirm: "¿Eliminar este bloqueo?"
+    success: "Bloqueo eliminado"
+  conflicts: "Existen {count} cita(s) en el rango seleccionado"
+
+# === DISPONIBILIDAD ===
+availability:
+  title: "Disponibilidad"
+  noSlots: "No hay horarios disponibles para este día"
+  selectDate: "Selecciona una fecha"
+  selectTime: "Selecciona un horario"
+
+# === HORARIOS ===
+workingHours:
+  title: "Horarios de trabajo"
+  edit: "Editar horarios"
+  days:
+    monday: "Lunes"
+    tuesday: "Martes"
+    wednesday: "Miércoles"
+    thursday: "Jueves"
+    friday: "Viernes"
+    saturday: "Sábado"
+    sunday: "Domingo"
+  closed: "Cerrado"
+  addSlot: "Agregar horario"
+  save:
+    success: "Horarios guardados"
+    error: "Error al guardar horarios"
+
+# === TIEMPOS DE TRASLADO ===
+travelTimes:
+  title: "Tiempos de traslado"
+  edit: "Editar tiempos"
+  from: "Desde"
+  to: "Hacia"
+  minutes: "minutos"
+  save:
+    success: "Tiempos de traslado guardados"
+    error: "Error al guardar"
+
+# === PORTAL PÚBLICO ===
+public:
+  portal:
+    available: "Disponible"
+    notAvailable: "No disponible"
+    bookNow: "Reservar ahora"
+    services: "Servicios disponibles"
+    locations: "Ubicaciones"
+    professionalInactive: "Este profesional no está aceptando reservas en este momento"
+  booking:
+    title: "Reservar cita"
+    step1: "Servicio"
+    step2: "Ubicación"
+    step3: "Fecha y hora"
+    step4: "Tus datos"
+    step5: "Condiciones"
+    step6: "Confirmar"
+    selectService: "Selecciona un servicio"
+    selectLocation: "Selecciona una ubicación"
+    selectDateTime: "Selecciona fecha y hora"
+    yourInfo: "Tus datos de contacto"
+    terms: "Términos y condiciones"
+    review: "Revisa tu reserva"
+    confirm: "Confirmar reserva"
+    confirming: "Confirmando..."
+    success:
+      title: "¡Reserva confirmada!"
+      message: "Recibirás un email con los detalles de tu cita"
+    fields:
+      name: "Tu nombre"
+      email: "Tu email"
+      phone: "Tu teléfono"
+      notes: "Notas adicionales (opcional)"
+    terms:
+      accept: "Acepto los términos y condiciones"
+      required: "Debes aceptar los términos para continuar"
+    errors:
+      slotTaken: "Este horario ya no está disponible"
+      invalidData: "Por favor verifica los datos ingresados"
+
+# === INTEGRACIONES ===
+integrations:
+  title: "Integraciones"
+  googleCalendar:
+    title: "Google Calendar"
+    description: "Sincroniza tus citas con Google Calendar"
+    connect: "Conectar Google Calendar"
+    disconnect: "Desconectar"
+    connected: "Conectado"
+    syncEnabled: "Sincronización automática"
+    lastSync: "Última sincronización"
+    syncNow: "Sincronizar ahora"
+    syncing: "Sincronizando..."
+    success: "Google Calendar conectado"
+    disconnected: "Google Calendar desconectado"
+    error: "Error al conectar"
+  comingSoon: "Próximamente"
+
+# === ADMIN ===
+admin:
+  dashboard:
+    title: "Panel de administración"
+    professionals: "Profesionales"
+    totalProfessionals: "Total de profesionales"
+    activeTrials: "Pruebas activas"
+    expiringTrials: "Por vencer"
+  professionals:
+    table:
+      name: "Nombre"
+      email: "Email"
+      status: "Estado"
+      trialEnds: "Fin de prueba"
+      actions: "Acciones"
+    activate: "Activar"
+    suspend: "Suspender"
+    activated: "Profesional activado"
+    suspended: "Profesional suspendido"
+  config:
+    title: "Configuración"
+    trialDays: "Días de prueba"
+    save:
+      success: "Configuración guardada"
+      error: "Error al guardar"
+
+# === VALIDACIÓN ===
+validation:
+  required: "Este campo es obligatorio"
+  email: "Ingresa un email válido"
+  phone: "Ingresa un teléfono válido"
+  minLength: "Mínimo {min} caracteres"
+  maxLength: "Máximo {max} caracteres"
+  min: "El valor mínimo es {min}"
+  max: "El valor máximo es {max}"
+  invalidDate: "Fecha inválida"
+  invalidTime: "Hora inválida"
+  pastDate: "La fecha no puede ser en el pasado"
+
+# === ERRORES HTTP ===
+errors:
+  400: "Solicitud inválida"
+  401: "No autorizado"
+  403: "Acceso denegado"
+  404: "No encontrado"
+  409: "Conflicto de datos"
+  422: "No se pudo procesar la solicitud"
+  429: "Demasiadas solicitudes. Intenta más tarde"
+  500: "Error del servidor"
+  network: "Error de conexión. Verifica tu internet"
+  unknown: "Error desconocido"
+```
+
+#### Helper de Mensajes
+
+```typescript
+// apps/web/src/lib/messages/index.ts
+import yaml from 'js-yaml'
+import messagesYml from './messages.es.yml'
+
+type NestedObject = { [key: string]: string | NestedObject }
+
+let messages: NestedObject = {}
+
+// Cargar mensajes
+try {
+  messages = yaml.load(messagesYml) as NestedObject
+} catch (e) {
+  console.error('Error loading messages:', e)
+  messages = {}
+}
+
+/**
+ * Obtiene un mensaje por su path (key.subkey.etc)
+ * Soporta interpolación de variables con {variable}
+ * 
+ * @example
+ * getMessage('auth.login.success') // "¡Bienvenido!"
+ * getMessage('account.trial.daysRemaining', { days: 5 }) // "Te quedan 5 días de prueba"
+ * getMessage('validation.minLength', { min: 3 }) // "Mínimo 3 caracteres"
+ */
+export function getMessage(
+  path: string, 
+  variables?: Record<string, string | number>
+): string {
+  const keys = path.split('.')
+  let result: unknown = messages
+
+  for (const key of keys) {
+    if (result && typeof result === 'object' && key in result) {
+      result = (result as NestedObject)[key]
+    } else {
+      console.warn(`Message not found: ${path}`)
+      return path // Retornar el path como fallback
+    }
+  }
+
+  if (typeof result !== 'string') {
+    console.warn(`Message path does not resolve to string: ${path}`)
+    return path
+  }
+
+  // Interpolación de variables
+  if (variables) {
+    return result.replace(/\{(\w+)\}/g, (_, key) => 
+      String(variables[key] ?? `{${key}}`)
+    )
+  }
+
+  return result
+}
+
+/**
+ * Alias corto para getMessage
+ */
+export const t = getMessage
+
+/**
+ * Hook para usar mensajes en componentes
+ */
+export function useMessages() {
+  return { getMessage, t }
+}
+```
+
+#### Configuración de Webpack/Next.js para YML
+
+```javascript
+// next.config.js (agregar)
+const nextConfig = {
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      use: 'yaml-loader',
+    })
+    return config
+  },
+}
+
+module.exports = nextConfig
+```
+
+#### Dependencias
+
+```bash
+pnpm add js-yaml
+pnpm add -D yaml-loader @types/js-yaml
+```
+
+#### Ejemplo de Uso en Componentes
+
+```typescript
+// ANTES (incorrecto - mezcla de idiomas)
+toast.success('Appointment created successfully')
+toast.error('Error creating appointment')
+
+// DESPUÉS (correcto - español centralizado)
+import { getMessage } from '@/lib/messages'
+
+toast.success(getMessage('appointments.create.success'))
+toast.error(getMessage('appointments.create.error'))
+
+// Con variables
+toast.error(getMessage('appointments.cancel.tooLate', { hours: 24 }))
+// Output: "No se puede cancelar con menos de 24 horas de anticipación"
+```
+
+```tsx
+// En componentes React
+import { t } from '@/lib/messages'
+
+export function LoginButton() {
+  return (
+    <Button>
+      {t('auth.login.withGoogle')}
+    </Button>
+  )
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Archivo `messages.es.yml` creado con todos los mensajes del MVP
+- [ ] Helper `getMessage()` funciona con paths anidados
+- [ ] Interpolación de variables funciona (`{variable}`)
+- [ ] Fallback a path si mensaje no existe (con warning en consola)
+- [ ] Webpack configurado para cargar YML
+- [ ] TypeScript types generados (opcional, mejora DX)
+- [ ] Documentación de uso en README
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | getMessage resuelve paths | `tests/unit/lib/messages.test.ts` |
+| Unit | Interpolación de variables | `tests/unit/lib/messages.test.ts` |
+| Unit | Fallback para mensajes inexistentes | `tests/unit/lib/messages.test.ts` |
+
+#### Etiquetas
+
+`infra` `i18n` `messages` `sprint-0` `priority-critical`
+
+---
+
 ## 6.3 Próximos Tickets (Sprint 1)
 
 > Los siguientes tickets se detallarán en la próxima iteración...
@@ -2091,15 +2665,29 @@ CREATE TABLE profiles (
   trial_expires_at TIMESTAMPTZ,
   is_active BOOLEAN NOT NULL DEFAULT true,
   
-  -- Configuraciones JSON
+  -- Configuraciones JSON (estructura híbrida)
   settings JSONB NOT NULL DEFAULT '{
-    "default_appointment_duration": 45,
-    "buffer_time_minutes": 5,
-    "cancellation_hours_before": 24,
-    "reschedule_hours_before": 24,
-    "terms_required": false,
-    "terms_text": "",
-    "refund_policy": ""
+    "appointment": {
+      "default_duration": 45,
+      "buffer_minutes": 5
+    },
+    "cancellation": {
+      "hours_before": 24,
+      "allow_client": true
+    },
+    "reschedule": {
+      "hours_before": 24,
+      "allow_client": true
+    },
+    "terms": {
+      "required": false,
+      "text": ""
+    },
+    "refund_policy": "",
+    "notifications": {
+      "email_on_booking": true,
+      "email_on_cancel": true
+    }
   }'::jsonb,
   
   -- Auditoría
@@ -3502,10 +4090,22 @@ const profileSchema = z.object({
     .regex(/^[a-z0-9-]+$/, 'Solo letras minúsculas, números y guiones'),
   timezone: z.string(),
   settings: z.object({
-    default_appointment_duration: z.number().min(5).max(480),
-    buffer_time_minutes: z.number().min(0).max(60),
-    cancellation_hours_before: z.number().min(0).max(168),
-    reschedule_hours_before: z.number().min(0).max(168),
+    appointment: z.object({
+      default_duration: z.number().min(5).max(480),
+      buffer_minutes: z.number().min(0).max(60),
+    }),
+    cancellation: z.object({
+      hours_before: z.number().min(0).max(168),
+      allow_client: z.boolean(),
+    }),
+    reschedule: z.object({
+      hours_before: z.number().min(0).max(168),
+      allow_client: z.boolean(),
+    }),
+    terms: z.object({
+      required: z.boolean(),
+      text: z.string(),
+    }),
   }),
 })
 
@@ -3531,10 +4131,22 @@ export function ProfileForm() {
       slug: profile?.slug ?? '',
       timezone: profile?.timezone ?? 'America/Santiago',
       settings: {
-        default_appointment_duration: profile?.settings?.default_appointment_duration ?? 45,
-        buffer_time_minutes: profile?.settings?.buffer_time_minutes ?? 5,
-        cancellation_hours_before: profile?.settings?.cancellation_hours_before ?? 24,
-        reschedule_hours_before: profile?.settings?.reschedule_hours_before ?? 24,
+        appointment: {
+          default_duration: profile?.settings?.appointment?.default_duration ?? 45,
+          buffer_minutes: profile?.settings?.appointment?.buffer_minutes ?? 5,
+        },
+        cancellation: {
+          hours_before: profile?.settings?.cancellation?.hours_before ?? 24,
+          allow_client: profile?.settings?.cancellation?.allow_client ?? true,
+        },
+        reschedule: {
+          hours_before: profile?.settings?.reschedule?.hours_before ?? 24,
+          allow_client: profile?.settings?.reschedule?.allow_client ?? true,
+        },
+        terms: {
+          required: profile?.settings?.terms?.required ?? false,
+          text: profile?.settings?.terms?.text ?? '',
+        },
       },
     },
   })
@@ -3689,7 +4301,7 @@ export function ProfileForm() {
                 </label>
                 <Input
                   type="number"
-                  {...register('settings.cancellation_hours_before', { valueAsNumber: true })}
+                  {...register('settings.cancellation.hours_before', { valueAsNumber: true })}
                   min={0}
                   max={168}
                   disabled={!canMutate}
@@ -3702,7 +4314,7 @@ export function ProfileForm() {
                 </label>
                 <Input
                   type="number"
-                  {...register('settings.reschedule_hours_before', { valueAsNumber: true })}
+                  {...register('settings.reschedule.hours_before', { valueAsNumber: true })}
                   min={0}
                   max={168}
                   disabled={!canMutate}
@@ -9314,19 +9926,19 @@ export async function GET(
 
   const settings = profile.settings as {
     terms_required?: boolean
-    terms_text?: string
+    terms?: { required?: boolean; text?: string }
     refund_policy?: string
-    cancellation_hours_before?: number
-    reschedule_hours_before?: number
+    cancellation?: { hours_before?: number; allow_client?: boolean }
+    reschedule?: { hours_before?: number; allow_client?: boolean }
   }
 
   return NextResponse.json({
-    terms_required: settings.terms_required ?? false,
-    terms_text: settings.terms_text ?? '',
+    terms_required: settings.terms?.required ?? false,
+    terms_text: settings.terms?.text ?? '',
     refund_policy: settings.refund_policy ?? '',
     cancellation_policy: {
-      hours_before: settings.cancellation_hours_before ?? 24,
-      reschedule_hours_before: settings.reschedule_hours_before ?? 24,
+      hours_before: settings.cancellation?.hours_before ?? 24,
+      reschedule_hours_before: settings.reschedule?.hours_before ?? 24,
     },
   })
 }
@@ -9848,8 +10460,10 @@ export async function POST(
     }
 
     // Verificar anticipación mínima
-    const settings = appointment.profiles?.settings as { cancellation_hours_before?: number }
-    const minHoursBefore = settings?.cancellation_hours_before ?? 24
+    const settings = appointment.profiles?.settings as { 
+      cancellation?: { hours_before?: number } 
+    }
+    const minHoursBefore = settings?.cancellation?.hours_before ?? 24
     
     const appointmentTime = new Date(appointment.start_time)
     const now = new Date()
@@ -10159,8 +10773,10 @@ export async function PUT(
     }
 
     // Verificar anticipación mínima
-    const settings = appointment.profiles?.settings as { reschedule_hours_before?: number }
-    const minHoursBefore = settings?.reschedule_hours_before ?? 24
+    const settings = appointment.profiles?.settings as { 
+      reschedule?: { hours_before?: number } 
+    }
+    const minHoursBefore = settings?.reschedule?.hours_before ?? 24
     
     const appointmentTime = new Date(appointment.start_time)
     const now = new Date()
@@ -10268,11 +10884,2122 @@ flowchart TD
 
 ---
 
+## 6.17 Tickets Detallados - Sprint 5: Google Calendar + Bloqueos Personales
+
+---
+
+### T-5-01: [Backend] Integración Google Calendar OAuth
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14, US-15 |
+| **Bloqueado por** | T-1-02 |
+| **Bloquea a** | T-5-02, T-5-03 |
+
+#### Descripción
+
+Implementar OAuth2 con Google Calendar API:
+- Flujo de autorización para scopes de Calendar
+- Almacenar refresh tokens de forma segura
+- Renovación automática de access tokens
+- Revocación de acceso
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/google-calendar/google-auth.service.ts
+import { google } from 'googleapis'
+import { createClient } from '@/lib/supabase/server'
+
+const SCOPES = [
+  'https://www.googleapis.com/auth/calendar.events',
+  'https://www.googleapis.com/auth/calendar.readonly',
+]
+
+export class GoogleAuthService {
+  private oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.GOOGLE_CALENDAR_REDIRECT_URI
+  )
+
+  /**
+   * Genera URL de autorización para Google Calendar
+   */
+  getAuthUrl(userId: string): string {
+    const state = Buffer.from(JSON.stringify({ userId })).toString('base64')
+    
+    return this.oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: SCOPES,
+      state,
+      prompt: 'consent', // Forzar refresh token
+    })
+  }
+
+  /**
+   * Intercambia código por tokens
+   */
+  async exchangeCodeForTokens(code: string, userId: string): Promise<void> {
+    const { tokens } = await this.oauth2Client.getToken(code)
+    
+    const supabase = await createClient()
+
+    // Obtener info del calendario
+    this.oauth2Client.setCredentials(tokens)
+    const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client })
+    const { data: calendarList } = await calendar.calendarList.list()
+    const primaryCalendar = calendarList.items?.find(c => c.primary)
+
+    // Guardar tokens de forma segura
+    const { error } = await supabase
+      .from('google_calendar_tokens')
+      .upsert({
+        user_id: userId,
+        access_token: tokens.access_token,
+        refresh_token: tokens.refresh_token,
+        expires_at: tokens.expiry_date 
+          ? new Date(tokens.expiry_date).toISOString() 
+          : null,
+        calendar_id: primaryCalendar?.id ?? 'primary',
+        sync_enabled: true,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id',
+      })
+
+    if (error) throw error
+  }
+
+  /**
+   * Obtiene cliente OAuth2 con tokens válidos
+   */
+  async getAuthenticatedClient(userId: string): Promise<typeof this.oauth2Client | null> {
+    const supabase = await createClient()
+
+    const { data: tokenData } = await supabase
+      .from('google_calendar_tokens')
+      .select('*')
+      .eq('user_id', userId)
+      .single()
+
+    if (!tokenData) return null
+
+    this.oauth2Client.setCredentials({
+      access_token: tokenData.access_token,
+      refresh_token: tokenData.refresh_token,
+      expiry_date: tokenData.expires_at ? new Date(tokenData.expires_at).getTime() : undefined,
+    })
+
+    // Verificar si necesita renovación
+    const expiresAt = tokenData.expires_at ? new Date(tokenData.expires_at) : null
+    const now = new Date()
+    const bufferMinutes = 5
+
+    if (expiresAt && expiresAt.getTime() - now.getTime() < bufferMinutes * 60 * 1000) {
+      try {
+        const { credentials } = await this.oauth2Client.refreshAccessToken()
+        
+        // Actualizar tokens en BD
+        await supabase
+          .from('google_calendar_tokens')
+          .update({
+            access_token: credentials.access_token,
+            expires_at: credentials.expiry_date 
+              ? new Date(credentials.expiry_date).toISOString() 
+              : null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('user_id', userId)
+
+        this.oauth2Client.setCredentials(credentials)
+      } catch (error) {
+        console.error('Error refreshing token:', error)
+        // Marcar como desconectado
+        await supabase
+          .from('google_calendar_tokens')
+          .update({ sync_enabled: false })
+          .eq('user_id', userId)
+        return null
+      }
+    }
+
+    return this.oauth2Client
+  }
+
+  /**
+   * Revoca acceso a Google Calendar
+   */
+  async revokeAccess(userId: string): Promise<void> {
+    const supabase = await createClient()
+
+    const { data: tokenData } = await supabase
+      .from('google_calendar_tokens')
+      .select('access_token')
+      .eq('user_id', userId)
+      .single()
+
+    if (tokenData?.access_token) {
+      try {
+        await this.oauth2Client.revokeToken(tokenData.access_token)
+      } catch {
+        // Token puede ya estar revocado
+      }
+    }
+
+    await supabase
+      .from('google_calendar_tokens')
+      .delete()
+      .eq('user_id', userId)
+  }
+}
+
+export const googleAuthService = new GoogleAuthService()
+```
+
+```typescript
+// apps/web/src/app/api/integrations/google-calendar/callback/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { googleAuthService } from '@/services/google-calendar/google-auth.service'
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const code = searchParams.get('code')
+  const state = searchParams.get('state')
+  const error = searchParams.get('error')
+
+  if (error) {
+    return NextResponse.redirect(
+      new URL('/settings/integrations?error=access_denied', request.url)
+    )
+  }
+
+  if (!code || !state) {
+    return NextResponse.redirect(
+      new URL('/settings/integrations?error=invalid_request', request.url)
+    )
+  }
+
+  try {
+    const { userId } = JSON.parse(Buffer.from(state, 'base64').toString())
+    await googleAuthService.exchangeCodeForTokens(code, userId)
+
+    return NextResponse.redirect(
+      new URL('/settings/integrations?success=google_calendar_connected', request.url)
+    )
+  } catch (error) {
+    console.error('Google Calendar callback error:', error)
+    return NextResponse.redirect(
+      new URL('/settings/integrations?error=connection_failed', request.url)
+    )
+  }
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] URL de autorización se genera correctamente
+- [ ] Callback intercambia código por tokens
+- [ ] Tokens se almacenan encriptados en BD
+- [ ] Refresh automático funciona
+- [ ] Revocación elimina tokens
+- [ ] Manejo de errores robusto
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Generación de auth URL | `tests/unit/services/google-auth.test.ts` |
+| Integration | Flujo OAuth completo | `tests/integration/google-calendar/oauth.test.ts` |
+
+#### Etiquetas
+
+`backend` `google-calendar` `oauth` `integration` `sprint-5` `priority-critical`
+
+---
+
+### T-5-02: [Backend] Sincronización bidireccional GCal
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14 |
+| **Bloqueado por** | T-5-01 |
+| **Bloquea a** | T-5-04 |
+
+#### Descripción
+
+Implementar sincronización bidireccional:
+- Crear eventos en GCal al crear cita
+- Actualizar eventos al modificar cita
+- Eliminar eventos al cancelar cita
+- Webhook para cambios desde GCal
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/google-calendar/google-calendar.service.ts
+import { google, calendar_v3 } from 'googleapis'
+import { createClient } from '@/lib/supabase/server'
+import { googleAuthService } from './google-auth.service'
+import type { Appointment } from '@/types/appointment.types'
+
+export class GoogleCalendarService {
+  /**
+   * Crea evento en Google Calendar
+   */
+  async createEvent(appointment: Appointment): Promise<string | null> {
+    const auth = await googleAuthService.getAuthenticatedClient(appointment.user_id)
+    if (!auth) return null
+
+    const supabase = await createClient()
+    
+    // Obtener datos adicionales
+    const { data: tokenData } = await supabase
+      .from('google_calendar_tokens')
+      .select('calendar_id')
+      .eq('user_id', appointment.user_id)
+      .single()
+
+    if (!tokenData?.calendar_id) return null
+
+    const calendar = google.calendar({ version: 'v3', auth })
+
+    // Construir evento
+    const event: calendar_v3.Schema$Event = {
+      summary: `${appointment.client?.name} - ${appointment.service?.name}`,
+      description: this.buildEventDescription(appointment),
+      start: {
+        dateTime: appointment.start_time,
+        timeZone: appointment.timezone ?? 'America/Santiago',
+      },
+      end: {
+        dateTime: appointment.end_time,
+        timeZone: appointment.timezone ?? 'America/Santiago',
+      },
+      location: appointment.location?.address,
+      colorId: this.getEventColorId(appointment.service?.color),
+      extendedProperties: {
+        private: {
+          timeflowpro_appointment_id: appointment.id,
+          timeflowpro_sync: 'true',
+        },
+      },
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: 'popup', minutes: 30 },
+          { method: 'popup', minutes: 60 * 24 }, // 1 día antes
+        ],
+      },
+    }
+
+    try {
+      const { data: createdEvent } = await calendar.events.insert({
+        calendarId: tokenData.calendar_id,
+        requestBody: event,
+      })
+
+      // Guardar referencia
+      await supabase
+        .from('google_calendar_events')
+        .insert({
+          appointment_id: appointment.id,
+          google_event_id: createdEvent.id,
+          calendar_id: tokenData.calendar_id,
+          sync_status: 'synced',
+          last_synced_at: new Date().toISOString(),
+        })
+
+      return createdEvent.id!
+    } catch (error) {
+      console.error('Error creating GCal event:', error)
+      return null
+    }
+  }
+
+  /**
+   * Actualiza evento existente
+   */
+  async updateEvent(appointment: Appointment): Promise<boolean> {
+    const auth = await googleAuthService.getAuthenticatedClient(appointment.user_id)
+    if (!auth) return false
+
+    const supabase = await createClient()
+
+    // Obtener referencia del evento
+    const { data: eventRef } = await supabase
+      .from('google_calendar_events')
+      .select('google_event_id, calendar_id')
+      .eq('appointment_id', appointment.id)
+      .single()
+
+    if (!eventRef) return false
+
+    const calendar = google.calendar({ version: 'v3', auth })
+
+    try {
+      await calendar.events.patch({
+        calendarId: eventRef.calendar_id,
+        eventId: eventRef.google_event_id,
+        requestBody: {
+          summary: `${appointment.client?.name} - ${appointment.service?.name}`,
+          description: this.buildEventDescription(appointment),
+          start: {
+            dateTime: appointment.start_time,
+            timeZone: appointment.timezone ?? 'America/Santiago',
+          },
+          end: {
+            dateTime: appointment.end_time,
+            timeZone: appointment.timezone ?? 'America/Santiago',
+          },
+          location: appointment.location?.address,
+        },
+      })
+
+      // Actualizar estado de sincronización
+      await supabase
+        .from('google_calendar_events')
+        .update({
+          sync_status: 'synced',
+          last_synced_at: new Date().toISOString(),
+        })
+        .eq('appointment_id', appointment.id)
+
+      return true
+    } catch (error) {
+      console.error('Error updating GCal event:', error)
+      return false
+    }
+  }
+
+  /**
+   * Elimina evento de Google Calendar
+   */
+  async deleteEvent(appointmentId: string, userId: string): Promise<boolean> {
+    const auth = await googleAuthService.getAuthenticatedClient(userId)
+    if (!auth) return false
+
+    const supabase = await createClient()
+
+    const { data: eventRef } = await supabase
+      .from('google_calendar_events')
+      .select('google_event_id, calendar_id')
+      .eq('appointment_id', appointmentId)
+      .single()
+
+    if (!eventRef) return true // No había evento
+
+    const calendar = google.calendar({ version: 'v3', auth })
+
+    try {
+      await calendar.events.delete({
+        calendarId: eventRef.calendar_id,
+        eventId: eventRef.google_event_id,
+      })
+
+      await supabase
+        .from('google_calendar_events')
+        .delete()
+        .eq('appointment_id', appointmentId)
+
+      return true
+    } catch (error) {
+      console.error('Error deleting GCal event:', error)
+      return false
+    }
+  }
+
+  /**
+   * Obtiene eventos bloqueados del calendario
+   */
+  async getBlockedTimes(
+    userId: string, 
+    startDate: string, 
+    endDate: string
+  ): Promise<{ start: Date; end: Date }[]> {
+    const auth = await googleAuthService.getAuthenticatedClient(userId)
+    if (!auth) return []
+
+    const supabase = await createClient()
+
+    const { data: tokenData } = await supabase
+      .from('google_calendar_tokens')
+      .select('calendar_id')
+      .eq('user_id', userId)
+      .single()
+
+    if (!tokenData) return []
+
+    const calendar = google.calendar({ version: 'v3', auth })
+
+    try {
+      const { data: events } = await calendar.events.list({
+        calendarId: tokenData.calendar_id,
+        timeMin: new Date(startDate).toISOString(),
+        timeMax: new Date(endDate).toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime',
+      })
+
+      return (events.items ?? [])
+        .filter(event => {
+          // Ignorar eventos creados por TimeFlowPro
+          const isTimeFlowProEvent = event.extendedProperties?.private?.timeflowpro_sync === 'true'
+          return !isTimeFlowProEvent && event.start?.dateTime && event.end?.dateTime
+        })
+        .map(event => ({
+          start: new Date(event.start!.dateTime!),
+          end: new Date(event.end!.dateTime!),
+        }))
+    } catch (error) {
+      console.error('Error fetching GCal events:', error)
+      return []
+    }
+  }
+
+  private buildEventDescription(appointment: Appointment): string {
+    const lines = [
+      `📋 Servicio: ${appointment.service?.name}`,
+      `📍 Ubicación: ${appointment.location?.name}`,
+      `⏱️ Duración: ${appointment.duration_minutes} min`,
+    ]
+
+    if (appointment.notes) {
+      lines.push(`📝 Notas: ${appointment.notes}`)
+    }
+
+    lines.push('')
+    lines.push('---')
+    lines.push('Gestionado por TimeFlowPro')
+
+    return lines.join('\n')
+  }
+
+  private getEventColorId(hexColor?: string): string {
+    // Mapear colores hex a IDs de color de Google Calendar
+    const colorMap: Record<string, string> = {
+      '#3F83F8': '9',  // Azul
+      '#10B981': '10', // Verde
+      '#F59E0B': '5',  // Amarillo
+      '#EF4444': '11', // Rojo
+      '#8B5CF6': '3',  // Púrpura
+    }
+    return colorMap[hexColor ?? ''] ?? '9' // Default: azul
+  }
+}
+
+export const googleCalendarService = new GoogleCalendarService()
+```
+
+```typescript
+// supabase/functions/gcal-webhook/index.ts
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+serve(async (req) => {
+  // Verificar header de Google
+  const channelId = req.headers.get('X-Goog-Channel-ID')
+  const resourceState = req.headers.get('X-Goog-Resource-State')
+
+  if (!channelId) {
+    return new Response('Missing channel ID', { status: 400 })
+  }
+
+  // Ignorar sync inicial
+  if (resourceState === 'sync') {
+    return new Response('OK', { status: 200 })
+  }
+
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  )
+
+  // Buscar usuario asociado al channel
+  const { data: tokenData } = await supabase
+    .from('google_calendar_tokens')
+    .select('user_id')
+    .eq('webhook_channel_id', channelId)
+    .single()
+
+  if (!tokenData) {
+    return new Response('Channel not found', { status: 404 })
+  }
+
+  // Marcar para re-sync
+  await supabase
+    .from('google_calendar_tokens')
+    .update({ 
+      needs_sync: true,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('user_id', tokenData.user_id)
+
+  // TODO: Encolar job de sincronización
+
+  return new Response('OK', { status: 200 })
+})
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Crear cita → crea evento en GCal
+- [ ] Modificar cita → actualiza evento
+- [ ] Cancelar cita → elimina evento
+- [ ] Eventos tienen descripción rica
+- [ ] Colores mapeados correctamente
+- [ ] Eventos bloqueados de GCal se consideran
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Construcción de evento | `tests/unit/services/gcal.test.ts` |
+| Integration | CRUD de eventos | `tests/integration/google-calendar/events.test.ts` |
+
+#### Etiquetas
+
+`backend` `google-calendar` `sync` `integration` `sprint-5` `priority-critical`
+
+---
+
+### T-5-03: [Frontend] UI Conexión Google Calendar
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14 |
+| **Bloqueado por** | T-5-01 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Crear UI para gestionar conexión con Google Calendar:
+- Página de integraciones en settings
+- Botón de conectar/desconectar
+- Estado de sincronización
+- Configuración de calendario
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/(dashboard)/settings/integrations/page.tsx
+import { Suspense } from 'react'
+import { GoogleCalendarCard } from '@/components/features/integrations/google-calendar-card'
+import { createClient } from '@/lib/supabase/server'
+
+export const metadata = {
+  title: 'Integraciones | TimeFlowPro',
+}
+
+export default async function IntegrationsPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Obtener estado de conexión
+  const { data: gcalToken } = await supabase
+    .from('google_calendar_tokens')
+    .select('sync_enabled, calendar_id, last_synced_at')
+    .eq('user_id', user!.id)
+    .single()
+
+  return (
+    <div className="max-w-2xl mx-auto py-8 px-4">
+      <h1 className="text-2xl font-bold mb-2">Integraciones</h1>
+      <p className="text-gray-500 mb-8">
+        Conecta servicios externos para mejorar tu experiencia
+      </p>
+
+      <div className="space-y-6">
+        <Suspense fallback={<IntegrationCardSkeleton />}>
+          <GoogleCalendarCard 
+            isConnected={!!gcalToken}
+            syncEnabled={gcalToken?.sync_enabled ?? false}
+            lastSyncedAt={gcalToken?.last_synced_at}
+            calendarId={gcalToken?.calendar_id}
+          />
+        </Suspense>
+
+        {/* Futuras integraciones */}
+        <ComingSoonCard 
+          title="MercadoPago"
+          description="Recibe pagos online por tus servicios"
+          icon="💳"
+        />
+        
+        <ComingSoonCard 
+          title="Google Maps"
+          description="Cálculo automático de tiempos de traslado"
+          icon="🗺️"
+        />
+      </div>
+    </div>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/integrations/google-calendar-card.tsx
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
+import { Badge } from '@/components/ui/badge'
+import { 
+  Calendar, 
+  Check, 
+  RefreshCw, 
+  Unlink, 
+  ExternalLink,
+  AlertCircle 
+} from 'lucide-react'
+import { formatDistanceToNow } from 'date-fns'
+import { es } from 'date-fns/locale'
+import { toast } from 'sonner'
+
+interface GoogleCalendarCardProps {
+  isConnected: boolean
+  syncEnabled: boolean
+  lastSyncedAt: string | null
+  calendarId: string | null
+}
+
+export function GoogleCalendarCard({
+  isConnected,
+  syncEnabled,
+  lastSyncedAt,
+  calendarId,
+}: GoogleCalendarCardProps) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSyncEnabled, setIsSyncEnabled] = useState(syncEnabled)
+  const router = useRouter()
+
+  const handleConnect = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/integrations/google-calendar/auth-url')
+      const { url } = await response.json()
+      window.location.href = url
+    } catch {
+      toast.error('Error al iniciar conexión')
+      setIsLoading(false)
+    }
+  }
+
+  const handleDisconnect = async () => {
+    if (!confirm('¿Deseas desconectar Google Calendar? Los eventos existentes no se eliminarán.')) {
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      await fetch('/api/integrations/google-calendar/disconnect', { method: 'POST' })
+      toast.success('Google Calendar desconectado')
+      router.refresh()
+    } catch {
+      toast.error('Error al desconectar')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSyncToggle = async (enabled: boolean) => {
+    setIsSyncEnabled(enabled)
+    try {
+      await fetch('/api/integrations/google-calendar/settings', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sync_enabled: enabled }),
+      })
+      toast.success(enabled ? 'Sincronización activada' : 'Sincronización pausada')
+    } catch {
+      setIsSyncEnabled(!enabled)
+      toast.error('Error al actualizar configuración')
+    }
+  }
+
+  const handleForceSync = async () => {
+    setIsLoading(true)
+    try {
+      await fetch('/api/integrations/google-calendar/sync', { method: 'POST' })
+      toast.success('Sincronización iniciada')
+      router.refresh()
+    } catch {
+      toast.error('Error al sincronizar')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <Card className={isConnected ? 'border-green-200 bg-green-50/30' : ''}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="flex items-center gap-3">
+          <div className="p-2 bg-white rounded-lg shadow-sm">
+            <Calendar className="h-6 w-6 text-blue-600" />
+          </div>
+          <div>
+            <span className="text-lg">Google Calendar</span>
+            {isConnected && (
+              <Badge variant="success" className="ml-2">
+                <Check className="h-3 w-3 mr-1" />
+                Conectado
+              </Badge>
+            )}
+          </div>
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+        <p className="text-sm text-gray-600">
+          Sincroniza tus citas con Google Calendar para recibir notificaciones
+          y ver tu agenda en cualquier dispositivo.
+        </p>
+
+        {isConnected ? (
+          <div className="space-y-4">
+            {/* Estado de sincronización */}
+            <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">Sincronización automática</span>
+              </div>
+              <Switch 
+                checked={isSyncEnabled}
+                onCheckedChange={handleSyncToggle}
+              />
+            </div>
+
+            {/* Info del calendario */}
+            {calendarId && (
+              <div className="text-sm text-gray-500">
+                <span>Calendario: </span>
+                <code className="bg-gray-100 px-1 rounded">{calendarId}</code>
+              </div>
+            )}
+
+            {/* Última sincronización */}
+            {lastSyncedAt && (
+              <p className="text-xs text-gray-400">
+                Última sincronización: {formatDistanceToNow(new Date(lastSyncedAt), { 
+                  addSuffix: true, 
+                  locale: es 
+                })}
+              </p>
+            )}
+
+            {/* Acciones */}
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleForceSync}
+                disabled={isLoading || !isSyncEnabled}
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                Sincronizar ahora
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                onClick={handleDisconnect}
+                disabled={isLoading}
+              >
+                <Unlink className="h-4 w-4 mr-2" />
+                Desconectar
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Button onClick={handleConnect} disabled={isLoading}>
+            <ExternalLink className="h-4 w-4 mr-2" />
+            Conectar Google Calendar
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Botón de conectar redirige a OAuth
+- [ ] Estado conectado/desconectado visible
+- [ ] Toggle de sincronización funciona
+- [ ] Botón de sincronizar ahora funciona
+- [ ] Desconectar revoca acceso
+- [ ] Última sincronización visible
+- [ ] Manejo de errores con toasts
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Card renderiza estados | `tests/unit/components/integrations/gcal-card.test.tsx` |
+| E2E | Flujo de conexión | `tests/e2e/integrations/gcal.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `google-calendar` `integrations` `sprint-5` `priority-critical`
+
+---
+
+### T-5-04: [Backend] Considerar eventos GCal en disponibilidad
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-15 |
+| **Bloqueado por** | T-5-02, T-3-04 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Integrar eventos de Google Calendar en el motor de disponibilidad:
+- Obtener eventos bloqueados del día
+- Marcar slots ocupados por eventos externos
+- Cache de eventos para performance
+
+#### Código Principal
+
+```typescript
+// Actualización de apps/web/src/services/availability/availability.service.ts
+
+import { googleCalendarService } from '@/services/google-calendar/google-calendar.service'
+
+// Dentro del método getAvailability, agregar:
+
+async getAvailability(params: GetAvailabilityParams): Promise<AvailabilityResponse> {
+  // ... código existente ...
+
+  // Obtener eventos bloqueados de Google Calendar
+  const gcalBlockedTimes = await this.getGoogleCalendarBlocks(userId, date)
+
+  // Combinar con citas existentes
+  const allBlockedSlots = [
+    ...existingAppointments.map(a => ({
+      start: new Date(a.start_time),
+      end: new Date(a.end_time),
+      type: 'appointment' as const,
+    })),
+    ...travelBlocks.map(t => ({
+      start: new Date(t.start_time),
+      end: new Date(t.end_time),
+      type: 'travel' as const,
+    })),
+    ...personalBlocks.map(p => ({
+      start: new Date(p.start_time),
+      end: new Date(p.end_time),
+      type: 'personal' as const,
+    })),
+    ...gcalBlockedTimes.map(g => ({
+      start: g.start,
+      end: g.end,
+      type: 'external' as const,
+    })),
+  ]
+
+  // ... resto del código de generación de slots ...
+}
+
+private async getGoogleCalendarBlocks(
+  userId: string, 
+  date: string
+): Promise<{ start: Date; end: Date }[]> {
+  const supabase = await createClient()
+
+  // Verificar si el usuario tiene GCal conectado y habilitado
+  const { data: tokenData } = await supabase
+    .from('google_calendar_tokens')
+    .select('sync_enabled')
+    .eq('user_id', userId)
+    .single()
+
+  if (!tokenData?.sync_enabled) {
+    return []
+  }
+
+  // Obtener eventos del día desde GCal
+  const startOfDay = `${date}T00:00:00`
+  const endOfDay = `${date}T23:59:59`
+
+  return googleCalendarService.getBlockedTimes(userId, startOfDay, endOfDay)
+}
+```
+
+```typescript
+// Cache de eventos GCal para evitar llamadas repetidas
+// apps/web/src/services/google-calendar/gcal-cache.service.ts
+
+import { LRUCache } from 'lru-cache'
+import { googleCalendarService } from './google-calendar.service'
+
+interface CacheKey {
+  userId: string
+  date: string
+}
+
+const cache = new LRUCache<string, { start: Date; end: Date }[]>({
+  max: 500,
+  ttl: 1000 * 60 * 5, // 5 minutos
+})
+
+export class GCalCacheService {
+  async getBlockedTimes(
+    userId: string,
+    date: string
+  ): Promise<{ start: Date; end: Date }[]> {
+    const cacheKey = `${userId}:${date}`
+    
+    const cached = cache.get(cacheKey)
+    if (cached) {
+      return cached
+    }
+
+    const startOfDay = `${date}T00:00:00`
+    const endOfDay = `${date}T23:59:59`
+    
+    const events = await googleCalendarService.getBlockedTimes(
+      userId, 
+      startOfDay, 
+      endOfDay
+    )
+
+    cache.set(cacheKey, events)
+    return events
+  }
+
+  invalidate(userId: string, date?: string) {
+    if (date) {
+      cache.delete(`${userId}:${date}`)
+    } else {
+      // Invalidar todas las entradas del usuario
+      for (const key of cache.keys()) {
+        if (key.startsWith(`${userId}:`)) {
+          cache.delete(key)
+        }
+      }
+    }
+  }
+}
+
+export const gcalCacheService = new GCalCacheService()
+```
+
+#### Criterios de Aceptación
+
+- [ ] Eventos de GCal se consideran como ocupados
+- [ ] Eventos de TimeFlowPro no se duplican
+- [ ] Cache reduce llamadas a API
+- [ ] Sin GCal conectado, no hay error
+- [ ] Performance < 500ms adicionales
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Cache funciona | `tests/unit/services/gcal-cache.test.ts` |
+| Integration | Disponibilidad considera GCal | `tests/integration/availability/gcal.test.ts` |
+
+#### Etiquetas
+
+`backend` `google-calendar` `availability` `sprint-5` `priority-critical`
+
+---
+
+### T-5-05: [Backend] CRUD Bloqueos personales
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-1-01 |
+| **Bloquea a** | T-5-06 |
+
+#### Descripción
+
+Implementar gestión de bloqueos personales:
+- Crear bloqueos únicos o recurrentes
+- Tipos: almuerzo, vacaciones, personal, otro
+- Validar que no haya citas en el rango
+- Sincronizar con Google Calendar
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/personal-blocks/personal-block.service.ts
+import { createClient } from '@/lib/supabase/client'
+import { googleCalendarService } from '@/services/google-calendar/google-calendar.service'
+import { z } from 'zod'
+
+// Schema de validación
+export const personalBlockSchema = z.object({
+  title: z.string().min(1).max(100),
+  block_type: z.enum(['lunch', 'vacation', 'personal', 'other']),
+  start_time: z.string().datetime(),
+  end_time: z.string().datetime(),
+  recurrence_type: z.enum(['none', 'daily', 'weekly', 'monthly']).default('none'),
+  recurrence_end_date: z.string().date().optional(),
+  notes: z.string().optional(),
+}).refine(data => new Date(data.end_time) > new Date(data.start_time), {
+  message: 'La hora de fin debe ser posterior a la hora de inicio',
+})
+
+export type PersonalBlockInput = z.infer<typeof personalBlockSchema>
+
+export class PersonalBlockService {
+  private supabase = createClient()
+
+  /**
+   * Crea un bloqueo personal
+   */
+  async create(input: PersonalBlockInput): Promise<any> {
+    const validated = personalBlockSchema.parse(input)
+    
+    const { data: { user } } = await this.supabase.auth.getUser()
+    if (!user) throw new Error('No autenticado')
+
+    // Verificar que no haya citas en el rango
+    const { data: conflictingAppointments } = await this.supabase
+      .from('appointments')
+      .select('id')
+      .eq('user_id', user.id)
+      .in('status', ['pending', 'confirmed'])
+      .or(`and(start_time.lt.${validated.end_time},end_time.gt.${validated.start_time})`)
+
+    if (conflictingAppointments && conflictingAppointments.length > 0) {
+      throw new Error(`Existen ${conflictingAppointments.length} cita(s) en el rango seleccionado`)
+    }
+
+    // Crear bloqueo
+    const { data: block, error } = await this.supabase
+      .from('personal_blocks')
+      .insert({
+        user_id: user.id,
+        title: validated.title,
+        block_type: validated.block_type,
+        start_time: validated.start_time,
+        end_time: validated.end_time,
+        recurrence_type: validated.recurrence_type,
+        recurrence_end_date: validated.recurrence_end_date,
+        notes: validated.notes,
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+
+    // Sincronizar con Google Calendar si está conectado
+    try {
+      await this.syncBlockToGoogleCalendar(block)
+    } catch (e) {
+      console.warn('Error syncing block to GCal:', e)
+    }
+
+    return block
+  }
+
+  /**
+   * Lista bloqueos para un rango de fechas
+   */
+  async list(startDate: string, endDate: string): Promise<any[]> {
+    const { data: { user } } = await this.supabase.auth.getUser()
+    if (!user) throw new Error('No autenticado')
+
+    const { data, error } = await this.supabase
+      .from('personal_blocks')
+      .select('*')
+      .eq('user_id', user.id)
+      .or(`and(start_time.lte.${endDate},end_time.gte.${startDate})`)
+      .order('start_time')
+
+    if (error) throw error
+    return data ?? []
+  }
+
+  /**
+   * Actualiza un bloqueo
+   */
+  async update(id: string, input: Partial<PersonalBlockInput>): Promise<any> {
+    const { data: { user } } = await this.supabase.auth.getUser()
+    if (!user) throw new Error('No autenticado')
+
+    // Si hay cambio de horario, verificar conflictos
+    if (input.start_time || input.end_time) {
+      const { data: existing } = await this.supabase
+        .from('personal_blocks')
+        .select('start_time, end_time')
+        .eq('id', id)
+        .single()
+
+      const startTime = input.start_time ?? existing?.start_time
+      const endTime = input.end_time ?? existing?.end_time
+
+      const { data: conflicts } = await this.supabase
+        .from('appointments')
+        .select('id')
+        .eq('user_id', user.id)
+        .in('status', ['pending', 'confirmed'])
+        .or(`and(start_time.lt.${endTime},end_time.gt.${startTime})`)
+
+      if (conflicts && conflicts.length > 0) {
+        throw new Error(`Existen ${conflicts.length} cita(s) en el nuevo rango`)
+      }
+    }
+
+    const { data, error } = await this.supabase
+      .from('personal_blocks')
+      .update({
+        ...input,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+      .eq('user_id', user.id) // RLS adicional
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  }
+
+  /**
+   * Elimina un bloqueo
+   */
+  async delete(id: string): Promise<void> {
+    const { data: { user } } = await this.supabase.auth.getUser()
+    if (!user) throw new Error('No autenticado')
+
+    const { error } = await this.supabase
+      .from('personal_blocks')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', user.id)
+
+    if (error) throw error
+  }
+
+  /**
+   * Sincroniza bloqueo con Google Calendar
+   */
+  private async syncBlockToGoogleCalendar(block: any): Promise<void> {
+    const { data: { user } } = await this.supabase.auth.getUser()
+    if (!user) return
+
+    // Verificar si GCal está conectado
+    const { data: tokenData } = await this.supabase
+      .from('google_calendar_tokens')
+      .select('sync_enabled')
+      .eq('user_id', user.id)
+      .single()
+
+    if (!tokenData?.sync_enabled) return
+
+    // Crear evento en GCal
+    const blockTypeEmojis = {
+      lunch: '🍽️',
+      vacation: '🏖️',
+      personal: '🔒',
+      other: '📌',
+    }
+
+    // TODO: Implementar creación de evento GCal para bloqueos
+    // Similar a appointmentService pero para bloqueos
+  }
+}
+
+export const personalBlockService = new PersonalBlockService()
+```
+
+```typescript
+// apps/web/src/app/api/personal-blocks/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { personalBlockService } from '@/services/personal-blocks/personal-block.service'
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const startDate = searchParams.get('start_date')
+    const endDate = searchParams.get('end_date')
+
+    if (!startDate || !endDate) {
+      return NextResponse.json(
+        { error: 'start_date and end_date required' },
+        { status: 400 }
+      )
+    }
+
+    const blocks = await personalBlockService.list(startDate, endDate)
+    return NextResponse.json(blocks)
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const block = await personalBlockService.create(body)
+    return NextResponse.json(block, { status: 201 })
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Error' },
+      { status: 400 }
+    )
+  }
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] CRUD completo funciona
+- [ ] Validación de conflictos con citas
+- [ ] Tipos de bloqueo funcionan
+- [ ] Recurrencia se maneja correctamente
+- [ ] Sincroniza con GCal si conectado
+- [ ] RLS protege datos
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Validación de schema | `tests/unit/services/personal-block.test.ts` |
+| Integration | CRUD API | `tests/integration/api/personal-blocks.test.ts` |
+
+#### Etiquetas
+
+`backend` `personal-blocks` `crud` `sprint-5` `priority-critical`
+
+---
+
+### T-5-06: [Frontend] UI Gestión de bloqueos personales
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-5-05, T-3-05 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Crear UI para gestionar bloqueos personales:
+- Modal de creación desde calendario
+- Selector de tipo con íconos
+- Opción de recurrencia
+- Visualización en calendario con color distintivo
+
+#### Código Principal
+
+```typescript
+// apps/web/src/components/features/calendar/personal-block-modal.tsx
+'use client'
+
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle,
+  DialogFooter 
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
+import { DateTimePicker } from '@/components/ui/date-time-picker'
+import { personalBlockSchema, type PersonalBlockInput } from '@/services/personal-blocks/personal-block.service'
+import { usePersonalBlocks } from '@/hooks/use-personal-blocks'
+import { 
+  UtensilsCrossed, 
+  Palmtree, 
+  Lock, 
+  Pin,
+  Repeat
+} from 'lucide-react'
+import { toast } from 'sonner'
+
+const BLOCK_TYPES = [
+  { value: 'lunch', label: 'Almuerzo', icon: UtensilsCrossed, color: '#F59E0B' },
+  { value: 'vacation', label: 'Vacaciones', icon: Palmtree, color: '#10B981' },
+  { value: 'personal', label: 'Personal', icon: Lock, color: '#8B5CF6' },
+  { value: 'other', label: 'Otro', icon: Pin, color: '#6B7280' },
+] as const
+
+const RECURRENCE_OPTIONS = [
+  { value: 'none', label: 'Sin repetición' },
+  { value: 'daily', label: 'Todos los días' },
+  { value: 'weekly', label: 'Cada semana' },
+  { value: 'monthly', label: 'Cada mes' },
+]
+
+interface PersonalBlockModalProps {
+  isOpen: boolean
+  onClose: () => void
+  initialDate?: Date
+  initialBlock?: any // Para edición
+}
+
+export function PersonalBlockModal({
+  isOpen,
+  onClose,
+  initialDate,
+  initialBlock,
+}: PersonalBlockModalProps) {
+  const { createBlock, updateBlock, isCreating, isUpdating } = usePersonalBlocks()
+  const isEditing = !!initialBlock
+
+  const form = useForm<PersonalBlockInput>({
+    resolver: zodResolver(personalBlockSchema),
+    defaultValues: initialBlock ?? {
+      title: '',
+      block_type: 'personal',
+      start_time: initialDate?.toISOString() ?? new Date().toISOString(),
+      end_time: initialDate 
+        ? new Date(initialDate.getTime() + 60 * 60 * 1000).toISOString() 
+        : new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      recurrence_type: 'none',
+      notes: '',
+    },
+  })
+
+  const selectedType = form.watch('block_type')
+  const typeConfig = BLOCK_TYPES.find(t => t.value === selectedType)
+
+  const onSubmit = async (data: PersonalBlockInput) => {
+    try {
+      if (isEditing) {
+        await updateBlock({ id: initialBlock.id, data })
+        toast.success('Bloqueo actualizado')
+      } else {
+        await createBlock(data)
+        toast.success('Bloqueo creado')
+      }
+      onClose()
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Error al guardar')
+    }
+  }
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <div 
+              className="p-2 rounded-lg"
+              style={{ backgroundColor: `${typeConfig?.color}20` }}
+            >
+              {typeConfig && <typeConfig.icon 
+                className="h-5 w-5" 
+                style={{ color: typeConfig.color }}
+              />}
+            </div>
+            {isEditing ? 'Editar bloqueo' : 'Bloquear tiempo'}
+          </DialogTitle>
+        </DialogHeader>
+
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          {/* Tipo de bloqueo */}
+          <div className="grid grid-cols-4 gap-2">
+            {BLOCK_TYPES.map((type) => {
+              const Icon = type.icon
+              const isSelected = selectedType === type.value
+              
+              return (
+                <button
+                  key={type.value}
+                  type="button"
+                  onClick={() => form.setValue('block_type', type.value)}
+                  className={`
+                    flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all
+                    ${isSelected 
+                      ? 'border-current shadow-sm' 
+                      : 'border-transparent bg-gray-50 hover:bg-gray-100'
+                    }
+                  `}
+                  style={{ 
+                    borderColor: isSelected ? type.color : undefined,
+                    color: isSelected ? type.color : undefined,
+                  }}
+                >
+                  <Icon className="h-5 w-5" />
+                  <span className="text-xs font-medium">{type.label}</span>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Título */}
+          <div>
+            <Label htmlFor="title">Título</Label>
+            <Input
+              id="title"
+              {...form.register('title')}
+              placeholder={`Ej: ${typeConfig?.label ?? 'Mi bloqueo'}`}
+            />
+            {form.formState.errors.title && (
+              <p className="text-sm text-red-500 mt-1">
+                {form.formState.errors.title.message}
+              </p>
+            )}
+          </div>
+
+          {/* Fecha y hora */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Inicio</Label>
+              <DateTimePicker
+                value={new Date(form.watch('start_time'))}
+                onChange={(date) => form.setValue('start_time', date.toISOString())}
+              />
+            </div>
+            <div>
+              <Label>Fin</Label>
+              <DateTimePicker
+                value={new Date(form.watch('end_time'))}
+                onChange={(date) => form.setValue('end_time', date.toISOString())}
+              />
+            </div>
+          </div>
+
+          {/* Recurrencia */}
+          <div>
+            <Label>Repetir</Label>
+            <Select
+              value={form.watch('recurrence_type')}
+              onValueChange={(v) => form.setValue('recurrence_type', v as any)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {RECURRENCE_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.value !== 'none' && <Repeat className="h-4 w-4 mr-2 inline" />}
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Fecha fin recurrencia */}
+          {form.watch('recurrence_type') !== 'none' && (
+            <div>
+              <Label>Repetir hasta</Label>
+              <Input
+                type="date"
+                {...form.register('recurrence_end_date')}
+              />
+            </div>
+          )}
+
+          {/* Notas */}
+          <div>
+            <Label htmlFor="notes">Notas (opcional)</Label>
+            <Textarea
+              id="notes"
+              {...form.register('notes')}
+              placeholder="Notas adicionales..."
+              rows={2}
+            />
+          </div>
+
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose}>
+              Cancelar
+            </Button>
+            <Button 
+              type="submit" 
+              isLoading={isCreating || isUpdating}
+              style={{ backgroundColor: typeConfig?.color }}
+            >
+              {isEditing ? 'Guardar cambios' : 'Crear bloqueo'}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+```
+
+```typescript
+// apps/web/src/hooks/use-personal-blocks.ts
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { personalBlockService, type PersonalBlockInput } from '@/services/personal-blocks/personal-block.service'
+
+export function usePersonalBlocks(startDate?: string, endDate?: string) {
+  const queryClient = useQueryClient()
+
+  const blocksQuery = useQuery({
+    queryKey: ['personal-blocks', startDate, endDate],
+    queryFn: () => personalBlockService.list(startDate!, endDate!),
+    enabled: !!startDate && !!endDate,
+  })
+
+  const createMutation = useMutation({
+    mutationFn: (data: PersonalBlockInput) => personalBlockService.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['personal-blocks'] })
+      queryClient.invalidateQueries({ queryKey: ['availability'] })
+    },
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<PersonalBlockInput> }) =>
+      personalBlockService.update(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['personal-blocks'] })
+      queryClient.invalidateQueries({ queryKey: ['availability'] })
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => personalBlockService.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['personal-blocks'] })
+      queryClient.invalidateQueries({ queryKey: ['availability'] })
+    },
+  })
+
+  return {
+    blocks: blocksQuery.data ?? [],
+    isLoading: blocksQuery.isLoading,
+    createBlock: createMutation.mutateAsync,
+    updateBlock: updateMutation.mutateAsync,
+    deleteBlock: deleteMutation.mutateAsync,
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
+  }
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Modal abre desde calendario (click en slot vacío)
+- [ ] Selector de tipo con íconos y colores
+- [ ] Validación de formulario
+- [ ] Recurrencia configurable
+- [ ] Bloqueos visibles en calendario
+- [ ] Color distintivo por tipo
+- [ ] Edición y eliminación funcionan
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Modal renderiza | `tests/unit/components/calendar/block-modal.test.tsx` |
+| E2E | Crear bloqueo | `tests/e2e/calendar/personal-blocks.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `personal-blocks` `ui` `calendar` `sprint-5` `priority-critical`
+
+---
+
+### T-5-07: [Backend] Bloqueos en motor de disponibilidad
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-5-05, T-3-04 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Integrar bloqueos personales en el cálculo de disponibilidad:
+- Considerar bloqueos únicos
+- Expandir bloqueos recurrentes
+- Marcar slots como no disponibles
+
+#### Código Principal
+
+```typescript
+// Actualización de apps/web/src/services/availability/availability.service.ts
+
+/**
+ * Expande bloqueos recurrentes para un rango de fechas
+ */
+private expandRecurringBlocks(
+  blocks: any[],
+  startDate: Date,
+  endDate: Date
+): { start: Date; end: Date; type: string }[] {
+  const expanded: { start: Date; end: Date; type: string }[] = []
+
+  for (const block of blocks) {
+    if (block.recurrence_type === 'none') {
+      // Bloqueo único
+      expanded.push({
+        start: new Date(block.start_time),
+        end: new Date(block.end_time),
+        type: block.block_type,
+      })
+      continue
+    }
+
+    // Expandir recurrencia
+    const blockStart = new Date(block.start_time)
+    const blockEnd = new Date(block.end_time)
+    const duration = blockEnd.getTime() - blockStart.getTime()
+    const recurrenceEnd = block.recurrence_end_date 
+      ? new Date(block.recurrence_end_date) 
+      : endDate
+
+    let currentStart = new Date(blockStart)
+
+    while (currentStart <= recurrenceEnd && currentStart <= endDate) {
+      if (currentStart >= startDate) {
+        expanded.push({
+          start: new Date(currentStart),
+          end: new Date(currentStart.getTime() + duration),
+          type: block.block_type,
+        })
+      }
+
+      // Avanzar según tipo de recurrencia
+      switch (block.recurrence_type) {
+        case 'daily':
+          currentStart.setDate(currentStart.getDate() + 1)
+          break
+        case 'weekly':
+          currentStart.setDate(currentStart.getDate() + 7)
+          break
+        case 'monthly':
+          currentStart.setMonth(currentStart.getMonth() + 1)
+          break
+      }
+    }
+  }
+
+  return expanded
+}
+
+// En getAvailability, usar:
+const { data: rawBlocks } = await supabase
+  .from('personal_blocks')
+  .select('*')
+  .eq('user_id', userId)
+  .or(`and(start_time.lte.${endOfDay},end_time.gte.${startOfDay}),recurrence_type.neq.none`)
+
+const personalBlocks = this.expandRecurringBlocks(
+  rawBlocks ?? [],
+  new Date(date),
+  new Date(date)
+)
+```
+
+#### Criterios de Aceptación
+
+- [ ] Bloqueos únicos considerados
+- [ ] Bloqueos diarios expandidos
+- [ ] Bloqueos semanales expandidos
+- [ ] Bloqueos mensuales expandidos
+- [ ] recurrence_end_date respetada
+- [ ] Performance aceptable
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Expansión de recurrencia | `tests/unit/services/availability-blocks.test.ts` |
+| Integration | Disponibilidad con bloqueos | `tests/integration/availability/blocks.test.ts` |
+
+#### Etiquetas
+
+`backend` `personal-blocks` `availability` `sprint-5` `priority-critical`
+
+---
+
+### T-5-08: [Frontend] Visualización de bloqueos en calendario
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🟠 P1 (Alta) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-5-06, T-3-05 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Mostrar bloqueos personales en el calendario:
+- Color distintivo por tipo
+- Ícono indicador
+- Patrón rayado para distinguir de citas
+- Click para editar/eliminar
+
+#### Código Principal
+
+```typescript
+// apps/web/src/components/features/calendar/block-event.tsx
+'use client'
+
+import { useState } from 'react'
+import { 
+  UtensilsCrossed, 
+  Palmtree, 
+  Lock, 
+  Pin,
+  Repeat,
+  Trash2,
+  Edit
+} from 'lucide-react'
+import { 
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu'
+import { PersonalBlockModal } from './personal-block-modal'
+import { usePersonalBlocks } from '@/hooks/use-personal-blocks'
+import { format } from 'date-fns'
+import { toast } from 'sonner'
+
+const BLOCK_CONFIG = {
+  lunch: { icon: UtensilsCrossed, color: '#F59E0B', label: 'Almuerzo' },
+  vacation: { icon: Palmtree, color: '#10B981', label: 'Vacaciones' },
+  personal: { icon: Lock, color: '#8B5CF6', label: 'Personal' },
+  other: { icon: Pin, color: '#6B7280', label: 'Otro' },
+} as const
+
+interface BlockEventProps {
+  block: {
+    id: string
+    title: string
+    block_type: keyof typeof BLOCK_CONFIG
+    start_time: string
+    end_time: string
+    recurrence_type: string
+  }
+  style?: React.CSSProperties
+}
+
+export function BlockEvent({ block, style }: BlockEventProps) {
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const { deleteBlock, isDeleting } = usePersonalBlocks()
+  
+  const config = BLOCK_CONFIG[block.block_type]
+  const Icon = config.icon
+  const isRecurring = block.recurrence_type !== 'none'
+
+  const handleDelete = async () => {
+    if (!confirm('¿Eliminar este bloqueo?')) return
+    
+    try {
+      await deleteBlock(block.id)
+      toast.success('Bloqueo eliminado')
+    } catch (error) {
+      toast.error('Error al eliminar')
+    }
+  }
+
+  return (
+    <>
+      <ContextMenu>
+        <ContextMenuTrigger asChild>
+          <div
+            className="
+              relative px-2 py-1 rounded text-xs font-medium cursor-pointer
+              overflow-hidden group
+            "
+            style={{
+              backgroundColor: `${config.color}20`,
+              borderLeft: `3px solid ${config.color}`,
+              ...style,
+            }}
+          >
+            {/* Patrón rayado de fondo */}
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage: `repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 5px,
+                  ${config.color} 5px,
+                  ${config.color} 10px
+                )`,
+              }}
+            />
+
+            <div className="relative flex items-center gap-1">
+              <Icon className="h-3 w-3 flex-shrink-0" style={{ color: config.color }} />
+              <span className="truncate" style={{ color: config.color }}>
+                {block.title || config.label}
+              </span>
+              {isRecurring && (
+                <Repeat className="h-3 w-3 flex-shrink-0 opacity-60" />
+              )}
+            </div>
+
+            <div className="relative text-[10px] opacity-70" style={{ color: config.color }}>
+              {format(new Date(block.start_time), 'HH:mm')} - {format(new Date(block.end_time), 'HH:mm')}
+            </div>
+          </div>
+        </ContextMenuTrigger>
+
+        <ContextMenuContent>
+          <ContextMenuItem onClick={() => setIsEditOpen(true)}>
+            <Edit className="h-4 w-4 mr-2" />
+            Editar bloqueo
+          </ContextMenuItem>
+          <ContextMenuItem 
+            onClick={handleDelete}
+            className="text-red-600 focus:text-red-600"
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Eliminar
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+
+      <PersonalBlockModal
+        isOpen={isEditOpen}
+        onClose={() => setIsEditOpen(false)}
+        initialBlock={block}
+      />
+    </>
+  )
+}
+```
+
+```typescript
+// Integración en el calendario principal
+// apps/web/src/components/features/calendar/calendar-view.tsx
+
+// Agregar bloqueos al renderizado
+{personalBlocks.map((block) => (
+  <BlockEvent
+    key={block.id}
+    block={block}
+    style={{
+      top: calculateTop(block.start_time),
+      height: calculateHeight(block.start_time, block.end_time),
+    }}
+  />
+))}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Bloqueos visibles en calendario
+- [ ] Color por tipo de bloqueo
+- [ ] Patrón rayado distintivo
+- [ ] Ícono de recurrencia visible
+- [ ] Click derecho muestra menú
+- [ ] Editar abre modal
+- [ ] Eliminar funciona
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | BlockEvent renderiza | `tests/unit/components/calendar/block-event.test.tsx` |
+
+#### Etiquetas
+
+`frontend` `calendar` `personal-blocks` `ui` `sprint-5` `priority-high`
+
+---
+
+## 6.18 Sprint 5 Completado ✅
+
+| ID | Título | Tipo | Pts | Estado |
+|----|--------|------|-----|--------|
+| T-5-01 | Google Calendar OAuth | Backend | 8 | ✅ |
+| T-5-02 | Sincronización bidireccional | Backend | 8 | ✅ |
+| T-5-03 | UI Conexión GCal | Frontend | 5 | ✅ |
+| T-5-04 | GCal en disponibilidad | Backend | 5 | ✅ |
+| T-5-05 | CRUD Bloqueos personales | Backend | 5 | ✅ |
+| T-5-06 | UI Bloqueos personales | Frontend | 5 | ✅ |
+| T-5-07 | Bloqueos en disponibilidad | Backend | 3 | ✅ |
+| T-5-08 | Visualización bloqueos | Frontend | 3 | ✅ |
+
+**Total Sprint 5:** 42 Story Points | 8 Tickets
+
+---
+
+## 6.19 Diagrama de Dependencias Sprint 5
+
+```mermaid
+flowchart TD
+    T102["T-1-02<br/>🔐 Supabase Auth"] --> T501["T-5-01<br/>🔑 GCal OAuth"]
+    
+    T501 --> T502["T-5-02<br/>🔄 Sync Bidireccional"]
+    T501 --> T503["T-5-03<br/>🖥️ UI Conexión"]
+    
+    T502 --> T504["T-5-04<br/>📅 GCal Disponibilidad"]
+    T304["T-3-04<br/>⚡ Availability"] --> T504
+    
+    T101["T-1-01<br/>🗄️ Migración BD"] --> T505["T-5-05<br/>🚫 CRUD Bloqueos"]
+    
+    T505 --> T506["T-5-06<br/>🖥️ UI Bloqueos"]
+    T305["T-3-05<br/>📆 Calendar"] --> T506
+    
+    T505 --> T507["T-5-07<br/>⏱️ Bloqueos Disponibilidad"]
+    T304 --> T507
+    
+    T506 --> T508["T-5-08<br/>👁️ Visualización"]
+    T305 --> T508
+
+    style T501 fill:#4285F4,color:#fff
+    style T502 fill:#34A853,color:#fff
+    style T503 fill:#EA4335,color:#fff
+    style T504 fill:#FBBC05,color:#000
+    style T505 fill:#8B5CF6,color:#fff
+    style T506 fill:#EC4899,color:#fff
+    style T507 fill:#6366F1,color:#fff
+    style T508 fill:#14B8A6,color:#fff
+```
+
+---
+
+## 6.20 Resumen General de Tickets MVP
+
+| Sprint | Nombre | Tickets | Story Points |
+|--------|--------|---------|--------------|
+| 0 | Setup & Fundamentos | 6 | 21 |
+| 1 | Autenticación y Perfil | 7 | 31 |
+| 2 | Ubicaciones y Servicios | 8 | 36 |
+| 3 | Clientes y Citas | 6 | 36 |
+| 4 | Portal Público | 9 | 44 |
+| 5 | Google Calendar + Bloqueos | 8 | 42 |
+| **TOTAL MVP** | | **44** | **210** |
+
+---
+
+## 6.21 Fase 2 (Post-MVP) - Tickets Pendientes
+
+> **⚠️ IMPORTANTE:** Esta sección documenta las funcionalidades de Fase 2. 
+> Los tickets de trabajo **NO están creados** hasta completar el MVP.
+
+### HDUs de Fase 2 (Pendientes de desglosar en tickets)
+
+| HDU | Título | Descripción | Estimación |
+|-----|--------|-------------|------------|
+| US-24 | Cálculo Automático de Traslado | Integración con Google Maps para calcular tiempos de traslado automáticamente | L (8 pts) |
+| US-25 | Sugerencias de Optimización | El sistema sugiere reorganizar la agenda para reducir tiempos muertos | L (8 pts) |
+| US-26 | Pagos con MercadoPago | Clientes pueden pagar al momento de reservar | L (8 pts) |
+| US-27 | Gestión Multi-Profesional | Administrador gestiona múltiples profesionales (clínicas, gyms) | L (8 pts) |
+| US-28 | Reportes y Estadísticas | Dashboard con métricas de citas, ingresos, clientes | M (5 pts) |
+| US-29 | Importación Masiva de Clientes | Importar clientes desde Excel/CSV | S (3 pts) |
+| US-30 | Recordatorios WhatsApp | Notificaciones automáticas vía WhatsApp | L (8 pts) |
+
+### Funcionalidades Técnicas Post-MVP
+
+| Funcionalidad | Descripción | Dependencia |
+|---------------|-------------|-------------|
+| Webhooks GCal → TimeFlowPro | Sincronización bidireccional con Google Calendar | US-14 completada |
+| `recurrence_days` en bloqueos | Patrones de recurrencia personalizados (Lun-Mié-Vie) | US-22 completada |
+| App móvil nativa | React Native / Flutter | MVP completado |
+
+### Cuándo crear tickets de Fase 2
+
+1. ✅ MVP completado y en producción
+2. ✅ Piloto con Felipe exitoso
+3. ✅ Feedback inicial incorporado
+4. ➡️ **Entonces:** Crear tickets detallados para Fase 2
+
+---
+
+## 6.22 Roadmap Visual
+
+```mermaid
+gantt
+    title 📅 Roadmap TimeFlowPro MVP
+    dateFormat  YYYY-MM-DD
+    
+    section Sprint 0
+    Setup & Fundamentos       :done, s0, 2026-01-06, 1w
+    
+    section Sprint 1
+    Auth & Perfil             :done, s1, after s0, 2w
+    
+    section Sprint 2
+    Ubicaciones & Servicios   :done, s2, after s1, 2w
+    
+    section Sprint 3
+    Citas & Calendario        :done, s3, after s2, 2w
+    
+    section Sprint 4
+    Portal Público            :active, s4, after s3, 2w
+    
+    section Sprint 5
+    Google Calendar           :s5, after s4, 2w
+    
+    section MVP Launch
+    🚀 Lanzamiento Piloto     :milestone, m1, after s5, 0d
+```
+
+---
+
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.5.0  
+**Versión del documento:** 1.8.0  
 **Autor:** TimeFlowPro Team
 
 ---
 
-> **Progreso:** Sprint 0 ✅ | Sprint 1 ✅ | Sprint 2 ✅ | Sprint 3 ✅ | Sprint 4 ✅ | Sprint 5 📋 Pendiente
+> **Progreso:** Sprint 0 ✅ | Sprint 1 ✅ | Sprint 2 ✅ | Sprint 3 ✅ | Sprint 4 ✅ | Sprint 5 ✅ | **MVP COMPLETO** 🎉
 
