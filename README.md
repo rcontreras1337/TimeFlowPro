@@ -201,7 +201,7 @@ TimeFlowPro/
 
 | Sprint | Tema | Estado |
 |--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (1/6) |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (2/6) |
 | [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
 | [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
@@ -282,6 +282,55 @@ apps/web/
 
 scripts/
 └── generate-icons.js
+```
+
+#### T-0-02: Setup Monorepo + Next.js 14 ✅
+- 📦 **Monorepo** configurado con pnpm workspaces
+- ⚡ **Next.js 14** con App Router y TypeScript estricto
+- 🎨 **TailwindCSS** integrado con design tokens
+- 🏗️ **Arquitectura Hexagonal** estructura de carpetas
+- 🧩 **Componentes base UI** (Button, Input, Card)
+- 🔧 **Supabase clients** configurados (browser, server, middleware)
+- 📦 **Package shared** con tipos y utilidades comunes
+
+#### Archivos Añadidos T-0-02
+```
+./
+├── package.json              # Monorepo root
+├── pnpm-workspace.yaml       # Workspace config
+├── .npmrc                    # pnpm config
+├── .gitignore               # Git ignore rules
+├── .env.example             # Environment template
+
+apps/web/
+├── package.json             # Web app dependencies
+├── tsconfig.json            # TypeScript strict config
+├── tailwind.config.ts       # Tailwind with design tokens
+├── postcss.config.mjs       # PostCSS config
+├── next.config.mjs          # Next.js config
+├── .eslintrc.json           # ESLint config
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx       # Root layout with fonts
+│   │   ├── page.tsx         # Landing page
+│   │   └── globals.css      # Global styles
+│   ├── components/ui/
+│   │   ├── button.tsx       # Button component
+│   │   ├── input.tsx        # Input component
+│   │   ├── card.tsx         # Card component
+│   │   └── index.ts         # UI exports
+│   ├── lib/
+│   │   ├── utils/cn.ts      # Classnames utility
+│   │   └── supabase/        # Supabase clients
+│   ├── types/               # TypeScript types
+│   └── middleware.ts        # Auth middleware
+
+packages/shared/
+├── package.json
+├── tsconfig.json
+└── src/
+    ├── types/               # Shared types
+    └── utils/               # Shared utilities
 ```
 
 ---
