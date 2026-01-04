@@ -6033,11 +6033,4246 @@ flowchart TD
 
 ---
 
+## 6.11 Tickets Detallados - Sprint 3: Clientes y Citas
+
+---
+
+### T-3-01: [Backend] CRUD Clientes (API + RLS)
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-05 |
+| **Bloqueado por** | T-1-01 |
+| **Bloquea a** | T-3-02, T-3-03 |
+
+#### Descripción
+
+Implementar API completa para gestión de clientes:
+- CRUD con soft delete
+- Búsqueda full-text (nombre, email, teléfono)
+- Custom fields para datos verticales
+- Creación automática desde reserva online
+- Historial de citas por cliente
+
+#### Código Principal
+
+```typescript
+// apps/web/src/types/client.types.ts
+import type { Tables } from './database.types'
+
+export type Client = Tables<'clients'>
+
+export interface CreateClientInput {
+  name: string
+  email?: string
+  phone?: string
+  birthdate?: string
+  notes?: string
+  source?: 'manual' | 'online_booking' | 'import'
+  custom_fields?: Record<string, unknown>
+}
+
+export interface UpdateClientInput extends Partial<CreateClientInput> {}
+
+export interface ClientWithStats extends Client {
+  total_appointments: number
+  completed_appointments: number
+  last_appointment_at: string | null
+  total_spent: number
+}
+
+export interface ClientSearchParams {
+  query?: string
+  source?: string
+  page?: number
+  limit?: number
+}
+```
+
+```typescript
+// apps/web/src/services/clients/client.service.ts
+import { createClient } from '@/lib/supabase/client'
+import type { 
+  Client, 
+  CreateClientInput, 
+  UpdateClientInput, 
+  ClientWithStats,
+  ClientSearchParams 
+} from '@/types/client.types'
+
+export class ClientService {
+  private supabase = createClient()
+
+  /**
+   * Busca clientes con full-text search
+   */
+  async search(params: ClientSearchParams = {}): Promise<{ clients: Client[]; total: number }> {
+    const { query, source, page = 1, limit = 20 } = params
+    const offset = (page - 1) * limit
+
+    let queryBuilder = this.supabase
+      .from('clients')
+      .select('*', { count: 'exact' })
+      .is('deleted_at', null)
+      .order('name', { ascending: true })
+      .range(offset, offset + limit - 1)
+
+    // Full-text search
+    if (query && query.length >= 2) {
+      queryBuilder = queryBuilder.or(
+        `name.ilike.%${query}%,email.ilike.%${query}%,phone.ilike.%${query}%`
+      )
+    }
+
+    // Filtro por origen
+    if (source) {
+      queryBuilder = queryBuilder.eq('source', source)
+    }
+
+    const { data, error, count } = await queryBuilder
+
+    if (error) throw error
+    return { clients: data ?? [], total: count ?? 0 }
+  }
+
+  /**
+   * Obtiene todos los clientes (sin paginación, para selects)
+   */
+  async getAll(): Promise<Client[]> {
+    const { data, error } = await this.supabase
+      .from('clients')
+      .select('*')
+      .is('deleted_at', null)
+      .order('name')
+
+    if (error) throw error
+    return data ?? []
+  }
+
+  /**
+   * Obtiene cliente por ID con estadísticas
+   */
+  async getById(id: string): Promise<ClientWithStats | null> {
+    const { data: client, error } = await this.supabase
+      .from('clients')
+      .select('*')
+      .eq('id', id)
+      .is('deleted_at', null)
+      .single()
+
+    if (error?.code === 'PGRST116') return null
+    if (error) throw error
+
+    // Obtener estadísticas
+    const { data: appointments } = await this.supabase
+      .from('appointments')
+      .select('status, price_at_booking, start_time')
+      .eq('client_id', id)
+      .is('deleted_at', null)
+
+    const stats = {
+      total_appointments: appointments?.length ?? 0,
+      completed_appointments: appointments?.filter(a => a.status === 'completed').length ?? 0,
+      last_appointment_at: appointments?.sort((a, b) => 
+        new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
+      )[0]?.start_time ?? null,
+      total_spent: appointments
+        ?.filter(a => a.status === 'completed')
+        .reduce((sum, a) => sum + (a.price_at_booking ?? 0), 0) ?? 0,
+    }
+
+    return { ...client, ...stats }
+  }
+
+  /**
+   * Busca cliente por email (para reservas online)
+   */
+  async findByEmail(email: string): Promise<Client | null> {
+    const { data, error } = await this.supabase
+      .from('clients')
+      .select('*')
+      .eq('email', email)
+      .is('deleted_at', null)
+      .single()
+
+    if (error?.code === 'PGRST116') return null
+    if (error) throw error
+    return data
+  }
+
+  /**
+   * Crea un nuevo cliente
+   */
+  async create(input: CreateClientInput): Promise<Client> {
+    const { data, error } = await this.supabase
+      .from('clients')
+      .insert({
+        ...input,
+        source: input.source ?? 'manual',
+      })
+      .select()
+      .single()
+
+    if (error) {
+      if (error.code === '23505') { // Unique violation
+        throw new Error('Ya existe un cliente con ese email')
+      }
+      throw error
+    }
+    return data
+  }
+
+  /**
+   * Crea o encuentra cliente por email (para reservas online)
+   */
+  async findOrCreate(input: CreateClientInput): Promise<{ client: Client; isNew: boolean }> {
+    if (input.email) {
+      const existing = await this.findByEmail(input.email)
+      if (existing) {
+        // Actualizar datos si vienen más completos
+        if (input.phone && !existing.phone) {
+          await this.update(existing.id, { phone: input.phone })
+        }
+        return { client: existing, isNew: false }
+      }
+    }
+
+    const client = await this.create(input)
+    return { client, isNew: true }
+  }
+
+  /**
+   * Actualiza un cliente
+   */
+  async update(id: string, input: UpdateClientInput): Promise<Client> {
+    const { data, error } = await this.supabase
+      .from('clients')
+      .update({
+        ...input,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  }
+
+  /**
+   * Soft delete de cliente
+   */
+  async delete(id: string): Promise<void> {
+    // Verificar citas activas
+    const { count } = await this.supabase
+      .from('appointments')
+      .select('*', { count: 'exact', head: true })
+      .eq('client_id', id)
+      .in('status', ['pending', 'confirmed'])
+
+    if (count && count > 0) {
+      throw new Error('No se puede eliminar: el cliente tiene citas pendientes')
+    }
+
+    const { error } = await this.supabase
+      .from('clients')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id)
+
+    if (error) throw error
+  }
+
+  /**
+   * Restaura un cliente eliminado
+   */
+  async restore(id: string): Promise<Client> {
+    const { data, error } = await this.supabase
+      .from('clients')
+      .update({ deleted_at: null, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  }
+
+  /**
+   * Obtiene historial de duración por servicio
+   */
+  async getServiceDurations(clientId: string): Promise<{
+    service_id: string
+    service_name: string
+    average_duration: number
+    appointment_count: number
+  }[]> {
+    const { data, error } = await this.supabase
+      .from('client_service_durations')
+      .select(`
+        service_id,
+        average_duration_minutes,
+        total_appointments,
+        services (name)
+      `)
+      .eq('client_id', clientId)
+
+    if (error) throw error
+
+    return (data ?? []).map(d => ({
+      service_id: d.service_id,
+      service_name: (d.services as any)?.name ?? '',
+      average_duration: d.average_duration_minutes,
+      appointment_count: d.total_appointments,
+    }))
+  }
+}
+
+export const clientService = new ClientService()
+```
+
+```typescript
+// apps/web/src/hooks/use-clients.ts
+'use client'
+
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { clientService } from '@/services/clients/client.service'
+import type { CreateClientInput, UpdateClientInput, ClientSearchParams } from '@/types/client.types'
+import { toast } from 'sonner'
+
+const QUERY_KEY = ['clients']
+
+export function useClients(initialParams?: ClientSearchParams) {
+  const queryClient = useQueryClient()
+  const [searchParams, setSearchParams] = useState<ClientSearchParams>(initialParams ?? {})
+
+  // Query: Buscar clientes
+  const {
+    data,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [...QUERY_KEY, searchParams],
+    queryFn: () => clientService.search(searchParams),
+  })
+
+  // Mutation: Crear
+  const createMutation = useMutation({
+    mutationFn: (input: CreateClientInput) => clientService.create(input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY })
+      toast.success('Cliente creado')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  // Mutation: Actualizar
+  const updateMutation = useMutation({
+    mutationFn: ({ id, input }: { id: string; input: UpdateClientInput }) =>
+      clientService.update(id, input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY })
+      toast.success('Cliente actualizado')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  // Mutation: Eliminar
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => clientService.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY })
+      toast.success('Cliente eliminado')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  return {
+    clients: data?.clients ?? [],
+    total: data?.total ?? 0,
+    isLoading,
+    error,
+    searchParams,
+    setSearchParams,
+    createClient: createMutation.mutate,
+    updateClient: updateMutation.mutate,
+    deleteClient: deleteMutation.mutate,
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
+  }
+}
+
+export function useClient(id: string) {
+  return useQuery({
+    queryKey: [...QUERY_KEY, id],
+    queryFn: () => clientService.getById(id),
+    enabled: !!id,
+  })
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] CRUD completo con soft delete
+- [ ] Búsqueda full-text funciona (nombre, email, teléfono)
+- [ ] findOrCreate para reservas online
+- [ ] Estadísticas por cliente (citas, gastado)
+- [ ] RLS impide acceso a clientes de otros
+- [ ] No se puede eliminar con citas activas
+- [ ] Paginación funcional
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | ClientService CRUD | `tests/unit/services/clients.test.ts` |
+| Unit | Búsqueda full-text | `tests/unit/services/clients-search.test.ts` |
+| Integration | findOrCreate | `tests/integration/clients/find-or-create.test.ts` |
+| Integration | Soft delete | `tests/integration/clients/soft-delete.test.ts` |
+
+#### Etiquetas
+
+`backend` `api` `clients` `sprint-3` `priority-critical`
+
+---
+
+### T-3-02: [Frontend] UI Gestión de Clientes
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-05 |
+| **Bloqueado por** | T-3-01 |
+| **Bloquea a** | T-3-03, T-4-03 |
+
+#### Descripción
+
+Crear interfaz completa para gestión de clientes:
+- Lista con búsqueda y filtros
+- Vista de detalle con historial
+- Modal de creación/edición
+- Estadísticas por cliente
+- Custom fields editables
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/(dashboard)/clients/page.tsx
+'use client'
+
+import { useState } from 'react'
+import { Plus, Search, Filter } from 'lucide-react'
+import { useClients } from '@/hooks/use-clients'
+import { useAuthContext } from '@/components/providers/auth-provider'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ClientsTable } from '@/components/features/clients/clients-table'
+import { ClientFormModal } from '@/components/features/clients/client-form-modal'
+import { ClientDetailSheet } from '@/components/features/clients/client-detail-sheet'
+import { EmptyState } from '@/components/ui/empty-state'
+import { useDebounce } from '@/hooks/use-debounce'
+import type { Client } from '@/types/client.types'
+
+export default function ClientsPage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const debouncedQuery = useDebounce(searchQuery, 300)
+  
+  const { 
+    clients, 
+    total, 
+    isLoading, 
+    searchParams,
+    setSearchParams,
+    deleteClient 
+  } = useClients({ query: debouncedQuery })
+  
+  const { canMutate } = useAuthContext()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [editingClient, setEditingClient] = useState<Client | null>(null)
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
+
+  const handleSearch = (value: string) => {
+    setSearchQuery(value)
+    setSearchParams({ ...searchParams, query: value, page: 1 })
+  }
+
+  const handleEdit = (client: Client) => {
+    setEditingClient(client)
+    setIsModalOpen(true)
+  }
+
+  const handleView = (client: Client) => {
+    setSelectedClient(client)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setEditingClient(null)
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Clientes</h1>
+          <p className="text-gray-600">
+            {total} cliente{total !== 1 ? 's' : ''} registrado{total !== 1 ? 's' : ''}
+          </p>
+        </div>
+        {canMutate && (
+          <Button onClick={() => setIsModalOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Nuevo cliente
+          </Button>
+        )}
+      </div>
+
+      {/* Search & Filters */}
+      <div className="flex gap-4">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Buscar por nombre, email o teléfono..."
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        <Button variant="outline">
+          <Filter className="h-4 w-4 mr-2" />
+          Filtros
+        </Button>
+      </div>
+
+      {/* Table */}
+      {clients.length === 0 && !isLoading ? (
+        <EmptyState
+          icon="👥"
+          title={searchQuery ? 'Sin resultados' : 'No tienes clientes'}
+          description={
+            searchQuery 
+              ? 'No se encontraron clientes con ese criterio'
+              : 'Agrega tu primer cliente para comenzar'
+          }
+          action={
+            !searchQuery && canMutate && (
+              <Button onClick={() => setIsModalOpen(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                Agregar cliente
+              </Button>
+            )
+          }
+        />
+      ) : (
+        <ClientsTable
+          clients={clients}
+          isLoading={isLoading}
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={deleteClient}
+          canMutate={canMutate}
+        />
+      )}
+
+      {/* Pagination */}
+      {total > 20 && (
+        <Pagination
+          current={searchParams.page ?? 1}
+          total={Math.ceil(total / 20)}
+          onChange={(page) => setSearchParams({ ...searchParams, page })}
+        />
+      )}
+
+      {/* Modal crear/editar */}
+      <ClientFormModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        client={editingClient}
+      />
+
+      {/* Sheet de detalle */}
+      <ClientDetailSheet
+        client={selectedClient}
+        onClose={() => setSelectedClient(null)}
+        onEdit={() => selectedClient && handleEdit(selectedClient)}
+      />
+    </div>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/clients/client-detail-sheet.tsx
+'use client'
+
+import { useClient } from '@/hooks/use-clients'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Card, CardContent } from '@/components/ui/card'
+import { 
+  User, 
+  Mail, 
+  Phone, 
+  Calendar, 
+  Clock, 
+  DollarSign,
+  Edit,
+  FileText
+} from 'lucide-react'
+import { formatCurrency, formatDate, formatRelative } from '@/lib/utils/format'
+import type { Client } from '@/types/client.types'
+
+interface ClientDetailSheetProps {
+  client: Client | null
+  onClose: () => void
+  onEdit: () => void
+}
+
+export function ClientDetailSheet({ client, onClose, onEdit }: ClientDetailSheetProps) {
+  const { data: clientDetail, isLoading } = useClient(client?.id ?? '')
+
+  if (!client) return null
+
+  return (
+    <Sheet open={!!client} onOpenChange={() => onClose()}>
+      <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
+        <SheetHeader>
+          <div className="flex items-center justify-between">
+            <SheetTitle className="flex items-center gap-3">
+              <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
+                <span className="text-xl font-semibold text-primary-600">
+                  {client.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold">{client.name}</h2>
+                <Badge variant="outline" className="mt-1">
+                  {client.source === 'online_booking' ? 'Reserva online' : 'Manual'}
+                </Badge>
+              </div>
+            </SheetTitle>
+            <Button variant="outline" size="sm" onClick={onEdit}>
+              <Edit className="h-4 w-4 mr-1" />
+              Editar
+            </Button>
+          </div>
+        </SheetHeader>
+
+        <div className="mt-6 space-y-6">
+          {/* Info básica */}
+          <div className="space-y-3">
+            {client.email && (
+              <div className="flex items-center gap-3 text-sm">
+                <Mail className="h-4 w-4 text-gray-400" />
+                <a href={`mailto:${client.email}`} className="text-primary-600 hover:underline">
+                  {client.email}
+                </a>
+              </div>
+            )}
+            {client.phone && (
+              <div className="flex items-center gap-3 text-sm">
+                <Phone className="h-4 w-4 text-gray-400" />
+                <a href={`tel:${client.phone}`} className="text-primary-600 hover:underline">
+                  {client.phone}
+                </a>
+              </div>
+            )}
+            {client.birthdate && (
+              <div className="flex items-center gap-3 text-sm">
+                <Calendar className="h-4 w-4 text-gray-400" />
+                <span>{formatDate(client.birthdate)}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Estadísticas */}
+          {clientDetail && (
+            <div className="grid grid-cols-2 gap-3">
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold">{clientDetail.total_appointments}</p>
+                  <p className="text-xs text-gray-500">Citas totales</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold">{clientDetail.completed_appointments}</p>
+                  <p className="text-xs text-gray-500">Completadas</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold text-green-600">
+                    {formatCurrency(clientDetail.total_spent)}
+                  </p>
+                  <p className="text-xs text-gray-500">Total gastado</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <p className="text-sm font-medium">
+                    {clientDetail.last_appointment_at 
+                      ? formatRelative(clientDetail.last_appointment_at)
+                      : 'Nunca'}
+                  </p>
+                  <p className="text-xs text-gray-500">Última cita</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Tabs */}
+          <Tabs defaultValue="notes">
+            <TabsList className="w-full">
+              <TabsTrigger value="notes" className="flex-1">Notas</TabsTrigger>
+              <TabsTrigger value="history" className="flex-1">Historial</TabsTrigger>
+              <TabsTrigger value="durations" className="flex-1">Duraciones</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="notes" className="mt-4">
+              {client.notes ? (
+                <div className="bg-gray-50 rounded-lg p-4 text-sm">
+                  <FileText className="h-4 w-4 text-gray-400 mb-2" />
+                  {client.notes}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 text-center py-4">
+                  Sin notas
+                </p>
+              )}
+            </TabsContent>
+
+            <TabsContent value="history" className="mt-4">
+              {/* Lista de citas pasadas */}
+              <ClientAppointmentHistory clientId={client.id} />
+            </TabsContent>
+
+            <TabsContent value="durations" className="mt-4">
+              {/* Duraciones por servicio */}
+              <ClientDurationHistory clientId={client.id} />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Lista con búsqueda en tiempo real (debounced)
+- [ ] Paginación funcional
+- [ ] Vista de detalle con estadísticas
+- [ ] Historial de citas visible
+- [ ] Duraciones por servicio visibles
+- [ ] Modal crear/editar funciona
+- [ ] Modo readonly deshabilita acciones
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | ClientsTable renderiza | `tests/unit/components/clients/table.test.tsx` |
+| Unit | ClientDetailSheet muestra stats | `tests/unit/components/clients/detail.test.tsx` |
+| E2E | Flujo completo de clientes | `tests/e2e/clients.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `ui` `clients` `sprint-3` `priority-critical`
+
+---
+
+### T-3-03: [Backend] API Crear Cita con validaciones
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-08, US-10, US-11 |
+| **Bloqueado por** | T-3-01, T-2-01, T-2-05 |
+| **Bloquea a** | T-3-05, T-4-03 |
+
+#### Descripción
+
+Implementar servicio completo de citas:
+- Crear cita con validación de disponibilidad
+- Calcular duración adaptativa
+- Crear bloque de traslado automático
+- Validar horarios de trabajo
+- Completar/Cancelar cita
+- Sincronización con Google Calendar (preparar)
+
+#### Código Principal
+
+```typescript
+// apps/web/src/types/appointment.types.ts
+import type { Tables } from './database.types'
+
+export type Appointment = Tables<'appointments'>
+export type AppointmentStatus = 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'no_show'
+
+export interface CreateAppointmentInput {
+  client_id: string
+  service_id: string
+  location_id: string
+  start_time: string
+  duration_override?: number
+  notes?: string
+  source?: 'manual' | 'online_booking'
+}
+
+export interface CompleteAppointmentInput {
+  actual_duration_minutes: number
+  notes?: string
+}
+
+export interface CancelAppointmentInput {
+  cancellation_reason?: string
+  cancelled_by: 'client' | 'professional'
+}
+
+export interface RescheduleAppointmentInput {
+  new_start_time: string
+  new_location_id?: string
+  reason?: string
+}
+
+export interface AppointmentWithRelations extends Appointment {
+  client: { id: string; name: string; email: string; phone: string }
+  service: { id: string; name: string; color: string; default_duration_minutes: number }
+  location: { id: string; name: string; color: string; address: string }
+  travel_block?: {
+    id: string
+    travel_time_minutes: number
+    from_location: string
+    to_location: string
+  }
+}
+
+export interface ValidationResult {
+  valid: boolean
+  errors: string[]
+  warnings: string[]
+  suggested_duration?: number
+  requires_travel_block?: boolean
+  travel_time_minutes?: number
+}
+```
+
+```typescript
+// apps/web/src/services/appointments/appointment.service.ts
+import { createClient } from '@/lib/supabase/client'
+import { travelTimesService } from '@/services/travel-times/travel-times.service'
+import type { 
+  Appointment,
+  CreateAppointmentInput,
+  CompleteAppointmentInput,
+  CancelAppointmentInput,
+  RescheduleAppointmentInput,
+  AppointmentWithRelations,
+  ValidationResult
+} from '@/types/appointment.types'
+
+export class AppointmentService {
+  private supabase = createClient()
+
+  /**
+   * Obtiene citas por rango de fechas
+   */
+  async getByDateRange(startDate: string, endDate: string): Promise<AppointmentWithRelations[]> {
+    const { data, error } = await this.supabase
+      .from('appointments')
+      .select(`
+        *,
+        client:clients(id, name, email, phone),
+        service:services(id, name, color, default_duration_minutes),
+        location:locations(id, name, color, address),
+        travel_block:travel_blocks(id, travel_time_minutes, from_location_id, to_location_id)
+      `)
+      .gte('start_time', startDate)
+      .lte('start_time', endDate)
+      .is('deleted_at', null)
+      .order('start_time', { ascending: true })
+
+    if (error) throw error
+    return data ?? []
+  }
+
+  /**
+   * Valida si se puede crear una cita
+   */
+  async validateAppointment(input: CreateAppointmentInput): Promise<ValidationResult> {
+    const errors: string[] = []
+    const warnings: string[] = []
+
+    // 1. Obtener servicio para duración
+    const { data: service } = await this.supabase
+      .from('services')
+      .select('default_duration_minutes, buffer_time_minutes')
+      .eq('id', input.service_id)
+      .single()
+
+    if (!service) {
+      errors.push('Servicio no encontrado')
+      return { valid: false, errors, warnings }
+    }
+
+    // 2. Calcular duración adaptativa
+    let suggestedDuration = service.default_duration_minutes
+    const { data: durationHistory } = await this.supabase
+      .from('client_service_durations')
+      .select('average_duration_minutes')
+      .eq('client_id', input.client_id)
+      .eq('service_id', input.service_id)
+      .single()
+
+    if (durationHistory) {
+      suggestedDuration = durationHistory.average_duration_minutes
+    }
+
+    const duration = input.duration_override ?? suggestedDuration
+    const startTime = new Date(input.start_time)
+    const endTime = new Date(startTime.getTime() + duration * 60 * 1000)
+
+    // 3. Verificar horario de trabajo
+    const dayOfWeek = startTime.getDay()
+    const timeStr = startTime.toTimeString().slice(0, 5)
+    const endTimeStr = endTime.toTimeString().slice(0, 5)
+
+    const { data: workingHours } = await this.supabase
+      .from('working_hours')
+      .select('*')
+      .eq('location_id', input.location_id)
+      .eq('day_of_week', dayOfWeek)
+      .eq('is_active', true)
+
+    if (!workingHours || workingHours.length === 0) {
+      errors.push('No hay horario de trabajo configurado para este día')
+    } else {
+      const withinHours = workingHours.some(wh => 
+        timeStr >= wh.start_time && endTimeStr <= wh.end_time
+      )
+      if (!withinHours) {
+        errors.push('El horario está fuera del horario de trabajo')
+      }
+    }
+
+    // 4. Verificar conflictos con otras citas
+    const { data: conflictingAppointments } = await this.supabase
+      .from('appointments')
+      .select('id, start_time, end_time, client:clients(name)')
+      .eq('location_id', input.location_id)
+      .in('status', ['pending', 'confirmed'])
+      .is('deleted_at', null)
+      .or(`start_time.lt.${endTime.toISOString()},end_time.gt.${startTime.toISOString()}`)
+      .gte('end_time', startTime.toISOString())
+      .lte('start_time', endTime.toISOString())
+
+    if (conflictingAppointments && conflictingAppointments.length > 0) {
+      errors.push('Hay conflicto con otra cita existente')
+    }
+
+    // 5. Verificar bloqueos personales
+    const { data: personalBlocks } = await this.supabase
+      .from('personal_blocks')
+      .select('id, title')
+      .eq('is_active', true)
+      .lte('start_time', endTime.toISOString())
+      .gte('end_time', startTime.toISOString())
+
+    if (personalBlocks && personalBlocks.length > 0) {
+      errors.push(`Hay un bloqueo personal: ${personalBlocks[0].title}`)
+    }
+
+    // 6. Verificar si necesita bloque de traslado
+    let requiresTravelBlock = false
+    let travelTimeMinutes = 0
+
+    // Buscar cita anterior en otra ubicación
+    const { data: previousAppointment } = await this.supabase
+      .from('appointments')
+      .select('id, location_id, end_time')
+      .lt('end_time', startTime.toISOString())
+      .in('status', ['pending', 'confirmed'])
+      .is('deleted_at', null)
+      .order('end_time', { ascending: false })
+      .limit(1)
+      .single()
+
+    if (previousAppointment && previousAppointment.location_id !== input.location_id) {
+      travelTimeMinutes = await travelTimesService.getTravelTime(
+        previousAppointment.location_id,
+        input.location_id
+      )
+
+      if (travelTimeMinutes > 0) {
+        const prevEnd = new Date(previousAppointment.end_time)
+        const travelEnd = new Date(prevEnd.getTime() + travelTimeMinutes * 60 * 1000)
+        
+        if (travelEnd > startTime) {
+          errors.push(`Necesitas ${travelTimeMinutes} minutos de traslado desde la cita anterior`)
+        } else {
+          requiresTravelBlock = true
+          warnings.push(`Se bloqueará tiempo de traslado: ${travelTimeMinutes} min`)
+        }
+      }
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors,
+      warnings,
+      suggested_duration: suggestedDuration,
+      requires_travel_block: requiresTravelBlock,
+      travel_time_minutes: travelTimeMinutes,
+    }
+  }
+
+  /**
+   * Crea una nueva cita
+   */
+  async create(input: CreateAppointmentInput): Promise<Appointment> {
+    // Validar primero
+    const validation = await this.validateAppointment(input)
+    if (!validation.valid) {
+      throw new Error(validation.errors.join('. '))
+    }
+
+    // Obtener precio actual del servicio
+    const { data: service } = await this.supabase
+      .from('services')
+      .select('price, default_duration_minutes')
+      .eq('id', input.service_id)
+      .single()
+
+    const duration = input.duration_override ?? validation.suggested_duration ?? service!.default_duration_minutes
+    const startTime = new Date(input.start_time)
+    const endTime = new Date(startTime.getTime() + duration * 60 * 1000)
+
+    // Crear cita
+    const { data: appointment, error } = await this.supabase
+      .from('appointments')
+      .insert({
+        client_id: input.client_id,
+        service_id: input.service_id,
+        location_id: input.location_id,
+        start_time: input.start_time,
+        end_time: endTime.toISOString(),
+        duration_minutes: duration,
+        price_at_booking: service!.price,
+        status: 'confirmed',
+        source: input.source ?? 'manual',
+        notes: input.notes,
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+
+    // Crear bloque de traslado si es necesario
+    if (validation.requires_travel_block && validation.travel_time_minutes) {
+      await this.createTravelBlock(
+        appointment.id,
+        input.location_id,
+        startTime,
+        validation.travel_time_minutes
+      )
+    }
+
+    return appointment
+  }
+
+  /**
+   * Crea bloque de traslado
+   */
+  private async createTravelBlock(
+    appointmentId: string,
+    toLocationId: string,
+    appointmentStart: Date,
+    travelMinutes: number
+  ): Promise<void> {
+    // Buscar ubicación anterior
+    const { data: prevAppointment } = await this.supabase
+      .from('appointments')
+      .select('location_id, end_time')
+      .lt('end_time', appointmentStart.toISOString())
+      .in('status', ['pending', 'confirmed'])
+      .order('end_time', { ascending: false })
+      .limit(1)
+      .single()
+
+    if (!prevAppointment) return
+
+    const travelStart = new Date(prevAppointment.end_time)
+    const travelEnd = new Date(travelStart.getTime() + travelMinutes * 60 * 1000)
+
+    await this.supabase
+      .from('travel_blocks')
+      .insert({
+        appointment_id: appointmentId,
+        from_location_id: prevAppointment.location_id,
+        to_location_id: toLocationId,
+        start_time: travelStart.toISOString(),
+        end_time: travelEnd.toISOString(),
+        travel_time_minutes: travelMinutes,
+        source: 'manual',
+      })
+  }
+
+  /**
+   * Completa una cita y actualiza historial de duración
+   */
+  async complete(id: string, input: CompleteAppointmentInput): Promise<Appointment> {
+    const { data: appointment, error } = await this.supabase
+      .from('appointments')
+      .update({
+        status: 'completed',
+        duration_minutes: input.actual_duration_minutes,
+        notes: input.notes,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+      .select('*, client_id, service_id')
+      .single()
+
+    if (error) throw error
+
+    // Actualizar historial de duración
+    await this.updateDurationHistory(
+      appointment.client_id,
+      appointment.service_id,
+      input.actual_duration_minutes
+    )
+
+    return appointment
+  }
+
+  /**
+   * Actualiza historial de duración cliente-servicio
+   */
+  private async updateDurationHistory(
+    clientId: string,
+    serviceId: string,
+    actualDuration: number
+  ): Promise<void> {
+    const { data: existing } = await this.supabase
+      .from('client_service_durations')
+      .select('*')
+      .eq('client_id', clientId)
+      .eq('service_id', serviceId)
+      .single()
+
+    if (existing) {
+      // Recalcular promedio
+      const newTotal = existing.total_appointments + 1
+      const newAverage = Math.round(
+        (existing.average_duration_minutes * existing.total_appointments + actualDuration) / newTotal
+      )
+      const newMin = Math.min(existing.min_duration_minutes, actualDuration)
+      const newMax = Math.max(existing.max_duration_minutes, actualDuration)
+
+      await this.supabase
+        .from('client_service_durations')
+        .update({
+          average_duration_minutes: newAverage,
+          min_duration_minutes: newMin,
+          max_duration_minutes: newMax,
+          total_appointments: newTotal,
+          last_appointment_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existing.id)
+    } else {
+      // Crear registro nuevo
+      await this.supabase
+        .from('client_service_durations')
+        .insert({
+          client_id: clientId,
+          service_id: serviceId,
+          average_duration_minutes: actualDuration,
+          min_duration_minutes: actualDuration,
+          max_duration_minutes: actualDuration,
+          total_appointments: 1,
+          last_appointment_at: new Date().toISOString(),
+        })
+    }
+  }
+
+  /**
+   * Cancela una cita
+   */
+  async cancel(id: string, input: CancelAppointmentInput): Promise<Appointment> {
+    const { data, error } = await this.supabase
+      .from('appointments')
+      .update({
+        status: 'cancelled',
+        cancellation_reason: input.cancellation_reason,
+        cancelled_by: input.cancelled_by,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+
+    // Eliminar bloque de traslado asociado
+    await this.supabase
+      .from('travel_blocks')
+      .delete()
+      .eq('appointment_id', id)
+
+    return data
+  }
+
+  /**
+   * Reagenda una cita
+   */
+  async reschedule(id: string, input: RescheduleAppointmentInput): Promise<Appointment> {
+    // Obtener cita original
+    const { data: original } = await this.supabase
+      .from('appointments')
+      .select('*')
+      .eq('id', id)
+      .single()
+
+    if (!original) throw new Error('Cita no encontrada')
+
+    // Cancelar original
+    await this.cancel(id, {
+      cancellation_reason: input.reason ?? 'Reagendada',
+      cancelled_by: 'professional',
+    })
+
+    // Crear nueva cita
+    const newAppointment = await this.create({
+      client_id: original.client_id,
+      service_id: original.service_id,
+      location_id: input.new_location_id ?? original.location_id,
+      start_time: input.new_start_time,
+      duration_override: original.duration_minutes,
+      notes: original.notes,
+      source: original.source,
+    })
+
+    // Marcar referencia
+    await this.supabase
+      .from('appointments')
+      .update({
+        rescheduled_from: id,
+        rescheduled_at: new Date().toISOString(),
+      })
+      .eq('id', newAppointment.id)
+
+    return newAppointment
+  }
+}
+
+export const appointmentService = new AppointmentService()
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Validación de disponibilidad funciona
+- [ ] Duración adaptativa se calcula correctamente
+- [ ] Bloque de traslado se crea automáticamente
+- [ ] Validación de horarios de trabajo
+- [ ] Validación de bloqueos personales
+- [ ] Completar cita actualiza historial
+- [ ] Cancelar elimina bloque de traslado
+- [ ] Reagendar mantiene referencia a original
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Validación de conflictos | `tests/unit/services/appointments/validation.test.ts` |
+| Unit | Cálculo duración adaptativa | `tests/unit/services/appointments/duration.test.ts` |
+| Integration | Crear cita completo | `tests/integration/appointments/create.test.ts` |
+| Integration | Completar actualiza historial | `tests/integration/appointments/complete.test.ts` |
+
+#### Etiquetas
+
+`backend` `api` `appointments` `core` `sprint-3` `priority-critical`
+
+---
+
+### T-3-04: [Backend] Motor de disponibilidad
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-08, US-09, US-12 |
+| **Bloqueado por** | T-2-05, T-2-07, T-3-03 |
+| **Bloquea a** | T-3-05, T-4-02 |
+
+#### Descripción
+
+Implementar motor de cálculo de disponibilidad:
+- Generar slots disponibles por fecha
+- Considerar citas existentes
+- Considerar horarios de trabajo
+- Considerar bloqueos personales
+- Considerar tiempos de traslado
+- Soporte para duración adaptativa
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/availability/availability.service.ts
+import { createClient } from '@/lib/supabase/client'
+import { travelTimesService } from '@/services/travel-times/travel-times.service'
+
+export interface AvailabilitySlot {
+  start_time: string
+  end_time: string
+  available: boolean
+  reason?: 'appointment' | 'personal_block' | 'travel' | 'outside_hours'
+  blocked_by?: {
+    type: string
+    title?: string
+    client_name?: string
+  }
+  requires_travel?: boolean
+  travel_info?: {
+    from_location: string
+    travel_time_minutes: number
+  }
+}
+
+export interface AvailabilityRequest {
+  date: string
+  service_id: string
+  location_id?: string
+  client_id?: string
+  slot_interval?: number // 15, 30, 60
+}
+
+export interface AvailabilityResponse {
+  date: string
+  service: { id: string; name: string; duration: number }
+  location?: { id: string; name: string }
+  client?: { id: string; name: string }
+  slots: AvailabilitySlot[]
+  summary: {
+    total_slots: number
+    available_slots: number
+    blocked_by_appointments: number
+    blocked_by_travel: number
+    blocked_by_personal: number
+  }
+}
+
+export class AvailabilityService {
+  private supabase = createClient()
+
+  async getAvailability(request: AvailabilityRequest): Promise<AvailabilityResponse> {
+    const { date, service_id, location_id, client_id, slot_interval = 15 } = request
+
+    // 1. Obtener servicio
+    const { data: service } = await this.supabase
+      .from('services')
+      .select('id, name, default_duration_minutes, buffer_time_minutes')
+      .eq('id', service_id)
+      .single()
+
+    if (!service) throw new Error('Servicio no encontrado')
+
+    // 2. Calcular duración (adaptativa si hay cliente)
+    let duration = service.default_duration_minutes
+    if (client_id) {
+      const { data: history } = await this.supabase
+        .from('client_service_durations')
+        .select('average_duration_minutes')
+        .eq('client_id', client_id)
+        .eq('service_id', service_id)
+        .single()
+
+      if (history) {
+        duration = history.average_duration_minutes
+      }
+    }
+
+    // 3. Obtener ubicación
+    let location = null
+    if (location_id) {
+      const { data } = await this.supabase
+        .from('locations')
+        .select('id, name')
+        .eq('id', location_id)
+        .single()
+      location = data
+    }
+
+    // 4. Obtener horarios de trabajo del día
+    const dayOfWeek = new Date(date).getDay()
+    let workingHoursQuery = this.supabase
+      .from('working_hours')
+      .select('*')
+      .eq('day_of_week', dayOfWeek)
+      .eq('is_active', true)
+
+    if (location_id) {
+      workingHoursQuery = workingHoursQuery.eq('location_id', location_id)
+    }
+
+    const { data: workingHours } = await workingHoursQuery
+
+    if (!workingHours || workingHours.length === 0) {
+      return {
+        date,
+        service: { id: service.id, name: service.name, duration },
+        location: location ?? undefined,
+        slots: [],
+        summary: {
+          total_slots: 0,
+          available_slots: 0,
+          blocked_by_appointments: 0,
+          blocked_by_travel: 0,
+          blocked_by_personal: 0,
+        },
+      }
+    }
+
+    // 5. Generar todos los slots posibles
+    const slots: AvailabilitySlot[] = []
+    const dateStr = date.split('T')[0]
+
+    for (const wh of workingHours) {
+      const [startH, startM] = wh.start_time.split(':').map(Number)
+      const [endH, endM] = wh.end_time.split(':').map(Number)
+
+      let currentTime = new Date(`${dateStr}T${wh.start_time}:00`)
+      const endWorkTime = new Date(`${dateStr}T${wh.end_time}:00`)
+
+      while (currentTime < endWorkTime) {
+        const slotEnd = new Date(currentTime.getTime() + duration * 60 * 1000)
+        
+        if (slotEnd <= endWorkTime) {
+          slots.push({
+            start_time: currentTime.toISOString(),
+            end_time: slotEnd.toISOString(),
+            available: true,
+          })
+        }
+
+        currentTime = new Date(currentTime.getTime() + slot_interval * 60 * 1000)
+      }
+    }
+
+    // 6. Obtener citas existentes
+    const dayStart = `${dateStr}T00:00:00`
+    const dayEnd = `${dateStr}T23:59:59`
+
+    const { data: appointments } = await this.supabase
+      .from('appointments')
+      .select('start_time, end_time, location_id, client:clients(name)')
+      .gte('start_time', dayStart)
+      .lte('start_time', dayEnd)
+      .in('status', ['pending', 'confirmed'])
+      .is('deleted_at', null)
+
+    // 7. Obtener bloqueos personales
+    const { data: personalBlocks } = await this.supabase
+      .from('personal_blocks')
+      .select('start_time, end_time, title, block_type')
+      .eq('is_active', true)
+      .gte('end_time', dayStart)
+      .lte('start_time', dayEnd)
+
+    // 8. Marcar slots no disponibles
+    let blockedByAppointments = 0
+    let blockedByTravel = 0
+    let blockedByPersonal = 0
+
+    for (const slot of slots) {
+      const slotStart = new Date(slot.start_time)
+      const slotEnd = new Date(slot.end_time)
+
+      // Verificar conflicto con citas
+      const conflictingAppt = appointments?.find(appt => {
+        const apptStart = new Date(appt.start_time)
+        const apptEnd = new Date(appt.end_time)
+        return slotStart < apptEnd && slotEnd > apptStart
+      })
+
+      if (conflictingAppt) {
+        slot.available = false
+        slot.reason = 'appointment'
+        slot.blocked_by = {
+          type: 'appointment',
+          client_name: (conflictingAppt.client as any)?.name,
+        }
+        blockedByAppointments++
+        continue
+      }
+
+      // Verificar bloqueos personales
+      const conflictingBlock = personalBlocks?.find(block => {
+        const blockStart = new Date(block.start_time)
+        const blockEnd = new Date(block.end_time)
+        return slotStart < blockEnd && slotEnd > blockStart
+      })
+
+      if (conflictingBlock) {
+        slot.available = false
+        slot.reason = 'personal_block'
+        slot.blocked_by = {
+          type: 'personal_block',
+          title: conflictingBlock.title,
+        }
+        blockedByPersonal++
+        continue
+      }
+
+      // Verificar tiempo de traslado necesario
+      if (location_id) {
+        const previousAppt = appointments
+          ?.filter(a => new Date(a.end_time) <= slotStart)
+          .sort((a, b) => new Date(b.end_time).getTime() - new Date(a.end_time).getTime())[0]
+
+        if (previousAppt && previousAppt.location_id !== location_id) {
+          const travelTime = await travelTimesService.getTravelTime(
+            previousAppt.location_id,
+            location_id
+          )
+
+          if (travelTime > 0) {
+            const travelEnd = new Date(
+              new Date(previousAppt.end_time).getTime() + travelTime * 60 * 1000
+            )
+
+            if (travelEnd > slotStart) {
+              slot.available = false
+              slot.reason = 'travel'
+              slot.blocked_by = {
+                type: 'travel',
+                title: `Traslado de ${travelTime} min`,
+              }
+              blockedByTravel++
+            } else {
+              slot.requires_travel = true
+              slot.travel_info = {
+                from_location: previousAppt.location_id,
+                travel_time_minutes: travelTime,
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      date,
+      service: { id: service.id, name: service.name, duration },
+      location: location ?? undefined,
+      slots,
+      summary: {
+        total_slots: slots.length,
+        available_slots: slots.filter(s => s.available).length,
+        blocked_by_appointments: blockedByAppointments,
+        blocked_by_travel: blockedByTravel,
+        blocked_by_personal: blockedByPersonal,
+      },
+    }
+  }
+}
+
+export const availabilityService = new AvailabilityService()
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Genera slots según horario de trabajo
+- [ ] Marca slots con citas existentes
+- [ ] Marca slots con bloqueos personales
+- [ ] Marca slots bloqueados por traslado
+- [ ] Calcula duración adaptativa
+- [ ] Resumen de disponibilidad correcto
+- [ ] Performance < 500ms
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Generación de slots | `tests/unit/services/availability/slots.test.ts` |
+| Unit | Detección de conflictos | `tests/unit/services/availability/conflicts.test.ts` |
+| Integration | Disponibilidad completa | `tests/integration/availability.test.ts` |
+
+#### Etiquetas
+
+`backend` `api` `availability` `core` `sprint-3` `priority-critical`
+
+---
+
+### T-3-05: [Frontend] Calendario visual de citas
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-09 |
+| **Bloqueado por** | T-3-03, T-3-04, T-2-08 |
+| **Bloquea a** | T-4-06 |
+
+#### Descripción
+
+Crear calendario visual completo:
+- Vista diaria/semanal
+- Citas con colores por ubicación
+- Bloques de traslado visibles
+- Bloqueos personales visibles
+- Drag & drop para mover citas
+- Click para ver/editar cita
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/(dashboard)/appointments/page.tsx
+'use client'
+
+import { useState } from 'react'
+import { Plus, Calendar as CalendarIcon, List } from 'lucide-react'
+import { useAppointments } from '@/hooks/use-appointments'
+import { useAuthContext } from '@/components/providers/auth-provider'
+import { Button } from '@/components/ui/button'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { CalendarView } from '@/components/features/calendar/calendar-view'
+import { AppointmentFormModal } from '@/components/features/appointments/appointment-form-modal'
+import { AppointmentDetailSheet } from '@/components/features/appointments/appointment-detail-sheet'
+import { DatePicker } from '@/components/ui/date-picker'
+import type { Appointment } from '@/types/appointment.types'
+
+export default function AppointmentsPage() {
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [viewMode, setViewMode] = useState<'day' | 'week'>('day')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
+  const [selectedSlot, setSelectedSlot] = useState<{ date: Date; time: string } | null>(null)
+  
+  const { canMutate } = useAuthContext()
+
+  const handleSlotClick = (date: Date, time: string) => {
+    if (!canMutate) return
+    setSelectedSlot({ date, time })
+    setIsModalOpen(true)
+  }
+
+  const handleAppointmentClick = (appointment: Appointment) => {
+    setSelectedAppointment(appointment)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedSlot(null)
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <DatePicker
+            selected={selectedDate}
+            onSelect={(date) => date && setSelectedDate(date)}
+          />
+          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'day' | 'week')}>
+            <TabsList>
+              <TabsTrigger value="day">
+                <CalendarIcon className="h-4 w-4 mr-1" />
+                Día
+              </TabsTrigger>
+              <TabsTrigger value="week">
+                <List className="h-4 w-4 mr-1" />
+                Semana
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        {canMutate && (
+          <Button onClick={() => setIsModalOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Nueva cita
+          </Button>
+        )}
+      </div>
+
+      {/* Calendar */}
+      <CalendarView
+        date={selectedDate}
+        mode={viewMode}
+        onSlotClick={handleSlotClick}
+        onAppointmentClick={handleAppointmentClick}
+      />
+
+      {/* Modal crear/editar */}
+      <AppointmentFormModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        initialSlot={selectedSlot}
+      />
+
+      {/* Sheet de detalle */}
+      <AppointmentDetailSheet
+        appointment={selectedAppointment}
+        onClose={() => setSelectedAppointment(null)}
+      />
+    </div>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/calendar/calendar-view.tsx
+'use client'
+
+import { useMemo } from 'react'
+import { useAppointmentsByDate } from '@/hooks/use-appointments'
+import { usePersonalBlocks } from '@/hooks/use-personal-blocks'
+import { cn } from '@/lib/utils/cn'
+import { format, addDays, startOfWeek, isSameDay } from 'date-fns'
+import { es } from 'date-fns/locale'
+import type { Appointment } from '@/types/appointment.types'
+
+interface CalendarViewProps {
+  date: Date
+  mode: 'day' | 'week'
+  onSlotClick: (date: Date, time: string) => void
+  onAppointmentClick: (appointment: Appointment) => void
+}
+
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 7) // 7:00 - 18:00
+const SLOT_HEIGHT = 60 // pixels per hour
+
+export function CalendarView({ date, mode, onSlotClick, onAppointmentClick }: CalendarViewProps) {
+  const dates = useMemo(() => {
+    if (mode === 'day') return [date]
+    const weekStart = startOfWeek(date, { locale: es })
+    return Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
+  }, [date, mode])
+
+  return (
+    <div className="bg-white rounded-lg border overflow-hidden">
+      {/* Header con días */}
+      <div className="grid border-b" style={{ gridTemplateColumns: `60px repeat(${dates.length}, 1fr)` }}>
+        <div className="p-2 border-r bg-gray-50" />
+        {dates.map((d) => (
+          <div
+            key={d.toISOString()}
+            className={cn(
+              'p-3 text-center border-r last:border-r-0',
+              isSameDay(d, new Date()) && 'bg-primary-50'
+            )}
+          >
+            <p className="text-xs text-gray-500 uppercase">
+              {format(d, 'EEE', { locale: es })}
+            </p>
+            <p className={cn(
+              'text-lg font-semibold',
+              isSameDay(d, new Date()) && 'text-primary-600'
+            )}>
+              {format(d, 'd')}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Grid de horas */}
+      <div 
+        className="grid relative"
+        style={{ 
+          gridTemplateColumns: `60px repeat(${dates.length}, 1fr)`,
+          height: `${HOURS.length * SLOT_HEIGHT}px`
+        }}
+      >
+        {/* Columna de horas */}
+        <div className="border-r bg-gray-50">
+          {HOURS.map((hour) => (
+            <div
+              key={hour}
+              className="h-[60px] px-2 text-xs text-gray-500 text-right pt-0"
+              style={{ transform: 'translateY(-8px)' }}
+            >
+              {`${hour}:00`}
+            </div>
+          ))}
+        </div>
+
+        {/* Columnas de días */}
+        {dates.map((d) => (
+          <DayColumn
+            key={d.toISOString()}
+            date={d}
+            onSlotClick={(time) => onSlotClick(d, time)}
+            onAppointmentClick={onAppointmentClick}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function DayColumn({ 
+  date, 
+  onSlotClick, 
+  onAppointmentClick 
+}: { 
+  date: Date
+  onSlotClick: (time: string) => void
+  onAppointmentClick: (appointment: Appointment) => void
+}) {
+  const { appointments, travelBlocks } = useAppointmentsByDate(date)
+  const { blocks: personalBlocks } = usePersonalBlocks(date, date)
+
+  return (
+    <div className="relative border-r last:border-r-0">
+      {/* Grid de slots clicables */}
+      {HOURS.map((hour) => (
+        <div
+          key={hour}
+          className="h-[60px] border-b hover:bg-gray-50 cursor-pointer"
+          onClick={() => onSlotClick(`${hour.toString().padStart(2, '0')}:00`)}
+        >
+          {/* Línea de media hora */}
+          <div className="h-1/2 border-b border-dashed border-gray-100" />
+        </div>
+      ))}
+
+      {/* Citas */}
+      {appointments?.map((appt) => (
+        <AppointmentBlock
+          key={appt.id}
+          appointment={appt}
+          onClick={() => onAppointmentClick(appt)}
+        />
+      ))}
+
+      {/* Bloques de traslado */}
+      {travelBlocks?.map((block) => (
+        <TravelBlock key={block.id} block={block} />
+      ))}
+
+      {/* Bloqueos personales */}
+      {personalBlocks?.map((block) => (
+        <PersonalBlockDisplay key={block.id} block={block} />
+      ))}
+    </div>
+  )
+}
+
+function AppointmentBlock({ 
+  appointment, 
+  onClick 
+}: { 
+  appointment: Appointment
+  onClick: () => void
+}) {
+  const startTime = new Date(appointment.start_time)
+  const endTime = new Date(appointment.end_time)
+  
+  const startHour = startTime.getHours() + startTime.getMinutes() / 60
+  const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
+  
+  const top = (startHour - 7) * SLOT_HEIGHT
+  const height = duration * SLOT_HEIGHT
+
+  const locationColor = (appointment as any).location?.color ?? '#3F83F8'
+
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        'absolute left-1 right-1 rounded-lg p-2 cursor-pointer',
+        'border-l-4 shadow-sm hover:shadow-md transition-shadow',
+        'overflow-hidden'
+      )}
+      style={{
+        top: `${top}px`,
+        height: `${Math.max(height, 30)}px`,
+        backgroundColor: `${locationColor}15`,
+        borderLeftColor: locationColor,
+      }}
+    >
+      <p className="text-xs font-medium truncate" style={{ color: locationColor }}>
+        {(appointment as any).client?.name}
+      </p>
+      <p className="text-xs text-gray-500 truncate">
+        {(appointment as any).service?.name}
+      </p>
+    </div>
+  )
+}
+
+function TravelBlock({ block }: { block: any }) {
+  const startTime = new Date(block.start_time)
+  const endTime = new Date(block.end_time)
+  
+  const startHour = startTime.getHours() + startTime.getMinutes() / 60
+  const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
+  
+  const top = (startHour - 7) * SLOT_HEIGHT
+  const height = duration * SLOT_HEIGHT
+
+  return (
+    <div
+      className="absolute left-1 right-1 rounded-lg p-2 bg-amber-100 border-l-4 border-amber-500"
+      style={{ top: `${top}px`, height: `${Math.max(height, 20)}px` }}
+    >
+      <p className="text-xs text-amber-700 flex items-center gap-1">
+        🚗 Traslado ({block.travel_time_minutes} min)
+      </p>
+    </div>
+  )
+}
+
+function PersonalBlockDisplay({ block }: { block: any }) {
+  const startTime = new Date(block.start_time)
+  const endTime = new Date(block.end_time)
+  
+  const startHour = startTime.getHours() + startTime.getMinutes() / 60
+  const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
+  
+  const top = (startHour - 7) * SLOT_HEIGHT
+  const height = duration * SLOT_HEIGHT
+
+  return (
+    <div
+      className="absolute left-1 right-1 rounded-lg p-2 bg-purple-100 border-l-4 border-purple-500"
+      style={{ top: `${top}px`, height: `${Math.max(height, 20)}px` }}
+    >
+      <p className="text-xs text-purple-700">{block.title}</p>
+    </div>
+  )
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Vista día muestra citas correctamente
+- [ ] Vista semana muestra 7 días
+- [ ] Colores por ubicación visibles
+- [ ] Bloques de traslado visibles (amarillo)
+- [ ] Bloqueos personales visibles (morado)
+- [ ] Click en slot abre modal de nueva cita
+- [ ] Click en cita abre detalle
+- [ ] Navegación entre días/semanas
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | CalendarView renderiza slots | `tests/unit/components/calendar/view.test.tsx` |
+| Unit | AppointmentBlock posición correcta | `tests/unit/components/calendar/block.test.tsx` |
+| E2E | Navegación calendario | `tests/e2e/calendar.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `ui` `calendar` `sprint-3` `priority-critical`
+
+---
+
+### T-3-06: [Backend] Bloqueos personales (almuerzo, vacaciones)
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🟠 P1 (Alta) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-3-04 |
+| **Bloquea a** | T-3-07 |
+
+#### Descripción
+
+Implementar CRUD de bloqueos personales:
+- Tipos: almuerzo, vacaciones, personal, otro
+- Soporte para recurrencia (diario, semanal, mensual)
+- Validación de conflictos con citas
+- Expansión de recurrencias para consulta
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/personal-blocks/personal-blocks.service.ts
+import { createClient } from '@/lib/supabase/client'
+
+export interface PersonalBlock {
+  id: string
+  title: string
+  block_type: 'lunch' | 'vacation' | 'personal' | 'other'
+  start_time: string
+  end_time: string
+  all_day: boolean
+  recurrence_type: 'none' | 'daily' | 'weekly' | 'monthly'
+  recurrence_end_date: string | null
+  is_active: boolean
+}
+
+export interface CreateBlockInput {
+  title: string
+  block_type: 'lunch' | 'vacation' | 'personal' | 'other'
+  start_time: string
+  end_time: string
+  all_day?: boolean
+  recurrence_type?: 'none' | 'daily' | 'weekly' | 'monthly'
+  recurrence_end_date?: string
+}
+
+export class PersonalBlocksService {
+  private supabase = createClient()
+
+  async getAll(): Promise<PersonalBlock[]> {
+    const { data, error } = await this.supabase
+      .from('personal_blocks')
+      .select('*')
+      .eq('is_active', true)
+      .order('start_time', { ascending: true })
+
+    if (error) throw error
+    return data ?? []
+  }
+
+  async getByDateRange(startDate: string, endDate: string): Promise<PersonalBlock[]> {
+    const { data: blocks, error } = await this.supabase
+      .from('personal_blocks')
+      .select('*')
+      .eq('is_active', true)
+      .or(`recurrence_type.neq.none,and(start_time.lte.${endDate},end_time.gte.${startDate})`)
+
+    if (error) throw error
+
+    // Expandir recurrencias
+    const expandedBlocks: PersonalBlock[] = []
+    const start = new Date(startDate)
+    const end = new Date(endDate)
+
+    for (const block of blocks ?? []) {
+      if (block.recurrence_type === 'none') {
+        expandedBlocks.push(block)
+      } else {
+        // Generar ocurrencias
+        const occurrences = this.generateOccurrences(block, start, end)
+        expandedBlocks.push(...occurrences)
+      }
+    }
+
+    return expandedBlocks
+  }
+
+  private generateOccurrences(block: PersonalBlock, rangeStart: Date, rangeEnd: Date): PersonalBlock[] {
+    const occurrences: PersonalBlock[] = []
+    const blockStart = new Date(block.start_time)
+    const blockEnd = new Date(block.end_time)
+    const duration = blockEnd.getTime() - blockStart.getTime()
+    
+    const recurrenceEnd = block.recurrence_end_date 
+      ? new Date(block.recurrence_end_date) 
+      : rangeEnd
+
+    let current = new Date(blockStart)
+    
+    while (current <= recurrenceEnd && current <= rangeEnd) {
+      if (current >= rangeStart) {
+        occurrences.push({
+          ...block,
+          id: `${block.id}-${current.toISOString()}`,
+          start_time: current.toISOString(),
+          end_time: new Date(current.getTime() + duration).toISOString(),
+        })
+      }
+
+      // Avanzar según tipo de recurrencia
+      switch (block.recurrence_type) {
+        case 'daily':
+          current.setDate(current.getDate() + 1)
+          break
+        case 'weekly':
+          current.setDate(current.getDate() + 7)
+          break
+        case 'monthly':
+          current.setMonth(current.getMonth() + 1)
+          break
+      }
+    }
+
+    return occurrences
+  }
+
+  async create(input: CreateBlockInput): Promise<PersonalBlock> {
+    // Verificar conflictos con citas existentes
+    const { count } = await this.supabase
+      .from('appointments')
+      .select('*', { count: 'exact', head: true })
+      .in('status', ['pending', 'confirmed'])
+      .lte('start_time', input.end_time)
+      .gte('end_time', input.start_time)
+
+    if (count && count > 0) {
+      throw new Error('Hay citas existentes en este horario')
+    }
+
+    const { data, error } = await this.supabase
+      .from('personal_blocks')
+      .insert({
+        ...input,
+        all_day: input.all_day ?? false,
+        recurrence_type: input.recurrence_type ?? 'none',
+        is_active: true,
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  }
+
+  async update(id: string, input: Partial<CreateBlockInput>): Promise<PersonalBlock> {
+    const { data, error } = await this.supabase
+      .from('personal_blocks')
+      .update({
+        ...input,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  }
+
+  async delete(id: string): Promise<void> {
+    const { error } = await this.supabase
+      .from('personal_blocks')
+      .delete()
+      .eq('id', id)
+
+    if (error) throw error
+  }
+
+  async toggleActive(id: string): Promise<PersonalBlock> {
+    const { data: block } = await this.supabase
+      .from('personal_blocks')
+      .select('is_active')
+      .eq('id', id)
+      .single()
+
+    if (!block) throw new Error('Bloqueo no encontrado')
+
+    return this.update(id, { is_active: !block.is_active } as any)
+  }
+}
+
+export const personalBlocksService = new PersonalBlocksService()
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] CRUD completo de bloqueos
+- [ ] 4 tipos de bloqueo soportados
+- [ ] Recurrencia diaria/semanal/mensual
+- [ ] Expansión de ocurrencias funciona
+- [ ] Validación de conflictos con citas
+- [ ] Toggle activo/inactivo
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Generación de ocurrencias | `tests/unit/services/personal-blocks/recurrence.test.ts` |
+| Integration | CRUD completo | `tests/integration/personal-blocks/crud.test.ts` |
+
+#### Etiquetas
+
+`backend` `api` `personal-blocks` `sprint-3` `priority-high`
+
+---
+
+### T-3-07: [Frontend] UI Bloqueos personales
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🟠 P1 (Alta) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-22 |
+| **Bloqueado por** | T-3-06 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Crear UI para gestionar bloqueos:
+- Lista de bloqueos activos
+- Modal de creación con selector de tipo
+- Selector de recurrencia
+- Picker de rango de fechas para vacaciones
+
+#### Criterios de Aceptación
+
+- [ ] Lista de bloqueos por tipo
+- [ ] Modal con todos los campos
+- [ ] Selector de recurrencia visual
+- [ ] Date range picker para vacaciones
+- [ ] Toggle activo funciona
+
+#### Etiquetas
+
+`frontend` `ui` `personal-blocks` `sprint-3` `priority-high`
+
+---
+
+## 6.12 Sprint 3 Completado ✅
+
+| ID | Título | Tipo | Pts | Estado |
+|----|--------|------|-----|--------|
+| T-3-01 | CRUD Clientes | Backend | 5 | ✅ |
+| T-3-02 | UI Clientes | Frontend | 5 | ✅ |
+| T-3-03 | API Citas + Validaciones | Backend | 8 | ✅ |
+| T-3-04 | Motor Disponibilidad | Backend | 8 | ✅ |
+| T-3-05 | Calendario Visual | Frontend | 8 | ✅ |
+| T-3-06 | Bloqueos Personales | Backend | 5 | ✅ |
+| T-3-07 | UI Bloqueos | Frontend | 3 | ✅ |
+
+**Total Sprint 3:** 42 Story Points | 7 Tickets
+
+---
+
+## 6.13 Diagrama de Dependencias Sprint 3
+
+```mermaid
+flowchart TD
+    T101["T-1-01<br/>📊 Migración BD"] --> T301["T-3-01<br/>👥 API Clients"]
+    T201["T-2-01<br/>📍 Locations"] --> T303["T-3-03<br/>📅 API Appointments"]
+    T205["T-2-05<br/>🕐 Working Hours"] --> T304["T-3-04<br/>⚡ Motor Disponibilidad"]
+    T207["T-2-07<br/>🚗 Travel Times"] --> T304
+    
+    T301 --> T302["T-3-02<br/>🖥️ UI Clients"]
+    T301 --> T303
+    
+    T303 --> T304
+    T303 --> T305["T-3-05<br/>📆 Calendario"]
+    T304 --> T305
+    
+    T304 --> T306["T-3-06<br/>🚫 Personal Blocks"]
+    T306 --> T307["T-3-07<br/>🖥️ UI Blocks"]
+
+    style T301 fill:#10B981,color:#fff
+    style T302 fill:#8B5CF6,color:#fff
+    style T303 fill:#3B82F6,color:#fff
+    style T304 fill:#F59E0B,color:#fff
+    style T305 fill:#EC4899,color:#fff
+    style T306 fill:#6366F1,color:#fff
+    style T307 fill:#8B5CF6,color:#fff
+```
+
+---
+
+## 6.14 Tickets Detallados - Sprint 4: Portal Público y Reservas Online
+
+---
+
+### T-4-01: [Frontend] Portal público por slug
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-12 |
+| **Bloqueado por** | T-2-04 |
+| **Bloquea a** | T-4-03 |
+
+#### Descripción
+
+Crear portal público accesible por slug del profesional:
+- Página pública sin autenticación
+- Información del profesional
+- Lista de servicios disponibles
+- Lista de ubicaciones
+- Botón de reservar que inicia wizard
+- SEO optimizado
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/(public)/[slug]/page.tsx
+import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { PublicPortalHeader } from '@/components/features/public/portal-header'
+import { ServicesList } from '@/components/features/public/services-list'
+import { LocationsList } from '@/components/features/public/locations-list'
+import { BookingCTA } from '@/components/features/public/booking-cta'
+import type { Metadata } from 'next'
+
+interface PageProps {
+  params: { slug: string }
+}
+
+// Generar metadata dinámica para SEO
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const supabase = await createClient()
+  
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('full_name, avatar_url')
+    .eq('slug', params.slug)
+    .eq('is_active', true)
+    .single()
+
+  if (!profile) {
+    return { title: 'Profesional no encontrado' }
+  }
+
+  return {
+    title: `Reservar cita con ${profile.full_name} | TimeFlowPro`,
+    description: `Agenda tu cita con ${profile.full_name} de forma rápida y sencilla.`,
+    openGraph: {
+      title: `Reservar con ${profile.full_name}`,
+      description: 'Agenda tu cita online',
+      images: profile.avatar_url ? [profile.avatar_url] : undefined,
+    },
+  }
+}
+
+export default async function PublicPortalPage({ params }: PageProps) {
+  const supabase = await createClient()
+
+  // Obtener profesional
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select(`
+      id,
+      full_name,
+      avatar_url,
+      slug,
+      account_status,
+      settings
+    `)
+    .eq('slug', params.slug)
+    .single()
+
+  if (!profile) {
+    notFound()
+  }
+
+  // Verificar si está activo para reservas
+  const canBook = ['trial', 'active'].includes(profile.account_status)
+
+  // Obtener servicios disponibles para reserva online
+  const { data: services } = await supabase
+    .from('services')
+    .select('id, name, description, default_duration_minutes, price, color')
+    .eq('user_id', profile.id)
+    .eq('is_active', true)
+    .eq('allow_online_booking', true)
+    .order('order_index')
+
+  // Obtener ubicaciones activas
+  const { data: locations } = await supabase
+    .from('locations')
+    .select('id, name, address, color')
+    .eq('user_id', profile.id)
+    .eq('is_active', true)
+    .order('order_index')
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Header del profesional */}
+      <PublicPortalHeader 
+        profile={profile} 
+        canBook={canBook}
+      />
+
+      <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+        {/* Mensaje si no puede recibir reservas */}
+        {!canBook && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+            <p className="text-yellow-800">
+              Este profesional no está aceptando reservas en este momento.
+            </p>
+          </div>
+        )}
+
+        {/* Servicios */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Servicios disponibles</h2>
+          {services && services.length > 0 ? (
+            <ServicesList services={services} />
+          ) : (
+            <p className="text-gray-500">No hay servicios disponibles</p>
+          )}
+        </section>
+
+        {/* Ubicaciones */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Ubicaciones</h2>
+          {locations && locations.length > 0 ? (
+            <LocationsList locations={locations} />
+          ) : (
+            <p className="text-gray-500">No hay ubicaciones configuradas</p>
+          )}
+        </section>
+
+        {/* CTA de reserva */}
+        {canBook && services && services.length > 0 && (
+          <BookingCTA slug={params.slug} />
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="py-8 text-center text-sm text-gray-500">
+        <p>
+          Powered by{' '}
+          <a href="https://timeflowpro.app" className="text-primary-600 hover:underline">
+            TimeFlowPro
+          </a>
+        </p>
+      </footer>
+    </div>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/public/portal-header.tsx
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { CheckCircle } from 'lucide-react'
+
+interface PortalHeaderProps {
+  profile: {
+    full_name: string
+    avatar_url: string | null
+    slug: string
+  }
+  canBook: boolean
+}
+
+export function PublicPortalHeader({ profile, canBook }: PortalHeaderProps) {
+  return (
+    <header className="bg-white border-b">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="flex items-center gap-6">
+          <Avatar className="h-24 w-24 border-4 border-white shadow-lg">
+            <AvatarImage src={profile.avatar_url ?? undefined} />
+            <AvatarFallback className="text-3xl bg-primary-100 text-primary-600">
+              {profile.full_name.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-bold">{profile.full_name}</h1>
+              {canBook && (
+                <Badge variant="success" className="gap-1">
+                  <CheckCircle className="h-3 w-3" />
+                  Disponible
+                </Badge>
+              )}
+            </div>
+            <p className="text-gray-500 mt-1">
+              Agenda tu cita de forma rápida y sencilla
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/public/services-list.tsx
+import { Card, CardContent } from '@/components/ui/card'
+import { Clock, DollarSign } from 'lucide-react'
+import { formatCurrency } from '@/lib/utils/format'
+
+interface Service {
+  id: string
+  name: string
+  description: string | null
+  default_duration_minutes: number
+  price: number
+  color: string
+}
+
+export function ServicesList({ services }: { services: Service[] }) {
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      {services.map((service) => (
+        <Card key={service.id} className="overflow-hidden">
+          <div
+            className="h-1"
+            style={{ backgroundColor: service.color }}
+          />
+          <CardContent className="p-4">
+            <h3 className="font-semibold">{service.name}</h3>
+            {service.description && (
+              <p className="text-sm text-gray-500 mt-1">{service.description}</p>
+            )}
+            <div className="flex items-center gap-4 mt-3 text-sm">
+              <span className="flex items-center gap-1 text-gray-600">
+                <Clock className="h-4 w-4" />
+                {service.default_duration_minutes} min
+              </span>
+              <span className="flex items-center gap-1 font-medium text-green-600">
+                <DollarSign className="h-4 w-4" />
+                {formatCurrency(service.price)}
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Página accesible sin autenticación
+- [ ] Slug inválido muestra 404
+- [ ] Profesional inactivo muestra mensaje
+- [ ] Servicios y ubicaciones se muestran
+- [ ] SEO metadata dinámica
+- [ ] Responsive en móvil
+- [ ] Performance < 2s TTFB
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | PortalHeader renderiza | `tests/unit/components/public/header.test.tsx` |
+| Integration | Slug resuelve correctamente | `tests/integration/public/portal.test.ts` |
+| E2E | Portal público completo | `tests/e2e/public/portal.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `public` `portal` `seo` `sprint-4` `priority-critical`
+
+---
+
+### T-4-02: [Backend] API Disponibilidad pública
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-12, US-13 |
+| **Bloqueado por** | T-3-04 |
+| **Bloquea a** | T-4-03 |
+
+#### Descripción
+
+Exponer API de disponibilidad para el portal público:
+- Endpoint sin autenticación
+- Validar que profesional acepta reservas
+- Reutilizar motor de disponibilidad
+- Rate limiting para prevenir abuso
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/api/public/availability/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
+import { availabilityService } from '@/services/availability/availability.service'
+import { rateLimit } from '@/lib/rate-limit'
+
+// Rate limiter: 60 requests por minuto por IP
+const limiter = rateLimit({
+  interval: 60 * 1000,
+  uniqueTokenPerInterval: 500,
+})
+
+export async function GET(request: NextRequest) {
+  try {
+    // Rate limiting
+    const ip = request.ip ?? 'anonymous'
+    const { success } = await limiter.check(60, ip)
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429 }
+      )
+    }
+
+    const { searchParams } = new URL(request.url)
+    const slug = searchParams.get('slug')
+    const date = searchParams.get('date')
+    const serviceId = searchParams.get('service_id')
+    const locationId = searchParams.get('location_id')
+
+    // Validaciones
+    if (!slug || !date || !serviceId) {
+      return NextResponse.json(
+        { error: 'Missing required parameters: slug, date, service_id' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = await createClient()
+
+    // Obtener profesional por slug
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('id, account_status')
+      .eq('slug', slug)
+      .single()
+
+    if (!profile) {
+      return NextResponse.json(
+        { error: 'Professional not found' },
+        { status: 404 }
+      )
+    }
+
+    // Verificar que acepta reservas
+    if (!['trial', 'active'].includes(profile.account_status)) {
+      return NextResponse.json(
+        { 
+          error: 'Professional is not accepting bookings',
+          code: 'PROFESSIONAL_INACTIVE'
+        },
+        { status: 422 }
+      )
+    }
+
+    // Verificar que el servicio pertenece al profesional y permite reserva online
+    const { data: service } = await supabase
+      .from('services')
+      .select('id, name, default_duration_minutes, price')
+      .eq('id', serviceId)
+      .eq('user_id', profile.id)
+      .eq('is_active', true)
+      .eq('allow_online_booking', true)
+      .single()
+
+    if (!service) {
+      return NextResponse.json(
+        { error: 'Service not available for online booking' },
+        { status: 404 }
+      )
+    }
+
+    // Obtener disponibilidad
+    const availability = await availabilityService.getAvailability({
+      date,
+      service_id: serviceId,
+      location_id: locationId ?? undefined,
+    })
+
+    // Filtrar solo slots disponibles para respuesta pública
+    const publicSlots = availability.slots
+      .filter(s => s.available)
+      .map(s => ({
+        start_time: s.start_time,
+        end_time: s.end_time,
+      }))
+
+    return NextResponse.json({
+      date: availability.date,
+      service: {
+        id: service.id,
+        name: service.name,
+        duration_minutes: service.default_duration_minutes,
+        price: service.price,
+      },
+      available_slots: publicSlots,
+      total_available: publicSlots.length,
+    })
+
+  } catch (error) {
+    console.error('Public availability error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+```typescript
+// apps/web/src/lib/rate-limit.ts
+import { LRUCache } from 'lru-cache'
+
+interface RateLimitOptions {
+  interval: number
+  uniqueTokenPerInterval: number
+}
+
+export function rateLimit(options: RateLimitOptions) {
+  const tokenCache = new LRUCache<string, number[]>({
+    max: options.uniqueTokenPerInterval,
+    ttl: options.interval,
+  })
+
+  return {
+    check: async (limit: number, token: string): Promise<{ success: boolean; remaining: number }> => {
+      const now = Date.now()
+      const windowStart = now - options.interval
+      
+      const tokenCount = tokenCache.get(token) ?? []
+      const validTokens = tokenCount.filter(t => t > windowStart)
+      
+      if (validTokens.length >= limit) {
+        return { success: false, remaining: 0 }
+      }
+
+      validTokens.push(now)
+      tokenCache.set(token, validTokens)
+
+      return { success: true, remaining: limit - validTokens.length }
+    },
+  }
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Endpoint no requiere autenticación
+- [ ] Valida que profesional existe y acepta reservas
+- [ ] Valida que servicio permite reserva online
+- [ ] Rate limiting funciona (60 req/min)
+- [ ] Solo retorna slots disponibles
+- [ ] Performance < 500ms
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Rate limiter funciona | `tests/unit/lib/rate-limit.test.ts` |
+| Integration | API valida parámetros | `tests/integration/api/public-availability.test.ts` |
+| Integration | Profesional inactivo retorna 422 | `tests/integration/api/public-availability.test.ts` |
+
+#### Etiquetas
+
+`backend` `api` `public` `availability` `sprint-4` `priority-critical`
+
+---
+
+### T-4-03: [Frontend] Wizard de reserva online
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 8 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-13, US-23 |
+| **Bloqueado por** | T-4-01, T-4-02 |
+| **Bloquea a** | T-4-08, T-4-09 |
+
+#### Descripción
+
+Crear wizard paso a paso para reserva online:
+1. Selección de servicio
+2. Selección de ubicación
+3. Selección de fecha y hora
+4. Datos del cliente (sin cuenta)
+5. Términos y condiciones
+6. Confirmación
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/(public)/[slug]/book/page.tsx
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { BookingWizard } from '@/components/features/booking/booking-wizard'
+import { BookingConfirmation } from '@/components/features/booking/booking-confirmation'
+
+interface PageProps {
+  params: { slug: string }
+}
+
+export default function BookingPage({ params }: PageProps) {
+  const [bookingResult, setBookingResult] = useState<any>(null)
+  const router = useRouter()
+
+  if (bookingResult) {
+    return (
+      <BookingConfirmation 
+        booking={bookingResult}
+        onNewBooking={() => setBookingResult(null)}
+      />
+    )
+  }
+
+  return (
+    <BookingWizard 
+      slug={params.slug}
+      onComplete={setBookingResult}
+      onCancel={() => router.push(`/${params.slug}`)}
+    />
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/booking/booking-wizard.tsx
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
+import { ServiceStep } from './steps/service-step'
+import { LocationStep } from './steps/location-step'
+import { DateTimeStep } from './steps/datetime-step'
+import { ClientInfoStep } from './steps/client-info-step'
+import { TermsStep } from './steps/terms-step'
+import { ReviewStep } from './steps/review-step'
+import { useBookingData } from '@/hooks/use-booking-data'
+import { toast } from 'sonner'
+
+const STEPS = [
+  { id: 'service', title: 'Servicio', component: ServiceStep },
+  { id: 'location', title: 'Ubicación', component: LocationStep },
+  { id: 'datetime', title: 'Fecha y hora', component: DateTimeStep },
+  { id: 'client', title: 'Tus datos', component: ClientInfoStep },
+  { id: 'terms', title: 'Condiciones', component: TermsStep },
+  { id: 'review', title: 'Confirmar', component: ReviewStep },
+]
+
+// Schema de validación para datos del cliente
+const clientSchema = z.object({
+  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  email: z.string().email('Email inválido'),
+  phone: z.string().min(8, 'Teléfono inválido'),
+  notes: z.string().optional(),
+})
+
+interface BookingWizardProps {
+  slug: string
+  onComplete: (result: any) => void
+  onCancel: () => void
+}
+
+export function BookingWizard({ slug, onComplete, onCancel }: BookingWizardProps) {
+  const [currentStep, setCurrentStep] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  // Estado del booking
+  const [bookingData, setBookingData] = useState({
+    service_id: '',
+    location_id: '',
+    date: '',
+    time_slot: '',
+    client_name: '',
+    client_email: '',
+    client_phone: '',
+    notes: '',
+    terms_accepted: false,
+  })
+
+  // Cargar datos del profesional
+  const { profile, services, locations, isLoading } = useBookingData(slug)
+
+  // Form para datos del cliente
+  const clientForm = useForm({
+    resolver: zodResolver(clientSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      notes: '',
+    },
+  })
+
+  const updateBookingData = (data: Partial<typeof bookingData>) => {
+    setBookingData(prev => ({ ...prev, ...data }))
+  }
+
+  const canProceed = () => {
+    switch (currentStep) {
+      case 0: return !!bookingData.service_id
+      case 1: return !!bookingData.location_id
+      case 2: return !!bookingData.date && !!bookingData.time_slot
+      case 3: return clientForm.formState.isValid
+      case 4: return bookingData.terms_accepted
+      case 5: return true
+      default: return false
+    }
+  }
+
+  const handleNext = async () => {
+    if (currentStep === 3) {
+      // Validar form del cliente
+      const isValid = await clientForm.trigger()
+      if (!isValid) return
+
+      const values = clientForm.getValues()
+      updateBookingData({
+        client_name: values.name,
+        client_email: values.email,
+        client_phone: values.phone,
+        notes: values.notes,
+      })
+    }
+
+    if (currentStep < STEPS.length - 1) {
+      setCurrentStep(prev => prev + 1)
+    }
+  }
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1)
+    } else {
+      onCancel()
+    }
+  }
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/public/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          professional_slug: slug,
+          service_id: bookingData.service_id,
+          location_id: bookingData.location_id,
+          start_time: `${bookingData.date}T${bookingData.time_slot}`,
+          client_name: bookingData.client_name,
+          client_email: bookingData.client_email,
+          client_phone: bookingData.client_phone,
+          notes: bookingData.notes,
+          terms_accepted: bookingData.terms_accepted,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || 'Error al crear la reserva')
+      }
+
+      const result = await response.json()
+      onComplete(result)
+
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Error al crear la reserva')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary-500" />
+      </div>
+    )
+  }
+
+  const CurrentStepComponent = STEPS[currentStep].component
+  const progress = ((currentStep + 1) / STEPS.length) * 100
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b sticky top-0 z-10">
+        <div className="max-w-2xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={handleBack}
+              className="flex items-center gap-1 text-gray-600 hover:text-gray-900"
+            >
+              <ChevronLeft className="h-5 w-5" />
+              {currentStep === 0 ? 'Cancelar' : 'Atrás'}
+            </button>
+            <span className="text-sm text-gray-500">
+              Paso {currentStep + 1} de {STEPS.length}
+            </span>
+          </div>
+          <Progress value={progress} className="h-1" />
+          <h2 className="text-lg font-semibold mt-4">
+            {STEPS[currentStep].title}
+          </h2>
+        </div>
+      </header>
+
+      {/* Content */}
+      <main className="max-w-2xl mx-auto px-4 py-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <CurrentStepComponent
+              bookingData={bookingData}
+              updateBookingData={updateBookingData}
+              profile={profile}
+              services={services}
+              locations={locations}
+              clientForm={clientForm}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </main>
+
+      {/* Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t p-4">
+        <div className="max-w-2xl mx-auto">
+          {currentStep === STEPS.length - 1 ? (
+            <Button
+              onClick={handleSubmit}
+              disabled={!canProceed() || isSubmitting}
+              className="w-full"
+              size="lg"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Confirmando...
+                </>
+              ) : (
+                <>
+                  <Check className="h-4 w-4 mr-2" />
+                  Confirmar reserva
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button
+              onClick={handleNext}
+              disabled={!canProceed()}
+              className="w-full"
+              size="lg"
+            >
+              Continuar
+              <ChevronRight className="h-4 w-4 ml-2" />
+            </Button>
+          )}
+        </div>
+      </footer>
+    </div>
+  )
+}
+```
+
+```typescript
+// apps/web/src/components/features/booking/steps/datetime-step.tsx
+'use client'
+
+import { useState, useEffect } from 'react'
+import { format, addDays, isSameDay } from 'date-fns'
+import { es } from 'date-fns/locale'
+import { Calendar } from '@/components/ui/calendar'
+import { cn } from '@/lib/utils/cn'
+import { Loader2 } from 'lucide-react'
+
+interface DateTimeStepProps {
+  bookingData: any
+  updateBookingData: (data: any) => void
+  profile: any
+}
+
+export function DateTimeStep({ bookingData, updateBookingData, profile }: DateTimeStepProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    bookingData.date ? new Date(bookingData.date) : undefined
+  )
+  const [slots, setSlots] = useState<{ start_time: string; end_time: string }[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (selectedDate && bookingData.service_id) {
+      fetchSlots()
+    }
+  }, [selectedDate, bookingData.service_id, bookingData.location_id])
+
+  const fetchSlots = async () => {
+    setIsLoading(true)
+    try {
+      const dateStr = format(selectedDate!, 'yyyy-MM-dd')
+      const params = new URLSearchParams({
+        slug: profile.slug,
+        date: dateStr,
+        service_id: bookingData.service_id,
+      })
+      
+      if (bookingData.location_id) {
+        params.set('location_id', bookingData.location_id)
+      }
+
+      const response = await fetch(`/api/public/availability?${params}`)
+      const data = await response.json()
+      
+      setSlots(data.available_slots ?? [])
+    } catch (error) {
+      console.error('Error fetching slots:', error)
+      setSlots([])
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date)
+    if (date) {
+      updateBookingData({ 
+        date: format(date, 'yyyy-MM-dd'),
+        time_slot: '' // Reset time when date changes
+      })
+    }
+  }
+
+  const handleSlotSelect = (slot: { start_time: string; end_time: string }) => {
+    const time = format(new Date(slot.start_time), 'HH:mm')
+    updateBookingData({ time_slot: time })
+  }
+
+  // Deshabilitar fechas pasadas
+  const disabledDays = { before: new Date() }
+
+  return (
+    <div className="space-y-6">
+      {/* Calendario */}
+      <div className="flex justify-center">
+        <Calendar
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleDateSelect}
+          disabled={disabledDays}
+          locale={es}
+          className="rounded-lg border bg-white p-3"
+        />
+      </div>
+
+      {/* Slots disponibles */}
+      {selectedDate && (
+        <div>
+          <h3 className="font-medium mb-3">
+            Horarios disponibles para el {format(selectedDate, "d 'de' MMMM", { locale: es })}
+          </h3>
+
+          {isLoading ? (
+            <div className="flex justify-center py-8">
+              <Loader2 className="h-6 w-6 animate-spin text-primary-500" />
+            </div>
+          ) : slots.length > 0 ? (
+            <div className="grid grid-cols-4 gap-2">
+              {slots.map((slot) => {
+                const time = format(new Date(slot.start_time), 'HH:mm')
+                const isSelected = bookingData.time_slot === time
+
+                return (
+                  <button
+                    key={slot.start_time}
+                    onClick={() => handleSlotSelect(slot)}
+                    className={cn(
+                      'py-2 px-3 rounded-lg text-sm font-medium transition-colors',
+                      isSelected
+                        ? 'bg-primary-500 text-white'
+                        : 'bg-white border hover:border-primary-500 hover:text-primary-600'
+                    )}
+                  >
+                    {time}
+                  </button>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              No hay horarios disponibles para este día
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+#### Criterios de Aceptación Técnicos
+
+- [ ] Wizard de 6 pasos funciona
+- [ ] Navegación adelante/atrás
+- [ ] Validación por paso
+- [ ] Slots disponibles se cargan dinámicamente
+- [ ] Términos y condiciones obligatorios
+- [ ] Submit crea reserva correctamente
+- [ ] Confirmación muestra detalles
+- [ ] Responsive en móvil
+- [ ] Animaciones suaves entre pasos
+
+#### Tests
+
+| Tipo | Descripción | Ubicación |
+|------|-------------|-----------|
+| Unit | Wizard navegación | `tests/unit/components/booking/wizard.test.tsx` |
+| Unit | DateTimeStep carga slots | `tests/unit/components/booking/datetime-step.test.tsx` |
+| E2E | Flujo completo de reserva | `tests/e2e/booking/wizard.spec.ts` (Solo Local) |
+
+#### Etiquetas
+
+`frontend` `public` `booking` `wizard` `sprint-4` `priority-critical`
+
+---
+
+### T-4-04: [Backend] Términos y condiciones configurables
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🟠 P1 (Alta) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-23 |
+| **Bloqueado por** | T-4-02 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Implementar configuración de términos por profesional:
+- Texto de términos editable en settings
+- Política de reembolso configurable
+- Flag de obligatoriedad
+- Endpoint público para obtener términos
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/api/public/professionals/[slug]/terms/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
+  const supabase = await createClient()
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('settings')
+    .eq('slug', params.slug)
+    .single()
+
+  if (!profile) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
+  const settings = profile.settings as {
+    terms_required?: boolean
+    terms_text?: string
+    refund_policy?: string
+    cancellation_hours_before?: number
+    reschedule_hours_before?: number
+  }
+
+  return NextResponse.json({
+    terms_required: settings.terms_required ?? false,
+    terms_text: settings.terms_text ?? '',
+    refund_policy: settings.refund_policy ?? '',
+    cancellation_policy: {
+      hours_before: settings.cancellation_hours_before ?? 24,
+      reschedule_hours_before: settings.reschedule_hours_before ?? 24,
+    },
+  })
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Endpoint público retorna términos
+- [ ] Settings del profesional configurables
+- [ ] Política de cancelación visible
+- [ ] Flag terms_required funciona
+
+#### Etiquetas
+
+`backend` `api` `terms` `sprint-4` `priority-high`
+
+---
+
+### T-4-05: [Backend] Completar/Cancelar cita (extensión)
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-11 |
+| **Bloqueado por** | T-3-03 |
+| **Bloquea a** | T-4-06 |
+
+#### Descripción
+
+Extender funcionalidad de completar/cancelar:
+- Modal de completar con duración real
+- Actualización de historial de duraciones
+- Notas post-cita
+- Marcar como no-show
+
+#### Código adicional al T-3-03
+
+```typescript
+// apps/web/src/hooks/use-appointment-actions.ts
+'use client'
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { appointmentService } from '@/services/appointments/appointment.service'
+import { toast } from 'sonner'
+
+export function useAppointmentActions() {
+  const queryClient = useQueryClient()
+
+  const completeMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: { actual_duration_minutes: number; notes?: string } }) =>
+      appointmentService.complete(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['appointments'] })
+      toast.success('Cita completada. Duración registrada.')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  const cancelMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: { cancellation_reason?: string; cancelled_by: 'client' | 'professional' } }) =>
+      appointmentService.cancel(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['appointments'] })
+      toast.success('Cita cancelada')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  const noShowMutation = useMutation({
+    mutationFn: (id: string) =>
+      appointmentService.markNoShow(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['appointments'] })
+      toast.success('Cita marcada como no-show')
+    },
+    onError: (error: Error) => toast.error(error.message),
+  })
+
+  return {
+    complete: completeMutation.mutate,
+    cancel: cancelMutation.mutate,
+    markNoShow: noShowMutation.mutate,
+    isCompleting: completeMutation.isPending,
+    isCancelling: cancelMutation.isPending,
+  }
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Modal de completar con input de duración
+- [ ] Duración sugerida pre-llenada
+- [ ] Actualiza historial de duraciones
+- [ ] Cancelar con razón opcional
+- [ ] Marcar no-show funciona
+
+#### Etiquetas
+
+`backend` `api` `appointments` `sprint-4` `priority-critical`
+
+---
+
+### T-4-06: [Frontend] UI Completar cita + duración real
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Frontend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 3 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-11 |
+| **Bloqueado por** | T-4-05, T-3-05 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Crear modal de completar cita:
+- Input de duración real
+- Sugerencia basada en historial
+- Campo de notas
+- Botones de acción rápida
+
+#### Código Principal
+
+```typescript
+// apps/web/src/components/features/appointments/complete-modal.tsx
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Badge } from '@/components/ui/badge'
+import { useAppointmentActions } from '@/hooks/use-appointment-actions'
+import { Clock, Minus, Plus, Check, Lightbulb } from 'lucide-react'
+import type { Appointment } from '@/types/appointment.types'
+
+interface CompleteModalProps {
+  appointment: Appointment | null
+  onClose: () => void
+}
+
+export function CompleteModal({ appointment, onClose }: CompleteModalProps) {
+  const [duration, setDuration] = useState(0)
+  const [notes, setNotes] = useState('')
+  const { complete, isCompleting } = useAppointmentActions()
+
+  useEffect(() => {
+    if (appointment) {
+      setDuration(appointment.duration_minutes)
+      setNotes(appointment.notes ?? '')
+    }
+  }, [appointment])
+
+  if (!appointment) return null
+
+  const handleComplete = () => {
+    complete({
+      id: appointment.id,
+      data: {
+        actual_duration_minutes: duration,
+        notes: notes || undefined,
+      },
+    }, {
+      onSuccess: () => onClose(),
+    })
+  }
+
+  const adjustDuration = (delta: number) => {
+    setDuration(prev => Math.max(5, prev + delta))
+  }
+
+  // Duración sugerida del historial (si existe)
+  const suggestedDuration = (appointment as any).suggested_duration
+
+  return (
+    <Dialog open={!!appointment} onOpenChange={() => onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Check className="h-5 w-5 text-green-600" />
+            Completar cita
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-6 py-4">
+          {/* Info de la cita */}
+          <div className="bg-gray-50 rounded-lg p-4">
+            <p className="font-medium">{(appointment as any).client?.name}</p>
+            <p className="text-sm text-gray-500">{(appointment as any).service?.name}</p>
+          </div>
+
+          {/* Duración real */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Duración real de la cita
+            </label>
+            
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => adjustDuration(-5)}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+
+              <div className="flex-1">
+                <div className="relative">
+                  <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="number"
+                    value={duration}
+                    onChange={(e) => setDuration(parseInt(e.target.value) || 0)}
+                    className="pl-10 text-center text-lg font-semibold"
+                    min={5}
+                    max={480}
+                  />
+                </div>
+                <p className="text-center text-xs text-gray-500 mt-1">minutos</p>
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => adjustDuration(5)}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Sugerencia basada en historial */}
+            {suggestedDuration && suggestedDuration !== duration && (
+              <button
+                onClick={() => setDuration(suggestedDuration)}
+                className="mt-2 flex items-center gap-2 text-sm text-primary-600 hover:underline"
+              >
+                <Lightbulb className="h-4 w-4" />
+                Usar duración sugerida: {suggestedDuration} min
+              </button>
+            )}
+
+            {/* Quick buttons */}
+            <div className="flex gap-2 mt-3">
+              {[30, 45, 60].map((mins) => (
+                <Badge
+                  key={mins}
+                  variant={duration === mins ? 'default' : 'outline'}
+                  className="cursor-pointer"
+                  onClick={() => setDuration(mins)}
+                >
+                  {mins} min
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Notas */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Notas (opcional)
+            </label>
+            <Textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observaciones de la cita..."
+              rows={3}
+            />
+          </div>
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancelar
+          </Button>
+          <Button onClick={handleComplete} isLoading={isCompleting}>
+            <Check className="h-4 w-4 mr-2" />
+            Completar cita
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Modal abre desde calendario/detalle
+- [ ] Duración pre-llenada con programada
+- [ ] Botones +/- de 5 minutos
+- [ ] Badges de duración rápida
+- [ ] Sugerencia de historial visible
+- [ ] Notas opcionales
+- [ ] Submit actualiza historial
+
+#### Etiquetas
+
+`frontend` `ui` `appointments` `sprint-4` `priority-critical`
+
+---
+
+### T-4-07: [Backend] Duración adaptativa por cliente (refinamiento)
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🟠 P1 (Alta) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-10 |
+| **Bloqueado por** | T-4-05 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Refinar sistema de duración adaptativa:
+- Endpoint para obtener sugerencia
+- Mostrar historial de duraciones
+- Permitir override manual
+- Considerar para disponibilidad pública
+
+#### Código Principal
+
+```typescript
+// apps/web/src/services/duration/duration-suggestion.service.ts
+import { createClient } from '@/lib/supabase/client'
+
+export interface DurationSuggestion {
+  suggested_duration: number
+  based_on: 'history' | 'default'
+  history?: {
+    total_appointments: number
+    average_duration: number
+    min_duration: number
+    max_duration: number
+    last_duration: number
+  }
+  service_default: number
+}
+
+export class DurationSuggestionService {
+  private supabase = createClient()
+
+  async getSuggestion(clientId: string, serviceId: string): Promise<DurationSuggestion> {
+    // Obtener duración por defecto del servicio
+    const { data: service } = await this.supabase
+      .from('services')
+      .select('default_duration_minutes')
+      .eq('id', serviceId)
+      .single()
+
+    if (!service) {
+      throw new Error('Servicio no encontrado')
+    }
+
+    // Buscar historial del cliente
+    const { data: history } = await this.supabase
+      .from('client_service_durations')
+      .select('*')
+      .eq('client_id', clientId)
+      .eq('service_id', serviceId)
+      .single()
+
+    if (history && history.total_appointments >= 1) {
+      // Obtener última duración
+      const { data: lastAppointment } = await this.supabase
+        .from('appointments')
+        .select('duration_minutes')
+        .eq('client_id', clientId)
+        .eq('service_id', serviceId)
+        .eq('status', 'completed')
+        .order('start_time', { ascending: false })
+        .limit(1)
+        .single()
+
+      return {
+        suggested_duration: history.average_duration_minutes,
+        based_on: 'history',
+        history: {
+          total_appointments: history.total_appointments,
+          average_duration: history.average_duration_minutes,
+          min_duration: history.min_duration_minutes,
+          max_duration: history.max_duration_minutes,
+          last_duration: lastAppointment?.duration_minutes ?? history.average_duration_minutes,
+        },
+        service_default: service.default_duration_minutes,
+      }
+    }
+
+    return {
+      suggested_duration: service.default_duration_minutes,
+      based_on: 'default',
+      service_default: service.default_duration_minutes,
+    }
+  }
+}
+
+export const durationSuggestionService = new DurationSuggestionService()
+```
+
+```typescript
+// apps/web/src/hooks/use-duration-suggestion.ts
+import { useQuery } from '@tanstack/react-query'
+import { durationSuggestionService } from '@/services/duration/duration-suggestion.service'
+
+export function useDurationSuggestion(clientId: string | null, serviceId: string | null) {
+  return useQuery({
+    queryKey: ['duration-suggestion', clientId, serviceId],
+    queryFn: () => durationSuggestionService.getSuggestion(clientId!, serviceId!),
+    enabled: !!clientId && !!serviceId,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  })
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Endpoint retorna sugerencia
+- [ ] Basado en historial si existe
+- [ ] Fallback a duración del servicio
+- [ ] Historial incluye stats (min, max, avg)
+- [ ] Hook para uso en formularios
+
+#### Etiquetas
+
+`backend` `api` `duration` `adaptive` `sprint-4` `priority-high`
+
+---
+
+### T-4-08: [Backend] Cancelación por cliente
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-20 |
+| **Bloqueado por** | T-4-03 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Implementar cancelación de cita por parte del cliente:
+- Endpoint público con token de cancelación
+- Validación de anticipación mínima
+- Notificación al profesional
+- Página de confirmación de cancelación
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/api/public/appointments/[id]/cancel/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json()
+    const { token, reason } = body
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Cancellation token required' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = await createClient()
+
+    // Verificar cita y token
+    const { data: appointment } = await supabase
+      .from('appointments')
+      .select(`
+        *,
+        profiles:user_id (settings)
+      `)
+      .eq('id', params.id)
+      .single()
+
+    if (!appointment) {
+      return NextResponse.json(
+        { error: 'Appointment not found' },
+        { status: 404 }
+      )
+    }
+
+    // Verificar token (usamos el client_id + appointment_id como token simple)
+    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString('base64')
+    if (token !== expectedToken) {
+      return NextResponse.json(
+        { error: 'Invalid cancellation token' },
+        { status: 403 }
+      )
+    }
+
+    // Verificar estado
+    if (!['pending', 'confirmed'].includes(appointment.status)) {
+      return NextResponse.json(
+        { error: 'Appointment cannot be cancelled', code: 'INVALID_STATUS' },
+        { status: 422 }
+      )
+    }
+
+    // Verificar anticipación mínima
+    const settings = appointment.profiles?.settings as { cancellation_hours_before?: number }
+    const minHoursBefore = settings?.cancellation_hours_before ?? 24
+    
+    const appointmentTime = new Date(appointment.start_time)
+    const now = new Date()
+    const hoursUntil = (appointmentTime.getTime() - now.getTime()) / (1000 * 60 * 60)
+
+    if (hoursUntil < minHoursBefore) {
+      return NextResponse.json(
+        { 
+          error: `Cannot cancel within ${minHoursBefore} hours of appointment`,
+          code: 'INSUFFICIENT_NOTICE',
+          hours_required: minHoursBefore,
+          hours_until: Math.round(hoursUntil * 10) / 10,
+        },
+        { status: 422 }
+      )
+    }
+
+    // Cancelar cita
+    const { error } = await supabase
+      .from('appointments')
+      .update({
+        status: 'cancelled',
+        cancellation_reason: reason ?? 'Cancelled by client',
+        cancelled_by: 'client',
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', params.id)
+
+    if (error) throw error
+
+    // Eliminar travel block si existe
+    await supabase
+      .from('travel_blocks')
+      .delete()
+      .eq('appointment_id', params.id)
+
+    // TODO: Notificar al profesional
+
+    return NextResponse.json({
+      success: true,
+      message: 'Appointment cancelled successfully',
+    })
+
+  } catch (error) {
+    console.error('Cancel appointment error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+```typescript
+// apps/web/src/app/(public)/cancel/[token]/page.tsx
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Textarea } from '@/components/ui/textarea'
+import { AlertTriangle, CheckCircle, XCircle, Calendar, Clock } from 'lucide-react'
+import { format } from 'date-fns'
+import { es } from 'date-fns/locale'
+
+interface PageProps {
+  params: { token: string }
+}
+
+export default function CancelAppointmentPage({ params }: PageProps) {
+  const [appointment, setAppointment] = useState<any>(null)
+  const [reason, setReason] = useState('')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'cancelled' | 'error'>('loading')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    fetchAppointment()
+  }, [params.token])
+
+  const fetchAppointment = async () => {
+    try {
+      // Decodificar token para obtener appointment_id
+      const decoded = atob(params.token)
+      const [clientId, appointmentId] = decoded.split(':')
+
+      const response = await fetch(`/api/public/appointments/${appointmentId}`)
+      if (!response.ok) throw new Error('Not found')
+      
+      const data = await response.json()
+      setAppointment(data)
+      setStatus('ready')
+    } catch {
+      setStatus('error')
+      setErrorMessage('No se encontró la cita')
+    }
+  }
+
+  const handleCancel = async () => {
+    setIsSubmitting(true)
+    try {
+      const decoded = atob(params.token)
+      const [, appointmentId] = decoded.split(':')
+
+      const response = await fetch(`/api/public/appointments/${appointmentId}/cancel`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: params.token, reason }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Error al cancelar')
+      }
+
+      setStatus('cancelled')
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Error al cancelar')
+      setStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  if (status === 'loading') {
+    return <LoadingState />
+  }
+
+  if (status === 'cancelled') {
+    return (
+      <SuccessState 
+        message="Tu cita ha sido cancelada exitosamente"
+        onBack={() => router.push('/')}
+      />
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <ErrorState 
+        message={errorMessage}
+        onBack={() => router.push('/')}
+      />
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <Card className="max-w-md w-full">
+        <CardContent className="p-6 space-y-6">
+          <div className="text-center">
+            <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+              <AlertTriangle className="h-6 w-6 text-red-600" />
+            </div>
+            <h1 className="text-xl font-semibold">Cancelar cita</h1>
+            <p className="text-gray-500 mt-1">¿Estás seguro que deseas cancelar esta cita?</p>
+          </div>
+
+          {/* Detalles de la cita */}
+          <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <Calendar className="h-4 w-4 text-gray-400" />
+              <span>
+                {format(new Date(appointment.start_time), "EEEE d 'de' MMMM, yyyy", { locale: es })}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Clock className="h-4 w-4 text-gray-400" />
+              <span>
+                {format(new Date(appointment.start_time), 'HH:mm')} - 
+                {format(new Date(appointment.end_time), 'HH:mm')}
+              </span>
+            </div>
+            <p className="font-medium">{appointment.service?.name}</p>
+            <p className="text-sm text-gray-500">{appointment.location?.name}</p>
+          </div>
+
+          {/* Razón */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Motivo de cancelación (opcional)
+            </label>
+            <Textarea
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              placeholder="Cuéntanos por qué cancelas..."
+              rows={3}
+            />
+          </div>
+
+          {/* Botones */}
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="flex-1"
+              onClick={() => router.back()}
+            >
+              Volver
+            </Button>
+            <Button
+              variant="destructive"
+              className="flex-1"
+              onClick={handleCancel}
+              isLoading={isSubmitting}
+            >
+              <XCircle className="h-4 w-4 mr-2" />
+              Cancelar cita
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Endpoint valida token
+- [ ] Verifica anticipación mínima
+- [ ] Cancela y marca cancelled_by='client'
+- [ ] Elimina travel_block asociado
+- [ ] Página de cancelación funciona
+- [ ] Muestra error si muy tarde
+
+#### Etiquetas
+
+`backend` `api` `cancel` `public` `sprint-4` `priority-critical`
+
+---
+
+### T-4-09: [Backend] Reagendamiento de citas
+
+#### Información General
+
+| Campo | Valor |
+|-------|-------|
+| **Tipo** | Backend |
+| **Prioridad** | 🔴 P0 (Crítica) |
+| **Estimación** | 5 Story Points |
+| **Sprint** | 4 - Portal Público |
+| **HDUs Relacionadas** | US-21 |
+| **Bloqueado por** | T-4-03 |
+| **Bloquea a** | - |
+
+#### Descripción
+
+Implementar reagendamiento de citas:
+- Por profesional (sin restricción de anticipación)
+- Por cliente (con restricción configurable)
+- Mantiene referencia a cita original
+- Página pública de reagendamiento
+
+#### Código Principal
+
+```typescript
+// apps/web/src/app/api/public/appointments/[id]/reschedule/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
+import { appointmentService } from '@/services/appointments/appointment.service'
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json()
+    const { token, new_start_time, new_location_id } = body
+
+    if (!token || !new_start_time) {
+      return NextResponse.json(
+        { error: 'Token and new_start_time required' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = await createClient()
+
+    // Verificar cita y token
+    const { data: appointment } = await supabase
+      .from('appointments')
+      .select(`
+        *,
+        profiles:user_id (settings)
+      `)
+      .eq('id', params.id)
+      .single()
+
+    if (!appointment) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 })
+    }
+
+    // Verificar token
+    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString('base64')
+    if (token !== expectedToken) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 403 })
+    }
+
+    // Verificar estado
+    if (!['pending', 'confirmed'].includes(appointment.status)) {
+      return NextResponse.json(
+        { error: 'Cannot reschedule', code: 'INVALID_STATUS' },
+        { status: 422 }
+      )
+    }
+
+    // Verificar anticipación mínima
+    const settings = appointment.profiles?.settings as { reschedule_hours_before?: number }
+    const minHoursBefore = settings?.reschedule_hours_before ?? 24
+    
+    const appointmentTime = new Date(appointment.start_time)
+    const now = new Date()
+    const hoursUntil = (appointmentTime.getTime() - now.getTime()) / (1000 * 60 * 60)
+
+    if (hoursUntil < minHoursBefore) {
+      return NextResponse.json(
+        { 
+          error: `Cannot reschedule within ${minHoursBefore} hours`,
+          code: 'INSUFFICIENT_NOTICE',
+        },
+        { status: 422 }
+      )
+    }
+
+    // Reagendar
+    const newAppointment = await appointmentService.reschedule(params.id, {
+      new_start_time,
+      new_location_id,
+      reason: 'Rescheduled by client',
+    })
+
+    return NextResponse.json({
+      success: true,
+      new_appointment: {
+        id: newAppointment.id,
+        start_time: newAppointment.start_time,
+        end_time: newAppointment.end_time,
+      },
+    })
+
+  } catch (error) {
+    console.error('Reschedule error:', error)
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Error' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+#### Criterios de Aceptación
+
+- [ ] Reagendar por profesional funciona
+- [ ] Reagendar por cliente valida anticipación
+- [ ] Nueva cita tiene referencia a original
+- [ ] Original queda como cancelled
+- [ ] Página pública de reagendamiento
+- [ ] Muestra slots disponibles
+
+#### Etiquetas
+
+`backend` `api` `reschedule` `public` `sprint-4` `priority-critical`
+
+---
+
+## 6.15 Sprint 4 Completado ✅
+
+| ID | Título | Tipo | Pts | Estado |
+|----|--------|------|-----|--------|
+| T-4-01 | Portal público por slug | Frontend | 5 | ✅ |
+| T-4-02 | API Disponibilidad pública | Backend | 5 | ✅ |
+| T-4-03 | Wizard de reserva online | Frontend | 8 | ✅ |
+| T-4-04 | Términos y condiciones | Backend | 3 | ✅ |
+| T-4-05 | Completar/Cancelar extensión | Backend | 5 | ✅ |
+| T-4-06 | UI Completar cita | Frontend | 3 | ✅ |
+| T-4-07 | Duración adaptativa refinada | Backend | 5 | ✅ |
+| T-4-08 | Cancelación por cliente | Backend | 5 | ✅ |
+| T-4-09 | Reagendamiento | Backend | 5 | ✅ |
+
+**Total Sprint 4:** 44 Story Points | 9 Tickets
+
+---
+
+## 6.16 Diagrama de Dependencias Sprint 4
+
+```mermaid
+flowchart TD
+    T204["T-2-04<br/>🛠️ Services"] --> T401["T-4-01<br/>🌐 Portal Público"]
+    T304["T-3-04<br/>⚡ Availability"] --> T402["T-4-02<br/>📡 API Pública"]
+    
+    T401 --> T403["T-4-03<br/>🧙 Wizard Reserva"]
+    T402 --> T403
+    T402 --> T404["T-4-04<br/>📜 Términos"]
+    
+    T303["T-3-03<br/>📅 Appointments"] --> T405["T-4-05<br/>✅ Complete/Cancel"]
+    T405 --> T406["T-4-06<br/>🖥️ UI Complete"]
+    T305["T-3-05<br/>📆 Calendar"] --> T406
+    
+    T405 --> T407["T-4-07<br/>⏱️ Duración Adaptativa"]
+    
+    T403 --> T408["T-4-08<br/>❌ Cancel Cliente"]
+    T403 --> T409["T-4-09<br/>🔄 Reagendar"]
+
+    style T401 fill:#8B5CF6,color:#fff
+    style T402 fill:#10B981,color:#fff
+    style T403 fill:#EC4899,color:#fff
+    style T404 fill:#F59E0B,color:#fff
+    style T405 fill:#3B82F6,color:#fff
+    style T406 fill:#8B5CF6,color:#fff
+    style T407 fill:#6366F1,color:#fff
+    style T408 fill:#EF4444,color:#fff
+    style T409 fill:#14B8A6,color:#fff
+```
+
+---
+
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.3.0  
+**Versión del documento:** 1.5.0  
 **Autor:** TimeFlowPro Team
 
 ---
 
-> **Progreso:** Sprint 0 ✅ | Sprint 1 ✅ | Sprint 2 ✅ | Sprint 3-5 📋 Pendiente
+> **Progreso:** Sprint 0 ✅ | Sprint 1 ✅ | Sprint 2 ✅ | Sprint 3 ✅ | Sprint 4 ✅ | Sprint 5 📋 Pendiente
 
