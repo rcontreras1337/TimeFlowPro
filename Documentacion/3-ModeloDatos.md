@@ -50,6 +50,8 @@ erDiagram
         string timezone "America/Santiago"
         string avatar_url "URL foto perfil"
         enum role "professional | superadmin"
+        enum account_status "trial | active | readonly | suspended"
+        timestamptz trial_expires_at "Fecha expiración trial"
         boolean is_active "Estado de cuenta"
         jsonb settings "Configuraciones"
         timestamptz created_at
@@ -110,9 +112,14 @@ erDiagram
         timestamptz start_time "Inicio cita"
         timestamptz end_time "Fin cita"
         int duration_minutes "Duración real"
+        decimal price_at_booking "Precio al momento de reservar"
         enum status "pending | confirmed | completed | cancelled | no_show"
         text notes "Notas de la cita"
         text cancellation_reason "Razón cancelación"
+        string cancelled_by "client | professional"
+        uuid rescheduled_from FK "Cita original si reagendada"
+        timestamptz rescheduled_at "Fecha de reagendamiento"
+        timestamptz terms_accepted_at "Aceptación T&C"
         enum source "manual | online_booking | google_calendar"
         string google_event_id "ID evento GCal"
         timestamptz created_at
@@ -1400,5 +1407,5 @@ CREATE INDEX idx_working_hours_lookup ON working_hours(user_id, location_id, day
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.0.0
+**Versión del documento:** 1.1.0
 

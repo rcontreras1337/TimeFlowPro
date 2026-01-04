@@ -313,18 +313,18 @@ flowchart TB
 
 ## 0.11 Referencias
 
-| Documento | Ubicación |
-|-----------|-----------|
-| Descripción General | `Documentacion/1-DescripcionGeneral.md` |
-| Arquitectura del Sistema | `Documentacion/2-ArquitecturaSistema.md` |
-| Modelo de Datos | `Documentacion/3-ModeloDatos.md` |
-| Especificación API | `Documentacion/4-EspecificacionAPI.md` |
-| Historias de Usuario | `Documentacion/5-HistoriasUsuario.md` |
-| Tickets de Trabajo | `Documentacion/6-TicketsTrabajo.md` |
-| Pull Requests | `Documentacion/7-PullRequests.md` |
+| Documento | Ubicación | Estado |
+|-----------|-----------|--------|
+| Descripción General | `Documentacion/1-DescripcionGeneral.md` | ✅ |
+| Arquitectura del Sistema | `Documentacion/2-ArquitecturaSistema.md` | ✅ |
+| Modelo de Datos | `Documentacion/3-ModeloDatos.md` | ✅ |
+| Historias de Usuario | `Documentacion/4-HistoriasUsuario.md` | ✅ |
+| Especificación API | `Documentacion/5-EspecificacionAPI.md` | 🔜 |
+| Tickets de Trabajo | `Documentacion/6-TicketsTrabajo.md` | 🔜 |
+| Pull Requests | `Documentacion/7-PullRequests.md` | 🔜 |
 
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.0.0
+**Versión del documento:** 1.0.1
 

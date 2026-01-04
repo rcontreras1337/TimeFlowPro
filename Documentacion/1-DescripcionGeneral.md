@@ -399,5 +399,5 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ---
 
 **Última actualización:** Enero 2026  
-**Versión del documento:** 1.0.0
+**Versión del documento:** 1.1.0
 
