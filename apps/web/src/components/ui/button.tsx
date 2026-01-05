@@ -24,9 +24,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-primary-500 text-white',
-          'hover:bg-primary-600',
+          'bg-gradient-to-r from-primary-500 to-secondary-500 text-white',
+          'hover:from-primary-600 hover:to-secondary-600',
           'focus-visible:ring-primary-500',
+          'shadow-glow-sm hover:shadow-glow',
         ],
         secondary: [
           'bg-secondary-500 text-white',
@@ -44,8 +45,8 @@ const buttonVariants = cva(
           'focus-visible:ring-primary-500',
         ],
         ghost: [
-          'text-gray-700 bg-transparent',
-          'hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
+          'text-gray-300 bg-transparent',
+          'hover:bg-dark-300 hover:text-white',
           'focus-visible:ring-gray-500',
         ],
         danger: ['bg-error-500 text-white', 'hover:bg-error-600', 'focus-visible:ring-error-500'],

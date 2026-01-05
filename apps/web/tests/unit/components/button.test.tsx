@@ -19,7 +19,7 @@ describe('Button Component', () => {
       render(<Button>Primary</Button>)
 
       const button = screen.getByRole('button')
-      expect(button).toHaveClass('bg-primary-500')
+      expect(button).toHaveClass('from-primary-500')
     })
 
     it('debe renderizar con la variante danger', () => {

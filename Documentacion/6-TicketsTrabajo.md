@@ -168,76 +168,48 @@ Concepto: Reloj abstracto con flujo dinámico
      ╰─────────╯
 ```
 
-##### 2. Paleta de Colores
+##### 2. Paleta de Colores (Dark Theme)
 
 ```css
-/* === DESIGN TOKENS - TimeFlowPro === */
+/* === DESIGN TOKENS - TimeFlowPro (Dark Theme) === */
 
 :root {
-  /* === PRIMARY - Azul Profesional === */
-  --color-primary-50: #ebf5ff;
-  --color-primary-100: #e1effe;
-  --color-primary-200: #c3ddfd;
-  --color-primary-300: #a4cafe;
-  --color-primary-400: #76a9fa;
-  --color-primary-500: #3f83f8; /* Principal */
-  --color-primary-600: #1c64f2; /* Hover */
-  --color-primary-700: #1a56db; /* Active */
-  --color-primary-800: #1e429f;
-  --color-primary-900: #233876;
+  /* === DARK BACKGROUNDS === */
+  --color-dark-500: #0f0f14; /* Fondo principal */
+  --color-dark-400: #141418; /* Cards elevadas */
+  --color-dark-300: #18181b; /* Hover */
+  --color-dark-200: #1e1e27; /* Bordes sutiles */
 
-  /* === SECONDARY - Teal Flow === */
-  --color-secondary-50: #edfafa;
-  --color-secondary-100: #d5f5f6;
-  --color-secondary-200: #afecef;
-  --color-secondary-300: #7edce2;
-  --color-secondary-400: #16bdca;
-  --color-secondary-500: #0694a2; /* Principal */
-  --color-secondary-600: #047481; /* Hover */
-  --color-secondary-700: #036672;
-  --color-secondary-800: #05505c;
-  --color-secondary-900: #014451;
+  /* === PRIMARY - Soft Indigo === */
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1; /* Principal */
+  --color-primary-600: #4f46e5; /* Hover */
+  --color-primary-700: #4338ca; /* Active */
 
-  /* === ACCENT - Naranja Energía === */
-  --color-accent-50: #fff8f1;
-  --color-accent-100: #feecdc;
-  --color-accent-200: #fcd9bd;
-  --color-accent-300: #fdba8c;
-  --color-accent-400: #ff8a4c;
-  --color-accent-500: #ff5a1f; /* Principal - CTAs importantes */
-  --color-accent-600: #d03801;
-  --color-accent-700: #b43403;
-  --color-accent-800: #8a2c0d;
-  --color-accent-900: #73230d;
+  /* === SECONDARY - Violet (para gradientes) === */
+  --color-secondary-400: #a78bfa;
+  --color-secondary-500: #8b5cf6; /* Principal */
+  --color-secondary-600: #7c3aed; /* Hover */
 
-  /* === NEUTRALS - Grises === */
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  /* === ACCENT - Cyan (uso moderado) === */
+  --color-accent-500: #06b6d4; /* Principal */
+  --color-accent-600: #0891b2; /* Hover */
 
   /* === SEMANTIC - Estados === */
-  --color-success-500: #0e9f6e;
-  --color-success-100: #def7ec;
-  --color-warning-500: #c27803;
-  --color-warning-100: #fdf6b2;
-  --color-error-500: #f05252;
-  --color-error-100: #fde8e8;
-  --color-info-500: #3f83f8;
-  --color-info-100: #e1effe;
+  --color-success-500: #10b981;
+  --color-warning-500: #f59e0b;
+  --color-error-500: #ef4444;
+  --color-info-500: #6366f1;
 
   /* === CALENDAR SPECIFIC === */
-  --color-appointment: #3f83f8; /* Citas normales */
-  --color-travel-block: #f59e0b; /* Bloques de traslado */
-  --color-personal-block: #8b5cf6; /* Bloqueos personales */
-  --color-available: #10b981; /* Slots disponibles */
-  --color-unavailable: #ef4444; /* No disponible */
+  --color-appointment: #6366f1; /* Citas - Indigo */
+  --color-travel-block: #f59e0b; /* Traslados - Amber */
+  --color-personal-block: #8b5cf6; /* Bloqueos - Violet */
+  --color-available: #10b981; /* Disponible - Green */
+  --color-unavailable: #ef4444; /* No disponible - Red */
+
+  /* === GRADIENTS === */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
 }
 ```
 
