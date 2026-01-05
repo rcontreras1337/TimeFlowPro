@@ -17,3 +17,4 @@ export {
   cardVariants,
   type CardProps,
 } from './card'
+export { BottomNav } from './bottom-nav'

@@ -17,10 +17,19 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
   - Prettier para formateo consistente
   - lint-staged para formatear archivos antes de commit
 
+- 🎨 **UI Redesign**: Mobile-First PWA + Dark Theme Elegante
+  - PWA configurada con `manifest.json` y meta tags
+  - Nueva paleta oscura: `#0F0F14` (dark), `#6366F1` (indigo), `#8B5CF6` (violet)
+  - Landing page rediseñada mobile-first con glassmorphism
+  - Componente `BottomNav` para navegación móvil
+  - Botones con gradiente y glow sutil
+  - Reglas de estilo para IA en `.cursor/rules/estilo.mdc`
+
 ### Changed
 
 - Simplificado script de lint en `apps/web` para usar solo `next lint`
 - Agregados ignorePatterns para archivos generados (`database.types.ts`)
+- **BREAKING**: Paleta de colores actualizada (ver `.cursor/rules/estilo.mdc`)
 
 ---
 

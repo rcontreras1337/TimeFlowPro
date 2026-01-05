@@ -9,13 +9,11 @@ public/
 ├── logo-icon.svg           # Ícono solo (sin texto)
 ├── favicon.svg             # Favicon vectorial (32x32)
 ├── favicon.ico             # Favicon tradicional (generado)
-├── apple-touch-icon.svg    # Ícono iOS (180x180 base)
-├── apple-touch-icon.png    # Ícono iOS (generado)
-├── og-image.svg            # Open Graph image (1200x630)
-├── og-image.png            # Open Graph (generado)
+├── apple-touch-icon.png    # Ícono iOS (180x180)
+├── manifest.json           # PWA manifest
 ├── icon-192.png            # PWA icon (generado)
 ├── icon-512.png            # PWA icon (generado)
-└── site.webmanifest        # PWA manifest
+└── og-image.png            # Open Graph (generado)
 
 src/styles/
 ├── globals.css             # Estilos globales + imports
@@ -27,78 +25,51 @@ src/styles/
 
 ---
 
-## 🖼️ Generación de Assets PNG
+## 🎨 Paleta de Colores (Dark Theme)
 
-Los archivos SVG deben convertirse a PNG para uso en producción. Usar una de estas opciones:
+### Background - Dark Charcoal
 
-### Opción 1: Usando Sharp (Node.js)
+| Variable   | Hex       | Uso               |
+| ---------- | --------- | ----------------- |
+| `dark-500` | `#0F0F14` | Fondo principal   |
+| `dark-400` | `#141418` | Cards elevadas    |
+| `dark-300` | `#18181B` | Superficies hover |
+| `dark-200` | `#1E1E27` | Bordes sutiles    |
 
-```bash
-# Instalar dependencias
-pnpm add -D sharp
+### Primary - Soft Indigo
 
-# Crear script de generación
-node scripts/generate-icons.js
-```
+| Variable      | Hex       | Uso             |
+| ------------- | --------- | --------------- |
+| `primary-400` | `#818CF8` | Highlight       |
+| `primary-500` | `#6366F1` | Color principal |
+| `primary-600` | `#4F46E5` | Hover           |
+| `primary-700` | `#4338CA` | Active          |
 
-### Opción 2: Usando Inkscape (CLI)
+### Secondary - Violet (para gradientes)
 
-```bash
-# Favicon ICO
-inkscape public/favicon.svg --export-filename=public/favicon.ico --export-width=32
+| Variable        | Hex       | Uso        |
+| --------------- | --------- | ---------- |
+| `secondary-400` | `#A78BFA` | Highlight  |
+| `secondary-500` | `#8B5CF6` | Gradientes |
+| `secondary-600` | `#7C3AED` | Hover      |
 
-# Apple Touch Icon
-inkscape public/apple-touch-icon.svg --export-filename=public/apple-touch-icon.png --export-width=180
+### Accent - Cyan (uso moderado)
 
-# PWA Icons
-inkscape public/logo-icon.svg --export-filename=public/icon-192.png --export-width=192
-inkscape public/logo-icon.svg --export-filename=public/icon-512.png --export-width=512
-
-# OG Image
-inkscape public/og-image.svg --export-filename=public/og-image.png --export-width=1200
-```
-
-### Opción 3: Usando Online Tool
-
-- [RealFaviconGenerator](https://realfavicongenerator.net/) - Sube `logo-icon.svg`
-- [Favicon.io](https://favicon.io/) - Generador de favicons
-- [SVG to PNG](https://svgtopng.com/) - Conversión simple
-
----
-
-## 🎨 Paleta de Colores
-
-### Primary - Azul Profesional
-
-| Variable              | Hex       | Uso             |
-| --------------------- | --------- | --------------- |
-| `--color-primary-500` | `#3F83F8` | Color principal |
-| `--color-primary-600` | `#1C64F2` | Hover           |
-| `--color-primary-700` | `#1A56DB` | Active          |
-
-### Secondary - Teal Flow
-
-| Variable                | Hex       | Uso              |
-| ----------------------- | --------- | ---------------- |
-| `--color-secondary-500` | `#0694A2` | Flujo/Movimiento |
-| `--color-secondary-400` | `#16BDCA` | Highlight        |
-
-### Accent - Naranja Energía
-
-| Variable             | Hex       | Uso              |
-| -------------------- | --------- | ---------------- |
-| `--color-accent-500` | `#FF5A1F` | CTAs importantes |
-| `--color-accent-400` | `#FF8A4C` | Highlights       |
+| Variable     | Hex       | Uso              |
+| ------------ | --------- | ---------------- |
+| `accent-400` | `#22D3EE` | Highlight        |
+| `accent-500` | `#06B6D4` | CTAs secundarios |
+| `accent-600` | `#0891B2` | Hover            |
 
 ### Calendar Específicos
 
-| Variable                 | Hex       | Uso                 |
-| ------------------------ | --------- | ------------------- |
-| `--color-appointment`    | `#3F83F8` | Citas               |
-| `--color-travel-block`   | `#F59E0B` | Traslados           |
-| `--color-personal-block` | `#8B5CF6` | Bloqueos personales |
-| `--color-available`      | `#10B981` | Disponible          |
-| `--color-unavailable`    | `#EF4444` | No disponible       |
+| Variable               | Hex       | Uso                 |
+| ---------------------- | --------- | ------------------- |
+| `calendar-appointment` | `#6366F1` | Citas               |
+| `calendar-travel`      | `#F59E0B` | Traslados           |
+| `calendar-personal`    | `#8B5CF6` | Bloqueos personales |
+| `calendar-available`   | `#10B981` | Disponible          |
+| `calendar-unavailable` | `#EF4444` | No disponible       |
 
 ---
 
@@ -109,23 +80,7 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
 - **Primary:** Plus Jakarta Sans (Google Fonts)
 - **Mono:** JetBrains Mono (código)
 
-### Cargar en HTML
-
-```html
-<head>
-  <!-- Preconnect para performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-</head>
-```
-
-### Cargar en Next.js (App Router)
+### Uso con Next.js
 
 ```typescript
 // app/layout.tsx
@@ -134,9 +89,53 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-plus-jakarta-sans',
+  variable: '--font-jakarta',
   display: 'swap',
 })
+```
+
+---
+
+## 🌟 Design Patterns
+
+### Glassmorphism Cards
+
+```css
+.glass-card {
+  background: rgba(20, 20, 24, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+```
+
+**Con Tailwind:**
+
+```html
+<div class="rounded-2xl border border-dark-200/30 bg-dark-400/30 backdrop-blur-sm"></div>
+```
+
+### Gradient Buttons
+
+```css
+.btn-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+```
+
+**Con Tailwind:**
+
+```html
+<button class="bg-gradient-to-r from-primary-500 to-secondary-500 shadow-glow"></button>
+```
+
+### Subtle Glow Effects
+
+```css
+.icon-glow {
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+}
 ```
 
 ---
@@ -145,39 +144,36 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 - [x] Logo SVG optimizado (<10KB)
 - [x] Variantes: light, dark, icon-only
-- [x] Design tokens en CSS custom properties
-- [x] Paleta accesible (WCAG AA)
+- [x] Design tokens en Tailwind config
+- [x] Paleta dark theme implementada
 - [x] Tipografía con fallbacks del sistema
-- [x] Web manifest para PWA
+- [x] PWA manifest configurado
 - [ ] Favicons PNG generados
 - [ ] OG Image PNG generado
 
 ---
 
-## 📋 Uso en Código
+## 📋 Referencia Tailwind
 
-### CSS Variables
-
-```css
-.my-element {
-  background-color: var(--color-primary-500);
-  font-family: var(--font-family-sans);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+```typescript
+// tailwind.config.ts - Colores principales
+colors: {
+  dark: {
+    DEFAULT: '#0F0F14',
+    300: '#18181B',
+    400: '#141418',
+    500: '#0F0F14',
+  },
+  primary: {
+    500: '#6366F1',
+    600: '#4F46E5',
+  },
+  secondary: {
+    500: '#8B5CF6',
+  },
 }
-```
-
-### Con Tailwind (después de configurar)
-
-```html
-<button
-  class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md"
->
-  Crear Cita
-</button>
 ```
 
 ---
 
-**Referencia:** [Documentacion/6-TicketsTrabajo.md - T-0-01](../../../Documentacion/6-TicketsTrabajo.md)
+**Referencia:** [tailwind.config.ts](../tailwind.config.ts)

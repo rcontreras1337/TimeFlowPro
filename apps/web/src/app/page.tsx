@@ -1,125 +1,160 @@
-import { Calendar, MapPin, Clock, Users } from 'lucide-react'
+import { Calendar, MapPin, Clock, Users, ArrowRight, Check } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 
 /**
- * Landing page for TimeFlowPro
+ * Landing page for TimeFlowPro - Mobile-first dark design
  */
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col bg-dark-500">
+      {/* Header - Sticky with blur */}
+      <header className="sticky top-0 z-50 border-b border-dark-200/30 bg-dark-500/80 backdrop-blur-lg">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-icon.svg" alt="TimeFlowPro" className="h-8 w-8" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
+              <Calendar className="h-4 w-4 text-white" />
+            </div>
+            <span className="text-lg font-bold text-white sm:text-xl">
               Time<span className="text-primary-500">Flow</span>
-              <span className="font-medium text-gray-500">Pro</span>
+              <span className="font-medium text-gray-400">Pro</span>
             </span>
           </div>
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+              className="hidden text-sm font-medium text-gray-400 transition-colors hover:text-white sm:block"
             >
               Iniciar Sesión
             </Link>
             <Button variant="primary" size="sm" asChild>
-              <Link href="/login">Comenzar Gratis</Link>
+              <Link href="/login">Comenzar</Link>
             </Button>
           </nav>
         </div>
       </header>
 
-      {/* Hero Section */}
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-gradient-to-b from-primary-50 to-white py-20 dark:from-gray-800 dark:to-gray-900 sm:py-32">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+        {/* Hero Section - Mobile optimized */}
+        <section className="relative overflow-hidden px-4 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-20 lg:px-8">
+          {/* Subtle decorative orb */}
+          <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-primary-500/10 blur-3xl sm:h-96 sm:w-96" />
+
+          <div className="relative mx-auto max-w-3xl">
+            <div className="text-center">
+              {/* Badge */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-dark-200/50 bg-dark-400/50 px-3 py-1.5 text-xs font-medium text-gray-300 backdrop-blur-sm sm:text-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
+                Para profesionales móviles
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
                 La agenda que entiende que <span className="text-primary-500">te mueves</span>
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                TimeFlowPro es la primera agenda digital diseñada para profesionales móviles.
-                Calcula traslados, adapta duraciones por cliente y optimiza tu jornada
+
+              {/* Subtitle */}
+              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-400 sm:mt-6 sm:text-lg">
+                Gestiona múltiples ubicaciones, adapta duraciones por cliente y optimiza tu jornada
                 automáticamente.
               </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Button variant="primary" size="lg" asChild>
-                  <Link href="/login">Prueba Gratis 14 Días</Link>
+
+              {/* CTA Buttons - Stack on mobile */}
+              <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto" asChild>
+                  <Link href="/login" className="inline-flex items-center justify-center gap-2">
+                    Prueba Gratis 14 Días
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
-                <Button variant="ghost" size="lg" asChild>
-                  <Link href="#features">Ver Funcionalidades →</Link>
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="w-full text-gray-300 sm:w-auto"
+                  asChild
+                >
+                  <Link href="#features">Ver Funcionalidades</Link>
                 </Button>
+              </div>
+
+              {/* Trust indicators */}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-500 sm:text-sm">
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-primary-500" />
+                  Sin tarjeta de crédito
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-primary-500" />
+                  Cancela cuando quieras
+                </span>
               </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 sm:py-32">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Todo lo que necesitas para gestionar tu agenda
+        <section id="features" className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                Todo lo que necesitas
               </h2>
-              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-                Diseñado específicamente para profesionales que trabajan en múltiples ubicaciones.
+              <p className="mx-auto mt-3 max-w-xl text-sm text-gray-400 sm:text-base">
+                Diseñado para profesionales que trabajan en múltiples ubicaciones.
               </p>
             </div>
 
-            <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Feature Grid - 2 columns on mobile, 4 on desktop */}
+            <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6 lg:grid-cols-4">
               {/* Feature 1 */}
-              <div className="flex flex-col items-center rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-400">
-                  <MapPin className="h-6 w-6" />
+              <div className="group rounded-2xl border border-dark-200/30 bg-dark-400/30 p-5 backdrop-blur-sm transition-all hover:border-primary-500/30 hover:bg-dark-400/50 sm:p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500/10 text-primary-500 transition-colors group-hover:bg-primary-500/20 sm:h-12 sm:w-12">
+                  <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mt-4 text-sm font-semibold text-white sm:text-base">
                   Multi-ubicación
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                  Gestiona múltiples lugares de trabajo con horarios diferenciados.
+                <p className="mt-1.5 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                  Gestiona múltiples lugares con horarios diferenciados.
                 </p>
               </div>
 
               {/* Feature 2 */}
-              <div className="flex flex-col items-center rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-100 text-secondary-600 dark:bg-secondary-900 dark:text-secondary-400">
-                  <Clock className="h-6 w-6" />
+              <div className="group rounded-2xl border border-dark-200/30 bg-dark-400/30 p-5 backdrop-blur-sm transition-all hover:border-primary-500/30 hover:bg-dark-400/50 sm:p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-500/10 text-secondary-500 transition-colors group-hover:bg-secondary-500/20 sm:h-12 sm:w-12">
+                  <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mt-4 text-sm font-semibold text-white sm:text-base">
                   Duración Adaptativa
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                  Ajusta automáticamente la duración según el historial del cliente.
+                <p className="mt-1.5 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                  Ajusta automáticamente según el historial del cliente.
                 </p>
               </div>
 
               {/* Feature 3 */}
-              <div className="flex flex-col items-center rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-100 text-accent-600 dark:bg-accent-900 dark:text-accent-400">
-                  <Calendar className="h-6 w-6" />
+              <div className="group rounded-2xl border border-dark-200/30 bg-dark-400/30 p-5 backdrop-blur-sm transition-all hover:border-primary-500/30 hover:bg-dark-400/50 sm:p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-500 transition-colors group-hover:bg-accent-500/20 sm:h-12 sm:w-12">
+                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mt-4 text-sm font-semibold text-white sm:text-base">
                   Sync con Google
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                  Sincroniza con Google Calendar para recordatorios automáticos.
+                <p className="mt-1.5 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                  Sincroniza con Google Calendar automáticamente.
                 </p>
               </div>
 
               {/* Feature 4 */}
-              <div className="flex flex-col items-center rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success-100 text-success-600 dark:bg-success-700/20 dark:text-success-500">
-                  <Users className="h-6 w-6" />
+              <div className="group rounded-2xl border border-dark-200/30 bg-dark-400/30 p-5 backdrop-blur-sm transition-all hover:border-primary-500/30 hover:bg-dark-400/50 sm:p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-success-500/10 text-success-500 transition-colors group-hover:bg-success-500/20 sm:h-12 sm:w-12">
+                  <Users className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mt-4 text-sm font-semibold text-white sm:text-base">
                   Reservas Online
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                <p className="mt-1.5 text-xs leading-relaxed text-gray-400 sm:text-sm">
                   Tus clientes reservan 24/7 sin necesidad de registrarse.
                 </p>
               </div>
@@ -128,17 +163,20 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-primary-600 py-16 dark:bg-primary-800">
-          <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-dark-200/30 bg-gradient-to-br from-dark-400/50 to-dark-500/50 p-8 text-center backdrop-blur-sm sm:p-12">
+            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
               ¿Listo para optimizar tu agenda?
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-100">
+            <p className="mx-auto mt-3 max-w-md text-sm text-gray-400 sm:text-base">
               Comienza tu prueba gratuita de 14 días. Sin tarjeta de crédito.
             </p>
             <div className="mt-8">
-              <Button variant="secondary" size="lg" asChild>
-                <Link href="/login">Comenzar Ahora</Link>
+              <Button variant="primary" size="lg" asChild>
+                <Link href="/login" className="inline-flex items-center gap-2">
+                  Comenzar Ahora
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -146,9 +184,9 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-8 dark:border-gray-800 dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+      <footer className="border-t border-dark-200/30 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-7xl text-center">
+          <p className="text-xs text-gray-500 sm:text-sm">
             © {new Date().getFullYear()} TimeFlowPro. Todos los derechos reservados.
           </p>
         </div>

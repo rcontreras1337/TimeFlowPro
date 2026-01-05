@@ -114,11 +114,12 @@ timeflowpro/
 └── turbo.json
 ```
 
-**Design Tokens (tailwind.config.ts):**
+**Design Tokens (tailwind.config.ts - Dark Theme):**
 
-- Primary: `#3F83F8` (Azul profesional)
-- Secondary: `#0694A2` (Teal flow)
-- Accent: `#FF5A1F` (Naranja energía)
+- Background: `#0F0F14` (Dark charcoal)
+- Primary: `#6366F1` (Soft indigo)
+- Secondary: `#8B5CF6` (Violet - para gradientes)
+- Accent: `#06B6D4` (Cyan - uso moderado)
 - Colores semánticos para citas, traslados, bloqueos
 - Tipografía: Plus Jakarta Sans
 
