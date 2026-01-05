@@ -2,21 +2,22 @@
 
 import { Calendar, MapPin, User, Settings } from 'lucide-react'
 import Link from 'next/link'
+import type { Route } from 'next'
 import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 
 interface NavItem {
-  href: string
+  href: Route
   icon: React.ComponentType<{ className?: string }>
   label: string
 }
 
 const navItems: NavItem[] = [
-  { href: '/dashboard', icon: Calendar, label: 'Agenda' },
-  { href: '/locations', icon: MapPin, label: 'Ubicaciones' },
-  { href: '/clients', icon: User, label: 'Clientes' },
-  { href: '/settings', icon: Settings, label: 'Ajustes' },
+  { href: '/dashboard' as Route, icon: Calendar, label: 'Agenda' },
+  { href: '/locations' as Route, icon: MapPin, label: 'Ubicaciones' },
+  { href: '/clients' as Route, icon: User, label: 'Clientes' },
+  { href: '/settings' as Route, icon: Settings, label: 'Ajustes' },
 ]
 
 /**
