@@ -24,14 +24,14 @@ describe('Example Tests', () => {
   describe('Arrays y objetos', () => {
     it('debe verificar arrays', () => {
       const arr = [1, 2, 3]
-      
+
       expect(arr).toHaveLength(3)
       expect(arr).toContain(2)
     })
 
     it('debe verificar objetos', () => {
       const obj = { name: 'TimeFlowPro', version: '0.1.0' }
-      
+
       expect(obj).toHaveProperty('name')
       expect(obj.name).toBe('TimeFlowPro')
     })
@@ -39,7 +39,7 @@ describe('Example Tests', () => {
     it('debe comparar objetos', () => {
       const obj1 = { a: 1, b: 2 }
       const obj2 = { a: 1, b: 2 }
-      
+
       expect(obj1).toEqual(obj2)
     })
   })
@@ -47,13 +47,13 @@ describe('Example Tests', () => {
   describe('Async operations', () => {
     it('debe manejar promesas', async () => {
       const promise = Promise.resolve('success')
-      
+
       await expect(promise).resolves.toBe('success')
     })
 
     it('debe manejar rechazos', async () => {
       const promise = Promise.reject(new Error('failure'))
-      
+
       await expect(promise).rejects.toThrow('failure')
     })
   })
@@ -65,4 +65,3 @@ describe('Example Tests', () => {
     })
   })
 })
-

@@ -27,7 +27,7 @@ flowchart TB
     Pro -->|"Gestiona agenda<br/>HTTPS"| TFP
     Cli -->|"Reserva citas<br/>HTTPS"| TFP
     Admin -->|"Administra usuarios<br/>HTTPS"| TFP
-    
+
     TFP <-->|"Sync bidireccional<br/>OAuth2 + REST"| GCal
     TFP -->|"Calcula rutas<br/>REST API"| GMaps
     TFP -->|"Procesa pagos<br/>Webhooks"| MPago
@@ -55,16 +55,16 @@ flowchart TB
         subgraph Auth["🔐 Auth Service"]
             SAuth["Supabase Auth<br/>OAuth2 + JWT<br/>Google Provider"]
         end
-        
+
         subgraph API["🔌 API Layer"]
             PostgREST["PostgREST<br/>Auto-generated REST API"]
             EdgeFn["Edge Functions<br/>Deno Runtime<br/>Lógica compleja"]
         end
-        
+
         subgraph Realtime["📡 Realtime"]
             RT["Supabase Realtime<br/>WebSocket<br/>Postgres Changes"]
         end
-        
+
         subgraph Storage["💾 Storage"]
             DB[("🗄️ PostgreSQL 15<br/>+ Row Level Security")]
             Files["📁 Supabase Storage<br/>Archivos/Imágenes"]
@@ -78,12 +78,12 @@ flowchart TB
 
     Pro -->|"HTTPS"| NextJS
     Cli -->|"HTTPS"| NextJS
-    
+
     NextJS -->|"JWT + HTTPS"| SAuth
     NextJS -->|"REST/JSON"| PostgREST
     NextJS -->|"HTTPS"| EdgeFn
     NextJS <-->|"WSS"| RT
-    
+
     SAuth --> DB
     PostgREST --> DB
     EdgeFn --> DB
@@ -154,7 +154,7 @@ sequenceDiagram
 
     Cliente->>Portal: Selecciona horario 10:00
     Portal->>Supabase: POST /appointments
-    
+
     par Notificación en tiempo real
         Supabase-->>Prof: 📡 WebSocket: nueva cita
         Prof->>Prof: UI actualiza automáticamente
@@ -162,7 +162,7 @@ sequenceDiagram
         Supabase->>GCal: Crear evento
         GCal-->>Supabase: Evento creado ✓
     end
-    
+
     Supabase-->>Portal: 201 Created
     Portal-->>Cliente: ✅ Cita confirmada
 
@@ -175,14 +175,15 @@ sequenceDiagram
 
 ### ADR-001: Supabase como Backend-as-a-Service
 
-| Campo | Valor |
-|-------|-------|
-| **Estado** | ✅ Aceptado |
-| **Fecha** | Enero 2026 |
+| Campo         | Valor           |
+| ------------- | --------------- |
+| **Estado**    | ✅ Aceptado     |
+| **Fecha**     | Enero 2026      |
 | **Decisores** | Ruben Contreras |
 
 **Contexto:**
 Necesitamos un backend para TimeFlowPro MVP. Opciones evaluadas:
+
 1. Backend custom con NestJS/Spring Boot
 2. Firebase (Google)
 3. Supabase (Open Source)
@@ -192,18 +193,19 @@ Usar **Supabase** como BaaS principal.
 
 **Justificación:**
 
-| Criterio | NestJS Custom | Firebase | Supabase ✅ |
-|----------|---------------|----------|-------------|
-| Tiempo de desarrollo | 10-14 semanas | 6-8 semanas | 4-6 semanas |
-| Base de datos | PostgreSQL (manual) | Firestore (NoSQL) | PostgreSQL (managed) |
-| Auth integrado | ❌ Implementar | ✅ Sí | ✅ Sí |
-| API automática | ❌ Escribir todo | ❌ Solo SDK | ✅ PostgREST |
-| Row Level Security | ❌ Manual | ⚠️ Rules limitadas | ✅ RLS nativo |
-| Vendor lock-in | ✅ Ninguno | ❌ Alto | ⚠️ Bajo (open source) |
-| Costo MVP | $50-100/mes | $0-25/mes | $0-25/mes |
-| Migrabilidad | ✅ Total | ❌ Difícil | ✅ PostgreSQL estándar |
+| Criterio             | NestJS Custom       | Firebase           | Supabase ✅            |
+| -------------------- | ------------------- | ------------------ | ---------------------- |
+| Tiempo de desarrollo | 10-14 semanas       | 6-8 semanas        | 4-6 semanas            |
+| Base de datos        | PostgreSQL (manual) | Firestore (NoSQL)  | PostgreSQL (managed)   |
+| Auth integrado       | ❌ Implementar      | ✅ Sí              | ✅ Sí                  |
+| API automática       | ❌ Escribir todo    | ❌ Solo SDK        | ✅ PostgREST           |
+| Row Level Security   | ❌ Manual           | ⚠️ Rules limitadas | ✅ RLS nativo          |
+| Vendor lock-in       | ✅ Ninguno          | ❌ Alto            | ⚠️ Bajo (open source)  |
+| Costo MVP            | $50-100/mes         | $0-25/mes          | $0-25/mes              |
+| Migrabilidad         | ✅ Total            | ❌ Difícil         | ✅ PostgreSQL estándar |
 
 **Consecuencias:**
+
 - ✅ Desarrollo 60% más rápido
 - ✅ Auth, API, Realtime incluidos
 - ✅ PostgreSQL permite migración futura
@@ -216,10 +218,10 @@ Usar **Supabase** como BaaS principal.
 
 ### ADR-002: Arquitectura Modular con Feature Slices
 
-| Campo | Valor |
-|-------|-------|
+| Campo      | Valor       |
+| ---------- | ----------- |
 | **Estado** | ✅ Aceptado |
-| **Fecha** | Enero 2026 |
+| **Fecha**  | Enero 2026  |
 
 **Contexto:**
 ¿Cómo organizar el código del frontend para escalabilidad?
@@ -260,6 +262,7 @@ flowchart LR
 ```
 
 **Justificación:**
+
 - Cada feature es autocontenida
 - Fácil añadir nuevas features sin afectar otras
 - Permite extraer features a packages si escala
@@ -269,10 +272,10 @@ flowchart LR
 
 ### ADR-003: Row Level Security para Multi-tenancy
 
-| Campo | Valor |
-|-------|-------|
+| Campo      | Valor       |
+| ---------- | ----------- |
 | **Estado** | ✅ Aceptado |
-| **Fecha** | Enero 2026 |
+| **Fecha**  | Enero 2026  |
 
 **Contexto:**
 Cada profesional debe ver solo SUS datos. ¿Cómo implementar aislamiento?
@@ -287,7 +290,7 @@ ON appointments
 FOR ALL
 USING (
     user_id = auth.uid()
-    OR 
+    OR
     client_id IN (SELECT id FROM clients WHERE user_id = auth.uid())
 );
 ```
@@ -307,11 +310,12 @@ flowchart LR
     end
 
     Request --> RLS --> Result
-    
+
     style RLS fill:#4CAF50,color:#fff
 ```
 
 **Justificación:**
+
 - Seguridad a nivel de base de datos (no bypasseable)
 - No requiere código en cada query
 - Funciona automáticamente con PostgREST
@@ -321,10 +325,10 @@ flowchart LR
 
 ### ADR-004: Sincronización Bidireccional con Google Calendar
 
-| Campo | Valor |
-|-------|-------|
+| Campo      | Valor       |
+| ---------- | ----------- |
 | **Estado** | ✅ Aceptado |
-| **Fecha** | Enero 2026 |
+| **Fecha**  | Enero 2026  |
 
 **Contexto:**
 ¿Cómo sincronizar citas con Google Calendar?
@@ -352,7 +356,7 @@ flowchart TB
 
     DB -->|"Trigger on INSERT/UPDATE"| Edge
     Edge -->|"REST API"| GCal
-    
+
     Watch -->|"Push Notification"| Edge
     Edge -->|"Sync changes"| DB
 
@@ -379,15 +383,15 @@ flowchart TB
 
 ### 2.3.1 Tabla de Componentes
 
-| Componente | Responsabilidad | Stack | Comunicación | Ubicación |
-|------------|-----------------|-------|--------------|-----------|
-| **Next.js PWA** | UI, SSR, routing, estado cliente | Next.js 14, React 18, TypeScript 5 | HTTPS, WSS | Vercel Edge |
-| **Supabase Auth** | Autenticación, sesiones, OAuth | GoTrue, JWT | HTTPS/OAuth2 | Supabase Cloud |
-| **PostgREST** | API REST auto-generada | PostgREST 11 | REST/JSON | Supabase Cloud |
-| **Edge Functions** | Lógica de negocio compleja | Deno, TypeScript | HTTPS | Supabase Edge |
-| **PostgreSQL** | Persistencia, RLS, triggers | PostgreSQL 15 | TCP/5432 | Supabase Cloud |
-| **Realtime** | Subscripciones WebSocket | Elixir, Phoenix | WSS | Supabase Cloud |
-| **Google Calendar** | Sincronización, notificaciones | REST API v3 | HTTPS/OAuth2 | Google Cloud |
+| Componente          | Responsabilidad                  | Stack                              | Comunicación | Ubicación      |
+| ------------------- | -------------------------------- | ---------------------------------- | ------------ | -------------- |
+| **Next.js PWA**     | UI, SSR, routing, estado cliente | Next.js 14, React 18, TypeScript 5 | HTTPS, WSS   | Vercel Edge    |
+| **Supabase Auth**   | Autenticación, sesiones, OAuth   | GoTrue, JWT                        | HTTPS/OAuth2 | Supabase Cloud |
+| **PostgREST**       | API REST auto-generada           | PostgREST 11                       | REST/JSON    | Supabase Cloud |
+| **Edge Functions**  | Lógica de negocio compleja       | Deno, TypeScript                   | HTTPS        | Supabase Edge  |
+| **PostgreSQL**      | Persistencia, RLS, triggers      | PostgreSQL 15                      | TCP/5432     | Supabase Cloud |
+| **Realtime**        | Subscripciones WebSocket         | Elixir, Phoenix                    | WSS          | Supabase Cloud |
+| **Google Calendar** | Sincronización, notificaciones   | REST API v3                        | HTTPS/OAuth2 | Google Cloud   |
 
 ### 2.3.2 Detalle por Componente
 
@@ -400,7 +404,7 @@ flowchart TB
             RSC["React Server Components<br/>Fetch en servidor"]
             Client["Client Components<br/>Interactividad"]
         end
-        
+
         subgraph Features["Feature Modules"]
             Auth["🔐 auth/"]
             Appointments["📅 appointments/"]
@@ -408,7 +412,7 @@ flowchart TB
             Clients["👥 clients/"]
             Booking["🎫 booking/"]
         end
-        
+
         subgraph Infra["Infraestructura"]
             PWA["📱 PWA Config<br/>next-pwa"]
             Middleware["🛡️ Middleware<br/>Auth + Routing"]
@@ -418,6 +422,7 @@ flowchart TB
 ```
 
 **Responsabilidades:**
+
 - ✅ Renderizado de UI (SSR + CSR)
 - ✅ Routing y navegación
 - ✅ Estado del cliente (React Query)
@@ -425,6 +430,7 @@ flowchart TB
 - ✅ Middleware de autenticación
 
 **NO hace:**
+
 - ❌ Lógica de negocio compleja
 - ❌ Acceso directo a base de datos
 - ❌ Almacenamiento de secretos
@@ -452,13 +458,14 @@ flowchart LR
 
 **Edge Functions MVP:**
 
-| Función | Trigger | Descripción |
-|---------|---------|-------------|
-| `calendar-sync` | Trigger PostgreSQL | Sincroniza citas con Google Calendar |
-| `expire-trials` | Cron (diario 00:00) | Cambia trials expirados a `readonly` |
-| `admin-notify` | Trigger PostgreSQL | Notifica al admin en registros y eventos |
+| Función         | Trigger             | Descripción                              |
+| --------------- | ------------------- | ---------------------------------------- |
+| `calendar-sync` | Trigger PostgreSQL  | Sincroniza citas con Google Calendar     |
+| `expire-trials` | Cron (diario 00:00) | Cambia trials expirados a `readonly`     |
+| `admin-notify`  | Trigger PostgreSQL  | Notifica al admin en registros y eventos |
 
 **Responsabilidades:**
+
 - ✅ Lógica que no puede ser RLS/SQL
 - ✅ Integración con APIs externas
 - ✅ Procesamiento de webhooks
@@ -671,7 +678,7 @@ flowchart TB
     EdgeFn --> PG
     EdgeFn --> CalAPI
     EdgeFn --> MapsAPI
-    
+
     NextApp --> Monitoring
     Supabase --> Monitoring
 
@@ -682,12 +689,12 @@ flowchart TB
 
 ### 2.5.2 Ambientes
 
-| Ambiente | URL | Branch | Base de Datos | Propósito |
-|----------|-----|--------|---------------|-----------|
-| **Local** | localhost:3000 | - | Supabase Local | Desarrollo |
-| **Preview** | pr-123.timeflowpro.vercel.app | PR branches | Supabase Staging | Review PRs |
-| **Staging** | staging.timeflowpro.app | `develop` | Supabase Staging | QA y testing |
-| **Producción** | timeflowpro.app | `main` | Supabase Production | Usuarios reales |
+| Ambiente       | URL                           | Branch      | Base de Datos       | Propósito       |
+| -------------- | ----------------------------- | ----------- | ------------------- | --------------- |
+| **Local**      | localhost:3000                | -           | Supabase Local      | Desarrollo      |
+| **Preview**    | pr-123.timeflowpro.vercel.app | PR branches | Supabase Staging    | Review PRs      |
+| **Staging**    | staging.timeflowpro.app       | `develop`   | Supabase Staging    | QA y testing    |
+| **Producción** | timeflowpro.app               | `main`      | Supabase Production | Usuarios reales |
 
 ### 2.5.3 Pipeline CI/CD
 
@@ -742,31 +749,31 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-      
+
       - run: pnpm install --frozen-lockfile
-      
+
       - name: 🔍 Lint
         run: pnpm lint
-      
+
       - name: 📝 Type Check
         run: pnpm type-check
-      
+
       - name: 🧪 Unit Tests
         run: pnpm test -- --coverage
-      
+
       - name: 🔗 Integration Tests
         run: pnpm test:integration
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_TEST_KEY }}
-      
+
       # ⚠️ E2E Tests NO se ejecutan en CI
       # Se corren localmente: pnpm test:e2e
       # Razón: Alto consumo de recursos y tiempo
-      
+
       - name: 🏗️ Build
         run: pnpm build
-      
+
       - name: 📊 Upload Coverage
         uses: codecov/codecov-action@v3
         with:
@@ -786,6 +793,7 @@ jobs:
 ```
 
 > 💡 **¿Por qué E2E solo en local?**
+>
 > - Los tests E2E con Playwright requieren ~5-10 minutos adicionales
 > - Consumen browsers headless que aumentan costos de CI
 > - Son más útiles para validación visual durante desarrollo
@@ -818,10 +826,10 @@ flowchart LR
     Dev["git commit"] --> PreCommit
     PreCommit -->|"✅ Pass"| CommitMsg
     CommitMsg -->|"✅ Pass"| Save["Commit guardado"]
-    
+
     Push["git push"] --> PrePush
     PrePush -->|"✅ Pass"| Remote["Push a GitHub"]
-    
+
     PreCommit -->|"❌ Fail"| Fix1["Arreglar antes de commit"]
     CommitMsg -->|"❌ Fail"| Fix2["Corregir mensaje"]
     PrePush -->|"❌ Fail"| Fix3["Arreglar tests"]
@@ -854,6 +862,7 @@ timeflowpro/
 #### Configuración de Hooks
 
 **.husky/pre-commit:**
+
 ```bash
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
@@ -863,6 +872,7 @@ pnpm lint-staged
 ```
 
 **.husky/commit-msg:**
+
 ```bash
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
@@ -872,6 +882,7 @@ pnpm commitlint --edit $1
 ```
 
 **.husky/pre-push:**
+
 ```bash
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
@@ -883,29 +894,24 @@ pnpm test --run
 #### Configuración de lint-staged
 
 **.lintstagedrc.js:**
+
 ```javascript
 module.exports = {
   // TypeScript/JavaScript
-  '*.{ts,tsx,js,jsx}': [
-    'eslint --fix',
-    'prettier --write',
-  ],
+  '*.{ts,tsx,js,jsx}': ['eslint --fix', 'prettier --write'],
   // Archivos de estilo
-  '*.{css,scss}': [
-    'prettier --write',
-  ],
+  '*.{css,scss}': ['prettier --write'],
   // JSON, Markdown
-  '*.{json,md}': [
-    'prettier --write',
-  ],
+  '*.{json,md}': ['prettier --write'],
   // Type check en archivos TS modificados
   '*.{ts,tsx}': () => 'tsc --noEmit',
-};
+}
 ```
 
 #### Configuración de Commitlint
 
 **commitlint.config.js:**
+
 ```javascript
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -914,22 +920,22 @@ module.exports = {
       2,
       'always',
       [
-        'feat',     // Nueva funcionalidad
-        'fix',      // Corrección de bug
-        'docs',     // Documentación
-        'style',    // Formato (no afecta lógica)
+        'feat', // Nueva funcionalidad
+        'fix', // Corrección de bug
+        'docs', // Documentación
+        'style', // Formato (no afecta lógica)
         'refactor', // Refactorización
-        'perf',     // Mejora de performance
-        'test',     // Tests
-        'chore',    // Mantenimiento
-        'ci',       // CI/CD
-        'revert',   // Revertir commit
+        'perf', // Mejora de performance
+        'test', // Tests
+        'chore', // Mantenimiento
+        'ci', // CI/CD
+        'revert', // Revertir commit
       ],
     ],
     'subject-max-length': [2, 'always', 72],
     'body-max-line-length': [2, 'always', 100],
   },
-};
+}
 ```
 
 #### Ejemplos de Commits Válidos
@@ -960,18 +966,18 @@ sequenceDiagram
 
     Dev->>Git: git add .
     Dev->>Git: git commit -m "feat: add feature"
-    
+
     Git->>Husky: Trigger pre-commit
     Husky->>Lint: Run lint-staged
     Lint->>Lint: ESLint + Prettier + tsc
-    
+
     alt Lint fails
         Lint-->>Dev: ❌ Fix errors first
     else Lint passes
         Lint-->>Husky: ✅ OK
         Husky->>CL: Run commitlint
         CL->>CL: Validate message format
-        
+
         alt Message invalid
             CL-->>Dev: ❌ Fix commit message
         else Message valid
@@ -983,7 +989,7 @@ sequenceDiagram
     Dev->>Git: git push
     Git->>Husky: Trigger pre-push
     Husky->>Tests: Run unit tests
-    
+
     alt Tests fail
         Tests-->>Dev: ❌ Fix tests before push
     else Tests pass
@@ -994,13 +1000,13 @@ sequenceDiagram
 
 #### Beneficios
 
-| Sin Husky | Con Husky |
-|-----------|-----------|
-| Errores de lint llegan a PR | ❌ Bloqueados en commit |
-| Mensajes de commit inconsistentes | ✅ Formato estandarizado |
-| Tests rotos llegan a CI | ❌ Detectados antes de push |
-| CI falla por formato | ✅ Arreglado localmente |
-| Tiempo de CI desperdiciado | ⏱️ CI más rápido |
+| Sin Husky                         | Con Husky                   |
+| --------------------------------- | --------------------------- |
+| Errores de lint llegan a PR       | ❌ Bloqueados en commit     |
+| Mensajes de commit inconsistentes | ✅ Formato estandarizado    |
+| Tests rotos llegan a CI           | ❌ Detectados antes de push |
+| CI falla por formato              | ✅ Arreglado localmente     |
+| Tiempo de CI desperdiciado        | ⏱️ CI más rápido            |
 
 #### Scripts en package.json
 
@@ -1048,14 +1054,14 @@ flowchart TB
 
 ### 2.6.2 Autenticación
 
-| Aspecto | Implementación |
-|---------|---------------|
-| **Provider** | Supabase Auth (GoTrue) |
-| **Método principal** | OAuth2 con Google |
-| **Tokens** | JWT firmados con HS256 |
-| **Refresh** | Automático con refresh tokens |
-| **Sesión** | httpOnly cookies (no localStorage) |
-| **MFA** | Disponible para Fase 2 |
+| Aspecto              | Implementación                     |
+| -------------------- | ---------------------------------- |
+| **Provider**         | Supabase Auth (GoTrue)             |
+| **Método principal** | OAuth2 con Google                  |
+| **Tokens**           | JWT firmados con HS256             |
+| **Refresh**          | Automático con refresh tokens      |
+| **Sesión**           | httpOnly cookies (no localStorage) |
+| **MFA**              | Disponible para Fase 2             |
 
 ```mermaid
 sequenceDiagram
@@ -1117,8 +1123,8 @@ CREATE POLICY "SuperAdmin sees all" ON appointments
 FOR ALL TO authenticated
 USING (
     EXISTS (
-        SELECT 1 FROM profiles 
-        WHERE profiles.id = auth.uid() 
+        SELECT 1 FROM profiles
+        WHERE profiles.id = auth.uid()
         AND profiles.role = 'superadmin'
     )
 );
@@ -1134,14 +1140,15 @@ USING (client_id = auth.uid());
 
 ### 2.6.4 Gestión de Secretos
 
-| Secreto | Almacenamiento | Acceso |
-|---------|----------------|--------|
-| `SUPABASE_SERVICE_ROLE_KEY` | GitHub Secrets | Solo CI/CD |
-| `GOOGLE_CLIENT_SECRET` | Vercel Env Vars | Server-side only |
-| `GOOGLE_CALENDAR_API_KEY` | Supabase Vault | Edge Functions |
-| Database password | Supabase managed | Nunca expuesto |
+| Secreto                     | Almacenamiento   | Acceso           |
+| --------------------------- | ---------------- | ---------------- |
+| `SUPABASE_SERVICE_ROLE_KEY` | GitHub Secrets   | Solo CI/CD       |
+| `GOOGLE_CLIENT_SECRET`      | Vercel Env Vars  | Server-side only |
+| `GOOGLE_CALENDAR_API_KEY`   | Supabase Vault   | Edge Functions   |
+| Database password           | Supabase managed | Nunca expuesto   |
 
 **Reglas:**
+
 - ❌ **NUNCA** en código o commits
 - ❌ **NUNCA** en `NEXT_PUBLIC_*` (expone al cliente)
 - ✅ Variables de entorno server-side
@@ -1150,14 +1157,14 @@ USING (client_id = auth.uid());
 
 ### 2.6.5 Protección de API
 
-| Protección | Implementación |
-|------------|---------------|
-| **Rate Limiting** | Supabase built-in (100 req/min por IP) |
-| **CORS** | Configurado solo para dominios permitidos |
-| **Input Validation** | Zod schemas en frontend y Edge Functions |
-| **SQL Injection** | Imposible (PostgREST + Prepared statements) |
-| **XSS** | React escapa por defecto + CSP headers |
-| **CSRF** | SameSite cookies + tokens |
+| Protección           | Implementación                              |
+| -------------------- | ------------------------------------------- |
+| **Rate Limiting**    | Supabase built-in (100 req/min por IP)      |
+| **CORS**             | Configurado solo para dominios permitidos   |
+| **Input Validation** | Zod schemas en frontend y Edge Functions    |
+| **SQL Injection**    | Imposible (PostgREST + Prepared statements) |
+| **XSS**              | React escapa por defecto + CSP headers      |
+| **CSRF**             | SameSite cookies + tokens                   |
 
 ---
 
@@ -1184,12 +1191,12 @@ flowchart TB
 
 ### 2.7.2 Estrategia por Tipo
 
-| Tipo | Herramienta | Ubicación | Cobertura Target | Ejecuta en |
-|------|-------------|-----------|------------------|------------|
-| **Unit** | Vitest | `*.test.ts` junto al código | >80% | ☁️ GitHub Actions (cada push) |
-| **Integration** | Vitest + Supabase | `__tests__/integration/` | Casos críticos | ☁️ GitHub Actions (cada PR) |
-| **E2E** | Playwright | `e2e/` | Flujos principales | 💻 **Solo Local** |
-| **Visual** | Playwright | `e2e/` | Componentes UI | 💻 **Solo Local** |
+| Tipo            | Herramienta       | Ubicación                   | Cobertura Target   | Ejecuta en                    |
+| --------------- | ----------------- | --------------------------- | ------------------ | ----------------------------- |
+| **Unit**        | Vitest            | `*.test.ts` junto al código | >80%               | ☁️ GitHub Actions (cada push) |
+| **Integration** | Vitest + Supabase | `__tests__/integration/`    | Casos críticos     | ☁️ GitHub Actions (cada PR)   |
+| **E2E**         | Playwright        | `e2e/`                      | Flujos principales | 💻 **Solo Local**             |
+| **Visual**      | Playwright        | `e2e/`                      | Componentes UI     | 💻 **Solo Local**             |
 
 > ⚠️ **Nota sobre E2E:** Los tests E2E con Playwright consumen muchos recursos (browser headless, timeouts, screenshots). Se ejecutan **solo en local** antes de crear PRs importantes. Esto reduce costos de CI y tiempos de build.
 
@@ -1199,46 +1206,43 @@ flowchart TB
 
 ```typescript
 // features/appointments/utils/calculateEndTime.test.ts
-import { describe, it, expect } from 'vitest';
-import { calculateEndTime } from './calculateEndTime';
+import { describe, it, expect } from 'vitest'
+import { calculateEndTime } from './calculateEndTime'
 
 describe('calculateEndTime', () => {
   it('adds duration to start time', () => {
-    const start = new Date('2026-01-15T10:00:00');
-    const durationMinutes = 45;
-    
-    const result = calculateEndTime(start, durationMinutes);
-    
-    expect(result).toEqual(new Date('2026-01-15T10:45:00'));
-  });
+    const start = new Date('2026-01-15T10:00:00')
+    const durationMinutes = 45
+
+    const result = calculateEndTime(start, durationMinutes)
+
+    expect(result).toEqual(new Date('2026-01-15T10:45:00'))
+  })
 
   it('handles overnight appointments', () => {
-    const start = new Date('2026-01-15T23:30:00');
-    const durationMinutes = 60;
-    
-    const result = calculateEndTime(start, durationMinutes);
-    
-    expect(result).toEqual(new Date('2026-01-16T00:30:00'));
-  });
-});
+    const start = new Date('2026-01-15T23:30:00')
+    const durationMinutes = 60
+
+    const result = calculateEndTime(start, durationMinutes)
+
+    expect(result).toEqual(new Date('2026-01-16T00:30:00'))
+  })
+})
 ```
 
 **Integration Test:**
 
 ```typescript
 // __tests__/integration/appointments.test.ts
-import { describe, it, expect, beforeAll } from 'vitest';
-import { createClient } from '@supabase/supabase-js';
+import { describe, it, expect, beforeAll } from 'vitest'
+import { createClient } from '@supabase/supabase-js'
 
 describe('Appointments API', () => {
-  let supabase;
+  let supabase
 
   beforeAll(() => {
-    supabase = createClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_KEY!
-    );
-  });
+    supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_KEY!)
+  })
 
   it('creates appointment and blocks time slot', async () => {
     const { data, error } = await supabase
@@ -1247,55 +1251,55 @@ describe('Appointments API', () => {
         user_id: 'test-user',
         client_id: 'test-client',
         start_time: '2026-01-15T10:00:00',
-        duration_minutes: 45
+        duration_minutes: 45,
       })
       .select()
-      .single();
+      .single()
 
-    expect(error).toBeNull();
-    expect(data.status).toBe('confirmed');
-  });
-});
+    expect(error).toBeNull()
+    expect(data.status).toBe('confirmed')
+  })
+})
 ```
 
 **E2E Test (Playwright):**
 
 ```typescript
 // e2e/booking.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test('client can book appointment', async ({ page }) => {
   // Ir al portal de reservas
-  await page.goto('/reservar/felipe');
-  
+  await page.goto('/reservar/felipe')
+
   // Seleccionar servicio
-  await page.getByRole('combobox', { name: 'Servicio' }).click();
-  await page.getByRole('option', { name: 'Kinesiología' }).click();
-  
+  await page.getByRole('combobox', { name: 'Servicio' }).click()
+  await page.getByRole('option', { name: 'Kinesiología' }).click()
+
   // Seleccionar ubicación
-  await page.getByRole('combobox', { name: 'Ubicación' }).click();
-  await page.getByRole('option', { name: 'Iron Gym' }).click();
-  
+  await page.getByRole('combobox', { name: 'Ubicación' }).click()
+  await page.getByRole('option', { name: 'Iron Gym' }).click()
+
   // Seleccionar horario
-  await page.getByRole('button', { name: '10:00' }).click();
-  
+  await page.getByRole('button', { name: '10:00' }).click()
+
   // Confirmar
-  await page.getByRole('button', { name: 'Confirmar Reserva' }).click();
-  
+  await page.getByRole('button', { name: 'Confirmar Reserva' }).click()
+
   // Verificar confirmación
-  await expect(page.getByText('Cita confirmada')).toBeVisible();
-});
+  await expect(page.getByText('Cita confirmada')).toBeVisible()
+})
 ```
 
 ### 2.7.4 Métricas de Calidad
 
-| Métrica | Umbral | Acción si falla | Ejecuta en |
-|---------|--------|-----------------|------------|
-| Cobertura Unit Tests | >80% | ❌ CI falla | ☁️ GitHub Actions |
-| Tests Integration pasando | 100% | ❌ CI falla | ☁️ GitHub Actions |
-| Tests E2E pasando | 100% | ⚠️ Revisar antes de PR | 💻 Local only |
-| Lighthouse Performance | >90 | ⚠️ Warning | ☁️ GitHub Actions |
-| Bundle Size | <500KB | ⚠️ Warning | ☁️ GitHub Actions |
+| Métrica                   | Umbral | Acción si falla        | Ejecuta en        |
+| ------------------------- | ------ | ---------------------- | ----------------- |
+| Cobertura Unit Tests      | >80%   | ❌ CI falla            | ☁️ GitHub Actions |
+| Tests Integration pasando | 100%   | ❌ CI falla            | ☁️ GitHub Actions |
+| Tests E2E pasando         | 100%   | ⚠️ Revisar antes de PR | 💻 Local only     |
+| Lighthouse Performance    | >90    | ⚠️ Warning             | ☁️ GitHub Actions |
+| Bundle Size               | <500KB | ⚠️ Warning             | ☁️ GitHub Actions |
 
 ### 2.7.5 Flujo de Testing Recomendado
 
@@ -1366,17 +1370,16 @@ pnpm test:ci           # Unit + Integration (sin E2E)
 
 ## 2.9 Referencias
 
-| Documento | Ubicación |
-|-----------|-----------|
-| Ficha del Proyecto | [`0-FichaProyecto.md`](./0-FichaProyecto.md) |
+| Documento           | Ubicación                                              |
+| ------------------- | ------------------------------------------------------ |
+| Ficha del Proyecto  | [`0-FichaProyecto.md`](./0-FichaProyecto.md)           |
 | Descripción General | [`1-DescripcionGeneral.md`](./1-DescripcionGeneral.md) |
-| Modelo de Datos | [`3-ModeloDatos.md`](./3-ModeloDatos.md) |
-| Supabase Docs | [supabase.com/docs](https://supabase.com/docs) |
-| Next.js 14 Docs | [nextjs.org/docs](https://nextjs.org/docs) |
-| C4 Model | [c4model.com](https://c4model.com) |
+| Modelo de Datos     | [`3-ModeloDatos.md`](./3-ModeloDatos.md)               |
+| Supabase Docs       | [supabase.com/docs](https://supabase.com/docs)         |
+| Next.js 14 Docs     | [nextjs.org/docs](https://nextjs.org/docs)             |
+| C4 Model            | [c4model.com](https://c4model.com)                     |
 
 ---
 
 **Última actualización:** Enero 2026  
 **Versión del documento:** 1.1.0
-

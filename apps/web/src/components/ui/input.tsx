@@ -1,6 +1,7 @@
-import { forwardRef, type InputHTMLAttributes } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils/cn';
+import { cva, type VariantProps } from 'class-variance-authority'
+import { forwardRef, type InputHTMLAttributes } from 'react'
+
+import { cn } from '@/lib/utils/cn'
 
 /**
  * Input variants following TimeFlowPro Design System
@@ -42,19 +43,18 @@ const inputVariants = cva(
       inputSize: 'md',
     },
   }
-);
+)
 
 export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    VariantProps<typeof inputVariants> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, VariantProps<typeof inputVariants> {
   /** Error message to display */
-  error?: string;
+  error?: string
   /** Helper text below input */
-  helperText?: string;
+  helperText?: string
   /** Left icon/addon */
-  leftIcon?: React.ReactNode;
+  leftIcon?: React.ReactNode
   /** Right icon/addon */
-  rightIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode
 }
 
 /**
@@ -68,21 +68,9 @@ export interface InputProps
  * />
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      variant,
-      inputSize,
-      error,
-      helperText,
-      leftIcon,
-      rightIcon,
-      ...props
-    },
-    ref
-  ) => {
-    const hasError = !!error;
-    const effectiveVariant = hasError ? 'error' : variant;
+  ({ className, variant, inputSize, error, helperText, leftIcon, rightIcon, ...props }, ref) => {
+    const hasError = !!error
+    const effectiveVariant = hasError ? 'error' : variant
 
     return (
       <div className="w-full">
@@ -113,11 +101,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <p
-            id={`${props.id}-error`}
-            className="mt-1.5 text-sm text-error-500"
-            role="alert"
-          >
+          <p id={`${props.id}-error`} className="mt-1.5 text-sm text-error-500" role="alert">
             {error}
           </p>
         )}
@@ -127,11 +111,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-Input.displayName = 'Input';
+Input.displayName = 'Input'
 
-export { Input, inputVariants };
-
+export { Input, inputVariants }

@@ -1,7 +1,8 @@
-import { forwardRef, type ButtonHTMLAttributes } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils/cn';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { forwardRef, type ButtonHTMLAttributes } from 'react'
+
+import { cn } from '@/lib/utils/cn'
 
 /**
  * Button variants following TimeFlowPro Design System
@@ -47,11 +48,7 @@ const buttonVariants = cva(
           'hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
           'focus-visible:ring-gray-500',
         ],
-        danger: [
-          'bg-error-500 text-white',
-          'hover:bg-error-600',
-          'focus-visible:ring-error-500',
-        ],
+        danger: ['bg-error-500 text-white', 'hover:bg-error-600', 'focus-visible:ring-error-500'],
         link: [
           'text-primary-500 underline-offset-4',
           'hover:underline',
@@ -77,15 +74,14 @@ const buttonVariants = cva(
       size: 'md',
     },
   }
-);
+)
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   /** Render as child component (for Link wrapping) */
-  asChild?: boolean;
+  asChild?: boolean
   /** Loading state */
-  isLoading?: boolean;
+  isLoading?: boolean
 }
 
 /**
@@ -114,7 +110,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : 'button';
+    const Comp = asChild ? Slot : 'button'
 
     return (
       <Comp
@@ -151,11 +147,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           children
         )}
       </Comp>
-    );
+    )
   }
-);
+)
 
-Button.displayName = 'Button';
+Button.displayName = 'Button'
 
-export { Button, buttonVariants };
-
+export { Button, buttonVariants }

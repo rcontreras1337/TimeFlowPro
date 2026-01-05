@@ -8,44 +8,51 @@
 
 Todos los PRs deben seguir **Conventional Commits**:
 
-| Prefijo | Uso | Ejemplo |
-|---------|-----|---------|
-| `feat` | Nueva funcionalidad | `feat(auth): implementar login con Google` |
-| `fix` | Corrección de bug | `fix(calendar): corregir cálculo de slots` |
-| `chore` | Mantenimiento | `chore(deps): actualizar dependencias` |
-| `docs` | Documentación | `docs(api): agregar ejemplos de endpoints` |
-| `refactor` | Refactorización | `refactor(appointments): extraer servicio` |
-| `test` | Tests | `test(availability): agregar tests unitarios` |
-| `style` | Formateo | `style: aplicar prettier a componentes` |
-| `perf` | Performance | `perf(queries): optimizar consultas RLS` |
-| `ci` | CI/CD | `ci: agregar job de deploy a staging` |
+| Prefijo    | Uso                 | Ejemplo                                       |
+| ---------- | ------------------- | --------------------------------------------- |
+| `feat`     | Nueva funcionalidad | `feat(auth): implementar login con Google`    |
+| `fix`      | Corrección de bug   | `fix(calendar): corregir cálculo de slots`    |
+| `chore`    | Mantenimiento       | `chore(deps): actualizar dependencias`        |
+| `docs`     | Documentación       | `docs(api): agregar ejemplos de endpoints`    |
+| `refactor` | Refactorización     | `refactor(appointments): extraer servicio`    |
+| `test`     | Tests               | `test(availability): agregar tests unitarios` |
+| `style`    | Formateo            | `style: aplicar prettier a componentes`       |
+| `perf`     | Performance         | `perf(queries): optimizar consultas RLS`      |
+| `ci`       | CI/CD               | `ci: agregar job de deploy a staging`         |
 
 ### Estructura de Descripción
 
 ```markdown
 ## Resumen
+
 [Qué hace este PR en 1-2 oraciones]
 
 ## Motivación
+
 [Por qué es necesario este cambio]
 
 ## Cambios Realizados
+
 - [Cambio 1]
 - [Cambio 2]
 - [Cambio 3]
 
 ## Tickets Relacionados
+
 Closes #T-X-XX
 
 ## Plan de Pruebas
+
 - [ ] Tests unitarios pasando
 - [ ] Tests de integración pasando
 - [ ] Pruebas manuales realizadas
 
 ## Capturas / Evidencia
+
 [Screenshots o respuestas JSON]
 
 ## Checklist
+
 - [ ] Código sigue guía de estilo
 - [ ] Tests añadidos/actualizados
 - [ ] Documentación actualizada
@@ -73,6 +80,7 @@ Configura la estructura base del proyecto TimeFlowPro: monorepo con pnpm workspa
 #### Motivación
 
 Este PR establece los cimientos técnicos del proyecto, asegurando:
+
 - Arquitectura hexagonal preparada para escalabilidad
 - Design system consistente con la identidad de marca
 - Sistema de mensajes centralizado para mantener todo el UI en español
@@ -81,6 +89,7 @@ Este PR establece los cimientos técnicos del proyecto, asegurando:
 #### Cambios Realizados
 
 **Estructura del Proyecto:**
+
 ```
 timeflowpro/
 ├── apps/
@@ -106,6 +115,7 @@ timeflowpro/
 ```
 
 **Design Tokens (tailwind.config.ts):**
+
 - Primary: `#3F83F8` (Azul profesional)
 - Secondary: `#0694A2` (Teal flow)
 - Accent: `#FF5A1F` (Naranja energía)
@@ -113,12 +123,14 @@ timeflowpro/
 - Tipografía: Plus Jakarta Sans
 
 **Sistema de Mensajes:**
+
 - Archivo `messages.es.yml` con +200 mensajes
 - Helper `getMessage(path, variables)`
 - Interpolación de variables `{variable}`
 - Fallback a path si mensaje no existe
 
 **Componentes Base Creados:**
+
 - `Button` (variantes: default, outline, ghost, destructive)
 - `Input` (con validación visual)
 - `Card`, `CardHeader`, `CardContent`
@@ -126,6 +138,7 @@ timeflowpro/
 - `Alert` (success, warning, error, info)
 
 **Configuración de Calidad:**
+
 - ESLint con reglas estrictas
 - Prettier para formateo
 - Husky para pre-commit hooks
@@ -169,6 +182,7 @@ Coverage: 94%
 ### Capturas de Pantalla
 
 **Página de Inicio (Desktop):**
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │  🕐 TimeFlowPro                    [Iniciar sesión] │
@@ -183,6 +197,7 @@ Coverage: 94%
 ```
 
 **Componentes en Storybook:**
+
 ```
 ┌──────────────────────────────────────┐
 │ Button                               │
@@ -227,6 +242,7 @@ La autenticación con Google reduce la fricción de registro (no hay contraseña
 #### Cambios Realizados
 
 **Backend:**
+
 - Configuración de Google OAuth en Supabase
 - Trigger `handle_new_user` para crear perfil automáticamente
 - Campo `trial_expires_at` se establece a +14 días
@@ -234,6 +250,7 @@ La autenticación con Google reduce la fricción de registro (no hay contraseña
 - RLS policies para proteger datos de perfil
 
 **Frontend:**
+
 - Página de login con botón "Continuar con Google"
 - Manejo de callback OAuth
 - Hook `useAuth` para estado de autenticación
@@ -241,26 +258,29 @@ La autenticación con Google reduce la fricción de registro (no hay contraseña
 - Componente `Alert` para errores
 
 **Middleware:**
+
 - Verificación de sesión en rutas protegidas
 - Redirect a login si no autenticado
 - Banner de trial visible cuando quedan < 7 días
 
 **Sistema de Trial:**
+
 - Edge Function `expire-trials` (cron diario)
 - Cambia `account_status` a `readonly` cuando expira
 - Envía notificación al admin
 
 **Mensajes (messages.es.yml):**
+
 ```yaml
 auth:
   login:
-    title: "Iniciar sesión"
-    withGoogle: "Continuar con Google"
-    success: "¡Bienvenido!"
+    title: 'Iniciar sesión'
+    withGoogle: 'Continuar con Google'
+    success: '¡Bienvenido!'
 account:
   trial:
-    daysRemaining: "Te quedan {days} días de prueba"
-    expired: "Tu período de prueba ha expirado"
+    daysRemaining: 'Te quedan {days} días de prueba'
+    expired: 'Tu período de prueba ha expirado'
 ```
 
 ### Tickets Relacionados
@@ -315,6 +335,7 @@ Tests: 3 passed, 3 total
 ### Capturas de Pantalla
 
 **Página de Login:**
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │                                                     │
@@ -333,6 +354,7 @@ Tests: 3 passed, 3 total
 ```
 
 **Banner de Trial:**
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │ ⚠️ Te quedan 5 días de prueba. Contacta al admin   │
@@ -341,6 +363,7 @@ Tests: 3 passed, 3 total
 ```
 
 **Respuesta de API (signup):**
+
 ```json
 {
   "user": {
@@ -389,6 +412,7 @@ Implementa la vista principal del calendario con visualización de citas, travel
 #### Motivación
 
 El calendario es el corazón de TimeFlowPro. Esta implementación:
+
 - Muestra la agenda diaria/semanal del profesional
 - Visualiza tiempos de traslado como bloques diferenciados
 - Permite crear citas considerando disponibilidad real
@@ -397,6 +421,7 @@ El calendario es el corazón de TimeFlowPro. Esta implementación:
 #### Cambios Realizados
 
 **Motor de Disponibilidad (Backend):**
+
 ```typescript
 // Considera:
 - Horarios de trabajo por ubicación
@@ -408,6 +433,7 @@ El calendario es el corazón de TimeFlowPro. Esta implementación:
 ```
 
 **Vista de Calendario (Frontend):**
+
 - Vista diaria con timeline vertical
 - Vista semanal con grid de días
 - Código de colores:
@@ -419,6 +445,7 @@ El calendario es el corazón de TimeFlowPro. Esta implementación:
 - Click en slot vacío → Crear cita
 
 **Modal de Crear Cita:**
+
 - Selector de cliente (con búsqueda)
 - Selector de servicio
 - Selector de ubicación
@@ -428,22 +455,24 @@ El calendario es el corazón de TimeFlowPro. Esta implementación:
 - Notas opcionales
 
 **Travel Blocks Automáticos:**
+
 - Al crear cita, calcula si necesita traslado
 - Bloquea tiempo previo automáticamente
 - Se visualiza en calendario con color diferenciado
 
 **Mensajes (messages.es.yml):**
+
 ```yaml
 calendar:
-  title: "Calendario"
-  today: "Hoy"
-  travelBlock: "Tiempo de traslado"
+  title: 'Calendario'
+  today: 'Hoy'
+  travelBlock: 'Tiempo de traslado'
 appointments:
   create:
-    success: "Cita creada exitosamente"
+    success: 'Cita creada exitosamente'
   fields:
-    client: "Cliente"
-    service: "Servicio"
+    client: 'Cliente'
+    service: 'Servicio'
 ```
 
 ### Tickets Relacionados
@@ -499,6 +528,7 @@ Tests: 3 passed, 3 total
 ### Capturas de Pantalla
 
 **Vista de Calendario (Día):**
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │  📅 Miércoles 15 de Enero          [< Hoy >]       │
@@ -524,6 +554,7 @@ Tests: 3 passed, 3 total
 ```
 
 **Modal Crear Cita:**
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │  ➕ Nueva cita                               [X]    │
@@ -550,6 +581,7 @@ Tests: 3 passed, 3 total
 ```
 
 **Respuesta API (crear cita):**
+
 ```json
 {
   "id": "apt-uuid-5678",
@@ -588,9 +620,10 @@ Tests: 3 passed, 3 total
 
 ```markdown
 ## Título
-
 ```
+
 [tipo]([scope]): [descripción corta]
+
 ```
 
 ### Descripción
@@ -607,7 +640,9 @@ Tests: 3 passed, 3 total
 
 ### Tickets Relacionados
 ```
+
 Closes #T-X-XX
+
 ```
 
 ### Plan de Pruebas
@@ -634,19 +669,18 @@ Closes #T-X-XX
 
 ## 7.5 Checklist de Validación de PRs
 
-| Criterio | Verificación |
-|----------|--------------|
-| **Trazabilidad** | ¿El PR menciona `Closes #T-X-XX`? |
+| Criterio             | Verificación                                |
+| -------------------- | ------------------------------------------- |
+| **Trazabilidad**     | ¿El PR menciona `Closes #T-X-XX`?           |
 | **Título Semántico** | ¿Usa Conventional Commits (feat/fix/chore)? |
-| **Descripción** | ¿Explica el "qué" y el "por qué"? |
-| **Tests** | ¿Menciona qué tests se añadieron? |
-| **Evidencia** | ¿Incluye screenshots o respuestas JSON? |
-| **Idioma** | ¿Todos los mensajes de usuario en español? |
-| **Checklist** | ¿El autor verificó linting y tipos? |
+| **Descripción**      | ¿Explica el "qué" y el "por qué"?           |
+| **Tests**            | ¿Menciona qué tests se añadieron?           |
+| **Evidencia**        | ¿Incluye screenshots o respuestas JSON?     |
+| **Idioma**           | ¿Todos los mensajes de usuario en español?  |
+| **Checklist**        | ¿El autor verificó linting y tipos?         |
 
 ---
 
 **Última actualización:** Enero 2026  
 **Versión del documento:** 1.0.0  
 **Autor:** TimeFlowPro Team
-

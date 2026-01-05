@@ -31,31 +31,35 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
 }
 
@@ -88,7 +92,12 @@
   }
 
   /* Headings */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-family-sans);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
@@ -96,12 +105,24 @@
     margin: 0;
   }
 
-  h1 { font-size: var(--font-size-5xl); }
-  h2 { font-size: var(--font-size-4xl); }
-  h3 { font-size: var(--font-size-3xl); }
-  h4 { font-size: var(--font-size-2xl); }
-  h5 { font-size: var(--font-size-xl); }
-  h6 { font-size: var(--font-size-lg); }
+  h1 {
+    font-size: var(--font-size-5xl);
+  }
+  h2 {
+    font-size: var(--font-size-4xl);
+  }
+  h3 {
+    font-size: var(--font-size-3xl);
+  }
+  h4 {
+    font-size: var(--font-size-2xl);
+  }
+  h5 {
+    font-size: var(--font-size-xl);
+  }
+  h6 {
+    font-size: var(--font-size-lg);
+  }
 
   /* Links */
   a {
@@ -122,7 +143,10 @@
   }
 
   /* Code */
-  code, pre, kbd, samp {
+  code,
+  pre,
+  kbd,
+  samp {
     font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
   }
@@ -190,13 +214,16 @@
   }
 
   /* Input reset */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-family: inherit;
     font-size: inherit;
   }
 
   /* Image */
-  img, svg {
+  img,
+  svg {
     display: block;
     max-width: 100%;
     height: auto;
@@ -209,7 +236,8 @@
   }
 
   /* List reset */
-  ul, ol {
+  ul,
+  ol {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -284,18 +312,38 @@
  * ============================================ */
 @layer utilities {
   /* Calendar specific colors */
-  .bg-appointment { background-color: var(--color-appointment); }
-  .bg-travel-block { background-color: var(--color-travel-block); }
-  .bg-personal-block { background-color: var(--color-personal-block); }
-  .bg-available { background-color: var(--color-available); }
-  .bg-unavailable { background-color: var(--color-unavailable); }
+  .bg-appointment {
+    background-color: var(--color-appointment);
+  }
+  .bg-travel-block {
+    background-color: var(--color-travel-block);
+  }
+  .bg-personal-block {
+    background-color: var(--color-personal-block);
+  }
+  .bg-available {
+    background-color: var(--color-available);
+  }
+  .bg-unavailable {
+    background-color: var(--color-unavailable);
+  }
 
   /* Text colors */
-  .text-appointment { color: var(--color-appointment); }
-  .text-travel-block { color: var(--color-travel-block); }
-  .text-personal-block { color: var(--color-personal-block); }
-  .text-available { color: var(--color-available); }
-  .text-unavailable { color: var(--color-unavailable); }
+  .text-appointment {
+    color: var(--color-appointment);
+  }
+  .text-travel-block {
+    color: var(--color-travel-block);
+  }
+  .text-personal-block {
+    color: var(--color-personal-block);
+  }
+  .text-available {
+    color: var(--color-available);
+  }
+  .text-unavailable {
+    color: var(--color-unavailable);
+  }
 
   /* Animation for loading states */
   .animate-pulse-slow {
@@ -303,7 +351,8 @@
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -319,4 +368,3 @@
     background-clip: text;
   }
 }
-

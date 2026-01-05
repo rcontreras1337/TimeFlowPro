@@ -3,5 +3,4 @@
  */
 
 // Placeholder - will be populated with API response types
-export {};
-
+export {}

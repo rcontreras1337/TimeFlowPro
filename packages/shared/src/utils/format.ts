@@ -10,13 +10,13 @@ export function formatDate(
   locale: string = 'es-CL',
   options?: Intl.DateTimeFormatOptions
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date
   return dateObj.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     ...options,
-  });
+  })
 }
 
 /**
@@ -27,23 +27,20 @@ export function formatTime(
   locale: string = 'es-CL',
   options?: Intl.DateTimeFormatOptions
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date
   return dateObj.toLocaleTimeString(locale, {
     hour: '2-digit',
     minute: '2-digit',
     ...options,
-  });
+  })
 }
 
 /**
  * Format a datetime to locale string
  */
-export function formatDateTime(
-  date: Date | string,
-  locale: string = 'es-CL'
-): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return `${formatDate(dateObj, locale)} ${formatTime(dateObj, locale)}`;
+export function formatDateTime(date: Date | string, locale: string = 'es-CL'): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  return `${formatDate(dateObj, locale)} ${formatTime(dateObj, locale)}`
 }
 
 /**
@@ -51,14 +48,14 @@ export function formatDateTime(
  */
 export function formatDuration(minutes: number): string {
   if (minutes < 60) {
-    return `${minutes} min`;
+    return `${minutes} min`
   }
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
+  const hours = Math.floor(minutes / 60)
+  const remainingMinutes = minutes % 60
   if (remainingMinutes === 0) {
-    return `${hours}h`;
+    return `${hours}h`
   }
-  return `${hours}h ${remainingMinutes}min`;
+  return `${hours}h ${remainingMinutes}min`
 }
 
 /**
@@ -74,7 +71,7 @@ export function formatCurrency(
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(amount)
 }
 
 /**
@@ -82,18 +79,17 @@ export function formatCurrency(
  */
 export function formatPhone(phone: string): string {
   // Remove all non-digits
-  const cleaned = phone.replace(/\D/g, '');
+  const cleaned = phone.replace(/\D/g, '')
 
   // Format as +56 9 XXXX XXXX
   if (cleaned.length === 11 && cleaned.startsWith('569')) {
-    return `+56 9 ${cleaned.slice(3, 7)} ${cleaned.slice(7)}`;
+    return `+56 9 ${cleaned.slice(3, 7)} ${cleaned.slice(7)}`
   }
 
   // Format as 9 XXXX XXXX
   if (cleaned.length === 9 && cleaned.startsWith('9')) {
-    return `9 ${cleaned.slice(1, 5)} ${cleaned.slice(5)}`;
+    return `9 ${cleaned.slice(1, 5)} ${cleaned.slice(5)}`
   }
 
-  return phone;
+  return phone
 }
-

@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
 
 /**
  * Login page placeholder
@@ -11,26 +12,15 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-gray-800">
         <div className="text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-icon.svg"
-            alt="TimeFlowPro"
-            className="mx-auto h-16 w-16"
-          />
-          <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-white">
-            Iniciar Sesión
-          </h1>
+          <img src="/logo-icon.svg" alt="TimeFlowPro" className="mx-auto h-16 w-16" />
+          <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Accede a tu cuenta de TimeFlowPro
           </p>
         </div>
 
         <div className="mt-8 space-y-4">
-          <Button
-            variant="outline"
-            fullWidth
-            className="gap-3"
-            disabled
-          >
+          <Button variant="outline" fullWidth className="gap-3" disabled>
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -67,6 +57,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-
