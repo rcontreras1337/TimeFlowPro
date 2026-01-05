@@ -79,15 +79,14 @@ describe('Supabase Browser Client', () => {
 describe('Supabase Client Environment Variables', () => {
   it('debe lanzar error si SUPABASE_URL no está definida', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', '')
-    
+
     // El cliente de Supabase debería manejar esto
     expect(process.env.NEXT_PUBLIC_SUPABASE_URL).toBe('')
   })
 
   it('debe lanzar error si ANON_KEY no está definida', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', '')
-    
+
     expect(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY).toBe('')
   })
 })
-

@@ -2,25 +2,26 @@
 
 ## 📋 Índice de Sprints
 
-| Sprint | Nombre | Tickets | Story Points | Estado |
-|--------|--------|---------|--------------|--------|
-| [Sprint 0](./sprint-0.md) | Setup & Fundamentos | 6 | 21 | 📋 Pendiente |
-| [Sprint 1](./sprint-1.md) | Autenticación y Perfil | 7 | 31 | 📋 Pendiente |
-| [Sprint 2](./sprint-2.md) | Ubicaciones y Servicios | 8 | 36 | 📋 Pendiente |
-| [Sprint 3](./sprint-3.md) | Clientes y Citas | 6 | 36 | 📋 Pendiente |
-| [Sprint 4](./sprint-4.md) | Portal Público | 9 | 44 | 📋 Pendiente |
-| [Sprint 5](./sprint-5.md) | Google Calendar + Bloqueos | 8 | 42 | 📋 Pendiente |
-| **TOTAL MVP** | | **44** | **210** | |
+| Sprint                    | Nombre                     | Tickets | Story Points | Estado       |
+| ------------------------- | -------------------------- | ------- | ------------ | ------------ |
+| [Sprint 0](./sprint-0.md) | Setup & Fundamentos        | 6       | 21           | 📋 Pendiente |
+| [Sprint 1](./sprint-1.md) | Autenticación y Perfil     | 7       | 31           | 📋 Pendiente |
+| [Sprint 2](./sprint-2.md) | Ubicaciones y Servicios    | 8       | 36           | 📋 Pendiente |
+| [Sprint 3](./sprint-3.md) | Clientes y Citas           | 6       | 36           | 📋 Pendiente |
+| [Sprint 4](./sprint-4.md) | Portal Público             | 9       | 44           | 📋 Pendiente |
+| [Sprint 5](./sprint-5.md) | Google Calendar + Bloqueos | 8       | 42           | 📋 Pendiente |
+| **TOTAL MVP**             |                            | **44**  | **210**      |              |
 
 ---
 
 ## ⚠️ Importante: Solo MVP
 
-Este RoadMap cubre **únicamente el MVP (Fase 1)**. 
+Este RoadMap cubre **únicamente el MVP (Fase 1)**.
 
 Las funcionalidades de **Fase 2** (US-24 a US-30) incluyen:
+
 - 🗺️ Cálculo automático con Google Maps
-- 💳 Pagos con MercadoPago  
+- 💳 Pagos con MercadoPago
 - 📊 Reportes y estadísticas
 - 👥 Gestión multi-profesional
 - 📲 Recordatorios WhatsApp
@@ -39,7 +40,7 @@ flowchart LR
     S3 --> S4["🌐 Sprint 4<br/>Portal"]
     S4 --> S5["📆 Sprint 5<br/>GCal"]
     S5 --> MVP["🚀 MVP"]
-    
+
     style S0 fill:#6366F1,color:#fff
     style S1 fill:#8B5CF6,color:#fff
     style S2 fill:#EC4899,color:#fff
@@ -112,4 +113,3 @@ TOTAL:    ░░░░░░░░░░ 0%
 ---
 
 **Última actualización:** Enero 2026
-

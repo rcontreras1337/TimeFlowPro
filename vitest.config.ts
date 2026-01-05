@@ -8,13 +8,8 @@ import path from 'path'
 export default defineConfig({
   test: {
     globals: true,
-    include: [
-      './tests/**/*.test.ts',
-    ],
-    exclude: [
-      'node_modules/',
-      'apps/*/node_modules/',
-    ],
+    include: ['./tests/**/*.test.ts'],
+    exclude: ['node_modules/', 'apps/*/node_modules/'],
     testTimeout: 30000, // 30s para tests de integración
     hookTimeout: 30000,
   },
@@ -24,4 +19,3 @@ export default defineConfig({
     },
   },
 })
-

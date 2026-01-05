@@ -69,38 +69,43 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
 ## 🎨 Paleta de Colores
 
 ### Primary - Azul Profesional
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable              | Hex       | Uso             |
+| --------------------- | --------- | --------------- |
 | `--color-primary-500` | `#3F83F8` | Color principal |
-| `--color-primary-600` | `#1C64F2` | Hover |
-| `--color-primary-700` | `#1A56DB` | Active |
+| `--color-primary-600` | `#1C64F2` | Hover           |
+| `--color-primary-700` | `#1A56DB` | Active          |
 
 ### Secondary - Teal Flow
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable                | Hex       | Uso              |
+| ----------------------- | --------- | ---------------- |
 | `--color-secondary-500` | `#0694A2` | Flujo/Movimiento |
-| `--color-secondary-400` | `#16BDCA` | Highlight |
+| `--color-secondary-400` | `#16BDCA` | Highlight        |
 
 ### Accent - Naranja Energía
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable             | Hex       | Uso              |
+| -------------------- | --------- | ---------------- |
 | `--color-accent-500` | `#FF5A1F` | CTAs importantes |
-| `--color-accent-400` | `#FF8A4C` | Highlights |
+| `--color-accent-400` | `#FF8A4C` | Highlights       |
 
 ### Calendar Específicos
-| Variable | Hex | Uso |
-|----------|-----|-----|
-| `--color-appointment` | `#3F83F8` | Citas |
-| `--color-travel-block` | `#F59E0B` | Traslados |
+
+| Variable                 | Hex       | Uso                 |
+| ------------------------ | --------- | ------------------- |
+| `--color-appointment`    | `#3F83F8` | Citas               |
+| `--color-travel-block`   | `#F59E0B` | Traslados           |
 | `--color-personal-block` | `#8B5CF6` | Bloqueos personales |
-| `--color-available` | `#10B981` | Disponible |
-| `--color-unavailable` | `#EF4444` | No disponible |
+| `--color-available`      | `#10B981` | Disponible          |
+| `--color-unavailable`    | `#EF4444` | No disponible       |
 
 ---
 
 ## 📝 Tipografía
 
 ### Font Family
+
 - **Primary:** Plus Jakarta Sans (Google Fonts)
 - **Mono:** JetBrains Mono (código)
 
@@ -111,11 +116,11 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
   <!-- Preconnect para performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
+
   <!-- Fonts -->
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" 
-    rel="stylesheet" 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
   />
 </head>
 ```
@@ -124,14 +129,14 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
 
 ```typescript
 // app/layout.tsx
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-plus-jakarta-sans',
   display: 'swap',
-});
+})
 ```
 
 ---
@@ -152,6 +157,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 ## 📋 Uso en Código
 
 ### CSS Variables
+
 ```css
 .my-element {
   background-color: var(--color-primary-500);
@@ -163,8 +169,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 ```
 
 ### Con Tailwind (después de configurar)
+
 ```html
-<button class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md">
+<button
+  class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md"
+>
   Crear Cita
 </button>
 ```
@@ -172,4 +181,3 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 ---
 
 **Referencia:** [Documentacion/6-TicketsTrabajo.md - T-0-01](../../../Documentacion/6-TicketsTrabajo.md)
-

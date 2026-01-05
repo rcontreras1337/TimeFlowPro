@@ -2,25 +2,25 @@
 
 ## 📊 Resumen
 
-| Métrica | Valor |
-|---------|-------|
-| **Tickets** | 6 |
-| **Story Points** | 36 |
-| **Duración estimada** | 2 semanas |
-| **Objetivo** | Gestión de clientes, citas, calendario y motor de disponibilidad |
+| Métrica               | Valor                                                            |
+| --------------------- | ---------------------------------------------------------------- |
+| **Tickets**           | 6                                                                |
+| **Story Points**      | 36                                                               |
+| **Duración estimada** | 2 semanas                                                        |
+| **Objetivo**          | Gestión de clientes, citas, calendario y motor de disponibilidad |
 
 ---
 
 ## 📋 Lista de Tickets
 
-| ID | Título | Tipo | Pts | HDU | Estado | Bloqueado por |
-|----|--------|------|-----|-----|--------|---------------|
-| T-3-01 | CRUD Clientes (Backend) | Backend | 5 | US-07 | ⬜ Pendiente | T-1-01 |
-| T-3-02 | UI Gestión de Clientes | Frontend | 5 | US-07, US-08 | ⬜ Pendiente | T-3-01 |
-| T-3-03 | Crear/Editar Citas (Backend) | Backend | 8 | US-09 | ⬜ Pendiente | T-2-01, T-2-03, T-3-01 |
-| T-3-04 | Motor de Disponibilidad | Backend | 8 | US-09 | ⬜ Pendiente | T-2-05, T-2-07 |
-| T-3-05 | Vista de Calendario (UI) | Frontend | 5 | US-09 | ⬜ Pendiente | T-3-03 |
-| T-3-06 | Crear cita desde calendario | Frontend | 5 | US-09 | ⬜ Pendiente | T-3-04, T-3-05 |
+| ID     | Título                       | Tipo     | Pts | HDU          | Estado       | Bloqueado por          |
+| ------ | ---------------------------- | -------- | --- | ------------ | ------------ | ---------------------- |
+| T-3-01 | CRUD Clientes (Backend)      | Backend  | 5   | US-07        | ⬜ Pendiente | T-1-01                 |
+| T-3-02 | UI Gestión de Clientes       | Frontend | 5   | US-07, US-08 | ⬜ Pendiente | T-3-01                 |
+| T-3-03 | Crear/Editar Citas (Backend) | Backend  | 8   | US-09        | ⬜ Pendiente | T-2-01, T-2-03, T-3-01 |
+| T-3-04 | Motor de Disponibilidad      | Backend  | 8   | US-09        | ⬜ Pendiente | T-2-05, T-2-07         |
+| T-3-05 | Vista de Calendario (UI)     | Frontend | 5   | US-09        | ⬜ Pendiente | T-3-03                 |
+| T-3-06 | Crear cita desde calendario  | Frontend | 5   | US-09        | ⬜ Pendiente | T-3-04, T-3-05         |
 
 > **Nota:** Los bloqueos personales (almuerzo, vacaciones) se implementan en Sprint 5 junto con Google Calendar.
 
@@ -35,12 +35,12 @@ flowchart TD
     T203["T-2-03<br/>🛠️ Servicios"] --> T303
     T205["T-2-05<br/>🕐 Horarios"] --> T304
     T207["T-2-07<br/>🚗 Traslados"] --> T304
-    
+
     T301 --> T302["T-3-02<br/>👥 Clientes UI"]
     T301 --> T303["T-3-03<br/>📅 Citas BE"]
-    
+
     T303 --> T305["T-3-05<br/>📆 Calendario"]
-    
+
     T304["T-3-04<br/>⚡ Disponibilidad"] --> T306["T-3-06<br/>➕ Crear Cita UI"]
     T305 --> T306
 
@@ -77,4 +77,3 @@ flowchart TD
 ---
 
 **Referencia completa:** [Documentacion/6-TicketsTrabajo.md](../Documentacion/6-TicketsTrabajo.md)
-

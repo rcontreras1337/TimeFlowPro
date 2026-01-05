@@ -15,11 +15,17 @@
   },
   "packageManager": "pnpm@9.14.4",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint:fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "pnpm --filter @timeflowpro/web dev",
     "build": "pnpm --filter @timeflowpro/web build",
     "start": "pnpm --filter @timeflowpro/web start",
-    "lint": "pnpm --filter @timeflowpro/web lint",
-    "test": "pnpm --filter @timeflowpro/web test",
+    "web:lint": "pnpm --filter @timeflowpro/web lint",
+    "web:test": "pnpm --filter @timeflowpro/web test",
     "test:unit": "pnpm --filter @timeflowpro/web test",
     "test:integration": "vitest run --config vitest.config.ts",
     "test:coverage": "pnpm --filter @timeflowpro/web test:coverage",
@@ -35,8 +41,14 @@
     "db:seed": "supabase db reset --seed-only"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.3.0",
+    "@commitlint/config-conventional": "^20.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "typescript": "^5.3.3",
     "vitest": "^2.1.8"
   }
 }
-

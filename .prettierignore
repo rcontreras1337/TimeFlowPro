@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+public/
+coverage/
+*.min.js
+pnpm-lock.yaml

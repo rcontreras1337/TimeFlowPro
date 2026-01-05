@@ -2,25 +2,25 @@
 
 ## 📊 Resumen
 
-| Métrica | Valor |
-|---------|-------|
-| **Tickets** | 6 |
-| **Story Points** | 21 |
-| **Duración estimada** | 1 semana |
-| **Objetivo** | Configurar proyecto, CI/CD, design system y sistema de mensajes |
+| Métrica               | Valor                                                           |
+| --------------------- | --------------------------------------------------------------- |
+| **Tickets**           | 6                                                               |
+| **Story Points**      | 21                                                              |
+| **Duración estimada** | 1 semana                                                        |
+| **Objetivo**          | Configurar proyecto, CI/CD, design system y sistema de mensajes |
 
 ---
 
 ## 📋 Lista de Tickets
 
-| ID | Título | Tipo | Pts | HDU | Estado | Bloqueado por |
-|----|--------|------|-----|-----|--------|---------------|
-| T-0-01 | Definición de Brand Identity | Design | 3 | - | ⬜ Pendiente | - |
-| T-0-02 | Setup Monorepo + Next.js 14 | Infra | 5 | - | ⬜ Pendiente | T-0-01 |
-| T-0-03 | Supabase Local (Docker) | Infra | 3 | - | ⬜ Pendiente | - |
-| T-0-04 | GitHub Actions CI/CD | Infra | 5 | - | ⬜ Pendiente | T-0-02 |
-| T-0-05 | Husky + Commitlint + ESLint | Infra | 2 | - | ⬜ Pendiente | T-0-02 |
-| T-0-06 | Sistema de Mensajes (i18n) | Infra | 3 | - | ⬜ Pendiente | T-0-02 |
+| ID     | Título                       | Tipo   | Pts | HDU | Estado       | Bloqueado por |
+| ------ | ---------------------------- | ------ | --- | --- | ------------ | ------------- |
+| T-0-01 | Definición de Brand Identity | Design | 3   | -   | ⬜ Pendiente | -             |
+| T-0-02 | Setup Monorepo + Next.js 14  | Infra  | 5   | -   | ⬜ Pendiente | T-0-01        |
+| T-0-03 | Supabase Local (Docker)      | Infra  | 3   | -   | ⬜ Pendiente | -             |
+| T-0-04 | GitHub Actions CI/CD         | Infra  | 5   | -   | ⬜ Pendiente | T-0-02        |
+| T-0-05 | Husky + Commitlint + ESLint  | Infra  | 2   | -   | ⬜ Pendiente | T-0-02        |
+| T-0-06 | Sistema de Mensajes (i18n)   | Infra  | 3   | -   | ⬜ Pendiente | T-0-02        |
 
 > **Nota:** Sprint 0 es infraestructura fundacional, no tiene HDUs asociadas.
 
@@ -32,10 +32,10 @@
 flowchart TD
     T001["T-0-01<br/>🎨 Brand Identity"]
     T003["T-0-03<br/>🐳 Supabase Docker"]
-    
+
     T001 --> T002["T-0-02<br/>📦 Monorepo"]
     T003 --> T002
-    
+
     T002 --> T004["T-0-04<br/>🔄 GitHub Actions"]
     T002 --> T005["T-0-05<br/>🪝 Husky"]
     T002 --> T006["T-0-06<br/>🌐 i18n Messages"]
@@ -69,13 +69,15 @@ flowchart TD
 ## 🎫 Detalles Rápidos por Ticket
 
 ### T-0-01: Brand Identity
+
 - **Objetivo:** Logo, colores, tipografía
-- **Entregables:** 
+- **Entregables:**
   - Logo SVG/PNG
   - Paleta en `tailwind.config.ts`
   - Tipografía: Plus Jakarta Sans
 
 ### T-0-02: Monorepo + Next.js
+
 - **Objetivo:** Estructura de proyecto
 - **Entregables:**
   - pnpm workspaces
@@ -84,6 +86,7 @@ flowchart TD
   - Componentes base (Button, Input, Card)
 
 ### T-0-03: Supabase Local
+
 - **Objetivo:** BD local para desarrollo
 - **Entregables:**
   - Docker compose
@@ -91,6 +94,7 @@ flowchart TD
   - Tipos TypeScript generados
 
 ### T-0-04: GitHub Actions
+
 - **Objetivo:** CI/CD automatizado
 - **Entregables:**
   - Lint + TypeCheck
@@ -98,12 +102,14 @@ flowchart TD
   - Deploy a Vercel
 
 ### T-0-05: Husky + Commitlint
+
 - **Objetivo:** Calidad de código
 - **Entregables:**
   - Pre-commit hooks
   - Conventional commits enforced
 
 ### T-0-06: Sistema de Mensajes (i18n)
+
 - **Objetivo:** Centralizar textos de usuario
 - **Entregables:**
   - Archivo `messages.es.yml`
@@ -125,4 +131,3 @@ flowchart TD
 ---
 
 **Referencia completa:** [Documentacion/6-TicketsTrabajo.md](../Documentacion/6-TicketsTrabajo.md)
-

@@ -2,27 +2,27 @@
 
 ## 📊 Resumen
 
-| Métrica | Valor |
-|---------|-------|
-| **Tickets** | 8 |
-| **Story Points** | 36 |
-| **Duración estimada** | 2 semanas |
-| **Objetivo** | CRUD de ubicaciones, servicios, horarios y tiempos de traslado |
+| Métrica               | Valor                                                          |
+| --------------------- | -------------------------------------------------------------- |
+| **Tickets**           | 8                                                              |
+| **Story Points**      | 36                                                             |
+| **Duración estimada** | 2 semanas                                                      |
+| **Objetivo**          | CRUD de ubicaciones, servicios, horarios y tiempos de traslado |
 
 ---
 
 ## 📋 Lista de Tickets
 
-| ID | Título | Tipo | Pts | HDU | Estado | Bloqueado por |
-|----|--------|------|-----|-----|--------|---------------|
-| T-2-01 | CRUD Ubicaciones (Backend) | Backend | 5 | US-03 | ⬜ Pendiente | T-1-01 |
-| T-2-02 | UI Gestión de Ubicaciones | Frontend | 5 | US-03 | ⬜ Pendiente | T-2-01 |
-| T-2-03 | CRUD Servicios (Backend) | Backend | 5 | US-04 | ⬜ Pendiente | T-1-01 |
-| T-2-04 | UI Gestión de Servicios | Frontend | 5 | US-04 | ⬜ Pendiente | T-2-03 |
-| T-2-05 | Horarios por ubicación (Backend) | Backend | 5 | US-05 | ⬜ Pendiente | T-2-01 |
-| T-2-06 | UI Horarios de trabajo | Frontend | 5 | US-05 | ⬜ Pendiente | T-2-05 |
-| T-2-07 | Tiempos de traslado (Backend) | Backend | 3 | US-06 | ⬜ Pendiente | T-2-01 |
-| T-2-08 | UI Matriz de traslados | Frontend | 3 | US-06 | ⬜ Pendiente | T-2-07 |
+| ID     | Título                           | Tipo     | Pts | HDU   | Estado       | Bloqueado por |
+| ------ | -------------------------------- | -------- | --- | ----- | ------------ | ------------- |
+| T-2-01 | CRUD Ubicaciones (Backend)       | Backend  | 5   | US-03 | ⬜ Pendiente | T-1-01        |
+| T-2-02 | UI Gestión de Ubicaciones        | Frontend | 5   | US-03 | ⬜ Pendiente | T-2-01        |
+| T-2-03 | CRUD Servicios (Backend)         | Backend  | 5   | US-04 | ⬜ Pendiente | T-1-01        |
+| T-2-04 | UI Gestión de Servicios          | Frontend | 5   | US-04 | ⬜ Pendiente | T-2-03        |
+| T-2-05 | Horarios por ubicación (Backend) | Backend  | 5   | US-05 | ⬜ Pendiente | T-2-01        |
+| T-2-06 | UI Horarios de trabajo           | Frontend | 5   | US-05 | ⬜ Pendiente | T-2-05        |
+| T-2-07 | Tiempos de traslado (Backend)    | Backend  | 3   | US-06 | ⬜ Pendiente | T-2-01        |
+| T-2-08 | UI Matriz de traslados           | Frontend | 3   | US-06 | ⬜ Pendiente | T-2-07        |
 
 ---
 
@@ -32,13 +32,13 @@
 flowchart TD
     T101["T-1-01<br/>🗄️ BD"] --> T201["T-2-01<br/>📍 Ubicaciones BE"]
     T101 --> T203["T-2-03<br/>🛠️ Servicios BE"]
-    
+
     T201 --> T202["T-2-02<br/>📍 Ubicaciones UI"]
     T201 --> T205["T-2-05<br/>🕐 Horarios BE"]
     T201 --> T207["T-2-07<br/>🚗 Traslados BE"]
-    
+
     T203 --> T204["T-2-04<br/>🛠️ Servicios UI"]
-    
+
     T205 --> T206["T-2-06<br/>🕐 Horarios UI"]
     T207 --> T208["T-2-08<br/>🚗 Traslados UI"]
 
@@ -75,4 +75,3 @@ flowchart TD
 ---
 
 **Referencia completa:** [Documentacion/6-TicketsTrabajo.md](../Documentacion/6-TicketsTrabajo.md)
-

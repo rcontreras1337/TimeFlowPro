@@ -40,7 +40,7 @@ const nextConfig = {
           },
         ],
       },
-    ];
+    ]
   },
 
   // Experimental features
@@ -48,7 +48,6 @@ const nextConfig = {
     // Enable typed routes
     typedRoutes: true,
   },
-};
+}
 
-export default nextConfig;
-
+export default nextConfig

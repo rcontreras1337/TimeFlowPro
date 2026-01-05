@@ -18,23 +18,23 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 
 ### Etiquetas de Prioridad
 
-| Prioridad | Símbolo | Criterio |
-|-----------|---------|----------|
-| 🔴 Crítica | P0 | Bloquea todo el sprint |
-| 🟠 Alta | P1 | Necesario para completar HDU críticas |
-| 🟡 Media | P2 | Mejora la experiencia pero no bloquea |
-| 🟢 Baja | P3 | Nice-to-have, puede posponerse |
+| Prioridad  | Símbolo | Criterio                              |
+| ---------- | ------- | ------------------------------------- |
+| 🔴 Crítica | P0      | Bloquea todo el sprint                |
+| 🟠 Alta    | P1      | Necesario para completar HDU críticas |
+| 🟡 Media   | P2      | Mejora la experiencia pero no bloquea |
+| 🟢 Baja    | P3      | Nice-to-have, puede posponerse        |
 
 ### Estimación (Story Points - Fibonacci)
 
-| Puntos | Tiempo estimado | Complejidad |
-|--------|-----------------|-------------|
-| 1 | 2-4 horas | Trivial, sin incertidumbre |
-| 2 | 4-8 horas | Simple, patrón conocido |
-| 3 | 1-2 días | Moderado, alguna investigación |
-| 5 | 2-3 días | Complejo, múltiples componentes |
-| 8 | 3-5 días | Muy complejo, alto riesgo |
-| 13 | 1 semana+ | Épico, debe dividirse |
+| Puntos | Tiempo estimado | Complejidad                     |
+| ------ | --------------- | ------------------------------- |
+| 1      | 2-4 horas       | Trivial, sin incertidumbre      |
+| 2      | 4-8 horas       | Simple, patrón conocido         |
+| 3      | 1-2 días        | Moderado, alguna investigación  |
+| 5      | 2-3 días        | Complejo, múltiples componentes |
+| 8      | 3-5 días        | Muy complejo, alto riesgo       |
+| 13     | 1 semana+       | Épico, debe dividirse           |
 
 ---
 
@@ -42,79 +42,79 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 
 ### Sprint 0: Setup e Infraestructura Base
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-0-01 | Diseño de Logo y Brand Identity | Design | 🔴 P0 | 3 | - | - |
-| T-0-02 | Setup Monorepo + Next.js 14 + Design Tokens | Infra | 🔴 P0 | 5 | - | T-0-01 |
-| T-0-03 | Configuración Supabase Local (Docker) | Infra | 🔴 P0 | 3 | - | T-0-02 |
-| T-0-04 | GitHub Actions CI/CD Pipeline | Infra | 🔴 P0 | 5 | - | T-0-02 |
-| T-0-05 | Husky + Commitlint + ESLint + Prettier | Infra | 🟠 P1 | 2 | - | T-0-02 |
-| T-0-06 | Sistema de Mensajes (i18n) | Infra | 🔴 P0 | 3 | - | T-0-02 |
+| ID     | Título                                      | Tipo   | Prioridad | Pts | HDUs | Dependencias |
+| ------ | ------------------------------------------- | ------ | --------- | --- | ---- | ------------ |
+| T-0-01 | Diseño de Logo y Brand Identity             | Design | 🔴 P0     | 3   | -    | -            |
+| T-0-02 | Setup Monorepo + Next.js 14 + Design Tokens | Infra  | 🔴 P0     | 5   | -    | T-0-01       |
+| T-0-03 | Configuración Supabase Local (Docker)       | Infra  | 🔴 P0     | 3   | -    | T-0-02       |
+| T-0-04 | GitHub Actions CI/CD Pipeline               | Infra  | 🔴 P0     | 5   | -    | T-0-02       |
+| T-0-05 | Husky + Commitlint + ESLint + Prettier      | Infra  | 🟠 P1     | 2   | -    | T-0-02       |
+| T-0-06 | Sistema de Mensajes (i18n)                  | Infra  | 🔴 P0     | 3   | -    | T-0-02       |
 
 ### Sprint 1: Autenticación y Perfil Base
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-1-01 | Migración inicial de base de datos | Database | 🔴 P0 | 5 | US-01 | T-0-03 |
-| T-1-02 | Configurar Supabase Auth con Google OAuth | Backend | 🔴 P0 | 5 | US-01 | T-1-01 |
-| T-1-03 | Implementar página de Login | Frontend | 🔴 P0 | 3 | US-01 | T-1-02 |
-| T-1-04 | Middleware de autenticación y rutas protegidas | Backend | 🔴 P0 | 3 | US-01 | T-1-02 |
-| T-1-05 | Formulario de perfil profesional | Frontend | 🔴 P0 | 5 | US-02 | T-1-03 |
-| T-1-06 | Sistema de trial automático | Backend | 🔴 P0 | 5 | US-01, US-16 | T-1-02 |
-| T-1-07 | Dashboard Admin - Configuración Trial | Frontend | 🔴 P0 | 5 | US-16, US-17 | T-1-06 |
+| ID     | Título                                         | Tipo     | Prioridad | Pts | HDUs         | Dependencias |
+| ------ | ---------------------------------------------- | -------- | --------- | --- | ------------ | ------------ |
+| T-1-01 | Migración inicial de base de datos             | Database | 🔴 P0     | 5   | US-01        | T-0-03       |
+| T-1-02 | Configurar Supabase Auth con Google OAuth      | Backend  | 🔴 P0     | 5   | US-01        | T-1-01       |
+| T-1-03 | Implementar página de Login                    | Frontend | 🔴 P0     | 3   | US-01        | T-1-02       |
+| T-1-04 | Middleware de autenticación y rutas protegidas | Backend  | 🔴 P0     | 3   | US-01        | T-1-02       |
+| T-1-05 | Formulario de perfil profesional               | Frontend | 🔴 P0     | 5   | US-02        | T-1-03       |
+| T-1-06 | Sistema de trial automático                    | Backend  | 🔴 P0     | 5   | US-01, US-16 | T-1-02       |
+| T-1-07 | Dashboard Admin - Configuración Trial          | Frontend | 🔴 P0     | 5   | US-16, US-17 | T-1-06       |
 
 ### Sprint 2: Ubicaciones y Servicios
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-2-01 | CRUD Ubicaciones (API + RLS) | Backend | 🔴 P0 | 5 | US-03 | T-1-01 |
-| T-2-02 | UI Gestión de Ubicaciones | Frontend | 🔴 P0 | 5 | US-03 | T-2-01 |
-| T-2-03 | CRUD Servicios (API + RLS) | Backend | 🔴 P0 | 5 | US-04 | T-1-01 |
-| T-2-04 | UI Gestión de Servicios | Frontend | 🔴 P0 | 5 | US-04 | T-2-03 |
-| T-2-05 | Horarios de trabajo por ubicación | Backend | 🔴 P0 | 5 | US-06 | T-2-01 |
-| T-2-06 | UI Configuración de Horarios | Frontend | 🔴 P0 | 5 | US-06 | T-2-05 |
-| T-2-07 | Tiempos de traslado entre ubicaciones | Backend | 🟠 P1 | 3 | US-07 | T-2-01 |
-| T-2-08 | Matriz de tiempos de traslado UI | Frontend | 🟠 P1 | 3 | US-07 | T-2-07 |
+| ID     | Título                                | Tipo     | Prioridad | Pts | HDUs  | Dependencias |
+| ------ | ------------------------------------- | -------- | --------- | --- | ----- | ------------ |
+| T-2-01 | CRUD Ubicaciones (API + RLS)          | Backend  | 🔴 P0     | 5   | US-03 | T-1-01       |
+| T-2-02 | UI Gestión de Ubicaciones             | Frontend | 🔴 P0     | 5   | US-03 | T-2-01       |
+| T-2-03 | CRUD Servicios (API + RLS)            | Backend  | 🔴 P0     | 5   | US-04 | T-1-01       |
+| T-2-04 | UI Gestión de Servicios               | Frontend | 🔴 P0     | 5   | US-04 | T-2-03       |
+| T-2-05 | Horarios de trabajo por ubicación     | Backend  | 🔴 P0     | 5   | US-06 | T-2-01       |
+| T-2-06 | UI Configuración de Horarios          | Frontend | 🔴 P0     | 5   | US-06 | T-2-05       |
+| T-2-07 | Tiempos de traslado entre ubicaciones | Backend  | 🟠 P1     | 3   | US-07 | T-2-01       |
+| T-2-08 | Matriz de tiempos de traslado UI      | Frontend | 🟠 P1     | 3   | US-07 | T-2-07       |
 
 ### Sprint 3: Gestión de Clientes y Citas
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-3-01 | CRUD Clientes (API + RLS) | Backend | 🔴 P0 | 5 | US-07 | T-1-01 |
-| T-3-02 | UI Gestión de Clientes | Frontend | 🔴 P0 | 5 | US-07, US-08 | T-3-01 |
-| T-3-03 | API Crear Cita con validaciones | Backend | 🔴 P0 | 8 | US-09 | T-3-01, T-2-01 |
-| T-3-04 | Motor de disponibilidad | Backend | 🔴 P0 | 8 | US-09 | T-2-05, T-2-07 |
-| T-3-05 | Calendario visual de citas | Frontend | 🔴 P0 | 5 | US-09 | T-3-03 |
-| T-3-06 | Crear cita desde calendario | Frontend | 🔴 P0 | 5 | US-09 | T-3-04, T-3-05 |
+| ID     | Título                          | Tipo     | Prioridad | Pts | HDUs         | Dependencias   |
+| ------ | ------------------------------- | -------- | --------- | --- | ------------ | -------------- |
+| T-3-01 | CRUD Clientes (API + RLS)       | Backend  | 🔴 P0     | 5   | US-07        | T-1-01         |
+| T-3-02 | UI Gestión de Clientes          | Frontend | 🔴 P0     | 5   | US-07, US-08 | T-3-01         |
+| T-3-03 | API Crear Cita con validaciones | Backend  | 🔴 P0     | 8   | US-09        | T-3-01, T-2-01 |
+| T-3-04 | Motor de disponibilidad         | Backend  | 🔴 P0     | 8   | US-09        | T-2-05, T-2-07 |
+| T-3-05 | Calendario visual de citas      | Frontend | 🔴 P0     | 5   | US-09        | T-3-03         |
+| T-3-06 | Crear cita desde calendario     | Frontend | 🔴 P0     | 5   | US-09        | T-3-04, T-3-05 |
 
 > **Nota:** Los bloqueos personales (US-22) se implementan en Sprint 5 junto con Google Calendar.
 
 ### Sprint 4: Portal Público y Reservas Online
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-4-01 | Portal público por slug | Frontend | 🔴 P0 | 5 | US-12 | T-2-04 |
-| T-4-02 | API Disponibilidad pública | Backend | 🔴 P0 | 5 | US-12, US-13 | T-3-04 |
-| T-4-03 | Wizard de reserva online | Frontend | 🔴 P0 | 8 | US-13 | T-4-02 |
-| T-4-04 | Términos y condiciones configurables | Backend | 🟠 P1 | 3 | US-23 | T-4-02 |
-| T-4-05 | Completar/Cancelar cita | Backend | 🔴 P0 | 5 | US-11 | T-3-03 |
-| T-4-06 | UI Completar cita + duración real | Frontend | 🔴 P0 | 3 | US-11 | T-4-05 |
-| T-4-07 | Duración adaptativa por cliente | Backend | 🟠 P1 | 5 | US-10 | T-4-05 |
-| T-4-08 | Cancelación por cliente | Backend | 🔴 P0 | 5 | US-20 | T-4-02 |
-| T-4-09 | Reagendamiento de citas | Backend | 🔴 P0 | 5 | US-21 | T-4-02 |
+| ID     | Título                               | Tipo     | Prioridad | Pts | HDUs         | Dependencias |
+| ------ | ------------------------------------ | -------- | --------- | --- | ------------ | ------------ |
+| T-4-01 | Portal público por slug              | Frontend | 🔴 P0     | 5   | US-12        | T-2-04       |
+| T-4-02 | API Disponibilidad pública           | Backend  | 🔴 P0     | 5   | US-12, US-13 | T-3-04       |
+| T-4-03 | Wizard de reserva online             | Frontend | 🔴 P0     | 8   | US-13        | T-4-02       |
+| T-4-04 | Términos y condiciones configurables | Backend  | 🟠 P1     | 3   | US-23        | T-4-02       |
+| T-4-05 | Completar/Cancelar cita              | Backend  | 🔴 P0     | 5   | US-11        | T-3-03       |
+| T-4-06 | UI Completar cita + duración real    | Frontend | 🔴 P0     | 3   | US-11        | T-4-05       |
+| T-4-07 | Duración adaptativa por cliente      | Backend  | 🟠 P1     | 5   | US-10        | T-4-05       |
+| T-4-08 | Cancelación por cliente              | Backend  | 🔴 P0     | 5   | US-20        | T-4-02       |
+| T-4-09 | Reagendamiento de citas              | Backend  | 🔴 P0     | 5   | US-21        | T-4-02       |
 
 ### Sprint 5: Google Calendar + Bloqueos Personales
 
-| ID | Título | Tipo | Prioridad | Pts | HDUs | Dependencias |
-|----|--------|------|-----------|-----|------|--------------|
-| T-5-01 | OAuth Google Calendar | Backend | 🔴 P0 | 8 | US-14 | T-1-02 |
-| T-5-02 | Sincronización unidireccional (→GCal) | Backend | 🔴 P0 | 8 | US-14 | T-5-01 |
-| T-5-03 | UI Conexión Google Calendar | Frontend | 🔴 P0 | 5 | US-14 | T-5-01 |
-| T-5-04 | Leer eventos GCal (disponibilidad) | Backend | 🔴 P0 | 5 | US-15 | T-5-01, T-3-04 |
-| T-5-05 | CRUD Bloqueos personales | Backend | 🔴 P0 | 5 | US-22 | T-1-01 |
-| T-5-06 | UI Bloqueos personales | Frontend | 🔴 P0 | 5 | US-22 | T-5-05, T-3-05 |
-| T-5-07 | Bloqueos en disponibilidad | Backend | 🟠 P1 | 3 | US-22 | T-5-05, T-3-04 |
-| T-5-08 | Visualización bloqueos en calendario | Frontend | 🟠 P1 | 3 | US-22 | T-5-06, T-3-05 |
+| ID     | Título                                | Tipo     | Prioridad | Pts | HDUs  | Dependencias   |
+| ------ | ------------------------------------- | -------- | --------- | --- | ----- | -------------- |
+| T-5-01 | OAuth Google Calendar                 | Backend  | 🔴 P0     | 8   | US-14 | T-1-02         |
+| T-5-02 | Sincronización unidireccional (→GCal) | Backend  | 🔴 P0     | 8   | US-14 | T-5-01         |
+| T-5-03 | UI Conexión Google Calendar           | Frontend | 🔴 P0     | 5   | US-14 | T-5-01         |
+| T-5-04 | Leer eventos GCal (disponibilidad)    | Backend  | 🔴 P0     | 5   | US-15 | T-5-01, T-3-04 |
+| T-5-05 | CRUD Bloqueos personales              | Backend  | 🔴 P0     | 5   | US-22 | T-1-01         |
+| T-5-06 | UI Bloqueos personales                | Frontend | 🔴 P0     | 5   | US-22 | T-5-05, T-3-05 |
+| T-5-07 | Bloqueos en disponibilidad            | Backend  | 🟠 P1     | 3   | US-22 | T-5-05, T-3-04 |
+| T-5-08 | Visualización bloqueos en calendario  | Frontend | 🟠 P1     | 3   | US-22 | T-5-06, T-3-05 |
 
 > **⚠️ Nota MVP:** Sincronización **unidireccional** (TimeFlowPro → GCal). Webhooks bidireccionales = Fase 2.
 
@@ -128,19 +128,20 @@ T-[Sprint]-[Número]: [Tipo] Título descriptivo con verbo de acción
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Design |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 0 - Setup |
+| Campo                 | Valor                     |
+| --------------------- | ------------------------- |
+| **Tipo**              | Design                    |
+| **Prioridad**         | 🔴 P0 (Crítica)           |
+| **Estimación**        | 3 Story Points            |
+| **Sprint**            | 0 - Setup                 |
 | **HDUs Relacionadas** | Ninguna (Infraestructura) |
-| **Bloqueado por** | - |
-| **Bloquea a** | T-0-02 |
+| **Bloqueado por**     | -                         |
+| **Bloquea a**         | T-0-02                    |
 
 #### Descripción
 
 Crear la identidad visual completa de TimeFlowPro que refleje los valores de la marca:
+
 - **Time**: Gestión del tiempo, puntualidad
 - **Flow**: Fluidez, optimización, movimiento
 - **Pro**: Profesionalismo, confianza
@@ -174,69 +175,69 @@ Concepto: Reloj abstracto con flujo dinámico
 
 :root {
   /* === PRIMARY - Azul Profesional === */
-  --color-primary-50: #EBF5FF;
-  --color-primary-100: #E1EFFE;
-  --color-primary-200: #C3DDFD;
-  --color-primary-300: #A4CAFE;
-  --color-primary-400: #76A9FA;
-  --color-primary-500: #3F83F8;  /* Principal */
-  --color-primary-600: #1C64F2;  /* Hover */
-  --color-primary-700: #1A56DB;  /* Active */
-  --color-primary-800: #1E429F;
+  --color-primary-50: #ebf5ff;
+  --color-primary-100: #e1effe;
+  --color-primary-200: #c3ddfd;
+  --color-primary-300: #a4cafe;
+  --color-primary-400: #76a9fa;
+  --color-primary-500: #3f83f8; /* Principal */
+  --color-primary-600: #1c64f2; /* Hover */
+  --color-primary-700: #1a56db; /* Active */
+  --color-primary-800: #1e429f;
   --color-primary-900: #233876;
 
   /* === SECONDARY - Teal Flow === */
-  --color-secondary-50: #EDFAFA;
-  --color-secondary-100: #D5F5F6;
-  --color-secondary-200: #AFECEF;
-  --color-secondary-300: #7EDCE2;
-  --color-secondary-400: #16BDCA;
-  --color-secondary-500: #0694A2;  /* Principal */
-  --color-secondary-600: #047481;  /* Hover */
+  --color-secondary-50: #edfafa;
+  --color-secondary-100: #d5f5f6;
+  --color-secondary-200: #afecef;
+  --color-secondary-300: #7edce2;
+  --color-secondary-400: #16bdca;
+  --color-secondary-500: #0694a2; /* Principal */
+  --color-secondary-600: #047481; /* Hover */
   --color-secondary-700: #036672;
-  --color-secondary-800: #05505C;
+  --color-secondary-800: #05505c;
   --color-secondary-900: #014451;
 
   /* === ACCENT - Naranja Energía === */
-  --color-accent-50: #FFF8F1;
-  --color-accent-100: #FEECDC;
-  --color-accent-200: #FCD9BD;
-  --color-accent-300: #FDBA8C;
-  --color-accent-400: #FF8A4C;
-  --color-accent-500: #FF5A1F;  /* Principal - CTAs importantes */
-  --color-accent-600: #D03801;
-  --color-accent-700: #B43403;
-  --color-accent-800: #8A2C0D;
-  --color-accent-900: #73230D;
+  --color-accent-50: #fff8f1;
+  --color-accent-100: #feecdc;
+  --color-accent-200: #fcd9bd;
+  --color-accent-300: #fdba8c;
+  --color-accent-400: #ff8a4c;
+  --color-accent-500: #ff5a1f; /* Principal - CTAs importantes */
+  --color-accent-600: #d03801;
+  --color-accent-700: #b43403;
+  --color-accent-800: #8a2c0d;
+  --color-accent-900: #73230d;
 
   /* === NEUTRALS - Grises === */
-  --color-gray-50: #F9FAFB;
-  --color-gray-100: #F3F4F6;
-  --color-gray-200: #E5E7EB;
-  --color-gray-300: #D1D5DB;
-  --color-gray-400: #9CA3AF;
-  --color-gray-500: #6B7280;
-  --color-gray-600: #4B5563;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
   --color-gray-700: #374151;
-  --color-gray-800: #1F2937;
+  --color-gray-800: #1f2937;
   --color-gray-900: #111827;
 
   /* === SEMANTIC - Estados === */
-  --color-success-500: #0E9F6E;
-  --color-success-100: #DEF7EC;
-  --color-warning-500: #C27803;
-  --color-warning-100: #FDF6B2;
-  --color-error-500: #F05252;
-  --color-error-100: #FDE8E8;
-  --color-info-500: #3F83F8;
-  --color-info-100: #E1EFFE;
+  --color-success-500: #0e9f6e;
+  --color-success-100: #def7ec;
+  --color-warning-500: #c27803;
+  --color-warning-100: #fdf6b2;
+  --color-error-500: #f05252;
+  --color-error-100: #fde8e8;
+  --color-info-500: #3f83f8;
+  --color-info-100: #e1effe;
 
   /* === CALENDAR SPECIFIC === */
-  --color-appointment: #3F83F8;      /* Citas normales */
-  --color-travel-block: #F59E0B;     /* Bloques de traslado */
-  --color-personal-block: #8B5CF6;   /* Bloqueos personales */
-  --color-available: #10B981;        /* Slots disponibles */
-  --color-unavailable: #EF4444;      /* No disponible */
+  --color-appointment: #3f83f8; /* Citas normales */
+  --color-travel-block: #f59e0b; /* Bloques de traslado */
+  --color-personal-block: #8b5cf6; /* Bloqueos personales */
+  --color-available: #10b981; /* Slots disponibles */
+  --color-unavailable: #ef4444; /* No disponible */
 }
 ```
 
@@ -247,20 +248,20 @@ Concepto: Reloj abstracto con flujo dinámico
 
 :root {
   /* Font Family - Plus Jakarta Sans (Google Fonts) */
-  --font-family-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 
-                      'Segoe UI', Roboto, sans-serif;
+  --font-family-sans:
+    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Font Sizes - Scale 1.25 (Major Third) */
-  --font-size-xs: 0.75rem;     /* 12px */
-  --font-size-sm: 0.875rem;    /* 14px */
-  --font-size-base: 1rem;      /* 16px */
-  --font-size-lg: 1.125rem;    /* 18px */
-  --font-size-xl: 1.25rem;     /* 20px */
-  --font-size-2xl: 1.5rem;     /* 24px */
-  --font-size-3xl: 1.875rem;   /* 30px */
-  --font-size-4xl: 2.25rem;    /* 36px */
-  --font-size-5xl: 3rem;       /* 48px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
 
   /* Font Weights */
   --font-weight-normal: 400;
@@ -287,24 +288,24 @@ Concepto: Reloj abstracto con flujo dinámico
 
 :root {
   --space-0: 0;
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
 
   /* Border Radius */
-  --radius-sm: 0.25rem;   /* 4px */
-  --radius-md: 0.375rem;  /* 6px */
-  --radius-lg: 0.5rem;    /* 8px */
-  --radius-xl: 0.75rem;   /* 12px */
-  --radius-2xl: 1rem;     /* 16px */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.375rem; /* 6px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
   --radius-full: 9999px;
 
   /* Shadows */
@@ -345,11 +346,11 @@ src/styles/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Visual | Verificar logo en light/dark mode | Manual |
-| A11y | Contraste de colores WCAG AA | `tests/a11y/colors.test.ts` |
-| Unit | Tokens CSS válidos | `tests/unit/design-tokens.test.ts` |
+| Tipo   | Descripción                       | Ubicación                          |
+| ------ | --------------------------------- | ---------------------------------- |
+| Visual | Verificar logo en light/dark mode | Manual                             |
+| A11y   | Contraste de colores WCAG AA      | `tests/a11y/colors.test.ts`        |
+| Unit   | Tokens CSS válidos                | `tests/unit/design-tokens.test.ts` |
 
 #### Etiquetas
 
@@ -361,19 +362,20 @@ src/styles/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Infra |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 0 - Setup |
+| Campo                 | Valor                     |
+| --------------------- | ------------------------- |
+| **Tipo**              | Infra                     |
+| **Prioridad**         | 🔴 P0 (Crítica)           |
+| **Estimación**        | 5 Story Points            |
+| **Sprint**            | 0 - Setup                 |
 | **HDUs Relacionadas** | Ninguna (Infraestructura) |
-| **Bloqueado por** | T-0-01 |
-| **Bloquea a** | T-0-03, T-0-04, T-0-05 |
+| **Bloqueado por**     | T-0-01                    |
+| **Bloquea a**         | T-0-03, T-0-04, T-0-05    |
 
 #### Descripción
 
 Configurar la estructura base del proyecto siguiendo las mejores prácticas:
+
 - Monorepo con pnpm workspaces
 - Next.js 14 con App Router
 - TailwindCSS con design tokens del T-0-01
@@ -609,24 +611,21 @@ const config: Config = {
         '5xl': ['3rem', { lineHeight: '1' }],
       },
       borderRadius: {
-        'sm': '0.25rem',
-        'md': '0.375rem',
-        'lg': '0.5rem',
-        'xl': '0.75rem',
+        sm: '0.25rem',
+        md: '0.375rem',
+        lg: '0.5rem',
+        xl: '0.75rem',
         '2xl': '1rem',
       },
       boxShadow: {
-        'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-        'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+        sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        md: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+        lg: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+        xl: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }
 
 export default config
@@ -642,7 +641,7 @@ import { twMerge } from 'tailwind-merge'
 /**
  * Combina clases de Tailwind de forma inteligente
  * Evita conflictos y permite condicionales
- * 
+ *
  * @example
  * cn('px-4 py-2', isActive && 'bg-primary-500', className)
  */
@@ -661,7 +660,7 @@ import { cn } from '@/lib/utils/cn'
 
 /**
  * Variants del botón siguiendo Design System de TimeFlowPro
- * 
+ *
  * @principle Single Responsibility - Solo maneja estilos y variantes
  * @principle Open/Closed - Extensible via className, cerrado para modificación
  */
@@ -730,7 +729,7 @@ export interface ButtonProps
 
 /**
  * Componente Button base de TimeFlowPro
- * 
+ *
  * @example
  * <Button variant="primary" size="lg">Guardar</Button>
  * <Button variant="outline" isLoading>Procesando...</Button>
@@ -882,11 +881,11 @@ timeflowpro/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Button renderiza correctamente | `tests/unit/components/button.test.tsx` |
-| Unit | cn() combina clases sin conflictos | `tests/unit/lib/cn.test.ts` |
-| E2E | Página principal carga sin errores | `tests/e2e/home.spec.ts` (Solo Local) |
+| Tipo | Descripción                        | Ubicación                               |
+| ---- | ---------------------------------- | --------------------------------------- |
+| Unit | Button renderiza correctamente     | `tests/unit/components/button.test.tsx` |
+| Unit | cn() combina clases sin conflictos | `tests/unit/lib/cn.test.ts`             |
+| E2E  | Página principal carga sin errores | `tests/e2e/home.spec.ts` (Solo Local)   |
 
 #### Etiquetas
 
@@ -898,19 +897,20 @@ timeflowpro/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Infra |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 0 - Setup |
+| Campo                 | Valor                     |
+| --------------------- | ------------------------- |
+| **Tipo**              | Infra                     |
+| **Prioridad**         | 🔴 P0 (Crítica)           |
+| **Estimación**        | 3 Story Points            |
+| **Sprint**            | 0 - Setup                 |
 | **HDUs Relacionadas** | Ninguna (Infraestructura) |
-| **Bloqueado por** | T-0-02 |
-| **Bloquea a** | T-1-01 |
+| **Bloqueado por**     | T-0-02                    |
+| **Bloquea a**         | T-1-01                    |
 
 #### Descripción
 
 Configurar Supabase local para desarrollo usando Docker:
+
 - PostgreSQL 16 con extensiones
 - Supabase Studio accesible en localhost
 - Generación de tipos TypeScript automática
@@ -1022,7 +1022,7 @@ import type { Database } from '@/types/database.types'
 
 /**
  * Cliente Supabase para componentes del lado del cliente
- * 
+ *
  * @principle Singleton - Una única instancia por sesión
  */
 export function createClient() {
@@ -1098,13 +1098,7 @@ export async function createClient() {
  * Ejecutar: pnpm supabase:types
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export interface Database {
   public: {
@@ -1118,10 +1112,9 @@ export interface Database {
 }
 
 // Helpers de tipos
-export type Tables<T extends keyof Database['public']['Tables']> = 
+export type Tables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Row']
-export type Enums<T extends keyof Database['public']['Enums']> = 
-  Database['public']['Enums'][T]
+export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T]
 ```
 
 #### Criterios de Aceptación Técnicos
@@ -1156,10 +1149,10 @@ timeflowpro/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Integration | Conexión a Supabase local | `tests/integration/supabase-connection.test.ts` |
-| Unit | Cliente browser se crea correctamente | `tests/unit/lib/supabase-client.test.ts` |
+| Tipo        | Descripción                           | Ubicación                                       |
+| ----------- | ------------------------------------- | ----------------------------------------------- |
+| Integration | Conexión a Supabase local             | `tests/integration/supabase-connection.test.ts` |
+| Unit        | Cliente browser se crea correctamente | `tests/unit/lib/supabase-client.test.ts`        |
 
 #### Etiquetas
 
@@ -1171,19 +1164,20 @@ timeflowpro/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Infra |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 0 - Setup |
-| **HDUs Relacionadas** | Ninguna (Infraestructura) |
-| **Bloqueado por** | T-0-02 |
-| **Bloquea a** | Todos los tickets siguientes |
+| Campo                 | Valor                        |
+| --------------------- | ---------------------------- |
+| **Tipo**              | Infra                        |
+| **Prioridad**         | 🔴 P0 (Crítica)              |
+| **Estimación**        | 5 Story Points               |
+| **Sprint**            | 0 - Setup                    |
+| **HDUs Relacionadas** | Ninguna (Infraestructura)    |
+| **Bloqueado por**     | T-0-02                       |
+| **Bloquea a**         | Todos los tickets siguientes |
 
 #### Descripción
 
 Configurar pipeline de CI/CD completo:
+
 - Lint + TypeCheck en cada PR
 - Tests unitarios y de integración
 - Build de producción
@@ -1515,12 +1509,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.{ts,js}',
-      ],
+      exclude: ['node_modules/', 'tests/', '**/*.d.ts', '**/*.config.{ts,js}'],
       thresholds: {
         lines: 80,
         functions: 80,
@@ -1605,10 +1594,10 @@ apps/web/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Manual | Verificar que workflow ejecuta en GitHub | GitHub Actions UI |
-| Unit | Test de ejemplo para validar setup | `tests/unit/example.test.ts` |
+| Tipo   | Descripción                              | Ubicación                    |
+| ------ | ---------------------------------------- | ---------------------------- |
+| Manual | Verificar que workflow ejecuta en GitHub | GitHub Actions UI            |
+| Unit   | Test de ejemplo para validar setup       | `tests/unit/example.test.ts` |
 
 #### Etiquetas
 
@@ -1620,19 +1609,20 @@ apps/web/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Infra |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 2 Story Points |
-| **Sprint** | 0 - Setup |
+| Campo                 | Valor                     |
+| --------------------- | ------------------------- |
+| **Tipo**              | Infra                     |
+| **Prioridad**         | 🟠 P1 (Alta)              |
+| **Estimación**        | 2 Story Points            |
+| **Sprint**            | 0 - Setup                 |
 | **HDUs Relacionadas** | Ninguna (Infraestructura) |
-| **Bloqueado por** | T-0-02 |
-| **Bloquea a** | - |
+| **Bloqueado por**     | T-0-02                    |
+| **Bloquea a**         | -                         |
 
 #### Descripción
 
 Configurar herramientas de calidad de código:
+
 - Husky para git hooks
 - Commitlint para validar commits (Conventional Commits)
 - ESLint con reglas estrictas
@@ -1686,16 +1676,16 @@ module.exports = {
       2,
       'always',
       [
-        'feat',     // Nueva funcionalidad
-        'fix',      // Corrección de bug
-        'docs',     // Documentación
-        'style',    // Formateo, sin cambios de código
+        'feat', // Nueva funcionalidad
+        'fix', // Corrección de bug
+        'docs', // Documentación
+        'style', // Formateo, sin cambios de código
         'refactor', // Refactorización
-        'perf',     // Mejora de rendimiento
-        'test',     // Tests
-        'chore',    // Mantenimiento
-        'ci',       // CI/CD
-        'revert',   // Revertir commit
+        'perf', // Mejora de rendimiento
+        'test', // Tests
+        'chore', // Mantenimiento
+        'ci', // CI/CD
+        'revert', // Revertir commit
       ],
     ],
     // Subject en minúscula
@@ -1717,18 +1707,11 @@ module.exports = {
 // lint-staged.config.js
 module.exports = {
   // TypeScript y JavaScript
-  '*.{ts,tsx,js,jsx}': [
-    'eslint --fix',
-    'prettier --write',
-  ],
+  '*.{ts,tsx,js,jsx}': ['eslint --fix', 'prettier --write'],
   // JSON, YAML, Markdown
-  '*.{json,yaml,yml,md}': [
-    'prettier --write',
-  ],
+  '*.{json,yaml,yml,md}': ['prettier --write'],
   // CSS
-  '*.{css,scss}': [
-    'prettier --write',
-  ],
+  '*.{css,scss}': ['prettier --write'],
 }
 ```
 
@@ -1761,33 +1744,27 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/await-thenable': 'error',
     '@typescript-eslint/no-misused-promises': 'error',
-    
+
     // === React ===
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-no-target-blank': 'error',
-    
+
     // === Accessibility ===
     'jsx-a11y/alt-text': 'error',
     'jsx-a11y/anchor-is-valid': 'error',
     'jsx-a11y/click-events-have-key-events': 'warn',
-    
+
     // === Import ===
     'import/order': [
       'error',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          ['parent', 'sibling'],
-          'index',
-        ],
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'index'],
         'newlines-between': 'always',
         alphabetize: { order: 'asc' },
       },
     ],
-    
+
     // === General ===
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'prefer-const': 'error',
@@ -1803,14 +1780,7 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: [
-    'node_modules/',
-    '.next/',
-    'out/',
-    'public/',
-    '*.config.js',
-    '*.config.ts',
-  ],
+  ignorePatterns: ['node_modules/', '.next/', 'out/', 'public/', '*.config.js', '*.config.ts'],
 }
 ```
 
@@ -1911,10 +1881,10 @@ timeflowpro/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Manual | Intentar commit con mensaje inválido | Terminal |
-| Manual | Verificar que lint-staged formatea | Terminal |
+| Tipo   | Descripción                          | Ubicación |
+| ------ | ------------------------------------ | --------- |
+| Manual | Intentar commit con mensaje inválido | Terminal  |
+| Manual | Verificar que lint-staged formatea   | Terminal  |
 
 #### Etiquetas
 
@@ -1926,19 +1896,20 @@ timeflowpro/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Infra |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 0 - Setup |
-| **HDUs Relacionadas** | Todas (Transversal) |
-| **Bloqueado por** | T-0-02 |
-| **Bloquea a** | T-1-03, T-1-05, T-1-07 (todos los tickets de Frontend) |
+| Campo                 | Valor                                                  |
+| --------------------- | ------------------------------------------------------ |
+| **Tipo**              | Infra                                                  |
+| **Prioridad**         | 🔴 P0 (Crítica)                                        |
+| **Estimación**        | 3 Story Points                                         |
+| **Sprint**            | 0 - Setup                                              |
+| **HDUs Relacionadas** | Todas (Transversal)                                    |
+| **Bloqueado por**     | T-0-02                                                 |
+| **Bloquea a**         | T-1-03, T-1-05, T-1-07 (todos los tickets de Frontend) |
 
 #### Descripción
 
 Implementar un sistema centralizado de mensajes para el usuario en español:
+
 - Todos los textos visibles al usuario deben estar en español
 - Los textos deben estar en un archivo YML para facilitar cambios
 - Las variables de código permanecen en inglés
@@ -1949,6 +1920,7 @@ Implementar un sistema centralizado de mensajes para el usuario en español:
 **Problema identificado:** Los tickets tienen mensajes mezclados en inglés y español (ej: `toast.success('Appointment created')` cuando debería ser `toast.success('Cita creada exitosamente')`).
 
 **Solución:** Centralizar todos los mensajes en un archivo YML que:
+
 1. Facilita la traducción y consistencia
 2. Permite cambiar textos sin tocar código
 3. Prepara el proyecto para futura internacionalización (i18n)
@@ -2362,16 +2334,13 @@ try {
 /**
  * Obtiene un mensaje por su path (key.subkey.etc)
  * Soporta interpolación de variables con {variable}
- * 
+ *
  * @example
  * getMessage('auth.login.success') // "¡Bienvenido!"
  * getMessage('account.trial.daysRemaining', { days: 5 }) // "Te quedan 5 días de prueba"
  * getMessage('validation.minLength', { min: 3 }) // "Mínimo 3 caracteres"
  */
-export function getMessage(
-  path: string, 
-  variables?: Record<string, string | number>
-): string {
+export function getMessage(path: string, variables?: Record<string, string | number>): string {
   const keys = path.split('.')
   let result: unknown = messages
 
@@ -2391,9 +2360,7 @@ export function getMessage(
 
   // Interpolación de variables
   if (variables) {
-    return result.replace(/\{(\w+)\}/g, (_, key) => 
-      String(variables[key] ?? `{${key}}`)
-    )
+    return result.replace(/\{(\w+)\}/g, (_, key) => String(variables[key] ?? `{${key}}`))
   }
 
   return result
@@ -2459,11 +2426,7 @@ toast.error(getMessage('appointments.cancel.tooLate', { hours: 24 }))
 import { t } from '@/lib/messages'
 
 export function LoginButton() {
-  return (
-    <Button>
-      {t('auth.login.withGoogle')}
-    </Button>
-  )
+  return <Button>{t('auth.login.withGoogle')}</Button>
 }
 ```
 
@@ -2479,10 +2442,10 @@ export function LoginButton() {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | getMessage resuelve paths | `tests/unit/lib/messages.test.ts` |
-| Unit | Interpolación de variables | `tests/unit/lib/messages.test.ts` |
+| Tipo | Descripción                         | Ubicación                         |
+| ---- | ----------------------------------- | --------------------------------- |
+| Unit | getMessage resuelve paths           | `tests/unit/lib/messages.test.ts` |
+| Unit | Interpolación de variables          | `tests/unit/lib/messages.test.ts` |
 | Unit | Fallback para mensajes inexistentes | `tests/unit/lib/messages.test.ts` |
 
 #### Etiquetas
@@ -2495,13 +2458,13 @@ export function LoginButton() {
 
 > Los siguientes tickets se detallarán en la próxima iteración...
 
-| ID | Título | Tipo | Prioridad | Pts |
-|----|--------|------|-----------|-----|
-| T-1-01 | Migración inicial de base de datos | Database | 🔴 P0 | 5 |
-| T-1-02 | Configurar Supabase Auth con Google OAuth | Backend | 🔴 P0 | 5 |
-| T-1-03 | Implementar página de Login | Frontend | 🔴 P0 | 3 |
-| T-1-04 | Middleware de autenticación y rutas protegidas | Backend | 🔴 P0 | 3 |
-| T-1-05 | Formulario de perfil profesional | Frontend | 🔴 P0 | 5 |
+| ID     | Título                                         | Tipo     | Prioridad | Pts |
+| ------ | ---------------------------------------------- | -------- | --------- | --- |
+| T-1-01 | Migración inicial de base de datos             | Database | 🔴 P0     | 5   |
+| T-1-02 | Configurar Supabase Auth con Google OAuth      | Backend  | 🔴 P0     | 5   |
+| T-1-03 | Implementar página de Login                    | Frontend | 🔴 P0     | 3   |
+| T-1-04 | Middleware de autenticación y rutas protegidas | Backend  | 🔴 P0     | 3   |
+| T-1-05 | Formulario de perfil profesional               | Frontend | 🔴 P0     | 5   |
 
 ---
 
@@ -2544,19 +2507,20 @@ flowchart TD
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Database |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 1 - Auth |
+| Campo                 | Valor                                    |
+| --------------------- | ---------------------------------------- |
+| **Tipo**              | Database                                 |
+| **Prioridad**         | 🔴 P0 (Crítica)                          |
+| **Estimación**        | 5 Story Points                           |
+| **Sprint**            | 1 - Auth                                 |
 | **HDUs Relacionadas** | US-01, US-02, US-03, US-04, US-05, US-06 |
-| **Bloqueado por** | T-0-03 |
-| **Bloquea a** | T-1-02, T-2-01, T-2-03, T-3-01 |
+| **Bloqueado por**     | T-0-03                                   |
+| **Bloquea a**         | T-1-02, T-2-01, T-2-03, T-3-01           |
 
 #### Descripción
 
 Crear la migración inicial con todas las tablas core del sistema según el Modelo de Datos (Sección 3):
+
 - ENUMs del sistema
 - Tablas principales (profiles, locations, services, clients, appointments)
 - Tablas de soporte (working_hours, travel_times, personal_blocks)
@@ -2646,25 +2610,25 @@ CREATE TYPE travel_source AS ENUM (
 CREATE TABLE profiles (
   -- PK referencia a auth.users
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  
+
   -- Datos básicos
   email TEXT UNIQUE NOT NULL,
   full_name TEXT NOT NULL,
   phone TEXT,
-  
+
   -- URL pública
   slug TEXT UNIQUE,
-  
+
   -- Configuración
   timezone TEXT NOT NULL DEFAULT 'America/Santiago',
   avatar_url TEXT,
-  
+
   -- Rol y estado
   role user_role NOT NULL DEFAULT 'professional',
   account_status account_status NOT NULL DEFAULT 'trial',
   trial_expires_at TIMESTAMPTZ,
   is_active BOOLEAN NOT NULL DEFAULT true,
-  
+
   -- Configuraciones JSON (estructura híbrida)
   settings JSONB NOT NULL DEFAULT '{
     "appointment": {
@@ -2689,7 +2653,7 @@ CREATE TABLE profiles (
       "email_on_cancel": true
     }
   }'::jsonb,
-  
+
   -- Auditoría
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -2699,7 +2663,7 @@ CREATE TABLE profiles (
 CREATE INDEX idx_profiles_email ON profiles(email);
 CREATE INDEX idx_profiles_slug ON profiles(slug);
 CREATE INDEX idx_profiles_account_status ON profiles(account_status);
-CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at) 
+CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at)
   WHERE account_status = 'trial';
 
 -- RLS
@@ -2715,7 +2679,7 @@ CREATE POLICY "Users can update own profile" ON profiles
 CREATE POLICY "Superadmin can view all profiles" ON profiles
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM profiles 
+      SELECT 1 FROM profiles
       WHERE id = auth.uid() AND role = 'superadmin'
     )
   );
@@ -2723,7 +2687,7 @@ CREATE POLICY "Superadmin can view all profiles" ON profiles
 CREATE POLICY "Superadmin can update all profiles" ON profiles
   FOR UPDATE USING (
     EXISTS (
-      SELECT 1 FROM profiles 
+      SELECT 1 FROM profiles
       WHERE id = auth.uid() AND role = 'superadmin'
     )
   );
@@ -2735,20 +2699,20 @@ DECLARE
   default_trial_days INTEGER;
 BEGIN
   -- Obtener días de trial de config
-  SELECT (value->>'default_trial_days')::INTEGER 
+  SELECT (value->>'default_trial_days')::INTEGER
   INTO default_trial_days
-  FROM system_config 
+  FROM system_config
   WHERE key = 'trial_settings';
-  
+
   -- Default 7 días si no hay config
   IF default_trial_days IS NULL THEN
     default_trial_days := 7;
   END IF;
 
   INSERT INTO public.profiles (
-    id, 
-    email, 
-    full_name, 
+    id,
+    email,
+    full_name,
     avatar_url,
     account_status,
     trial_expires_at
@@ -2778,22 +2742,22 @@ CREATE TRIGGER on_auth_user_created
 CREATE TABLE locations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-  
+
   -- Datos de ubicación
   name TEXT NOT NULL,
   address TEXT,
   latitude DECIMAL(10, 8),
   longitude DECIMAL(11, 8),
-  
+
   -- Visualización
   color TEXT DEFAULT '#3F83F8',
   is_active BOOLEAN NOT NULL DEFAULT true,
   order_index INTEGER NOT NULL DEFAULT 0,
-  
+
   -- Auditoría
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  
+
   -- Constraints
   CONSTRAINT locations_name_user_unique UNIQUE (user_id, name)
 );
@@ -2820,24 +2784,24 @@ CREATE POLICY "Public can view active locations" ON locations
 CREATE TABLE services (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-  
+
   -- Datos del servicio
   name TEXT NOT NULL,
   description TEXT,
   default_duration_minutes INTEGER NOT NULL DEFAULT 45,
   price DECIMAL(10, 2) NOT NULL DEFAULT 0,
-  
+
   -- Visualización
   color TEXT DEFAULT '#0694A2',
   is_active BOOLEAN NOT NULL DEFAULT true,
   allow_online_booking BOOLEAN NOT NULL DEFAULT true,
   buffer_time_minutes INTEGER NOT NULL DEFAULT 0,
   order_index INTEGER NOT NULL DEFAULT 0,
-  
+
   -- Auditoría
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  
+
   -- Constraints
   CONSTRAINT services_name_user_unique UNIQUE (user_id, name),
   CONSTRAINT services_duration_positive CHECK (default_duration_minutes > 0),
@@ -2847,7 +2811,7 @@ CREATE TABLE services (
 -- Índices
 CREATE INDEX idx_services_user ON services(user_id);
 CREATE INDEX idx_services_active ON services(user_id, is_active);
-CREATE INDEX idx_services_online ON services(user_id, allow_online_booking) 
+CREATE INDEX idx_services_online ON services(user_id, allow_online_booking)
   WHERE allow_online_booking = true;
 
 -- RLS
@@ -2868,23 +2832,23 @@ CREATE POLICY "Public can view bookable services" ON services
 CREATE TABLE clients (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-  
+
   -- Datos del cliente
   name TEXT NOT NULL,
   email TEXT,
   phone TEXT,
   birthdate DATE,
   notes TEXT,
-  
+
   -- Origen y metadata
   source client_source NOT NULL DEFAULT 'manual',
   custom_fields JSONB DEFAULT '{}'::jsonb,
-  
+
   -- Auditoría
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   deleted_at TIMESTAMPTZ,  -- Soft delete
-  
+
   -- Constraints
   CONSTRAINT clients_email_user_unique UNIQUE (user_id, email)
 );
@@ -2893,11 +2857,11 @@ CREATE TABLE clients (
 CREATE INDEX idx_clients_user ON clients(user_id);
 CREATE INDEX idx_clients_email ON clients(user_id, email);
 CREATE INDEX idx_clients_phone ON clients(user_id, phone);
-CREATE INDEX idx_clients_deleted ON clients(user_id, deleted_at) 
+CREATE INDEX idx_clients_deleted ON clients(user_id, deleted_at)
   WHERE deleted_at IS NULL;
 
 -- Full text search
-CREATE INDEX idx_clients_search ON clients 
+CREATE INDEX idx_clients_search ON clients
   USING gin(to_tsvector('spanish', name || ' ' || COALESCE(email, '') || ' ' || COALESCE(phone, '')));
 
 -- RLS
@@ -2918,39 +2882,39 @@ CREATE TABLE appointments (
   client_id UUID NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
   service_id UUID NOT NULL REFERENCES services(id) ON DELETE RESTRICT,
   location_id UUID NOT NULL REFERENCES locations(id) ON DELETE RESTRICT,
-  
+
   -- Tiempo
   start_time TIMESTAMPTZ NOT NULL,
   end_time TIMESTAMPTZ NOT NULL,
   duration_minutes INTEGER NOT NULL,
-  
+
   -- Precio histórico
   price_at_booking DECIMAL(10, 2),
-  
+
   -- Estado
   status appointment_status NOT NULL DEFAULT 'confirmed',
   source appointment_source NOT NULL DEFAULT 'manual',
-  
+
   -- Notas y cancelación
   notes TEXT,
   cancellation_reason TEXT,
   cancelled_by TEXT,  -- 'client' | 'professional'
-  
+
   -- Reagendamiento
   rescheduled_from UUID REFERENCES appointments(id),
   rescheduled_at TIMESTAMPTZ,
-  
+
   -- Términos y condiciones
   terms_accepted_at TIMESTAMPTZ,
-  
+
   -- Google Calendar
   google_event_id TEXT,
-  
+
   -- Auditoría
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   deleted_at TIMESTAMPTZ,  -- Soft delete
-  
+
   -- Constraints
   CONSTRAINT appointments_end_after_start CHECK (end_time > start_time),
   CONSTRAINT appointments_duration_positive CHECK (duration_minutes > 0)
@@ -2962,7 +2926,7 @@ CREATE INDEX idx_appointments_user_date ON appointments(user_id, start_time);
 CREATE INDEX idx_appointments_client ON appointments(client_id);
 CREATE INDEX idx_appointments_location ON appointments(location_id);
 CREATE INDEX idx_appointments_status ON appointments(user_id, status);
-CREATE INDEX idx_appointments_google ON appointments(google_event_id) 
+CREATE INDEX idx_appointments_google ON appointments(google_event_id)
   WHERE google_event_id IS NOT NULL;
 CREATE INDEX idx_appointments_range ON appointments(user_id, start_time, end_time);
 
@@ -2975,8 +2939,8 @@ CREATE POLICY "Users can CRUD own appointments" ON appointments
 CREATE POLICY "Public can view own bookings" ON appointments
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM clients 
-      WHERE clients.id = appointments.client_id 
+      SELECT 1 FROM clients
+      WHERE clients.id = appointments.client_id
       AND clients.email = current_setting('request.jwt.claims', true)::json->>'email'
     )
   );
@@ -3015,11 +2979,11 @@ supabase/migrations/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Integration | Crear perfil al registrar usuario | `tests/integration/db/profiles.test.ts` |
-| Integration | RLS bloquea acceso a datos de otros | `tests/integration/db/rls.test.ts` |
-| Integration | FK cascade funciona correctamente | `tests/integration/db/cascade.test.ts` |
+| Tipo        | Descripción                         | Ubicación                               |
+| ----------- | ----------------------------------- | --------------------------------------- |
+| Integration | Crear perfil al registrar usuario   | `tests/integration/db/profiles.test.ts` |
+| Integration | RLS bloquea acceso a datos de otros | `tests/integration/db/rls.test.ts`      |
+| Integration | FK cascade funciona correctamente   | `tests/integration/db/cascade.test.ts`  |
 
 #### Etiquetas
 
@@ -3031,19 +2995,20 @@ supabase/migrations/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 1 - Auth |
-| **HDUs Relacionadas** | US-01 |
-| **Bloqueado por** | T-1-01 |
-| **Bloquea a** | T-1-03, T-1-04 |
+| Campo                 | Valor           |
+| --------------------- | --------------- |
+| **Tipo**              | Backend         |
+| **Prioridad**         | 🔴 P0 (Crítica) |
+| **Estimación**        | 5 Story Points  |
+| **Sprint**            | 1 - Auth        |
+| **HDUs Relacionadas** | US-01           |
+| **Bloqueado por**     | T-1-01          |
+| **Bloquea a**         | T-1-03, T-1-04  |
 
 #### Descripción
 
 Configurar autenticación completa con Google OAuth:
+
 - Configurar Google Cloud Console
 - Configurar Supabase Auth
 - Crear helper de autenticación
@@ -3097,7 +3062,7 @@ import type { Provider } from '@supabase/supabase-js'
 
 /**
  * Servicio de autenticación
- * 
+ *
  * @principle Single Responsibility - Solo maneja auth
  * @principle Dependency Inversion - Depende de abstracciones (supabase client)
  */
@@ -3179,10 +3144,10 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = await createClient()
-    
+
     // Intercambiar código por sesión
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
-    
+
     if (error) {
       console.error('Auth callback error:', error)
       return NextResponse.redirect(`${origin}/login?error=auth_failed`)
@@ -3203,11 +3168,11 @@ export async function GET(request: Request) {
     switch (profile.account_status) {
       case 'suspended':
         return NextResponse.redirect(`${origin}/login?error=account_suspended`)
-      
+
       case 'readonly':
         // Permitir login pero mostrar banner
         return NextResponse.redirect(`${origin}/dashboard?readonly=true`)
-      
+
       case 'trial':
         // Verificar si expiró
         if (profile.trial_expires_at && new Date(profile.trial_expires_at) < new Date()) {
@@ -3216,11 +3181,11 @@ export async function GET(request: Request) {
             .from('profiles')
             .update({ account_status: 'readonly' })
             .eq('id', data.user.id)
-          
+
           return NextResponse.redirect(`${origin}/dashboard?trial_expired=true`)
         }
         return NextResponse.redirect(`${origin}${next}`)
-      
+
       default:
         return NextResponse.redirect(`${origin}${next}`)
     }
@@ -3257,7 +3222,7 @@ interface AuthState {
 
 /**
  * Hook de autenticación con estado de cuenta
- * 
+ *
  * @example
  * const { user, profile, isReadonly, signOut } = useAuth()
  */
@@ -3272,19 +3237,18 @@ export function useAuth() {
     isTrial: false,
     trialDaysLeft: null,
   })
-  
+
   const router = useRouter()
   const supabase = createClient()
 
-  const fetchProfile = useCallback(async (userId: string) => {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    
-    return data
-  }, [supabase])
+  const fetchProfile = useCallback(
+    async (userId: string) => {
+      const { data } = await supabase.from('profiles').select('*').eq('id', userId).single()
+
+      return data
+    },
+    [supabase]
+  )
 
   const calculateTrialDaysLeft = (expiresAt: string | null): number | null => {
     if (!expiresAt) return null
@@ -3293,35 +3257,35 @@ export function useAuth() {
   }
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (session?.user) {
-          const profile = await fetchProfile(session.user.id)
-          
-          setState({
-            user: session.user,
-            profile,
-            session,
-            isLoading: false,
-            isAuthenticated: true,
-            isReadonly: profile?.account_status === 'readonly',
-            isTrial: profile?.account_status === 'trial',
-            trialDaysLeft: calculateTrialDaysLeft(profile?.trial_expires_at ?? null),
-          })
-        } else {
-          setState({
-            user: null,
-            profile: null,
-            session: null,
-            isLoading: false,
-            isAuthenticated: false,
-            isReadonly: false,
-            isTrial: false,
-            trialDaysLeft: null,
-          })
-        }
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        const profile = await fetchProfile(session.user.id)
+
+        setState({
+          user: session.user,
+          profile,
+          session,
+          isLoading: false,
+          isAuthenticated: true,
+          isReadonly: profile?.account_status === 'readonly',
+          isTrial: profile?.account_status === 'trial',
+          trialDaysLeft: calculateTrialDaysLeft(profile?.trial_expires_at ?? null),
+        })
+      } else {
+        setState({
+          user: null,
+          profile: null,
+          session: null,
+          isLoading: false,
+          isAuthenticated: false,
+          isReadonly: false,
+          isTrial: false,
+          trialDaysLeft: null,
+        })
       }
-    )
+    })
 
     return () => subscription.unsubscribe()
   }, [supabase, fetchProfile])
@@ -3363,11 +3327,11 @@ export function useAuth() {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | AuthService métodos | `tests/unit/services/auth.test.ts` |
+| Tipo        | Descripción             | Ubicación                                 |
+| ----------- | ----------------------- | ----------------------------------------- |
+| Unit        | AuthService métodos     | `tests/unit/services/auth.test.ts`        |
 | Integration | Callback maneja estados | `tests/integration/auth/callback.test.ts` |
-| E2E | Flujo completo de login | `tests/e2e/auth.spec.ts` (Solo Local) |
+| E2E         | Flujo completo de login | `tests/e2e/auth.spec.ts` (Solo Local)     |
 
 #### Etiquetas
 
@@ -3379,19 +3343,20 @@ export function useAuth() {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 1 - Auth |
-| **HDUs Relacionadas** | US-01 |
-| **Bloqueado por** | T-1-02 |
-| **Bloquea a** | T-1-05 |
+| Campo                 | Valor           |
+| --------------------- | --------------- |
+| **Tipo**              | Frontend        |
+| **Prioridad**         | 🔴 P0 (Crítica) |
+| **Estimación**        | 3 Story Points  |
+| **Sprint**            | 1 - Auth        |
+| **HDUs Relacionadas** | US-01           |
+| **Bloqueado por**     | T-1-02          |
+| **Bloquea a**         | T-1-05          |
 
 #### Descripción
 
 Crear página de login moderna y minimalista con:
+
 - Botón "Continuar con Google"
 - Manejo de errores visuales
 - Estados de carga
@@ -3669,11 +3634,11 @@ export function GoogleIcon(props: SVGProps<SVGSVGElement>) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
+| Tipo | Descripción                       | Ubicación                                        |
+| ---- | --------------------------------- | ------------------------------------------------ |
 | Unit | LoginForm renderiza correctamente | `tests/unit/components/auth/login-form.test.tsx` |
-| Unit | Alert muestra errores | `tests/unit/components/ui/alert.test.tsx` |
-| E2E | Flujo de login completo | `tests/e2e/auth/login.spec.ts` (Solo Local) |
+| Unit | Alert muestra errores             | `tests/unit/components/ui/alert.test.tsx`        |
+| E2E  | Flujo de login completo           | `tests/e2e/auth/login.spec.ts` (Solo Local)      |
 
 #### Etiquetas
 
@@ -3685,19 +3650,20 @@ export function GoogleIcon(props: SVGProps<SVGSVGElement>) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 1 - Auth |
-| **HDUs Relacionadas** | US-01, US-19 |
-| **Bloqueado por** | T-1-02 |
-| **Bloquea a** | T-1-05, T-1-06 |
+| Campo                 | Valor           |
+| --------------------- | --------------- |
+| **Tipo**              | Backend         |
+| **Prioridad**         | 🔴 P0 (Crítica) |
+| **Estimación**        | 3 Story Points  |
+| **Sprint**            | 1 - Auth        |
+| **HDUs Relacionadas** | US-01, US-19    |
+| **Bloqueado por**     | T-1-02          |
+| **Bloquea a**         | T-1-05, T-1-06  |
 
 #### Descripción
 
 Implementar middleware de Next.js para:
+
 - Proteger rutas del dashboard
 - Verificar estado de cuenta
 - Redirigir según autenticación
@@ -3713,13 +3679,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 // Rutas públicas (no requieren auth)
-const PUBLIC_ROUTES = [
-  '/',
-  '/login',
-  '/auth/callback',
-  '/terms',
-  '/privacy',
-]
+const PUBLIC_ROUTES = ['/', '/login', '/auth/callback', '/terms', '/privacy']
 
 // Rutas que aceptan slug público
 const PUBLIC_SLUG_PATTERN = /^\/[a-z0-9-]+$/
@@ -3757,9 +3717,7 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
-          )
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
           response = NextResponse.next({
             request: {
               headers: request.headers,
@@ -3774,7 +3732,10 @@ export async function middleware(request: NextRequest) {
   )
 
   // Refrescar sesión si existe
-  const { data: { user }, error } = await supabase.auth.getUser()
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
 
   // === RUTAS PÚBLICAS ===
   if (PUBLIC_ROUTES.includes(pathname)) {
@@ -3815,7 +3776,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // === RUTAS DE ADMIN ===
-  if (ADMIN_ROUTES.some(route => pathname.startsWith(route))) {
+  if (ADMIN_ROUTES.some((route) => pathname.startsWith(route))) {
     if (profile.role !== 'superadmin') {
       return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url))
     }
@@ -3825,12 +3786,9 @@ export async function middleware(request: NextRequest) {
   if (profile.account_status === 'readonly') {
     // Permitir solo GET (lectura)
     if (request.method !== 'GET') {
-      return NextResponse.json(
-        { error: 'Account is in readonly mode' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Account is in readonly mode' }, { status: 403 })
     }
-    
+
     // Añadir header para que el frontend sepa
     response.headers.set('X-Account-Status', 'readonly')
   }
@@ -3898,7 +3856,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {isTrial && trialDaysLeft !== null && trialDaysLeft <= 3 && (
         <TrialBanner daysLeft={trialDaysLeft} />
       )}
-      
+
       {children}
     </AuthContext.Provider>
   )
@@ -3930,7 +3888,7 @@ export function ReadonlyBanner() {
         <div className="flex items-center gap-3">
           <AlertTriangle className="h-5 w-5 text-yellow-600" />
           <p className="text-sm text-yellow-800">
-            <strong>Modo solo lectura:</strong> Tu período de prueba ha expirado. 
+            <strong>Modo solo lectura:</strong> Tu período de prueba ha expirado.
             Puedes ver tus datos pero no crear ni editar.
           </p>
         </div>
@@ -3956,7 +3914,7 @@ interface TrialBannerProps {
 }
 
 export function TrialBanner({ daysLeft }: TrialBannerProps) {
-  const urgency = daysLeft <= 1 ? 'bg-red-50 border-red-200 text-red-800' 
+  const urgency = daysLeft <= 1 ? 'bg-red-50 border-red-200 text-red-800'
                                : 'bg-blue-50 border-blue-200 text-blue-800'
 
   return (
@@ -3964,8 +3922,8 @@ export function TrialBanner({ daysLeft }: TrialBannerProps) {
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm">
         <Clock className="h-4 w-4" />
         <span>
-          {daysLeft === 0 
-            ? 'Tu período de prueba termina hoy' 
+          {daysLeft === 0
+            ? 'Tu período de prueba termina hoy'
             : `Te quedan ${daysLeft} día${daysLeft > 1 ? 's' : ''} de prueba`}
         </span>
       </div>
@@ -3986,11 +3944,11 @@ export function TrialBanner({ daysLeft }: TrialBannerProps) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Middleware redirige correctamente | `tests/unit/middleware.test.ts` |
-| Integration | Rutas protegidas funcionan | `tests/integration/auth/protected-routes.test.ts` |
-| E2E | Flujo de readonly | `tests/e2e/auth/readonly.spec.ts` (Solo Local) |
+| Tipo        | Descripción                       | Ubicación                                         |
+| ----------- | --------------------------------- | ------------------------------------------------- |
+| Unit        | Middleware redirige correctamente | `tests/unit/middleware.test.ts`                   |
+| Integration | Rutas protegidas funcionan        | `tests/integration/auth/protected-routes.test.ts` |
+| E2E         | Flujo de readonly                 | `tests/e2e/auth/readonly.spec.ts` (Solo Local)    |
 
 #### Etiquetas
 
@@ -4002,19 +3960,20 @@ export function TrialBanner({ daysLeft }: TrialBannerProps) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 1 - Auth |
-| **HDUs Relacionadas** | US-02 |
-| **Bloqueado por** | T-1-03, T-1-04 |
-| **Bloquea a** | T-2-01 |
+| Campo                 | Valor           |
+| --------------------- | --------------- |
+| **Tipo**              | Frontend        |
+| **Prioridad**         | 🔴 P0 (Crítica) |
+| **Estimación**        | 5 Story Points  |
+| **Sprint**            | 1 - Auth        |
+| **HDUs Relacionadas** | US-02           |
+| **Bloqueado por**     | T-1-03, T-1-04  |
+| **Bloquea a**         | T-2-01          |
 
 #### Descripción
 
 Crear formulario de perfil profesional con:
+
 - Datos personales (nombre, teléfono, avatar)
 - Slug personalizable para URL pública
 - Selector de zona horaria
@@ -4039,14 +3998,14 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <SettingsHeader />
-      
+
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <Suspense fallback={<FormSkeleton />}>
             <ProfileForm />
           </Suspense>
         </div>
-        
+
         <div className="space-y-6">
           <SlugPreview />
           <DangerZone />
@@ -4395,12 +4354,12 @@ Input.displayName = 'Input'
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | ProfileForm valida correctamente | `tests/unit/components/settings/profile-form.test.tsx` |
-| Unit | Input muestra errores | `tests/unit/components/ui/input.test.tsx` |
-| Integration | Perfil se guarda en DB | `tests/integration/settings/profile.test.ts` |
-| E2E | Flujo de edición de perfil | `tests/e2e/settings/profile.spec.ts` (Solo Local) |
+| Tipo        | Descripción                      | Ubicación                                              |
+| ----------- | -------------------------------- | ------------------------------------------------------ |
+| Unit        | ProfileForm valida correctamente | `tests/unit/components/settings/profile-form.test.tsx` |
+| Unit        | Input muestra errores            | `tests/unit/components/ui/input.test.tsx`              |
+| Integration | Perfil se guarda en DB           | `tests/integration/settings/profile.test.ts`           |
+| E2E         | Flujo de edición de perfil       | `tests/e2e/settings/profile.spec.ts` (Solo Local)      |
 
 #### Etiquetas
 
@@ -4412,19 +4371,20 @@ Input.displayName = 'Input'
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 1 - Auth |
+| Campo                 | Valor                      |
+| --------------------- | -------------------------- |
+| **Tipo**              | Backend                    |
+| **Prioridad**         | 🔴 P0 (Crítica)            |
+| **Estimación**        | 5 Story Points             |
+| **Sprint**            | 1 - Auth                   |
 | **HDUs Relacionadas** | US-01, US-16, US-18, US-19 |
-| **Bloqueado por** | T-1-02 |
-| **Bloquea a** | T-1-07, T-5-05 |
+| **Bloqueado por**     | T-1-02                     |
+| **Bloquea a**         | T-1-07, T-5-05             |
 
 #### Descripción
 
 Implementar sistema completo de trial:
+
 - Configuración de días de trial desde system_config
 - Edge Function para expirar trials diariamente
 - Notificación al admin cuando alguien se registra
@@ -4444,13 +4404,13 @@ INSERT INTO system_config (key, value, description) VALUES
     "warning_days_before": 3,
     "extend_max_days": 30
   }', 'Configuración del período de prueba'),
-  
+
   ('admin_settings', '{
     "notification_email": "admin@timeflowpro.app",
     "notify_on_registration": true,
     "notify_on_trial_expiring": true
   }', 'Configuración de notificaciones admin'),
-  
+
   ('booking_settings', '{
     "default_cancellation_hours": 24,
     "default_reschedule_hours": 24,
@@ -4496,20 +4456,19 @@ serve(async (req) => {
     if (selectError) throw selectError
 
     if (!expiredTrials || expiredTrials.length === 0) {
-      return new Response(
-        JSON.stringify({ message: 'No expired trials found', count: 0 }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      )
+      return new Response(JSON.stringify({ message: 'No expired trials found', count: 0 }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
     }
 
     // 2. Actualizar a readonly
-    const expiredIds = expiredTrials.map(p => p.id)
-    
+    const expiredIds = expiredTrials.map((p) => p.id)
+
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ 
+      .update({
         account_status: 'readonly',
-        updated_at: now
+        updated_at: now,
       })
       .in('id', expiredIds)
 
@@ -4524,25 +4483,26 @@ serve(async (req) => {
 
     if (adminConfig?.value?.notify_on_trial_expiring) {
       // Aquí se integraría con servicio de email (Resend, SendGrid, etc.)
-      console.log(`[expire-trials] ${expiredTrials.length} trials expired:`, 
-        expiredTrials.map(p => p.email))
+      console.log(
+        `[expire-trials] ${expiredTrials.length} trials expired:`,
+        expiredTrials.map((p) => p.email)
+      )
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: 'Trials expired successfully',
         count: expiredTrials.length,
-        emails: expiredTrials.map(p => p.email)
+        emails: expiredTrials.map((p) => p.email),
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
-
   } catch (error) {
     console.error('Error in expire-trials:', error)
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 })
 ```
@@ -4599,7 +4559,7 @@ serve(async (req) => {
 
   try {
     const payload: NotifyPayload = await req.json()
-    
+
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
@@ -4614,10 +4574,9 @@ serve(async (req) => {
 
     const adminEmail = adminConfig?.value?.notification_email
     if (!adminEmail) {
-      return new Response(
-        JSON.stringify({ message: 'No admin email configured' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      )
+      return new Response(JSON.stringify({ message: 'No admin email configured' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
     }
 
     // Construir mensaje según tipo
@@ -4637,7 +4596,7 @@ serve(async (req) => {
           Accede al panel de admin para revisar: https://timeflowpro.app/admin
         `
         break
-        
+
       case 'trial_expiring':
         subject = `⚠️ Trial por expirar: ${payload.professional_name}`
         body = `
@@ -4666,20 +4625,19 @@ serve(async (req) => {
     console.log(`[notify-admin] Sending to ${adminEmail}:`, { subject, body })
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
         to: adminEmail,
-        subject
+        subject,
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
-
   } catch (error) {
     console.error('Error in notify-admin:', error)
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 })
 ```
@@ -4695,8 +4653,8 @@ DECLARE
   admin_config JSONB;
 BEGIN
   -- Obtener configuración admin
-  SELECT value INTO admin_config 
-  FROM system_config 
+  SELECT value INTO admin_config
+  FROM system_config
   WHERE key = 'admin_settings';
 
   -- Si notificaciones habilitadas
@@ -4762,14 +4720,12 @@ export class TrialService {
     }
 
     const isInTrial = profile.account_status === 'trial'
-    const expiresAt = profile.trial_expires_at 
-      ? new Date(profile.trial_expires_at) 
-      : null
-    
+    const expiresAt = profile.trial_expires_at ? new Date(profile.trial_expires_at) : null
+
     const now = new Date()
     const isExpired = expiresAt ? expiresAt < now : false
-    
-    const daysLeft = expiresAt 
+
+    const daysLeft = expiresAt
       ? Math.max(0, Math.ceil((expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
       : null
 
@@ -4828,11 +4784,11 @@ apps/web/src/services/trial/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | TrialService calcula días correctamente | `tests/unit/services/trial.test.ts` |
-| Integration | Edge Function expira trials | `tests/integration/functions/expire-trials.test.ts` |
-| Integration | Trigger notifica a admin | `tests/integration/db/triggers.test.ts` |
+| Tipo        | Descripción                             | Ubicación                                           |
+| ----------- | --------------------------------------- | --------------------------------------------------- |
+| Unit        | TrialService calcula días correctamente | `tests/unit/services/trial.test.ts`                 |
+| Integration | Edge Function expira trials             | `tests/integration/functions/expire-trials.test.ts` |
+| Integration | Trigger notifica a admin                | `tests/integration/db/triggers.test.ts`             |
 
 #### Etiquetas
 
@@ -4844,19 +4800,20 @@ apps/web/src/services/trial/
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 1 - Auth |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Frontend            |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 5 Story Points      |
+| **Sprint**            | 1 - Auth            |
 | **HDUs Relacionadas** | US-16, US-17, US-18 |
-| **Bloqueado por** | T-1-06 |
-| **Bloquea a** | - |
+| **Bloqueado por**     | T-1-06              |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Crear panel de administración con:
+
 - Configuración de días de trial
 - Lista de profesionales con estado
 - Acciones: activar, suspender, extender trial
@@ -4878,9 +4835,9 @@ export default async function AdminLayout({
   children: React.ReactNode
 }) {
   const supabase = await createClient()
-  
+
   const { data: { user } } = await supabase.auth.getUser()
-  
+
   if (!user) {
     redirect('/login')
   }
@@ -5045,15 +5002,15 @@ import { createClient } from '@/lib/supabase/client'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Table, 
-  TableHeader, 
-  TableBody, 
-  TableRow, 
-  TableHead, 
-  TableCell 
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell
 } from '@/components/ui/table'
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -5108,7 +5065,7 @@ export function ProfessionalsTable() {
   const updateStatus = async (id: string, newStatus: string) => {
     const { error } = await supabase
       .from('profiles')
-      .update({ 
+      .update({
         account_status: newStatus,
         updated_at: new Date().toISOString()
       })
@@ -5130,16 +5087,16 @@ export function ProfessionalsTable() {
       .eq('id', id)
       .single()
 
-    const baseDate = profile?.trial_expires_at 
+    const baseDate = profile?.trial_expires_at
       ? new Date(profile.trial_expires_at)
       : new Date()
-    
+
     const newExpiry = new Date(baseDate)
     newExpiry.setDate(newExpiry.getDate() + days)
 
     const { error } = await supabase
       .from('profiles')
-      .update({ 
+      .update({
         trial_expires_at: newExpiry.toISOString(),
         account_status: 'trial',
         updated_at: new Date().toISOString()
@@ -5189,8 +5146,8 @@ export function ProfessionalsTable() {
                 <TableCell>
                   {pro.trial_expires_at ? (
                     <span className={
-                      new Date(pro.trial_expires_at) < new Date() 
-                        ? 'text-red-600' 
+                      new Date(pro.trial_expires_at) < new Date()
+                        ? 'text-red-600'
                         : ''
                     }>
                       {formatDistanceToNow(new Date(pro.trial_expires_at), {
@@ -5232,7 +5189,7 @@ export function ProfessionalsTable() {
                         <Eye className="h-4 w-4 mr-2 text-yellow-600" />
                         Modo solo lectura
                       </DropdownMenuItem>
-                      <DropdownMenuItem 
+                      <DropdownMenuItem
                         onClick={() => updateStatus(pro.id, 'suspended')}
                         className="text-red-600"
                       >
@@ -5493,12 +5450,12 @@ apps/web/src/
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | AdminStats calcula correctamente | `tests/unit/components/admin/stats.test.tsx` |
-| Unit | ProfessionalsTable acciones funcionan | `tests/unit/components/admin/table.test.tsx` |
-| Integration | Cambio de estado persiste | `tests/integration/admin/status.test.ts` |
-| E2E | Flujo completo de admin | `tests/e2e/admin/dashboard.spec.ts` (Solo Local) |
+| Tipo        | Descripción                           | Ubicación                                        |
+| ----------- | ------------------------------------- | ------------------------------------------------ |
+| Unit        | AdminStats calcula correctamente      | `tests/unit/components/admin/stats.test.tsx`     |
+| Unit        | ProfessionalsTable acciones funcionan | `tests/unit/components/admin/table.test.tsx`     |
+| Integration | Cambio de estado persiste             | `tests/integration/admin/status.test.ts`         |
+| E2E         | Flujo completo de admin               | `tests/e2e/admin/dashboard.spec.ts` (Solo Local) |
 
 #### Etiquetas
 
@@ -5508,15 +5465,15 @@ apps/web/src/
 
 ## 6.6 Sprint 1 Completado ✅
 
-| ID | Título | Tipo | Pts | Estado |
-|----|--------|------|-----|--------|
-| T-1-01 | Migración inicial BD | Database | 5 | ✅ |
-| T-1-02 | Supabase Auth + Google | Backend | 5 | ✅ |
-| T-1-03 | Página de Login | Frontend | 3 | ✅ |
-| T-1-04 | Middleware auth | Backend | 3 | ✅ |
-| T-1-05 | Formulario perfil | Frontend | 5 | ✅ |
-| T-1-06 | Sistema de trial | Backend | 5 | ✅ |
-| T-1-07 | Dashboard Admin | Frontend | 5 | ✅ |
+| ID     | Título                 | Tipo     | Pts | Estado |
+| ------ | ---------------------- | -------- | --- | ------ |
+| T-1-01 | Migración inicial BD   | Database | 5   | ✅     |
+| T-1-02 | Supabase Auth + Google | Backend  | 5   | ✅     |
+| T-1-03 | Página de Login        | Frontend | 3   | ✅     |
+| T-1-04 | Middleware auth        | Backend  | 3   | ✅     |
+| T-1-05 | Formulario perfil      | Frontend | 5   | ✅     |
+| T-1-06 | Sistema de trial       | Backend  | 5   | ✅     |
+| T-1-07 | Dashboard Admin        | Frontend | 5   | ✅     |
 
 **Total Sprint 1:** 31 Story Points | 7 Tickets
 
@@ -5554,19 +5511,20 @@ flowchart TD
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-03 |
-| **Bloqueado por** | T-1-01 |
-| **Bloquea a** | T-2-02, T-2-05, T-2-07 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Backend                |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-03                  |
+| **Bloqueado por**     | T-1-01                 |
+| **Bloquea a**         | T-2-02, T-2-05, T-2-07 |
 
 #### Descripción
 
 Implementar API completa para gestión de ubicaciones:
+
 - CRUD endpoints con validación
 - RLS para aislar datos por usuario
 - Ordenamiento y filtros
@@ -5612,7 +5570,7 @@ import type { Location, CreateLocationInput, UpdateLocationInput } from '@/types
 
 /**
  * Servicio para gestión de ubicaciones
- * 
+ *
  * @principle Single Responsibility - Solo maneja ubicaciones
  * @principle Interface Segregation - Expone solo métodos necesarios
  */
@@ -5637,11 +5595,7 @@ export class LocationService {
    * Obtiene una ubicación por ID
    */
   async getById(id: string): Promise<Location | null> {
-    const { data, error } = await this.supabase
-      .from('locations')
-      .select('*')
-      .eq('id', id)
-      .single()
+    const { data, error } = await this.supabase.from('locations').select('*').eq('id', id).single()
 
     if (error) {
       if (error.code === 'PGRST116') return null // Not found
@@ -5710,10 +5664,7 @@ export class LocationService {
       throw new Error('No se puede eliminar: hay citas activas en esta ubicación')
     }
 
-    const { error } = await this.supabase
-      .from('locations')
-      .delete()
-      .eq('id', id)
+    const { error } = await this.supabase.from('locations').delete().eq('id', id)
 
     if (error) throw error
   }
@@ -5858,10 +5809,10 @@ export function useLocations() {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | LocationService CRUD | `tests/unit/services/locations.test.ts` |
-| Integration | RLS bloquea acceso | `tests/integration/locations/rls.test.ts` |
+| Tipo        | Descripción            | Ubicación                                    |
+| ----------- | ---------------------- | -------------------------------------------- |
+| Unit        | LocationService CRUD   | `tests/unit/services/locations.test.ts`      |
+| Integration | RLS bloquea acceso     | `tests/integration/locations/rls.test.ts`    |
 | Integration | Delete con citas falla | `tests/integration/locations/delete.test.ts` |
 
 #### Etiquetas
@@ -5874,19 +5825,20 @@ export function useLocations() {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-03 |
-| **Bloqueado por** | T-2-01 |
-| **Bloquea a** | T-2-06, T-3-03 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Frontend               |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-03                  |
+| **Bloqueado por**     | T-2-01                 |
+| **Bloquea a**         | T-2-06, T-3-03         |
 
 #### Descripción
 
 Crear interfaz para gestión de ubicaciones:
+
 - Lista con cards draggables
 - Modal de creación/edición
 - Selector de color
@@ -6099,19 +6051,20 @@ export function LocationCard({ location, onEdit, onDelete, canMutate }: Location
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-04 |
-| **Bloqueado por** | T-1-01 |
-| **Bloquea a** | T-2-04, T-3-03 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Backend                |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-04                  |
+| **Bloqueado por**     | T-1-01                 |
+| **Bloquea a**         | T-2-04, T-3-03         |
 
 #### Descripción
 
 Implementar API completa para gestión de servicios:
+
 - CRUD endpoints con validación
 - Configuración de duración y precio
 - Disponibilidad para reserva online
@@ -6138,11 +6091,7 @@ export class ServiceService {
   }
 
   async getById(id: string): Promise<Service | null> {
-    const { data, error } = await this.supabase
-      .from('services')
-      .select('*')
-      .eq('id', id)
-      .single()
+    const { data, error } = await this.supabase.from('services').select('*').eq('id', id).single()
 
     if (error?.code === 'PGRST116') return null
     if (error) throw error
@@ -6196,10 +6145,7 @@ export class ServiceService {
       throw new Error('No se puede eliminar: hay citas activas con este servicio')
     }
 
-    const { error } = await this.supabase
-      .from('services')
-      .delete()
-      .eq('id', id)
+    const { error } = await this.supabase.from('services').delete().eq('id', id)
 
     if (error) throw error
   }
@@ -6246,19 +6192,20 @@ export const serviceService = new ServiceService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-04 |
-| **Bloqueado por** | T-2-03 |
-| **Bloquea a** | T-4-01 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Frontend               |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-04                  |
+| **Bloqueado por**     | T-2-03                 |
+| **Bloquea a**         | T-4-01                 |
 
 #### Descripción
 
 Crear interfaz similar a ubicaciones pero para servicios:
+
 - Lista con precio y duración
 - Toggle de reserva online
 - Selector de color
@@ -6274,19 +6221,20 @@ Crear interfaz similar a ubicaciones pero para servicios:
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-06 |
-| **Bloqueado por** | T-2-01 |
-| **Bloquea a** | T-2-06, T-3-04 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Backend                |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-06                  |
+| **Bloqueado por**     | T-2-01                 |
+| **Bloquea a**         | T-2-06, T-3-04         |
 
 #### Descripción
 
 Implementar gestión de horarios de trabajo por ubicación:
+
 - CRUD working_hours vinculado a ubicación
 - Validación de rangos de tiempo
 - Soporte para múltiples rangos por día
@@ -6302,8 +6250,8 @@ export interface WorkingHour {
   id: string
   location_id: string
   day_of_week: number // 0=Dom, 1=Lun, etc.
-  start_time: string  // "09:00"
-  end_time: string    // "18:00"
+  start_time: string // "09:00"
+  end_time: string // "18:00"
   is_active: boolean
 }
 
@@ -6335,15 +6283,15 @@ export class WorkingHoursService {
     const hours = await this.getByLocation(locationId)
 
     return Array.from({ length: 7 }, (_, day) => {
-      const dayHours = hours.filter(h => h.day_of_week === day)
+      const dayHours = hours.filter((h) => h.day_of_week === day)
       return {
         day_of_week: day,
         day_name: DAY_NAMES[day],
-        slots: dayHours.map(h => ({
+        slots: dayHours.map((h) => ({
           start_time: h.start_time,
           end_time: h.end_time,
         })),
-        is_active: dayHours.some(h => h.is_active),
+        is_active: dayHours.some((h) => h.is_active),
       }
     })
   }
@@ -6353,21 +6301,16 @@ export class WorkingHoursService {
     schedule: { day_of_week: number; start_time: string; end_time: string; is_active: boolean }[]
   ): Promise<void> {
     // Eliminar horarios existentes
-    await this.supabase
-      .from('working_hours')
-      .delete()
-      .eq('location_id', locationId)
+    await this.supabase.from('working_hours').delete().eq('location_id', locationId)
 
     // Insertar nuevos
     if (schedule.length > 0) {
-      const { error } = await this.supabase
-        .from('working_hours')
-        .insert(
-          schedule.map(s => ({
-            location_id: locationId,
-            ...s,
-          }))
-        )
+      const { error } = await this.supabase.from('working_hours').insert(
+        schedule.map((s) => ({
+          location_id: locationId,
+          ...s,
+        }))
+      )
 
       if (error) throw error
     }
@@ -6376,23 +6319,18 @@ export class WorkingHoursService {
   async copyFromLocation(sourceId: string, targetId: string): Promise<void> {
     const sourceHours = await this.getByLocation(sourceId)
 
-    await this.supabase
-      .from('working_hours')
-      .delete()
-      .eq('location_id', targetId)
+    await this.supabase.from('working_hours').delete().eq('location_id', targetId)
 
     if (sourceHours.length > 0) {
-      const { error } = await this.supabase
-        .from('working_hours')
-        .insert(
-          sourceHours.map(h => ({
-            location_id: targetId,
-            day_of_week: h.day_of_week,
-            start_time: h.start_time,
-            end_time: h.end_time,
-            is_active: h.is_active,
-          }))
-        )
+      const { error } = await this.supabase.from('working_hours').insert(
+        sourceHours.map((h) => ({
+          location_id: targetId,
+          day_of_week: h.day_of_week,
+          start_time: h.start_time,
+          end_time: h.end_time,
+          is_active: h.is_active,
+        }))
+      )
 
       if (error) throw error
     }
@@ -6420,19 +6358,20 @@ export const workingHoursService = new WorkingHoursService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-06 |
-| **Bloqueado por** | T-2-02, T-2-05 |
-| **Bloquea a** | T-3-04 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Frontend               |
+| **Prioridad**         | 🔴 P0 (Crítica)        |
+| **Estimación**        | 5 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-06                  |
+| **Bloqueado por**     | T-2-02, T-2-05         |
+| **Bloquea a**         | T-3-04                 |
 
 #### Descripción
 
 Crear UI para configurar horarios:
+
 - Vista semanal con grid
 - Time pickers para inicio/fin
 - Toggle por día
@@ -6448,19 +6387,20 @@ Crear UI para configurar horarios:
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-07 |
-| **Bloqueado por** | T-2-01 |
-| **Bloquea a** | T-2-08, T-3-04 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Backend                |
+| **Prioridad**         | 🟠 P1 (Alta)           |
+| **Estimación**        | 3 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-07                  |
+| **Bloqueado por**     | T-2-01                 |
+| **Bloquea a**         | T-2-08, T-3-04         |
 
 #### Descripción
 
 Implementar matriz de tiempos de traslado:
+
 - CRUD location_travel_times
 - Validación de ubicaciones existentes
 - Tiempos en minutos
@@ -6494,17 +6434,15 @@ export class TravelTimesService {
       .order('order_index')
 
     // Obtener tiempos
-    const { data: times } = await this.supabase
-      .from('location_travel_times')
-      .select('*')
+    const { data: times } = await this.supabase.from('location_travel_times').select('*')
 
     const matrix: Record<string, Record<string, number>> = {}
 
-    locations?.forEach(loc => {
+    locations?.forEach((loc) => {
       matrix[loc.id] = {}
     })
 
-    times?.forEach(t => {
+    times?.forEach((t) => {
       if (matrix[t.from_location_id]) {
         matrix[t.from_location_id][t.to_location_id] = t.travel_time_minutes
       }
@@ -6530,13 +6468,11 @@ export class TravelTimesService {
         .update({ travel_time_minutes: minutes, updated_at: new Date().toISOString() })
         .eq('id', existing.id)
     } else {
-      await this.supabase
-        .from('location_travel_times')
-        .insert({
-          from_location_id: fromId,
-          to_location_id: toId,
-          travel_time_minutes: minutes,
-        })
+      await this.supabase.from('location_travel_times').insert({
+        from_location_id: fromId,
+        to_location_id: toId,
+        travel_time_minutes: minutes,
+      })
     }
   }
 
@@ -6574,19 +6510,20 @@ export const travelTimesService = new TravelTimesService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 2 - Locations/Services |
-| **HDUs Relacionadas** | US-07 |
-| **Bloqueado por** | T-2-07 |
-| **Bloquea a** | T-3-05 |
+| Campo                 | Valor                  |
+| --------------------- | ---------------------- |
+| **Tipo**              | Frontend               |
+| **Prioridad**         | 🟠 P1 (Alta)           |
+| **Estimación**        | 3 Story Points         |
+| **Sprint**            | 2 - Locations/Services |
+| **HDUs Relacionadas** | US-07                  |
+| **Bloqueado por**     | T-2-07                 |
+| **Bloquea a**         | T-3-05                 |
 
 #### Descripción
 
 Crear UI de matriz para tiempos de traslado:
+
 - Tabla NxN con ubicaciones
 - Inputs editables en celdas
 - Diagonal deshabilitada (mismo lugar)
@@ -6600,16 +6537,16 @@ Crear UI de matriz para tiempos de traslado:
 
 ## 6.9 Sprint 2 Completado ✅
 
-| ID | Título | Tipo | Pts | Estado |
-|----|--------|------|-----|--------|
-| T-2-01 | CRUD Ubicaciones | Backend | 5 | ✅ |
-| T-2-02 | UI Ubicaciones | Frontend | 5 | ✅ |
-| T-2-03 | CRUD Servicios | Backend | 5 | ✅ |
-| T-2-04 | UI Servicios | Frontend | 5 | ✅ |
-| T-2-05 | Horarios de trabajo | Backend | 5 | ✅ |
-| T-2-06 | UI Horarios | Frontend | 5 | ✅ |
-| T-2-07 | Tiempos de traslado | Backend | 3 | ✅ |
-| T-2-08 | Matriz traslados UI | Frontend | 3 | ✅ |
+| ID     | Título              | Tipo     | Pts | Estado |
+| ------ | ------------------- | -------- | --- | ------ |
+| T-2-01 | CRUD Ubicaciones    | Backend  | 5   | ✅     |
+| T-2-02 | UI Ubicaciones      | Frontend | 5   | ✅     |
+| T-2-03 | CRUD Servicios      | Backend  | 5   | ✅     |
+| T-2-04 | UI Servicios        | Frontend | 5   | ✅     |
+| T-2-05 | Horarios de trabajo | Backend  | 5   | ✅     |
+| T-2-06 | UI Horarios         | Frontend | 5   | ✅     |
+| T-2-07 | Tiempos de traslado | Backend  | 3   | ✅     |
+| T-2-08 | Matriz traslados UI | Frontend | 3   | ✅     |
 
 **Total Sprint 2:** 36 Story Points | 8 Tickets
 
@@ -6621,16 +6558,16 @@ Crear UI de matriz para tiempos de traslado:
 flowchart TD
     T101["T-1-01<br/>📊 Migración BD"] --> T201["T-2-01<br/>📍 API Locations"]
     T101 --> T203["T-2-03<br/>🛠️ API Services"]
-    
+
     T201 --> T202["T-2-02<br/>🖥️ UI Locations"]
     T201 --> T205["T-2-05<br/>🕐 Working Hours"]
     T201 --> T207["T-2-07<br/>🚗 Travel Times"]
-    
+
     T203 --> T204["T-2-04<br/>🖥️ UI Services"]
-    
+
     T202 --> T206["T-2-06<br/>🖥️ UI Horarios"]
     T205 --> T206
-    
+
     T207 --> T208["T-2-08<br/>🖥️ Matriz Traslados"]
 
     style T201 fill:#10B981,color:#fff
@@ -6653,19 +6590,20 @@ flowchart TD
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-05 |
-| **Bloqueado por** | T-1-01 |
-| **Bloquea a** | T-3-02, T-3-03 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Backend                  |
+| **Prioridad**         | 🔴 P0 (Crítica)          |
+| **Estimación**        | 5 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-05                    |
+| **Bloqueado por**     | T-1-01                   |
+| **Bloquea a**         | T-3-02, T-3-03           |
 
 #### Descripción
 
 Implementar API completa para gestión de clientes:
+
 - CRUD con soft delete
 - Búsqueda full-text (nombre, email, teléfono)
 - Custom fields para datos verticales
@@ -6710,12 +6648,12 @@ export interface ClientSearchParams {
 ```typescript
 // apps/web/src/services/clients/client.service.ts
 import { createClient } from '@/lib/supabase/client'
-import type { 
-  Client, 
-  CreateClientInput, 
-  UpdateClientInput, 
+import type {
+  Client,
+  CreateClientInput,
+  UpdateClientInput,
   ClientWithStats,
-  ClientSearchParams 
+  ClientSearchParams,
 } from '@/types/client.types'
 
 export class ClientService {
@@ -6790,13 +6728,15 @@ export class ClientService {
 
     const stats = {
       total_appointments: appointments?.length ?? 0,
-      completed_appointments: appointments?.filter(a => a.status === 'completed').length ?? 0,
-      last_appointment_at: appointments?.sort((a, b) => 
-        new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
-      )[0]?.start_time ?? null,
-      total_spent: appointments
-        ?.filter(a => a.status === 'completed')
-        .reduce((sum, a) => sum + (a.price_at_booking ?? 0), 0) ?? 0,
+      completed_appointments: appointments?.filter((a) => a.status === 'completed').length ?? 0,
+      last_appointment_at:
+        appointments?.sort(
+          (a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
+        )[0]?.start_time ?? null,
+      total_spent:
+        appointments
+          ?.filter((a) => a.status === 'completed')
+          .reduce((sum, a) => sum + (a.price_at_booking ?? 0), 0) ?? 0,
     }
 
     return { ...client, ...stats }
@@ -6832,7 +6772,8 @@ export class ClientService {
       .single()
 
     if (error) {
-      if (error.code === '23505') { // Unique violation
+      if (error.code === '23505') {
+        // Unique violation
         throw new Error('Ya existe un cliente con ese email')
       }
       throw error
@@ -6918,25 +6859,29 @@ export class ClientService {
   /**
    * Obtiene historial de duración por servicio
    */
-  async getServiceDurations(clientId: string): Promise<{
-    service_id: string
-    service_name: string
-    average_duration: number
-    appointment_count: number
-  }[]> {
+  async getServiceDurations(clientId: string): Promise<
+    {
+      service_id: string
+      service_name: string
+      average_duration: number
+      appointment_count: number
+    }[]
+  > {
     const { data, error } = await this.supabase
       .from('client_service_durations')
-      .select(`
+      .select(
+        `
         service_id,
         average_duration_minutes,
         total_appointments,
         services (name)
-      `)
+      `
+      )
       .eq('client_id', clientId)
 
     if (error) throw error
 
-    return (data ?? []).map(d => ({
+    return (data ?? []).map((d) => ({
       service_id: d.service_id,
       service_name: (d.services as any)?.name ?? '',
       average_duration: d.average_duration_minutes,
@@ -6965,11 +6910,7 @@ export function useClients(initialParams?: ClientSearchParams) {
   const [searchParams, setSearchParams] = useState<ClientSearchParams>(initialParams ?? {})
 
   // Query: Buscar clientes
-  const {
-    data,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [...QUERY_KEY, searchParams],
     queryFn: () => clientService.search(searchParams),
   })
@@ -7042,12 +6983,12 @@ export function useClient(id: string) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | ClientService CRUD | `tests/unit/services/clients.test.ts` |
-| Unit | Búsqueda full-text | `tests/unit/services/clients-search.test.ts` |
-| Integration | findOrCreate | `tests/integration/clients/find-or-create.test.ts` |
-| Integration | Soft delete | `tests/integration/clients/soft-delete.test.ts` |
+| Tipo        | Descripción        | Ubicación                                          |
+| ----------- | ------------------ | -------------------------------------------------- |
+| Unit        | ClientService CRUD | `tests/unit/services/clients.test.ts`              |
+| Unit        | Búsqueda full-text | `tests/unit/services/clients-search.test.ts`       |
+| Integration | findOrCreate       | `tests/integration/clients/find-or-create.test.ts` |
+| Integration | Soft delete        | `tests/integration/clients/soft-delete.test.ts`    |
 
 #### Etiquetas
 
@@ -7059,19 +7000,20 @@ export function useClient(id: string) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-05 |
-| **Bloqueado por** | T-3-01 |
-| **Bloquea a** | T-3-03, T-4-03 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Frontend                 |
+| **Prioridad**         | 🔴 P0 (Crítica)          |
+| **Estimación**        | 5 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-05                    |
+| **Bloqueado por**     | T-3-01                   |
+| **Bloquea a**         | T-3-03, T-4-03           |
 
 #### Descripción
 
 Crear interfaz completa para gestión de clientes:
+
 - Lista con búsqueda y filtros
 - Vista de detalle con historial
 - Modal de creación/edición
@@ -7100,16 +7042,16 @@ import type { Client } from '@/types/client.types'
 export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const debouncedQuery = useDebounce(searchQuery, 300)
-  
-  const { 
-    clients, 
-    total, 
-    isLoading, 
+
+  const {
+    clients,
+    total,
+    isLoading,
     searchParams,
     setSearchParams,
-    deleteClient 
+    deleteClient
   } = useClients({ query: debouncedQuery })
-  
+
   const { canMutate } = useAuthContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingClient, setEditingClient] = useState<Client | null>(null)
@@ -7175,7 +7117,7 @@ export default function ClientsPage() {
           icon="👥"
           title={searchQuery ? 'Sin resultados' : 'No tienes clientes'}
           description={
-            searchQuery 
+            searchQuery
               ? 'No se encontraron clientes con ese criterio'
               : 'Agrega tu primer cliente para comenzar'
           }
@@ -7236,12 +7178,12 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  Calendar, 
-  Clock, 
+import {
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Clock,
   DollarSign,
   Edit,
   FileText
@@ -7338,7 +7280,7 @@ export function ClientDetailSheet({ client, onClose, onEdit }: ClientDetailSheet
               <Card>
                 <CardContent className="p-4 text-center">
                   <p className="text-sm font-medium">
-                    {clientDetail.last_appointment_at 
+                    {clientDetail.last_appointment_at
                       ? formatRelative(clientDetail.last_appointment_at)
                       : 'Nunca'}
                   </p>
@@ -7398,11 +7340,11 @@ export function ClientDetailSheet({ client, onClose, onEdit }: ClientDetailSheet
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | ClientsTable renderiza | `tests/unit/components/clients/table.test.tsx` |
+| Tipo | Descripción                     | Ubicación                                       |
+| ---- | ------------------------------- | ----------------------------------------------- |
+| Unit | ClientsTable renderiza          | `tests/unit/components/clients/table.test.tsx`  |
 | Unit | ClientDetailSheet muestra stats | `tests/unit/components/clients/detail.test.tsx` |
-| E2E | Flujo completo de clientes | `tests/e2e/clients.spec.ts` (Solo Local) |
+| E2E  | Flujo completo de clientes      | `tests/e2e/clients.spec.ts` (Solo Local)        |
 
 #### Etiquetas
 
@@ -7414,19 +7356,20 @@ export function ClientDetailSheet({ client, onClose, onEdit }: ClientDetailSheet
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-08, US-10, US-11 |
-| **Bloqueado por** | T-3-01, T-2-01, T-2-05 |
-| **Bloquea a** | T-3-05, T-4-03 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Backend                  |
+| **Prioridad**         | 🔴 P0 (Crítica)          |
+| **Estimación**        | 8 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-08, US-10, US-11      |
+| **Bloqueado por**     | T-3-01, T-2-01, T-2-05   |
+| **Bloquea a**         | T-3-05, T-4-03           |
 
 #### Descripción
 
 Implementar servicio completo de citas:
+
 - Crear cita con validación de disponibilidad
 - Calcular duración adaptativa
 - Crear bloque de traslado automático
@@ -7495,14 +7438,14 @@ export interface ValidationResult {
 // apps/web/src/services/appointments/appointment.service.ts
 import { createClient } from '@/lib/supabase/client'
 import { travelTimesService } from '@/services/travel-times/travel-times.service'
-import type { 
+import type {
   Appointment,
   CreateAppointmentInput,
   CompleteAppointmentInput,
   CancelAppointmentInput,
   RescheduleAppointmentInput,
   AppointmentWithRelations,
-  ValidationResult
+  ValidationResult,
 } from '@/types/appointment.types'
 
 export class AppointmentService {
@@ -7514,13 +7457,15 @@ export class AppointmentService {
   async getByDateRange(startDate: string, endDate: string): Promise<AppointmentWithRelations[]> {
     const { data, error } = await this.supabase
       .from('appointments')
-      .select(`
+      .select(
+        `
         *,
         client:clients(id, name, email, phone),
         service:services(id, name, color, default_duration_minutes),
         location:locations(id, name, color, address),
         travel_block:travel_blocks(id, travel_time_minutes, from_location_id, to_location_id)
-      `)
+      `
+      )
       .gte('start_time', startDate)
       .lte('start_time', endDate)
       .is('deleted_at', null)
@@ -7581,8 +7526,8 @@ export class AppointmentService {
     if (!workingHours || workingHours.length === 0) {
       errors.push('No hay horario de trabajo configurado para este día')
     } else {
-      const withinHours = workingHours.some(wh => 
-        timeStr >= wh.start_time && endTimeStr <= wh.end_time
+      const withinHours = workingHours.some(
+        (wh) => timeStr >= wh.start_time && endTimeStr <= wh.end_time
       )
       if (!withinHours) {
         errors.push('El horario está fuera del horario de trabajo')
@@ -7640,7 +7585,7 @@ export class AppointmentService {
       if (travelTimeMinutes > 0) {
         const prevEnd = new Date(previousAppointment.end_time)
         const travelEnd = new Date(prevEnd.getTime() + travelTimeMinutes * 60 * 1000)
-        
+
         if (travelEnd > startTime) {
           errors.push(`Necesitas ${travelTimeMinutes} minutos de traslado desde la cita anterior`)
         } else {
@@ -7677,7 +7622,8 @@ export class AppointmentService {
       .eq('id', input.service_id)
       .single()
 
-    const duration = input.duration_override ?? validation.suggested_duration ?? service!.default_duration_minutes
+    const duration =
+      input.duration_override ?? validation.suggested_duration ?? service!.default_duration_minutes
     const startTime = new Date(input.start_time)
     const endTime = new Date(startTime.getTime() + duration * 60 * 1000)
 
@@ -7738,17 +7684,15 @@ export class AppointmentService {
     const travelStart = new Date(prevAppointment.end_time)
     const travelEnd = new Date(travelStart.getTime() + travelMinutes * 60 * 1000)
 
-    await this.supabase
-      .from('travel_blocks')
-      .insert({
-        appointment_id: appointmentId,
-        from_location_id: prevAppointment.location_id,
-        to_location_id: toLocationId,
-        start_time: travelStart.toISOString(),
-        end_time: travelEnd.toISOString(),
-        travel_time_minutes: travelMinutes,
-        source: 'manual',
-      })
+    await this.supabase.from('travel_blocks').insert({
+      appointment_id: appointmentId,
+      from_location_id: prevAppointment.location_id,
+      to_location_id: toLocationId,
+      start_time: travelStart.toISOString(),
+      end_time: travelEnd.toISOString(),
+      travel_time_minutes: travelMinutes,
+      source: 'manual',
+    })
   }
 
   /**
@@ -7798,7 +7742,8 @@ export class AppointmentService {
       // Recalcular promedio
       const newTotal = existing.total_appointments + 1
       const newAverage = Math.round(
-        (existing.average_duration_minutes * existing.total_appointments + actualDuration) / newTotal
+        (existing.average_duration_minutes * existing.total_appointments + actualDuration) /
+          newTotal
       )
       const newMin = Math.min(existing.min_duration_minutes, actualDuration)
       const newMax = Math.max(existing.max_duration_minutes, actualDuration)
@@ -7816,17 +7761,15 @@ export class AppointmentService {
         .eq('id', existing.id)
     } else {
       // Crear registro nuevo
-      await this.supabase
-        .from('client_service_durations')
-        .insert({
-          client_id: clientId,
-          service_id: serviceId,
-          average_duration_minutes: actualDuration,
-          min_duration_minutes: actualDuration,
-          max_duration_minutes: actualDuration,
-          total_appointments: 1,
-          last_appointment_at: new Date().toISOString(),
-        })
+      await this.supabase.from('client_service_durations').insert({
+        client_id: clientId,
+        service_id: serviceId,
+        average_duration_minutes: actualDuration,
+        min_duration_minutes: actualDuration,
+        max_duration_minutes: actualDuration,
+        total_appointments: 1,
+        last_appointment_at: new Date().toISOString(),
+      })
     }
   }
 
@@ -7849,10 +7792,7 @@ export class AppointmentService {
     if (error) throw error
 
     // Eliminar bloque de traslado asociado
-    await this.supabase
-      .from('travel_blocks')
-      .delete()
-      .eq('appointment_id', id)
+    await this.supabase.from('travel_blocks').delete().eq('appointment_id', id)
 
     return data
   }
@@ -7916,12 +7856,12 @@ export const appointmentService = new AppointmentService()
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Validación de conflictos | `tests/unit/services/appointments/validation.test.ts` |
-| Unit | Cálculo duración adaptativa | `tests/unit/services/appointments/duration.test.ts` |
-| Integration | Crear cita completo | `tests/integration/appointments/create.test.ts` |
-| Integration | Completar actualiza historial | `tests/integration/appointments/complete.test.ts` |
+| Tipo        | Descripción                   | Ubicación                                             |
+| ----------- | ----------------------------- | ----------------------------------------------------- |
+| Unit        | Validación de conflictos      | `tests/unit/services/appointments/validation.test.ts` |
+| Unit        | Cálculo duración adaptativa   | `tests/unit/services/appointments/duration.test.ts`   |
+| Integration | Crear cita completo           | `tests/integration/appointments/create.test.ts`       |
+| Integration | Completar actualiza historial | `tests/integration/appointments/complete.test.ts`     |
 
 #### Etiquetas
 
@@ -7933,19 +7873,20 @@ export const appointmentService = new AppointmentService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-08, US-09, US-12 |
-| **Bloqueado por** | T-2-05, T-2-07, T-3-03 |
-| **Bloquea a** | T-3-05, T-4-02 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Backend                  |
+| **Prioridad**         | 🔴 P0 (Crítica)          |
+| **Estimación**        | 8 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-08, US-09, US-12      |
+| **Bloqueado por**     | T-2-05, T-2-07, T-3-03   |
+| **Bloquea a**         | T-3-05, T-4-02           |
 
 #### Descripción
 
 Implementar motor de cálculo de disponibilidad:
+
 - Generar slots disponibles por fecha
 - Considerar citas existentes
 - Considerar horarios de trabajo
@@ -8084,7 +8025,7 @@ export class AvailabilityService {
 
       while (currentTime < endWorkTime) {
         const slotEnd = new Date(currentTime.getTime() + duration * 60 * 1000)
-        
+
         if (slotEnd <= endWorkTime) {
           slots.push({
             start_time: currentTime.toISOString(),
@@ -8127,7 +8068,7 @@ export class AvailabilityService {
       const slotEnd = new Date(slot.end_time)
 
       // Verificar conflicto con citas
-      const conflictingAppt = appointments?.find(appt => {
+      const conflictingAppt = appointments?.find((appt) => {
         const apptStart = new Date(appt.start_time)
         const apptEnd = new Date(appt.end_time)
         return slotStart < apptEnd && slotEnd > apptStart
@@ -8145,7 +8086,7 @@ export class AvailabilityService {
       }
 
       // Verificar bloqueos personales
-      const conflictingBlock = personalBlocks?.find(block => {
+      const conflictingBlock = personalBlocks?.find((block) => {
         const blockStart = new Date(block.start_time)
         const blockEnd = new Date(block.end_time)
         return slotStart < blockEnd && slotEnd > blockStart
@@ -8165,7 +8106,7 @@ export class AvailabilityService {
       // Verificar tiempo de traslado necesario
       if (location_id) {
         const previousAppt = appointments
-          ?.filter(a => new Date(a.end_time) <= slotStart)
+          ?.filter((a) => new Date(a.end_time) <= slotStart)
           .sort((a, b) => new Date(b.end_time).getTime() - new Date(a.end_time).getTime())[0]
 
         if (previousAppt && previousAppt.location_id !== location_id) {
@@ -8206,7 +8147,7 @@ export class AvailabilityService {
       slots,
       summary: {
         total_slots: slots.length,
-        available_slots: slots.filter(s => s.available).length,
+        available_slots: slots.filter((s) => s.available).length,
         blocked_by_appointments: blockedByAppointments,
         blocked_by_travel: blockedByTravel,
         blocked_by_personal: blockedByPersonal,
@@ -8230,11 +8171,11 @@ export const availabilityService = new AvailabilityService()
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Generación de slots | `tests/unit/services/availability/slots.test.ts` |
-| Unit | Detección de conflictos | `tests/unit/services/availability/conflicts.test.ts` |
-| Integration | Disponibilidad completa | `tests/integration/availability.test.ts` |
+| Tipo        | Descripción             | Ubicación                                            |
+| ----------- | ----------------------- | ---------------------------------------------------- |
+| Unit        | Generación de slots     | `tests/unit/services/availability/slots.test.ts`     |
+| Unit        | Detección de conflictos | `tests/unit/services/availability/conflicts.test.ts` |
+| Integration | Disponibilidad completa | `tests/integration/availability.test.ts`             |
 
 #### Etiquetas
 
@@ -8246,19 +8187,20 @@ export const availabilityService = new AvailabilityService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-09 |
-| **Bloqueado por** | T-3-03, T-3-04, T-2-08 |
-| **Bloquea a** | T-4-06 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Frontend                 |
+| **Prioridad**         | 🔴 P0 (Crítica)          |
+| **Estimación**        | 8 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-09                    |
+| **Bloqueado por**     | T-3-03, T-3-04, T-2-08   |
+| **Bloquea a**         | T-4-06                   |
 
 #### Descripción
 
 Crear calendario visual completo:
+
 - Vista diaria/semanal
 - Citas con colores por ubicación
 - Bloques de traslado visibles
@@ -8290,7 +8232,7 @@ export default function AppointmentsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<{ date: Date; time: string } | null>(null)
-  
+
   const { canMutate } = useAuthContext()
 
   const handleSlotClick = (date: Date, time: string) => {
@@ -8420,9 +8362,9 @@ export function CalendarView({ date, mode, onSlotClick, onAppointmentClick }: Ca
       </div>
 
       {/* Grid de horas */}
-      <div 
+      <div
         className="grid relative"
-        style={{ 
+        style={{
           gridTemplateColumns: `60px repeat(${dates.length}, 1fr)`,
           height: `${HOURS.length * SLOT_HEIGHT}px`
         }}
@@ -8454,11 +8396,11 @@ export function CalendarView({ date, mode, onSlotClick, onAppointmentClick }: Ca
   )
 }
 
-function DayColumn({ 
-  date, 
-  onSlotClick, 
-  onAppointmentClick 
-}: { 
+function DayColumn({
+  date,
+  onSlotClick,
+  onAppointmentClick
+}: {
   date: Date
   onSlotClick: (time: string) => void
   onAppointmentClick: (appointment: Appointment) => void
@@ -8502,19 +8444,19 @@ function DayColumn({
   )
 }
 
-function AppointmentBlock({ 
-  appointment, 
-  onClick 
-}: { 
+function AppointmentBlock({
+  appointment,
+  onClick
+}: {
   appointment: Appointment
   onClick: () => void
 }) {
   const startTime = new Date(appointment.start_time)
   const endTime = new Date(appointment.end_time)
-  
+
   const startHour = startTime.getHours() + startTime.getMinutes() / 60
   const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
-  
+
   const top = (startHour - 7) * SLOT_HEIGHT
   const height = duration * SLOT_HEIGHT
 
@@ -8548,10 +8490,10 @@ function AppointmentBlock({
 function TravelBlock({ block }: { block: any }) {
   const startTime = new Date(block.start_time)
   const endTime = new Date(block.end_time)
-  
+
   const startHour = startTime.getHours() + startTime.getMinutes() / 60
   const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
-  
+
   const top = (startHour - 7) * SLOT_HEIGHT
   const height = duration * SLOT_HEIGHT
 
@@ -8570,10 +8512,10 @@ function TravelBlock({ block }: { block: any }) {
 function PersonalBlockDisplay({ block }: { block: any }) {
   const startTime = new Date(block.start_time)
   const endTime = new Date(block.end_time)
-  
+
   const startHour = startTime.getHours() + startTime.getMinutes() / 60
   const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60)
-  
+
   const top = (startHour - 7) * SLOT_HEIGHT
   const height = duration * SLOT_HEIGHT
 
@@ -8601,11 +8543,11 @@ function PersonalBlockDisplay({ block }: { block: any }) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | CalendarView renderiza slots | `tests/unit/components/calendar/view.test.tsx` |
+| Tipo | Descripción                        | Ubicación                                       |
+| ---- | ---------------------------------- | ----------------------------------------------- |
+| Unit | CalendarView renderiza slots       | `tests/unit/components/calendar/view.test.tsx`  |
 | Unit | AppointmentBlock posición correcta | `tests/unit/components/calendar/block.test.tsx` |
-| E2E | Navegación calendario | `tests/e2e/calendar.spec.ts` (Solo Local) |
+| E2E  | Navegación calendario              | `tests/e2e/calendar.spec.ts` (Solo Local)       |
 
 #### Etiquetas
 
@@ -8617,19 +8559,20 @@ function PersonalBlockDisplay({ block }: { block: any }) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-3-04 |
-| **Bloquea a** | T-3-07 |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Backend                  |
+| **Prioridad**         | 🟠 P1 (Alta)             |
+| **Estimación**        | 5 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-22                    |
+| **Bloqueado por**     | T-3-04                   |
+| **Bloquea a**         | T-3-07                   |
 
 #### Descripción
 
 Implementar CRUD de bloqueos personales:
+
 - Tipos: almuerzo, vacaciones, personal, otro
 - Soporte para recurrencia (diario, semanal, mensual)
 - Validación de conflictos con citas
@@ -8704,18 +8647,20 @@ export class PersonalBlocksService {
     return expandedBlocks
   }
 
-  private generateOccurrences(block: PersonalBlock, rangeStart: Date, rangeEnd: Date): PersonalBlock[] {
+  private generateOccurrences(
+    block: PersonalBlock,
+    rangeStart: Date,
+    rangeEnd: Date
+  ): PersonalBlock[] {
     const occurrences: PersonalBlock[] = []
     const blockStart = new Date(block.start_time)
     const blockEnd = new Date(block.end_time)
     const duration = blockEnd.getTime() - blockStart.getTime()
-    
-    const recurrenceEnd = block.recurrence_end_date 
-      ? new Date(block.recurrence_end_date) 
-      : rangeEnd
+
+    const recurrenceEnd = block.recurrence_end_date ? new Date(block.recurrence_end_date) : rangeEnd
 
     let current = new Date(blockStart)
-    
+
     while (current <= recurrenceEnd && current <= rangeEnd) {
       if (current >= rangeStart) {
         occurrences.push({
@@ -8787,10 +8732,7 @@ export class PersonalBlocksService {
   }
 
   async delete(id: string): Promise<void> {
-    const { error } = await this.supabase
-      .from('personal_blocks')
-      .delete()
-      .eq('id', id)
+    const { error } = await this.supabase.from('personal_blocks').delete().eq('id', id)
 
     if (error) throw error
   }
@@ -8822,10 +8764,10 @@ export const personalBlocksService = new PersonalBlocksService()
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Generación de ocurrencias | `tests/unit/services/personal-blocks/recurrence.test.ts` |
-| Integration | CRUD completo | `tests/integration/personal-blocks/crud.test.ts` |
+| Tipo        | Descripción               | Ubicación                                                |
+| ----------- | ------------------------- | -------------------------------------------------------- |
+| Unit        | Generación de ocurrencias | `tests/unit/services/personal-blocks/recurrence.test.ts` |
+| Integration | CRUD completo             | `tests/integration/personal-blocks/crud.test.ts`         |
 
 #### Etiquetas
 
@@ -8837,19 +8779,20 @@ export const personalBlocksService = new PersonalBlocksService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 3 - Clients/Appointments |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-3-06 |
-| **Bloquea a** | - |
+| Campo                 | Valor                    |
+| --------------------- | ------------------------ |
+| **Tipo**              | Frontend                 |
+| **Prioridad**         | 🟠 P1 (Alta)             |
+| **Estimación**        | 3 Story Points           |
+| **Sprint**            | 3 - Clients/Appointments |
+| **HDUs Relacionadas** | US-22                    |
+| **Bloqueado por**     | T-3-06                   |
+| **Bloquea a**         | -                        |
 
 #### Descripción
 
 Crear UI para gestionar bloqueos:
+
 - Lista de bloqueos activos
 - Modal de creación con selector de tipo
 - Selector de recurrencia
@@ -8871,15 +8814,15 @@ Crear UI para gestionar bloqueos:
 
 ## 6.12 Sprint 3 Completado ✅
 
-| ID | Título | Tipo | Pts | Estado |
-|----|--------|------|-----|--------|
-| T-3-01 | CRUD Clientes | Backend | 5 | ✅ |
-| T-3-02 | UI Clientes | Frontend | 5 | ✅ |
-| T-3-03 | API Citas + Validaciones | Backend | 8 | ✅ |
-| T-3-04 | Motor Disponibilidad | Backend | 8 | ✅ |
-| T-3-05 | Calendario Visual | Frontend | 8 | ✅ |
-| T-3-06 | Bloqueos Personales | Backend | 5 | ✅ |
-| T-3-07 | UI Bloqueos | Frontend | 3 | ✅ |
+| ID     | Título                   | Tipo     | Pts | Estado |
+| ------ | ------------------------ | -------- | --- | ------ |
+| T-3-01 | CRUD Clientes            | Backend  | 5   | ✅     |
+| T-3-02 | UI Clientes              | Frontend | 5   | ✅     |
+| T-3-03 | API Citas + Validaciones | Backend  | 8   | ✅     |
+| T-3-04 | Motor Disponibilidad     | Backend  | 8   | ✅     |
+| T-3-05 | Calendario Visual        | Frontend | 8   | ✅     |
+| T-3-06 | Bloqueos Personales      | Backend  | 5   | ✅     |
+| T-3-07 | UI Bloqueos              | Frontend | 3   | ✅     |
 
 **Total Sprint 3:** 42 Story Points | 7 Tickets
 
@@ -8893,14 +8836,14 @@ flowchart TD
     T201["T-2-01<br/>📍 Locations"] --> T303["T-3-03<br/>📅 API Appointments"]
     T205["T-2-05<br/>🕐 Working Hours"] --> T304["T-3-04<br/>⚡ Motor Disponibilidad"]
     T207["T-2-07<br/>🚗 Travel Times"] --> T304
-    
+
     T301 --> T302["T-3-02<br/>🖥️ UI Clients"]
     T301 --> T303
-    
+
     T303 --> T304
     T303 --> T305["T-3-05<br/>📆 Calendario"]
     T304 --> T305
-    
+
     T304 --> T306["T-3-06<br/>🚫 Personal Blocks"]
     T306 --> T307["T-3-07<br/>🖥️ UI Blocks"]
 
@@ -8923,19 +8866,20 @@ flowchart TD
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-12 |
-| **Bloqueado por** | T-2-04 |
-| **Bloquea a** | T-4-03 |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Frontend           |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-12              |
+| **Bloqueado por**     | T-2-04             |
+| **Bloquea a**         | T-4-03             |
 
 #### Descripción
 
 Crear portal público accesible por slug del profesional:
+
 - Página pública sin autenticación
 - Información del profesional
 - Lista de servicios disponibles
@@ -8962,7 +8906,7 @@ interface PageProps {
 // Generar metadata dinámica para SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const supabase = await createClient()
-  
+
   const { data: profile } = await supabase
     .from('profiles')
     .select('full_name, avatar_url')
@@ -9029,8 +8973,8 @@ export default async function PublicPortalPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Header del profesional */}
-      <PublicPortalHeader 
-        profile={profile} 
+      <PublicPortalHeader
+        profile={profile}
         canBook={canBook}
       />
 
@@ -9191,11 +9135,11 @@ export function ServicesList({ services }: { services: Service[] }) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | PortalHeader renderiza | `tests/unit/components/public/header.test.tsx` |
-| Integration | Slug resuelve correctamente | `tests/integration/public/portal.test.ts` |
-| E2E | Portal público completo | `tests/e2e/public/portal.spec.ts` (Solo Local) |
+| Tipo        | Descripción                 | Ubicación                                      |
+| ----------- | --------------------------- | ---------------------------------------------- |
+| Unit        | PortalHeader renderiza      | `tests/unit/components/public/header.test.tsx` |
+| Integration | Slug resuelve correctamente | `tests/integration/public/portal.test.ts`      |
+| E2E         | Portal público completo     | `tests/e2e/public/portal.spec.ts` (Solo Local) |
 
 #### Etiquetas
 
@@ -9207,19 +9151,20 @@ export function ServicesList({ services }: { services: Service[] }) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-12, US-13 |
-| **Bloqueado por** | T-3-04 |
-| **Bloquea a** | T-4-03 |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-12, US-13       |
+| **Bloqueado por**     | T-3-04             |
+| **Bloquea a**         | T-4-03             |
 
 #### Descripción
 
 Exponer API de disponibilidad para el portal público:
+
 - Endpoint sin autenticación
 - Validar que profesional acepta reservas
 - Reutilizar motor de disponibilidad
@@ -9245,12 +9190,9 @@ export async function GET(request: NextRequest) {
     // Rate limiting
     const ip = request.ip ?? 'anonymous'
     const { success } = await limiter.check(60, ip)
-    
+
     if (!success) {
-      return NextResponse.json(
-        { error: 'Too many requests' },
-        { status: 429 }
-      )
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
     }
 
     const { searchParams } = new URL(request.url)
@@ -9277,18 +9219,15 @@ export async function GET(request: NextRequest) {
       .single()
 
     if (!profile) {
-      return NextResponse.json(
-        { error: 'Professional not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Professional not found' }, { status: 404 })
     }
 
     // Verificar que acepta reservas
     if (!['trial', 'active'].includes(profile.account_status)) {
       return NextResponse.json(
-        { 
+        {
           error: 'Professional is not accepting bookings',
-          code: 'PROFESSIONAL_INACTIVE'
+          code: 'PROFESSIONAL_INACTIVE',
         },
         { status: 422 }
       )
@@ -9320,8 +9259,8 @@ export async function GET(request: NextRequest) {
 
     // Filtrar solo slots disponibles para respuesta pública
     const publicSlots = availability.slots
-      .filter(s => s.available)
-      .map(s => ({
+      .filter((s) => s.available)
+      .map((s) => ({
         start_time: s.start_time,
         end_time: s.end_time,
       }))
@@ -9337,13 +9276,9 @@ export async function GET(request: NextRequest) {
       available_slots: publicSlots,
       total_available: publicSlots.length,
     })
-
   } catch (error) {
     console.error('Public availability error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 ```
@@ -9364,13 +9299,16 @@ export function rateLimit(options: RateLimitOptions) {
   })
 
   return {
-    check: async (limit: number, token: string): Promise<{ success: boolean; remaining: number }> => {
+    check: async (
+      limit: number,
+      token: string
+    ): Promise<{ success: boolean; remaining: number }> => {
       const now = Date.now()
       const windowStart = now - options.interval
-      
+
       const tokenCount = tokenCache.get(token) ?? []
-      const validTokens = tokenCount.filter(t => t > windowStart)
-      
+      const validTokens = tokenCount.filter((t) => t > windowStart)
+
       if (validTokens.length >= limit) {
         return { success: false, remaining: 0 }
       }
@@ -9395,10 +9333,10 @@ export function rateLimit(options: RateLimitOptions) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Rate limiter funciona | `tests/unit/lib/rate-limit.test.ts` |
-| Integration | API valida parámetros | `tests/integration/api/public-availability.test.ts` |
+| Tipo        | Descripción                      | Ubicación                                           |
+| ----------- | -------------------------------- | --------------------------------------------------- |
+| Unit        | Rate limiter funciona            | `tests/unit/lib/rate-limit.test.ts`                 |
+| Integration | API valida parámetros            | `tests/integration/api/public-availability.test.ts` |
 | Integration | Profesional inactivo retorna 422 | `tests/integration/api/public-availability.test.ts` |
 
 #### Etiquetas
@@ -9411,19 +9349,20 @@ export function rateLimit(options: RateLimitOptions) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-13, US-23 |
-| **Bloqueado por** | T-4-01, T-4-02 |
-| **Bloquea a** | T-4-08, T-4-09 |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Frontend           |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 8 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-13, US-23       |
+| **Bloqueado por**     | T-4-01, T-4-02     |
+| **Bloquea a**         | T-4-08, T-4-09     |
 
 #### Descripción
 
 Crear wizard paso a paso para reserva online:
+
 1. Selección de servicio
 2. Selección de ubicación
 3. Selección de fecha y hora
@@ -9452,7 +9391,7 @@ export default function BookingPage({ params }: PageProps) {
 
   if (bookingResult) {
     return (
-      <BookingConfirmation 
+      <BookingConfirmation
         booking={bookingResult}
         onNewBooking={() => setBookingResult(null)}
       />
@@ -9460,7 +9399,7 @@ export default function BookingPage({ params }: PageProps) {
   }
 
   return (
-    <BookingWizard 
+    <BookingWizard
       slug={params.slug}
       onComplete={setBookingResult}
       onCancel={() => router.push(`/${params.slug}`)}
@@ -9516,7 +9455,7 @@ interface BookingWizardProps {
 export function BookingWizard({ slug, onComplete, onCancel }: BookingWizardProps) {
   const [currentStep, setCurrentStep] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  
+
   // Estado del booking
   const [bookingData, setBookingData] = useState({
     service_id: '',
@@ -9759,14 +9698,14 @@ export function DateTimeStep({ bookingData, updateBookingData, profile }: DateTi
         date: dateStr,
         service_id: bookingData.service_id,
       })
-      
+
       if (bookingData.location_id) {
         params.set('location_id', bookingData.location_id)
       }
 
       const response = await fetch(`/api/public/availability?${params}`)
       const data = await response.json()
-      
+
       setSlots(data.available_slots ?? [])
     } catch (error) {
       console.error('Error fetching slots:', error)
@@ -9779,7 +9718,7 @@ export function DateTimeStep({ bookingData, updateBookingData, profile }: DateTi
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date)
     if (date) {
-      updateBookingData({ 
+      updateBookingData({
         date: format(date, 'yyyy-MM-dd'),
         time_slot: '' // Reset time when date changes
       })
@@ -9867,11 +9806,11 @@ export function DateTimeStep({ bookingData, updateBookingData, profile }: DateTi
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Wizard navegación | `tests/unit/components/booking/wizard.test.tsx` |
-| Unit | DateTimeStep carga slots | `tests/unit/components/booking/datetime-step.test.tsx` |
-| E2E | Flujo completo de reserva | `tests/e2e/booking/wizard.spec.ts` (Solo Local) |
+| Tipo | Descripción               | Ubicación                                              |
+| ---- | ------------------------- | ------------------------------------------------------ |
+| Unit | Wizard navegación         | `tests/unit/components/booking/wizard.test.tsx`        |
+| Unit | DateTimeStep carga slots  | `tests/unit/components/booking/datetime-step.test.tsx` |
+| E2E  | Flujo completo de reserva | `tests/e2e/booking/wizard.spec.ts` (Solo Local)        |
 
 #### Etiquetas
 
@@ -9883,19 +9822,20 @@ export function DateTimeStep({ bookingData, updateBookingData, profile }: DateTi
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-23 |
-| **Bloqueado por** | T-4-02 |
-| **Bloquea a** | - |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🟠 P1 (Alta)       |
+| **Estimación**        | 3 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-23              |
+| **Bloqueado por**     | T-4-02             |
+| **Bloquea a**         | -                  |
 
 #### Descripción
 
 Implementar configuración de términos por profesional:
+
 - Texto de términos editable en settings
 - Política de reembolso configurable
 - Flag de obligatoriedad
@@ -9908,10 +9848,7 @@ Implementar configuración de términos por profesional:
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { slug: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
   const supabase = await createClient()
 
   const { data: profile } = await supabase
@@ -9961,19 +9898,20 @@ export async function GET(
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-11 |
-| **Bloqueado por** | T-3-03 |
-| **Bloquea a** | T-4-06 |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-11              |
+| **Bloqueado por**     | T-3-03             |
+| **Bloquea a**         | T-4-06             |
 
 #### Descripción
 
 Extender funcionalidad de completar/cancelar:
+
 - Modal de completar con duración real
 - Actualización de historial de duraciones
 - Notas post-cita
@@ -9993,8 +9931,13 @@ export function useAppointmentActions() {
   const queryClient = useQueryClient()
 
   const completeMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { actual_duration_minutes: number; notes?: string } }) =>
-      appointmentService.complete(id, data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string
+      data: { actual_duration_minutes: number; notes?: string }
+    }) => appointmentService.complete(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] })
       toast.success('Cita completada. Duración registrada.')
@@ -10003,8 +9946,13 @@ export function useAppointmentActions() {
   })
 
   const cancelMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { cancellation_reason?: string; cancelled_by: 'client' | 'professional' } }) =>
-      appointmentService.cancel(id, data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string
+      data: { cancellation_reason?: string; cancelled_by: 'client' | 'professional' }
+    }) => appointmentService.cancel(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] })
       toast.success('Cita cancelada')
@@ -10013,8 +9961,7 @@ export function useAppointmentActions() {
   })
 
   const noShowMutation = useMutation({
-    mutationFn: (id: string) =>
-      appointmentService.markNoShow(id),
+    mutationFn: (id: string) => appointmentService.markNoShow(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] })
       toast.success('Cita marcada como no-show')
@@ -10050,19 +9997,20 @@ export function useAppointmentActions() {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-11 |
-| **Bloqueado por** | T-4-05, T-3-05 |
-| **Bloquea a** | - |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Frontend           |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 3 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-11              |
+| **Bloqueado por**     | T-4-05, T-3-05     |
+| **Bloquea a**         | -                  |
 
 #### Descripción
 
 Crear modal de completar cita:
+
 - Input de duración real
 - Sugerencia basada en historial
 - Campo de notas
@@ -10144,7 +10092,7 @@ export function CompleteModal({ appointment, onClose }: CompleteModalProps) {
             <label className="block text-sm font-medium mb-2">
               Duración real de la cita
             </label>
-            
+
             <div className="flex items-center gap-4">
               <Button
                 variant="outline"
@@ -10253,19 +10201,20 @@ export function CompleteModal({ appointment, onClose }: CompleteModalProps) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-10 |
-| **Bloqueado por** | T-4-05 |
-| **Bloquea a** | - |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🟠 P1 (Alta)       |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-10              |
+| **Bloqueado por**     | T-4-05             |
+| **Bloquea a**         | -                  |
 
 #### Descripción
 
 Refinar sistema de duración adaptativa:
+
 - Endpoint para obtener sugerencia
 - Mostrar historial de duraciones
 - Permitir override manual
@@ -10383,19 +10332,20 @@ export function useDurationSuggestion(clientId: string | null, serviceId: string
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-20 |
-| **Bloqueado por** | T-4-03 |
-| **Bloquea a** | - |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-20              |
+| **Bloqueado por**     | T-4-03             |
+| **Bloquea a**         | -                  |
 
 #### Descripción
 
 Implementar cancelación de cita por parte del cliente:
+
 - Endpoint público con token de cancelación
 - Validación de anticipación mínima
 - Notificación al profesional
@@ -10408,19 +10358,13 @@ Implementar cancelación de cita por parte del cliente:
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const body = await request.json()
     const { token, reason } = body
 
     if (!token) {
-      return NextResponse.json(
-        { error: 'Cancellation token required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Cancellation token required' }, { status: 400 })
     }
 
     const supabase = await createClient()
@@ -10428,27 +10372,25 @@ export async function POST(
     // Verificar cita y token
     const { data: appointment } = await supabase
       .from('appointments')
-      .select(`
+      .select(
+        `
         *,
         profiles:user_id (settings)
-      `)
+      `
+      )
       .eq('id', params.id)
       .single()
 
     if (!appointment) {
-      return NextResponse.json(
-        { error: 'Appointment not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Appointment not found' }, { status: 404 })
     }
 
     // Verificar token (usamos el client_id + appointment_id como token simple)
-    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString('base64')
+    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString(
+      'base64'
+    )
     if (token !== expectedToken) {
-      return NextResponse.json(
-        { error: 'Invalid cancellation token' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Invalid cancellation token' }, { status: 403 })
     }
 
     // Verificar estado
@@ -10460,18 +10402,18 @@ export async function POST(
     }
 
     // Verificar anticipación mínima
-    const settings = appointment.profiles?.settings as { 
-      cancellation?: { hours_before?: number } 
+    const settings = appointment.profiles?.settings as {
+      cancellation?: { hours_before?: number }
     }
     const minHoursBefore = settings?.cancellation?.hours_before ?? 24
-    
+
     const appointmentTime = new Date(appointment.start_time)
     const now = new Date()
     const hoursUntil = (appointmentTime.getTime() - now.getTime()) / (1000 * 60 * 60)
 
     if (hoursUntil < minHoursBefore) {
       return NextResponse.json(
-        { 
+        {
           error: `Cannot cancel within ${minHoursBefore} hours of appointment`,
           code: 'INSUFFICIENT_NOTICE',
           hours_required: minHoursBefore,
@@ -10495,10 +10437,7 @@ export async function POST(
     if (error) throw error
 
     // Eliminar travel block si existe
-    await supabase
-      .from('travel_blocks')
-      .delete()
-      .eq('appointment_id', params.id)
+    await supabase.from('travel_blocks').delete().eq('appointment_id', params.id)
 
     // TODO: Notificar al profesional
 
@@ -10506,13 +10445,9 @@ export async function POST(
       success: true,
       message: 'Appointment cancelled successfully',
     })
-
   } catch (error) {
     console.error('Cancel appointment error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 ```
@@ -10554,7 +10489,7 @@ export default function CancelAppointmentPage({ params }: PageProps) {
 
       const response = await fetch(`/api/public/appointments/${appointmentId}`)
       if (!response.ok) throw new Error('Not found')
-      
+
       const data = await response.json()
       setAppointment(data)
       setStatus('ready')
@@ -10596,7 +10531,7 @@ export default function CancelAppointmentPage({ params }: PageProps) {
 
   if (status === 'cancelled') {
     return (
-      <SuccessState 
+      <SuccessState
         message="Tu cita ha sido cancelada exitosamente"
         onBack={() => router.push('/')}
       />
@@ -10605,7 +10540,7 @@ export default function CancelAppointmentPage({ params }: PageProps) {
 
   if (status === 'error') {
     return (
-      <ErrorState 
+      <ErrorState
         message={errorMessage}
         onBack={() => router.push('/')}
       />
@@ -10635,7 +10570,7 @@ export default function CancelAppointmentPage({ params }: PageProps) {
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4 text-gray-400" />
               <span>
-                {format(new Date(appointment.start_time), 'HH:mm')} - 
+                {format(new Date(appointment.start_time), 'HH:mm')} -
                 {format(new Date(appointment.end_time), 'HH:mm')}
               </span>
             </div>
@@ -10701,19 +10636,20 @@ export default function CancelAppointmentPage({ params }: PageProps) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 4 - Portal Público |
-| **HDUs Relacionadas** | US-21 |
-| **Bloqueado por** | T-4-03 |
-| **Bloquea a** | - |
+| Campo                 | Valor              |
+| --------------------- | ------------------ |
+| **Tipo**              | Backend            |
+| **Prioridad**         | 🔴 P0 (Crítica)    |
+| **Estimación**        | 5 Story Points     |
+| **Sprint**            | 4 - Portal Público |
+| **HDUs Relacionadas** | US-21              |
+| **Bloqueado por**     | T-4-03             |
+| **Bloquea a**         | -                  |
 
 #### Descripción
 
 Implementar reagendamiento de citas:
+
 - Por profesional (sin restricción de anticipación)
 - Por cliente (con restricción configurable)
 - Mantiene referencia a cita original
@@ -10727,19 +10663,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { appointmentService } from '@/services/appointments/appointment.service'
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const body = await request.json()
     const { token, new_start_time, new_location_id } = body
 
     if (!token || !new_start_time) {
-      return NextResponse.json(
-        { error: 'Token and new_start_time required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Token and new_start_time required' }, { status: 400 })
     }
 
     const supabase = await createClient()
@@ -10747,10 +10677,12 @@ export async function PUT(
     // Verificar cita y token
     const { data: appointment } = await supabase
       .from('appointments')
-      .select(`
+      .select(
+        `
         *,
         profiles:user_id (settings)
-      `)
+      `
+      )
       .eq('id', params.id)
       .single()
 
@@ -10759,7 +10691,9 @@ export async function PUT(
     }
 
     // Verificar token
-    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString('base64')
+    const expectedToken = Buffer.from(`${appointment.client_id}:${appointment.id}`).toString(
+      'base64'
+    )
     if (token !== expectedToken) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 403 })
     }
@@ -10773,18 +10707,18 @@ export async function PUT(
     }
 
     // Verificar anticipación mínima
-    const settings = appointment.profiles?.settings as { 
-      reschedule?: { hours_before?: number } 
+    const settings = appointment.profiles?.settings as {
+      reschedule?: { hours_before?: number }
     }
     const minHoursBefore = settings?.reschedule?.hours_before ?? 24
-    
+
     const appointmentTime = new Date(appointment.start_time)
     const now = new Date()
     const hoursUntil = (appointmentTime.getTime() - now.getTime()) / (1000 * 60 * 60)
 
     if (hoursUntil < minHoursBefore) {
       return NextResponse.json(
-        { 
+        {
           error: `Cannot reschedule within ${minHoursBefore} hours`,
           code: 'INSUFFICIENT_NOTICE',
         },
@@ -10807,7 +10741,6 @@ export async function PUT(
         end_time: newAppointment.end_time,
       },
     })
-
   } catch (error) {
     console.error('Reschedule error:', error)
     return NextResponse.json(
@@ -10835,17 +10768,17 @@ export async function PUT(
 
 ## 6.15 Sprint 4 Completado ✅
 
-| ID | Título | Tipo | Pts | Estado |
-|----|--------|------|-----|--------|
-| T-4-01 | Portal público por slug | Frontend | 5 | ✅ |
-| T-4-02 | API Disponibilidad pública | Backend | 5 | ✅ |
-| T-4-03 | Wizard de reserva online | Frontend | 8 | ✅ |
-| T-4-04 | Términos y condiciones | Backend | 3 | ✅ |
-| T-4-05 | Completar/Cancelar extensión | Backend | 5 | ✅ |
-| T-4-06 | UI Completar cita | Frontend | 3 | ✅ |
-| T-4-07 | Duración adaptativa refinada | Backend | 5 | ✅ |
-| T-4-08 | Cancelación por cliente | Backend | 5 | ✅ |
-| T-4-09 | Reagendamiento | Backend | 5 | ✅ |
+| ID     | Título                       | Tipo     | Pts | Estado |
+| ------ | ---------------------------- | -------- | --- | ------ |
+| T-4-01 | Portal público por slug      | Frontend | 5   | ✅     |
+| T-4-02 | API Disponibilidad pública   | Backend  | 5   | ✅     |
+| T-4-03 | Wizard de reserva online     | Frontend | 8   | ✅     |
+| T-4-04 | Términos y condiciones       | Backend  | 3   | ✅     |
+| T-4-05 | Completar/Cancelar extensión | Backend  | 5   | ✅     |
+| T-4-06 | UI Completar cita            | Frontend | 3   | ✅     |
+| T-4-07 | Duración adaptativa refinada | Backend  | 5   | ✅     |
+| T-4-08 | Cancelación por cliente      | Backend  | 5   | ✅     |
+| T-4-09 | Reagendamiento               | Backend  | 5   | ✅     |
 
 **Total Sprint 4:** 44 Story Points | 9 Tickets
 
@@ -10857,17 +10790,17 @@ export async function PUT(
 flowchart TD
     T204["T-2-04<br/>🛠️ Services"] --> T401["T-4-01<br/>🌐 Portal Público"]
     T304["T-3-04<br/>⚡ Availability"] --> T402["T-4-02<br/>📡 API Pública"]
-    
+
     T401 --> T403["T-4-03<br/>🧙 Wizard Reserva"]
     T402 --> T403
     T402 --> T404["T-4-04<br/>📜 Términos"]
-    
+
     T303["T-3-03<br/>📅 Appointments"] --> T405["T-4-05<br/>✅ Complete/Cancel"]
     T405 --> T406["T-4-06<br/>🖥️ UI Complete"]
     T305["T-3-05<br/>📆 Calendar"] --> T406
-    
+
     T405 --> T407["T-4-07<br/>⏱️ Duración Adaptativa"]
-    
+
     T403 --> T408["T-4-08<br/>❌ Cancel Cliente"]
     T403 --> T409["T-4-09<br/>🔄 Reagendar"]
 
@@ -10892,19 +10825,20 @@ flowchart TD
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-14, US-15 |
-| **Bloqueado por** | T-1-02 |
-| **Bloquea a** | T-5-02, T-5-03 |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Backend             |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 8 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14, US-15        |
+| **Bloqueado por**     | T-1-02              |
+| **Bloquea a**         | T-5-02, T-5-03      |
 
 #### Descripción
 
 Implementar OAuth2 con Google Calendar API:
+
 - Flujo de autorización para scopes de Calendar
 - Almacenar refresh tokens de forma segura
 - Renovación automática de access tokens
@@ -10934,7 +10868,7 @@ export class GoogleAuthService {
    */
   getAuthUrl(userId: string): string {
     const state = Buffer.from(JSON.stringify({ userId })).toString('base64')
-    
+
     return this.oauth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: SCOPES,
@@ -10948,31 +10882,30 @@ export class GoogleAuthService {
    */
   async exchangeCodeForTokens(code: string, userId: string): Promise<void> {
     const { tokens } = await this.oauth2Client.getToken(code)
-    
+
     const supabase = await createClient()
 
     // Obtener info del calendario
     this.oauth2Client.setCredentials(tokens)
     const calendar = google.calendar({ version: 'v3', auth: this.oauth2Client })
     const { data: calendarList } = await calendar.calendarList.list()
-    const primaryCalendar = calendarList.items?.find(c => c.primary)
+    const primaryCalendar = calendarList.items?.find((c) => c.primary)
 
     // Guardar tokens de forma segura
-    const { error } = await supabase
-      .from('google_calendar_tokens')
-      .upsert({
+    const { error } = await supabase.from('google_calendar_tokens').upsert(
+      {
         user_id: userId,
         access_token: tokens.access_token,
         refresh_token: tokens.refresh_token,
-        expires_at: tokens.expiry_date 
-          ? new Date(tokens.expiry_date).toISOString() 
-          : null,
+        expires_at: tokens.expiry_date ? new Date(tokens.expiry_date).toISOString() : null,
         calendar_id: primaryCalendar?.id ?? 'primary',
         sync_enabled: true,
         updated_at: new Date().toISOString(),
-      }, {
+      },
+      {
         onConflict: 'user_id',
-      })
+      }
+    )
 
     if (error) throw error
   }
@@ -11005,14 +10938,14 @@ export class GoogleAuthService {
     if (expiresAt && expiresAt.getTime() - now.getTime() < bufferMinutes * 60 * 1000) {
       try {
         const { credentials } = await this.oauth2Client.refreshAccessToken()
-        
+
         // Actualizar tokens en BD
         await supabase
           .from('google_calendar_tokens')
           .update({
             access_token: credentials.access_token,
-            expires_at: credentials.expiry_date 
-              ? new Date(credentials.expiry_date).toISOString() 
+            expires_at: credentials.expiry_date
+              ? new Date(credentials.expiry_date).toISOString()
               : null,
             updated_at: new Date().toISOString(),
           })
@@ -11053,10 +10986,7 @@ export class GoogleAuthService {
       }
     }
 
-    await supabase
-      .from('google_calendar_tokens')
-      .delete()
-      .eq('user_id', userId)
+    await supabase.from('google_calendar_tokens').delete().eq('user_id', userId)
   }
 }
 
@@ -11075,9 +11005,7 @@ export async function GET(request: NextRequest) {
   const error = searchParams.get('error')
 
   if (error) {
-    return NextResponse.redirect(
-      new URL('/settings/integrations?error=access_denied', request.url)
-    )
+    return NextResponse.redirect(new URL('/settings/integrations?error=access_denied', request.url))
   }
 
   if (!code || !state) {
@@ -11113,10 +11041,10 @@ export async function GET(request: NextRequest) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Generación de auth URL | `tests/unit/services/google-auth.test.ts` |
-| Integration | Flujo OAuth completo | `tests/integration/google-calendar/oauth.test.ts` |
+| Tipo        | Descripción            | Ubicación                                         |
+| ----------- | ---------------------- | ------------------------------------------------- |
+| Unit        | Generación de auth URL | `tests/unit/services/google-auth.test.ts`         |
+| Integration | Flujo OAuth completo   | `tests/integration/google-calendar/oauth.test.ts` |
 
 #### Etiquetas
 
@@ -11128,19 +11056,20 @@ export async function GET(request: NextRequest) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 8 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-14 |
-| **Bloqueado por** | T-5-01 |
-| **Bloquea a** | T-5-04 |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Backend             |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 8 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14               |
+| **Bloqueado por**     | T-5-01              |
+| **Bloquea a**         | T-5-04              |
 
 #### Descripción
 
 Implementar sincronización bidireccional:
+
 - Crear eventos en GCal al crear cita
 - Actualizar eventos al modificar cita
 - Eliminar eventos al cancelar cita
@@ -11164,7 +11093,7 @@ export class GoogleCalendarService {
     if (!auth) return null
 
     const supabase = await createClient()
-    
+
     // Obtener datos adicionales
     const { data: tokenData } = await supabase
       .from('google_calendar_tokens')
@@ -11212,15 +11141,13 @@ export class GoogleCalendarService {
       })
 
       // Guardar referencia
-      await supabase
-        .from('google_calendar_events')
-        .insert({
-          appointment_id: appointment.id,
-          google_event_id: createdEvent.id,
-          calendar_id: tokenData.calendar_id,
-          sync_status: 'synced',
-          last_synced_at: new Date().toISOString(),
-        })
+      await supabase.from('google_calendar_events').insert({
+        appointment_id: appointment.id,
+        google_event_id: createdEvent.id,
+        calendar_id: tokenData.calendar_id,
+        sync_status: 'synced',
+        last_synced_at: new Date().toISOString(),
+      })
 
       return createdEvent.id!
     } catch (error) {
@@ -11309,10 +11236,7 @@ export class GoogleCalendarService {
         eventId: eventRef.google_event_id,
       })
 
-      await supabase
-        .from('google_calendar_events')
-        .delete()
-        .eq('appointment_id', appointmentId)
+      await supabase.from('google_calendar_events').delete().eq('appointment_id', appointmentId)
 
       return true
     } catch (error) {
@@ -11325,8 +11249,8 @@ export class GoogleCalendarService {
    * Obtiene eventos bloqueados del calendario
    */
   async getBlockedTimes(
-    userId: string, 
-    startDate: string, 
+    userId: string,
+    startDate: string,
     endDate: string
   ): Promise<{ start: Date; end: Date }[]> {
     const auth = await googleAuthService.getAuthenticatedClient(userId)
@@ -11354,12 +11278,12 @@ export class GoogleCalendarService {
       })
 
       return (events.items ?? [])
-        .filter(event => {
+        .filter((event) => {
           // Ignorar eventos creados por TimeFlowPro
           const isTimeFlowProEvent = event.extendedProperties?.private?.timeflowpro_sync === 'true'
           return !isTimeFlowProEvent && event.start?.dateTime && event.end?.dateTime
         })
-        .map(event => ({
+        .map((event) => ({
           start: new Date(event.start!.dateTime!),
           end: new Date(event.end!.dateTime!),
         }))
@@ -11390,11 +11314,11 @@ export class GoogleCalendarService {
   private getEventColorId(hexColor?: string): string {
     // Mapear colores hex a IDs de color de Google Calendar
     const colorMap: Record<string, string> = {
-      '#3F83F8': '9',  // Azul
+      '#3F83F8': '9', // Azul
       '#10B981': '10', // Verde
-      '#F59E0B': '5',  // Amarillo
+      '#F59E0B': '5', // Amarillo
       '#EF4444': '11', // Rojo
-      '#8B5CF6': '3',  // Púrpura
+      '#8B5CF6': '3', // Púrpura
     }
     return colorMap[hexColor ?? ''] ?? '9' // Default: azul
   }
@@ -11441,7 +11365,7 @@ serve(async (req) => {
   // Marcar para re-sync
   await supabase
     .from('google_calendar_tokens')
-    .update({ 
+    .update({
       needs_sync: true,
       updated_at: new Date().toISOString(),
     })
@@ -11464,10 +11388,10 @@ serve(async (req) => {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Construcción de evento | `tests/unit/services/gcal.test.ts` |
-| Integration | CRUD de eventos | `tests/integration/google-calendar/events.test.ts` |
+| Tipo        | Descripción            | Ubicación                                          |
+| ----------- | ---------------------- | -------------------------------------------------- |
+| Unit        | Construcción de evento | `tests/unit/services/gcal.test.ts`                 |
+| Integration | CRUD de eventos        | `tests/integration/google-calendar/events.test.ts` |
 
 #### Etiquetas
 
@@ -11479,19 +11403,20 @@ serve(async (req) => {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-14 |
-| **Bloqueado por** | T-5-01 |
-| **Bloquea a** | - |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Frontend            |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 5 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-14               |
+| **Bloqueado por**     | T-5-01              |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Crear UI para gestionar conexión con Google Calendar:
+
 - Página de integraciones en settings
 - Botón de conectar/desconectar
 - Estado de sincronización
@@ -11529,7 +11454,7 @@ export default async function IntegrationsPage() {
 
       <div className="space-y-6">
         <Suspense fallback={<IntegrationCardSkeleton />}>
-          <GoogleCalendarCard 
+          <GoogleCalendarCard
             isConnected={!!gcalToken}
             syncEnabled={gcalToken?.sync_enabled ?? false}
             lastSyncedAt={gcalToken?.last_synced_at}
@@ -11538,13 +11463,13 @@ export default async function IntegrationsPage() {
         </Suspense>
 
         {/* Futuras integraciones */}
-        <ComingSoonCard 
+        <ComingSoonCard
           title="MercadoPago"
           description="Recibe pagos online por tus servicios"
           icon="💳"
         />
-        
-        <ComingSoonCard 
+
+        <ComingSoonCard
           title="Google Maps"
           description="Cálculo automático de tiempos de traslado"
           icon="🗺️"
@@ -11565,13 +11490,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Calendar, 
-  Check, 
-  RefreshCw, 
-  Unlink, 
+import {
+  Calendar,
+  Check,
+  RefreshCw,
+  Unlink,
   ExternalLink,
-  AlertCircle 
+  AlertCircle
 } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -11683,7 +11608,7 @@ export function GoogleCalendarCard({
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Sincronización automática</span>
               </div>
-              <Switch 
+              <Switch
                 checked={isSyncEnabled}
                 onCheckedChange={handleSyncToggle}
               />
@@ -11700,9 +11625,9 @@ export function GoogleCalendarCard({
             {/* Última sincronización */}
             {lastSyncedAt && (
               <p className="text-xs text-gray-400">
-                Última sincronización: {formatDistanceToNow(new Date(lastSyncedAt), { 
-                  addSuffix: true, 
-                  locale: es 
+                Última sincronización: {formatDistanceToNow(new Date(lastSyncedAt), {
+                  addSuffix: true,
+                  locale: es
                 })}
               </p>
             )}
@@ -11755,10 +11680,10 @@ export function GoogleCalendarCard({
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
+| Tipo | Descripción            | Ubicación                                               |
+| ---- | ---------------------- | ------------------------------------------------------- |
 | Unit | Card renderiza estados | `tests/unit/components/integrations/gcal-card.test.tsx` |
-| E2E | Flujo de conexión | `tests/e2e/integrations/gcal.spec.ts` (Solo Local) |
+| E2E  | Flujo de conexión      | `tests/e2e/integrations/gcal.spec.ts` (Solo Local)      |
 
 #### Etiquetas
 
@@ -11770,19 +11695,20 @@ export function GoogleCalendarCard({
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-15 |
-| **Bloqueado por** | T-5-02, T-3-04 |
-| **Bloquea a** | - |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Backend             |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 5 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-15               |
+| **Bloqueado por**     | T-5-02, T-3-04      |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Integrar eventos de Google Calendar en el motor de disponibilidad:
+
 - Obtener eventos bloqueados del día
 - Marcar slots ocupados por eventos externos
 - Cache de eventos para performance
@@ -11830,7 +11756,7 @@ async getAvailability(params: GetAvailabilityParams): Promise<AvailabilityRespon
 }
 
 private async getGoogleCalendarBlocks(
-  userId: string, 
+  userId: string,
   date: string
 ): Promise<{ start: Date; end: Date }[]> {
   const supabase = await createClient()
@@ -11872,12 +11798,9 @@ const cache = new LRUCache<string, { start: Date; end: Date }[]>({
 })
 
 export class GCalCacheService {
-  async getBlockedTimes(
-    userId: string,
-    date: string
-  ): Promise<{ start: Date; end: Date }[]> {
+  async getBlockedTimes(userId: string, date: string): Promise<{ start: Date; end: Date }[]> {
     const cacheKey = `${userId}:${date}`
-    
+
     const cached = cache.get(cacheKey)
     if (cached) {
       return cached
@@ -11885,12 +11808,8 @@ export class GCalCacheService {
 
     const startOfDay = `${date}T00:00:00`
     const endOfDay = `${date}T23:59:59`
-    
-    const events = await googleCalendarService.getBlockedTimes(
-      userId, 
-      startOfDay, 
-      endOfDay
-    )
+
+    const events = await googleCalendarService.getBlockedTimes(userId, startOfDay, endOfDay)
 
     cache.set(cacheKey, events)
     return events
@@ -11923,9 +11842,9 @@ export const gcalCacheService = new GCalCacheService()
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Cache funciona | `tests/unit/services/gcal-cache.test.ts` |
+| Tipo        | Descripción                   | Ubicación                                     |
+| ----------- | ----------------------------- | --------------------------------------------- |
+| Unit        | Cache funciona                | `tests/unit/services/gcal-cache.test.ts`      |
 | Integration | Disponibilidad considera GCal | `tests/integration/availability/gcal.test.ts` |
 
 #### Etiquetas
@@ -11938,19 +11857,20 @@ export const gcalCacheService = new GCalCacheService()
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-1-01 |
-| **Bloquea a** | T-5-06 |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Backend             |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 5 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22               |
+| **Bloqueado por**     | T-1-01              |
+| **Bloquea a**         | T-5-06              |
 
 #### Descripción
 
 Implementar gestión de bloqueos personales:
+
 - Crear bloqueos únicos o recurrentes
 - Tipos: almuerzo, vacaciones, personal, otro
 - Validar que no haya citas en el rango
@@ -11965,17 +11885,19 @@ import { googleCalendarService } from '@/services/google-calendar/google-calenda
 import { z } from 'zod'
 
 // Schema de validación
-export const personalBlockSchema = z.object({
-  title: z.string().min(1).max(100),
-  block_type: z.enum(['lunch', 'vacation', 'personal', 'other']),
-  start_time: z.string().datetime(),
-  end_time: z.string().datetime(),
-  recurrence_type: z.enum(['none', 'daily', 'weekly', 'monthly']).default('none'),
-  recurrence_end_date: z.string().date().optional(),
-  notes: z.string().optional(),
-}).refine(data => new Date(data.end_time) > new Date(data.start_time), {
-  message: 'La hora de fin debe ser posterior a la hora de inicio',
-})
+export const personalBlockSchema = z
+  .object({
+    title: z.string().min(1).max(100),
+    block_type: z.enum(['lunch', 'vacation', 'personal', 'other']),
+    start_time: z.string().datetime(),
+    end_time: z.string().datetime(),
+    recurrence_type: z.enum(['none', 'daily', 'weekly', 'monthly']).default('none'),
+    recurrence_end_date: z.string().date().optional(),
+    notes: z.string().optional(),
+  })
+  .refine((data) => new Date(data.end_time) > new Date(data.start_time), {
+    message: 'La hora de fin debe ser posterior a la hora de inicio',
+  })
 
 export type PersonalBlockInput = z.infer<typeof personalBlockSchema>
 
@@ -11987,8 +11909,10 @@ export class PersonalBlockService {
    */
   async create(input: PersonalBlockInput): Promise<any> {
     const validated = personalBlockSchema.parse(input)
-    
-    const { data: { user } } = await this.supabase.auth.getUser()
+
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser()
     if (!user) throw new Error('No autenticado')
 
     // Verificar que no haya citas en el rango
@@ -12035,7 +11959,9 @@ export class PersonalBlockService {
    * Lista bloqueos para un rango de fechas
    */
   async list(startDate: string, endDate: string): Promise<any[]> {
-    const { data: { user } } = await this.supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser()
     if (!user) throw new Error('No autenticado')
 
     const { data, error } = await this.supabase
@@ -12053,7 +11979,9 @@ export class PersonalBlockService {
    * Actualiza un bloqueo
    */
   async update(id: string, input: Partial<PersonalBlockInput>): Promise<any> {
-    const { data: { user } } = await this.supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser()
     if (!user) throw new Error('No autenticado')
 
     // Si hay cambio de horario, verificar conflictos
@@ -12098,7 +12026,9 @@ export class PersonalBlockService {
    * Elimina un bloqueo
    */
   async delete(id: string): Promise<void> {
-    const { data: { user } } = await this.supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser()
     if (!user) throw new Error('No autenticado')
 
     const { error } = await this.supabase
@@ -12114,7 +12044,9 @@ export class PersonalBlockService {
    * Sincroniza bloqueo con Google Calendar
    */
   private async syncBlockToGoogleCalendar(block: any): Promise<void> {
-    const { data: { user } } = await this.supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser()
     if (!user) return
 
     // Verificar si GCal está conectado
@@ -12154,10 +12086,7 @@ export async function GET(request: NextRequest) {
     const endDate = searchParams.get('end_date')
 
     if (!startDate || !endDate) {
-      return NextResponse.json(
-        { error: 'start_date and end_date required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'start_date and end_date required' }, { status: 400 })
     }
 
     const blocks = await personalBlockService.list(startDate, endDate)
@@ -12195,10 +12124,10 @@ export async function POST(request: NextRequest) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Validación de schema | `tests/unit/services/personal-block.test.ts` |
-| Integration | CRUD API | `tests/integration/api/personal-blocks.test.ts` |
+| Tipo        | Descripción          | Ubicación                                       |
+| ----------- | -------------------- | ----------------------------------------------- |
+| Unit        | Validación de schema | `tests/unit/services/personal-block.test.ts`    |
+| Integration | CRUD API             | `tests/integration/api/personal-blocks.test.ts` |
 
 #### Etiquetas
 
@@ -12210,19 +12139,20 @@ export async function POST(request: NextRequest) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 5 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-5-05, T-3-05 |
-| **Bloquea a** | - |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Frontend            |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 5 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22               |
+| **Bloqueado por**     | T-5-05, T-3-05      |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Crear UI para gestionar bloqueos personales:
+
 - Modal de creación desde calendario
 - Selector de tipo con íconos
 - Opción de recurrencia
@@ -12237,31 +12167,31 @@ Crear UI para gestionar bloqueos personales:
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
   DialogTitle,
-  DialogFooter 
+  DialogFooter
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { DateTimePicker } from '@/components/ui/date-time-picker'
 import { personalBlockSchema, type PersonalBlockInput } from '@/services/personal-blocks/personal-block.service'
 import { usePersonalBlocks } from '@/hooks/use-personal-blocks'
-import { 
-  UtensilsCrossed, 
-  Palmtree, 
-  Lock, 
+import {
+  UtensilsCrossed,
+  Palmtree,
+  Lock,
   Pin,
   Repeat
 } from 'lucide-react'
@@ -12303,8 +12233,8 @@ export function PersonalBlockModal({
       title: '',
       block_type: 'personal',
       start_time: initialDate?.toISOString() ?? new Date().toISOString(),
-      end_time: initialDate 
-        ? new Date(initialDate.getTime() + 60 * 60 * 1000).toISOString() 
+      end_time: initialDate
+        ? new Date(initialDate.getTime() + 60 * 60 * 1000).toISOString()
         : new Date(Date.now() + 60 * 60 * 1000).toISOString(),
       recurrence_type: 'none',
       notes: '',
@@ -12334,12 +12264,12 @@ export function PersonalBlockModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <div 
+            <div
               className="p-2 rounded-lg"
               style={{ backgroundColor: `${typeConfig?.color}20` }}
             >
-              {typeConfig && <typeConfig.icon 
-                className="h-5 w-5" 
+              {typeConfig && <typeConfig.icon
+                className="h-5 w-5"
                 style={{ color: typeConfig.color }}
               />}
             </div>
@@ -12353,7 +12283,7 @@ export function PersonalBlockModal({
             {BLOCK_TYPES.map((type) => {
               const Icon = type.icon
               const isSelected = selectedType === type.value
-              
+
               return (
                 <button
                   key={type.value}
@@ -12361,12 +12291,12 @@ export function PersonalBlockModal({
                   onClick={() => form.setValue('block_type', type.value)}
                   className={`
                     flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all
-                    ${isSelected 
-                      ? 'border-current shadow-sm' 
+                    ${isSelected
+                      ? 'border-current shadow-sm'
                       : 'border-transparent bg-gray-50 hover:bg-gray-100'
                     }
                   `}
-                  style={{ 
+                  style={{
                     borderColor: isSelected ? type.color : undefined,
                     color: isSelected ? type.color : undefined,
                   }}
@@ -12458,8 +12388,8 @@ export function PersonalBlockModal({
             <Button type="button" variant="outline" onClick={onClose}>
               Cancelar
             </Button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               isLoading={isCreating || isUpdating}
               style={{ backgroundColor: typeConfig?.color }}
             >
@@ -12476,7 +12406,10 @@ export function PersonalBlockModal({
 ```typescript
 // apps/web/src/hooks/use-personal-blocks.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { personalBlockService, type PersonalBlockInput } from '@/services/personal-blocks/personal-block.service'
+import {
+  personalBlockService,
+  type PersonalBlockInput,
+} from '@/services/personal-blocks/personal-block.service'
 
 export function usePersonalBlocks(startDate?: string, endDate?: string) {
   const queryClient = useQueryClient()
@@ -12537,10 +12470,10 @@ export function usePersonalBlocks(startDate?: string, endDate?: string) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Modal renderiza | `tests/unit/components/calendar/block-modal.test.tsx` |
-| E2E | Crear bloqueo | `tests/e2e/calendar/personal-blocks.spec.ts` (Solo Local) |
+| Tipo | Descripción     | Ubicación                                                 |
+| ---- | --------------- | --------------------------------------------------------- |
+| Unit | Modal renderiza | `tests/unit/components/calendar/block-modal.test.tsx`     |
+| E2E  | Crear bloqueo   | `tests/e2e/calendar/personal-blocks.spec.ts` (Solo Local) |
 
 #### Etiquetas
 
@@ -12552,19 +12485,20 @@ export function usePersonalBlocks(startDate?: string, endDate?: string) {
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Backend |
-| **Prioridad** | 🔴 P0 (Crítica) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-5-05, T-3-04 |
-| **Bloquea a** | - |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Backend             |
+| **Prioridad**         | 🔴 P0 (Crítica)     |
+| **Estimación**        | 3 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22               |
+| **Bloqueado por**     | T-5-05, T-3-04      |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Integrar bloqueos personales en el cálculo de disponibilidad:
+
 - Considerar bloqueos únicos
 - Expandir bloqueos recurrentes
 - Marcar slots como no disponibles
@@ -12599,8 +12533,8 @@ private expandRecurringBlocks(
     const blockStart = new Date(block.start_time)
     const blockEnd = new Date(block.end_time)
     const duration = blockEnd.getTime() - blockStart.getTime()
-    const recurrenceEnd = block.recurrence_end_date 
-      ? new Date(block.recurrence_end_date) 
+    const recurrenceEnd = block.recurrence_end_date
+      ? new Date(block.recurrence_end_date)
       : endDate
 
     let currentStart = new Date(blockStart)
@@ -12657,10 +12591,10 @@ const personalBlocks = this.expandRecurringBlocks(
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
-| Unit | Expansión de recurrencia | `tests/unit/services/availability-blocks.test.ts` |
-| Integration | Disponibilidad con bloqueos | `tests/integration/availability/blocks.test.ts` |
+| Tipo        | Descripción                 | Ubicación                                         |
+| ----------- | --------------------------- | ------------------------------------------------- |
+| Unit        | Expansión de recurrencia    | `tests/unit/services/availability-blocks.test.ts` |
+| Integration | Disponibilidad con bloqueos | `tests/integration/availability/blocks.test.ts`   |
 
 #### Etiquetas
 
@@ -12672,19 +12606,20 @@ const personalBlocks = this.expandRecurringBlocks(
 
 #### Información General
 
-| Campo | Valor |
-|-------|-------|
-| **Tipo** | Frontend |
-| **Prioridad** | 🟠 P1 (Alta) |
-| **Estimación** | 3 Story Points |
-| **Sprint** | 5 - Google Calendar |
-| **HDUs Relacionadas** | US-22 |
-| **Bloqueado por** | T-5-06, T-3-05 |
-| **Bloquea a** | - |
+| Campo                 | Valor               |
+| --------------------- | ------------------- |
+| **Tipo**              | Frontend            |
+| **Prioridad**         | 🟠 P1 (Alta)        |
+| **Estimación**        | 3 Story Points      |
+| **Sprint**            | 5 - Google Calendar |
+| **HDUs Relacionadas** | US-22               |
+| **Bloqueado por**     | T-5-06, T-3-05      |
+| **Bloquea a**         | -                   |
 
 #### Descripción
 
 Mostrar bloqueos personales en el calendario:
+
 - Color distintivo por tipo
 - Ícono indicador
 - Patrón rayado para distinguir de citas
@@ -12697,16 +12632,16 @@ Mostrar bloqueos personales en el calendario:
 'use client'
 
 import { useState } from 'react'
-import { 
-  UtensilsCrossed, 
-  Palmtree, 
-  Lock, 
+import {
+  UtensilsCrossed,
+  Palmtree,
+  Lock,
   Pin,
   Repeat,
   Trash2,
   Edit
 } from 'lucide-react'
-import { 
+import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
@@ -12739,14 +12674,14 @@ interface BlockEventProps {
 export function BlockEvent({ block, style }: BlockEventProps) {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const { deleteBlock, isDeleting } = usePersonalBlocks()
-  
+
   const config = BLOCK_CONFIG[block.block_type]
   const Icon = config.icon
   const isRecurring = block.recurrence_type !== 'none'
 
   const handleDelete = async () => {
     if (!confirm('¿Eliminar este bloqueo?')) return
-    
+
     try {
       await deleteBlock(block.id)
       toast.success('Bloqueo eliminado')
@@ -12805,7 +12740,7 @@ export function BlockEvent({ block, style }: BlockEventProps) {
             <Edit className="h-4 w-4 mr-2" />
             Editar bloqueo
           </ContextMenuItem>
-          <ContextMenuItem 
+          <ContextMenuItem
             onClick={handleDelete}
             className="text-red-600 focus:text-red-600"
           >
@@ -12854,8 +12789,8 @@ export function BlockEvent({ block, style }: BlockEventProps) {
 
 #### Tests
 
-| Tipo | Descripción | Ubicación |
-|------|-------------|-----------|
+| Tipo | Descripción          | Ubicación                                             |
+| ---- | -------------------- | ----------------------------------------------------- |
 | Unit | BlockEvent renderiza | `tests/unit/components/calendar/block-event.test.tsx` |
 
 #### Etiquetas
@@ -12866,16 +12801,16 @@ export function BlockEvent({ block, style }: BlockEventProps) {
 
 ## 6.18 Sprint 5 Completado ✅
 
-| ID | Título | Tipo | Pts | Estado |
-|----|--------|------|-----|--------|
-| T-5-01 | Google Calendar OAuth | Backend | 8 | ✅ |
-| T-5-02 | Sincronización bidireccional | Backend | 8 | ✅ |
-| T-5-03 | UI Conexión GCal | Frontend | 5 | ✅ |
-| T-5-04 | GCal en disponibilidad | Backend | 5 | ✅ |
-| T-5-05 | CRUD Bloqueos personales | Backend | 5 | ✅ |
-| T-5-06 | UI Bloqueos personales | Frontend | 5 | ✅ |
-| T-5-07 | Bloqueos en disponibilidad | Backend | 3 | ✅ |
-| T-5-08 | Visualización bloqueos | Frontend | 3 | ✅ |
+| ID     | Título                       | Tipo     | Pts | Estado |
+| ------ | ---------------------------- | -------- | --- | ------ |
+| T-5-01 | Google Calendar OAuth        | Backend  | 8   | ✅     |
+| T-5-02 | Sincronización bidireccional | Backend  | 8   | ✅     |
+| T-5-03 | UI Conexión GCal             | Frontend | 5   | ✅     |
+| T-5-04 | GCal en disponibilidad       | Backend  | 5   | ✅     |
+| T-5-05 | CRUD Bloqueos personales     | Backend  | 5   | ✅     |
+| T-5-06 | UI Bloqueos personales       | Frontend | 5   | ✅     |
+| T-5-07 | Bloqueos en disponibilidad   | Backend  | 3   | ✅     |
+| T-5-08 | Visualización bloqueos       | Frontend | 3   | ✅     |
 
 **Total Sprint 5:** 42 Story Points | 8 Tickets
 
@@ -12886,21 +12821,21 @@ export function BlockEvent({ block, style }: BlockEventProps) {
 ```mermaid
 flowchart TD
     T102["T-1-02<br/>🔐 Supabase Auth"] --> T501["T-5-01<br/>🔑 GCal OAuth"]
-    
+
     T501 --> T502["T-5-02<br/>🔄 Sync Bidireccional"]
     T501 --> T503["T-5-03<br/>🖥️ UI Conexión"]
-    
+
     T502 --> T504["T-5-04<br/>📅 GCal Disponibilidad"]
     T304["T-3-04<br/>⚡ Availability"] --> T504
-    
+
     T101["T-1-01<br/>🗄️ Migración BD"] --> T505["T-5-05<br/>🚫 CRUD Bloqueos"]
-    
+
     T505 --> T506["T-5-06<br/>🖥️ UI Bloqueos"]
     T305["T-3-05<br/>📆 Calendar"] --> T506
-    
+
     T505 --> T507["T-5-07<br/>⏱️ Bloqueos Disponibilidad"]
     T304 --> T507
-    
+
     T506 --> T508["T-5-08<br/>👁️ Visualización"]
     T305 --> T508
 
@@ -12918,42 +12853,42 @@ flowchart TD
 
 ## 6.20 Resumen General de Tickets MVP
 
-| Sprint | Nombre | Tickets | Story Points |
-|--------|--------|---------|--------------|
-| 0 | Setup & Fundamentos | 6 | 21 |
-| 1 | Autenticación y Perfil | 7 | 31 |
-| 2 | Ubicaciones y Servicios | 8 | 36 |
-| 3 | Clientes y Citas | 6 | 36 |
-| 4 | Portal Público | 9 | 44 |
-| 5 | Google Calendar + Bloqueos | 8 | 42 |
-| **TOTAL MVP** | | **44** | **210** |
+| Sprint        | Nombre                     | Tickets | Story Points |
+| ------------- | -------------------------- | ------- | ------------ |
+| 0             | Setup & Fundamentos        | 6       | 21           |
+| 1             | Autenticación y Perfil     | 7       | 31           |
+| 2             | Ubicaciones y Servicios    | 8       | 36           |
+| 3             | Clientes y Citas           | 6       | 36           |
+| 4             | Portal Público             | 9       | 44           |
+| 5             | Google Calendar + Bloqueos | 8       | 42           |
+| **TOTAL MVP** |                            | **44**  | **210**      |
 
 ---
 
 ## 6.21 Fase 2 (Post-MVP) - Tickets Pendientes
 
-> **⚠️ IMPORTANTE:** Esta sección documenta las funcionalidades de Fase 2. 
+> **⚠️ IMPORTANTE:** Esta sección documenta las funcionalidades de Fase 2.
 > Los tickets de trabajo **NO están creados** hasta completar el MVP.
 
 ### HDUs de Fase 2 (Pendientes de desglosar en tickets)
 
-| HDU | Título | Descripción | Estimación |
-|-----|--------|-------------|------------|
-| US-24 | Cálculo Automático de Traslado | Integración con Google Maps para calcular tiempos de traslado automáticamente | L (8 pts) |
-| US-25 | Sugerencias de Optimización | El sistema sugiere reorganizar la agenda para reducir tiempos muertos | L (8 pts) |
-| US-26 | Pagos con MercadoPago | Clientes pueden pagar al momento de reservar | L (8 pts) |
-| US-27 | Gestión Multi-Profesional | Administrador gestiona múltiples profesionales (clínicas, gyms) | L (8 pts) |
-| US-28 | Reportes y Estadísticas | Dashboard con métricas de citas, ingresos, clientes | M (5 pts) |
-| US-29 | Importación Masiva de Clientes | Importar clientes desde Excel/CSV | S (3 pts) |
-| US-30 | Recordatorios WhatsApp | Notificaciones automáticas vía WhatsApp | L (8 pts) |
+| HDU   | Título                         | Descripción                                                                   | Estimación |
+| ----- | ------------------------------ | ----------------------------------------------------------------------------- | ---------- |
+| US-24 | Cálculo Automático de Traslado | Integración con Google Maps para calcular tiempos de traslado automáticamente | L (8 pts)  |
+| US-25 | Sugerencias de Optimización    | El sistema sugiere reorganizar la agenda para reducir tiempos muertos         | L (8 pts)  |
+| US-26 | Pagos con MercadoPago          | Clientes pueden pagar al momento de reservar                                  | L (8 pts)  |
+| US-27 | Gestión Multi-Profesional      | Administrador gestiona múltiples profesionales (clínicas, gyms)               | L (8 pts)  |
+| US-28 | Reportes y Estadísticas        | Dashboard con métricas de citas, ingresos, clientes                           | M (5 pts)  |
+| US-29 | Importación Masiva de Clientes | Importar clientes desde Excel/CSV                                             | S (3 pts)  |
+| US-30 | Recordatorios WhatsApp         | Notificaciones automáticas vía WhatsApp                                       | L (8 pts)  |
 
 ### Funcionalidades Técnicas Post-MVP
 
-| Funcionalidad | Descripción | Dependencia |
-|---------------|-------------|-------------|
-| Webhooks GCal → TimeFlowPro | Sincronización bidireccional con Google Calendar | US-14 completada |
+| Funcionalidad                 | Descripción                                          | Dependencia      |
+| ----------------------------- | ---------------------------------------------------- | ---------------- |
+| Webhooks GCal → TimeFlowPro   | Sincronización bidireccional con Google Calendar     | US-14 completada |
 | `recurrence_days` en bloqueos | Patrones de recurrencia personalizados (Lun-Mié-Vie) | US-22 completada |
-| App móvil nativa | React Native / Flutter | MVP completado |
+| App móvil nativa              | React Native / Flutter                               | MVP completado   |
 
 ### Cuándo crear tickets de Fase 2
 
@@ -12970,25 +12905,25 @@ flowchart TD
 gantt
     title 📅 Roadmap TimeFlowPro MVP
     dateFormat  YYYY-MM-DD
-    
+
     section Sprint 0
     Setup & Fundamentos       :done, s0, 2026-01-06, 1w
-    
+
     section Sprint 1
     Auth & Perfil             :done, s1, after s0, 2w
-    
+
     section Sprint 2
     Ubicaciones & Servicios   :done, s2, after s1, 2w
-    
+
     section Sprint 3
     Citas & Calendario        :done, s3, after s2, 2w
-    
+
     section Sprint 4
     Portal Público            :active, s4, after s3, 2w
-    
+
     section Sprint 5
     Google Calendar           :s5, after s4, 2w
-    
+
     section MVP Launch
     🚀 Lanzamiento Piloto     :milestone, m1, after s5, 0d
 ```
@@ -13002,4 +12937,3 @@ gantt
 ---
 
 > **Progreso:** Sprint 0 ✅ | Sprint 1 ✅ | Sprint 2 ✅ | Sprint 3 ✅ | Sprint 4 ✅ | Sprint 5 ✅ | **MVP COMPLETO** 🎉
-

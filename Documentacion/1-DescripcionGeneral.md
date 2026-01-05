@@ -8,11 +8,11 @@
 
 Los profesionales móviles que trabajan en múltiples ubicaciones (kinesiólogos, barberos a domicilio, entrenadores personales, técnicos, terapeutas) **no utilizan agendas digitales** porque estas asumen:
 
-| Supuesto de agendas actuales | Realidad del profesional móvil |
-|------------------------------|-------------------------------|
-| Ubicación fija | Trabaja en 3+ lugares diferentes |
+| Supuesto de agendas actuales                | Realidad del profesional móvil           |
+| ------------------------------------------- | ---------------------------------------- |
+| Ubicación fija                              | Trabaja en 3+ lugares diferentes         |
 | Bloques de tiempo estándar (30, 45, 60 min) | Duración varía según cliente e historial |
-| Cero tiempo de traslado | Debe moverse entre ubicaciones |
+| Cero tiempo de traslado                     | Debe moverse entre ubicaciones           |
 
 **Resultado:** Tiempos muertos, sobreagendamientos, estrés y abandono de herramientas digitales.
 
@@ -20,12 +20,12 @@ Los profesionales móviles que trabajan en múltiples ubicaciones (kinesiólogos
 
 **Competidores analizados:**
 
-| Herramienta | Fortalezas | Debilidades para profesionales móviles |
-|-------------|------------|----------------------------------------|
-| Calendly | UI simple, integraciones | ❌ Sin multi-ubicación, ❌ Sin traslados |
-| SimplyBook | Sector servicios | ❌ Bloques rígidos, ❌ Sin adaptación por cliente |
-| Google Calendar | Ubicuo, gratis | ❌ Sin lógica de negocio, ❌ Manual |
-| Agendas de clínicas | Sector salud | ❌ Pensadas para lugar fijo |
+| Herramienta         | Fortalezas               | Debilidades para profesionales móviles            |
+| ------------------- | ------------------------ | ------------------------------------------------- |
+| Calendly            | UI simple, integraciones | ❌ Sin multi-ubicación, ❌ Sin traslados          |
+| SimplyBook          | Sector servicios         | ❌ Bloques rígidos, ❌ Sin adaptación por cliente |
+| Google Calendar     | Ubicuo, gratis           | ❌ Sin lógica de negocio, ❌ Manual               |
+| Agendas de clínicas | Sector salud             | ❌ Pensadas para lugar fijo                       |
 
 **Conclusión:** Ninguna agenda existente está diseñada para profesionales que **se mueven**.
 
@@ -67,12 +67,12 @@ Los profesionales móviles que trabajan en múltiples ubicaciones (kinesiólogos
 
 ### Valor Diferencial
 
-| Métrica | Sin TimeFlowPro | Con TimeFlowPro |
-|---------|-----------------|-----------------|
-| Conflictos de agenda por traslado | Frecuentes | Eliminados |
-| Tiempo perdido en huecos | 1-2 hrs/día | Optimizado |
-| Gestión de ubicaciones | Manual/caótica | Centralizada |
-| Reservas de clientes | WhatsApp/llamadas | Self-service 24/7 |
+| Métrica                           | Sin TimeFlowPro   | Con TimeFlowPro   |
+| --------------------------------- | ----------------- | ----------------- |
+| Conflictos de agenda por traslado | Frecuentes        | Eliminados        |
+| Tiempo perdido en huecos          | 1-2 hrs/día       | Optimizado        |
+| Gestión de ubicaciones            | Manual/caótica    | Centralizada      |
+| Reservas de clientes              | WhatsApp/llamadas | Self-service 24/7 |
 
 ---
 
@@ -80,45 +80,45 @@ Los profesionales móviles que trabajan en múltiples ubicaciones (kinesiólogos
 
 ### MVP (Fase 1)
 
-| # | Funcionalidad | Descripción | Estrategia |
-|---|---------------|-------------|------------|
-| 1 | **Multi-ubicación** | Profesional configura N ubicaciones con horarios específicos | Build |
-| 2 | **Calendario inteligente** | Vista de agenda con citas y bloques de traslado | Build |
-| 3 | **Duración adaptativa** | Profesional puede ajustar duración por cliente/servicio | Build |
-| 4 | **Bloqueo de traslado (manual)** | Profesional indica tiempo de viaje entre ubicaciones | Build |
-| 5 | **Reserva dual** | Profesional y cliente pueden crear citas | Build |
-| 6 | **Portal de reservas público** | Enlace compartible para que clientes agenden (sin necesidad de cuenta) | Build |
-| 7 | **Sincronización Google Calendar** | Citas se reflejan en GCal del profesional | Buy (Google Calendar API) |
-| 8 | **Autenticación Google** | Login con cuenta Google + trial automático | Buy (Supabase Auth) |
-| 9 | **Gestión de clientes** | CRUD de clientes con notas y historial | Build |
-| 10 | **Gestión de servicios** | Profesional define servicios con duración base y precio | Build |
-| 11 | **Cancelación y reagendamiento** | Cliente puede cancelar/reagendar con anticipación mínima configurable | Build |
-| 12 | **Bloqueos personales** | Profesional bloquea almuerzo, vacaciones, tiempo personal | Build |
-| 13 | **Términos y condiciones** | Checkbox obligatorio al reservar (configurable) | Build |
-| 14 | **Gestión de profesionales (Admin)** | Superadmin activa, suspende y gestiona trials | Build |
-| 15 | **Modo solo lectura** | Cuenta con trial expirado puede ver pero no crear | Build |
+| #   | Funcionalidad                        | Descripción                                                            | Estrategia                |
+| --- | ------------------------------------ | ---------------------------------------------------------------------- | ------------------------- |
+| 1   | **Multi-ubicación**                  | Profesional configura N ubicaciones con horarios específicos           | Build                     |
+| 2   | **Calendario inteligente**           | Vista de agenda con citas y bloques de traslado                        | Build                     |
+| 3   | **Duración adaptativa**              | Profesional puede ajustar duración por cliente/servicio                | Build                     |
+| 4   | **Bloqueo de traslado (manual)**     | Profesional indica tiempo de viaje entre ubicaciones                   | Build                     |
+| 5   | **Reserva dual**                     | Profesional y cliente pueden crear citas                               | Build                     |
+| 6   | **Portal de reservas público**       | Enlace compartible para que clientes agenden (sin necesidad de cuenta) | Build                     |
+| 7   | **Sincronización Google Calendar**   | Citas se reflejan en GCal del profesional                              | Buy (Google Calendar API) |
+| 8   | **Autenticación Google**             | Login con cuenta Google + trial automático                             | Buy (Supabase Auth)       |
+| 9   | **Gestión de clientes**              | CRUD de clientes con notas y historial                                 | Build                     |
+| 10  | **Gestión de servicios**             | Profesional define servicios con duración base y precio                | Build                     |
+| 11  | **Cancelación y reagendamiento**     | Cliente puede cancelar/reagendar con anticipación mínima configurable  | Build                     |
+| 12  | **Bloqueos personales**              | Profesional bloquea almuerzo, vacaciones, tiempo personal              | Build                     |
+| 13  | **Términos y condiciones**           | Checkbox obligatorio al reservar (configurable)                        | Build                     |
+| 14  | **Gestión de profesionales (Admin)** | Superadmin activa, suspende y gestiona trials                          | Build                     |
+| 15  | **Modo solo lectura**                | Cuenta con trial expirado puede ver pero no crear                      | Build                     |
 
 ### Funcionalidades Futuras (Post-MVP)
 
-| Fase | Funcionalidad | Descripción |
-|------|---------------|-------------|
-| 2 | **Traslado automático** | Google Maps API calcula tiempo de viaje | 
-| 2 | **Pagos online** | Integración MercadoPago |
-| 2 | **Optimización de ruta** | Sugerir reordenamiento de citas para minimizar traslados |
-| 2 | **Recordatorios SMS** | Notificaciones vía Twilio |
-| 3 | **Multi-profesional** | Un dueño gestiona varios profesionales |
-| 3 | **Módulo salud** | Ficha clínica, diagnósticos (si aplica) |
+| Fase | Funcionalidad            | Descripción                                              |
+| ---- | ------------------------ | -------------------------------------------------------- |
+| 2    | **Traslado automático**  | Google Maps API calcula tiempo de viaje                  |
+| 2    | **Pagos online**         | Integración MercadoPago                                  |
+| 2    | **Optimización de ruta** | Sugerir reordenamiento de citas para minimizar traslados |
+| 2    | **Recordatorios SMS**    | Notificaciones vía Twilio                                |
+| 3    | **Multi-profesional**    | Un dueño gestiona varios profesionales                   |
+| 3    | **Módulo salud**         | Ficha clínica, diagnósticos (si aplica)                  |
 
 ### Decisiones Buy vs Build
 
-| Componente | Decisión | Justificación |
-|------------|----------|---------------|
-| Base de datos | **Buy** (Supabase) | PostgreSQL managed, API automática, RLS |
-| Autenticación | **Buy** (Supabase Auth) | OAuth Google en minutos |
-| Mapas/Rutas | **Buy** (Google Maps API) | Fase 2, API estándar |
-| Calendario sync | **Buy** (Google Calendar API) | Ubicuo, notificaciones nativas |
-| UI/Lógica de negocio | **Build** | Core del producto, diferenciador |
-| Pagos | **Buy** (MercadoPago) | Fase 2, regulado |
+| Componente           | Decisión                      | Justificación                           |
+| -------------------- | ----------------------------- | --------------------------------------- |
+| Base de datos        | **Buy** (Supabase)            | PostgreSQL managed, API automática, RLS |
+| Autenticación        | **Buy** (Supabase Auth)       | OAuth Google en minutos                 |
+| Mapas/Rutas          | **Buy** (Google Maps API)     | Fase 2, API estándar                    |
+| Calendario sync      | **Buy** (Google Calendar API) | Ubicuo, notificaciones nativas          |
+| UI/Lógica de negocio | **Build**                     | Core del producto, diferenciador        |
+| Pagos                | **Buy** (MercadoPago)         | Fase 2, regulado                        |
 
 ---
 
@@ -157,12 +157,12 @@ sequenceDiagram
 
 **Resultado esperado en pantalla:**
 
-| Campo | Valor |
-|-------|-------|
-| ✅ Estado | Cita confirmada |
-| 📅 Servicio | Sesión de Kinesiología |
-| 📍 Ubicación | Iron Gym |
-| 🕐 Horario | 15 Ene 2026, 10:00 - 10:45 |
+| Campo           | Valor                           |
+| --------------- | ------------------------------- |
+| ✅ Estado       | Cita confirmada                 |
+| 📅 Servicio     | Sesión de Kinesiología          |
+| 📍 Ubicación    | Iron Gym                        |
+| 🕐 Horario      | 15 Ene 2026, 10:00 - 10:45      |
 | 🔔 Recordatorio | Vía Google Calendar (24h antes) |
 
 ### Customer Journey 2: Profesional Gestiona su Agenda
@@ -179,7 +179,7 @@ sequenceDiagram
     Felipe->>App: Abre la aplicación
     App->>Auth: Verificar sesión
     Auth-->>App: Sesión válida ✓
-    
+
     App->>API: GET /citas?fecha=hoy
     API-->>App: Lista de citas del día
     App-->>Felipe: Muestra calendario con citas y traslados
@@ -216,7 +216,7 @@ gantt
 
     section 🏋️ Iron Gym
     Juan Pérez - Kinesiología (45min)    :active, 09:00, 45m
-    
+
     section 🚗 Traslado
     Traslado a Hotel (20min)             :crit, 10:45, 20m
 
@@ -234,18 +234,18 @@ gantt
 
 ### Estados de Error
 
-| Escenario | Mensaje al Usuario | Acción |
-|-----------|-------------------|--------|
-| Horario no disponible | "Este horario ya no está disponible. Selecciona otro." | Refrescar slots |
-| Error de conexión | "Sin conexión. Reintentando..." | Retry automático |
-| Google Calendar desconectado | "Reconecta tu Google Calendar para sincronizar" | Botón reconectar |
-| Conflicto de traslado | "No es posible llegar a tiempo desde tu cita anterior" | Sugerir alternativas |
+| Escenario                    | Mensaje al Usuario                                     | Acción               |
+| ---------------------------- | ------------------------------------------------------ | -------------------- |
+| Horario no disponible        | "Este horario ya no está disponible. Selecciona otro." | Refrescar slots      |
+| Error de conexión            | "Sin conexión. Reintentando..."                        | Retry automático     |
+| Google Calendar desconectado | "Reconecta tu Google Calendar para sincronizar"        | Botón reconectar     |
+| Conflicto de traslado        | "No es posible llegar a tiempo desde tu cita anterior" | Sugerir alternativas |
 
 ### Prototipos
 
-| Recurso | URL | Estado |
-|---------|-----|--------|
-| Figma - Flujo completo | `[Por definir]` | 🔜 Pendiente |
+| Recurso                   | URL             | Estado       |
+| ------------------------- | --------------- | ------------ |
+| Figma - Flujo completo    | `[Por definir]` | 🔜 Pendiente |
 | Wireframes baja fidelidad | `[Por definir]` | 🔜 Pendiente |
 
 ---
@@ -253,18 +253,19 @@ gantt
 ## 1.4 Instrucciones de Instalación
 
 ### Objetivo DX
+
 > Un desarrollador junior debe poder levantar el proyecto en **menos de 30 minutos** siguiendo estas instrucciones.
 
 ### Prerrequisitos
 
-| Herramienta | Versión Mínima | Instalación |
-|-------------|----------------|-------------|
-| Node.js | 20.x LTS | [nodejs.org](https://nodejs.org) |
-| pnpm | 8.x | `npm install -g pnpm` |
-| Docker Desktop | 4.x | [docker.com](https://docker.com) |
-| Git | 2.x | [git-scm.com](https://git-scm.com) |
-| Cuenta Google | - | Para OAuth y Calendar API |
-| Cuenta Supabase | - | [supabase.com](https://supabase.com) (gratis) |
+| Herramienta     | Versión Mínima | Instalación                                   |
+| --------------- | -------------- | --------------------------------------------- |
+| Node.js         | 20.x LTS       | [nodejs.org](https://nodejs.org)              |
+| pnpm            | 8.x            | `npm install -g pnpm`                         |
+| Docker Desktop  | 4.x            | [docker.com](https://docker.com)              |
+| Git             | 2.x            | [git-scm.com](https://git-scm.com)            |
+| Cuenta Google   | -              | Para OAuth y Calendar API                     |
+| Cuenta Supabase | -              | [supabase.com](https://supabase.com) (gratis) |
 
 ### Pasos de Instalación
 
@@ -347,40 +348,44 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ### Verificación de Instalación
 
-| Check | Comando | Resultado Esperado |
-|-------|---------|-------------------|
-| App corriendo | Abrir `localhost:3000` | Ver página de login |
-| Supabase corriendo | `supabase status` | Todos los servicios `running` |
-| DB con datos | Abrir Supabase Studio `localhost:54323` | Ver tablas con seeds |
-| Login funciona | Click "Login con Google" | Redirige a OAuth |
+| Check              | Comando                                 | Resultado Esperado            |
+| ------------------ | --------------------------------------- | ----------------------------- |
+| App corriendo      | Abrir `localhost:3000`                  | Ver página de login           |
+| Supabase corriendo | `supabase status`                       | Todos los servicios `running` |
+| DB con datos       | Abrir Supabase Studio `localhost:54323` | Ver tablas con seeds          |
+| Login funciona     | Click "Login con Google"                | Redirige a OAuth              |
 
 ### Troubleshooting
 
-| Problema | Solución |
-|----------|----------|
-| Puerto 3000 ocupado | `pnpm dev -- -p 3001` |
-| Docker no inicia | Verificar Docker Desktop está corriendo |
-| Error de migraciones | `supabase db reset` y reintentar |
-| OAuth falla | Verificar redirect URIs en Google Console |
+| Problema             | Solución                                  |
+| -------------------- | ----------------------------------------- |
+| Puerto 3000 ocupado  | `pnpm dev -- -p 3001`                     |
+| Docker no inicia     | Verificar Docker Desktop está corriendo   |
+| Error de migraciones | `supabase db reset` y reintentar          |
+| OAuth falla          | Verificar redirect URIs en Google Console |
 
 ---
 
 ## 1.5 Checklist de Validación
 
 ### Claridad del Objetivo
+
 - [x] ¿Menciona explícitamente el problema del usuario? ✅ Tiempos muertos, traslados ignorados
 - [x] ¿Está claro el usuario objetivo? ✅ Buyer Persona Felipe documentado
 
 ### Alcance y Funcionalidad
+
 - [x] ¿Funcionalidades corresponden al MVP? ✅ 10 funcionalidades core listadas
 - [x] ¿Se diferencia MVP de futuro? ✅ Tabla separada de Fase 2/3
 - [x] ¿Estrategia Buy vs Build documentada? ✅ Tabla con justificaciones
 
 ### Experiencia de Usuario
+
 - [x] ¿Customer Journey documentado? ✅ 2 flujos con diagramas Mermaid (sequence + gantt)
 - [x] ¿Estados de error cubiertos? ✅ Tabla de escenarios
 
 ### Instalación y DX
+
 - [x] ¿Prerrequisitos claros? ✅ Tabla con versiones y links
 - [x] ¿Pasos secuenciales? ✅ 6 pasos numerados con comandos
 - [x] ¿Variables de entorno documentadas? ✅ Template sin secretos reales
@@ -390,14 +395,13 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## 1.6 Referencias
 
-| Documento | Ubicación |
-|-----------|-----------|
-| Ficha del Proyecto | [`Documentacion/0-FichaProyecto.md`](./0-FichaProyecto.md) |
-| Arquitectura del Sistema | [`Documentacion/2-ArquitecturaSistema.md`](./2-ArquitecturaSistema.md) |
-| Scaffolding de referencia | `ScafoldingDocumentacion/1-Descripción general del producto.md` |
+| Documento                 | Ubicación                                                              |
+| ------------------------- | ---------------------------------------------------------------------- |
+| Ficha del Proyecto        | [`Documentacion/0-FichaProyecto.md`](./0-FichaProyecto.md)             |
+| Arquitectura del Sistema  | [`Documentacion/2-ArquitecturaSistema.md`](./2-ArquitecturaSistema.md) |
+| Scaffolding de referencia | `ScafoldingDocumentacion/1-Descripción general del producto.md`        |
 
 ---
 
 **Última actualización:** Enero 2026  
 **Versión del documento:** 1.1.0
-

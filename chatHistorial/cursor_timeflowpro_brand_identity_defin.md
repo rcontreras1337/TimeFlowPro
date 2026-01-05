@@ -1,4 +1,5 @@
 # TimeFlowPro brand identity definition
+
 _Exported on 1/5/2026 at 00:16:57 GMT-3 from Cursor (2.2.44)_
 
 ---
@@ -8,12 +9,14 @@ _Exported on 1/5/2026 at 00:16:57 GMT-3 from Cursor (2.2.44)_
 Estoy trabajando en **TimeFlowPro**, un sistema de agendamiento inteligente para profesionales móviles.
 
 ## Stack Tecnológico
+
 - **Frontend:** Next.js 14 (App Router) + TailwindCSS + TypeScript
 - **Backend:** Supabase (PostgreSQL + Auth + Edge Functions)
 - **Hosting:** Vercel
 - **Estilo de código:** Arquitectura Hexagonal, DDD, SOLID, DRY
 
 ## Idioma
+
 - **Código:** Variables, funciones y comentarios técnicos en **inglés**
 - **Mensajes al usuario:** Todo en **español** (usar archivo de mensajes `messages.es.yml`)
 - **Base de datos:** Nombres de tablas y columnas en **inglés**, datos en **español**
@@ -22,11 +25,8 @@ Estoy trabajando en **TimeFlowPro**, un sistema de agendamiento inteligente para
 
 # Ticket a Implementar
 
-ID	Título	Tipo	Pts	HDU	Estado	Bloqueado por
-T-0-01	Definición de Brand Identity	Design	3	-	⬜ Pendiente	-
-
-
-
+ID Título Tipo Pts HDU Estado Bloqueado por
+T-0-01 Definición de Brand Identity Design 3 - ⬜ Pendiente -
 
 ---
 
@@ -56,25 +56,25 @@ Ahora voy a crear los archivos de Brand Identity. Comenzaré con los logos SVG y
       <stop offset="100%" stop-color="#FF8A4C"/>
     </linearGradient>
   </defs>
-  
+
   <!-- Clock Circle with Flow -->
   <g transform="translate(6, 6)">
     <!-- Outer ring -->
     <circle cx="24" cy="24" r="22" stroke="url(#flowGradient)" stroke-width="3" fill="none"/>
-    
+
     <!-- Flow arrows (spiral effect) -->
     <path d="M24 8 L24 24 L36 24" stroke="url(#flowGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - top right arc -->
     <path d="M38 10 C44 16, 44 32, 38 38" stroke="url(#accentGradient)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - bottom left arc -->
     <path d="M10 38 C4 32, 4 16, 10 10" stroke="url(#flowGradient)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-    
+
     <!-- Center dot -->
     <circle cx="24" cy="24" r="3" fill="url(#flowGradient)"/>
   </g>
-  
+
   <!-- Text: TimeFlowPro -->
   <g font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif">
     <!-- Time -->
@@ -104,25 +104,25 @@ Ahora voy a crear los archivos de Brand Identity. Comenzaré con los logos SVG y
       <stop offset="100%" stop-color="#FDBA8C"/>
     </linearGradient>
   </defs>
-  
+
   <!-- Clock Circle with Flow -->
   <g transform="translate(6, 6)">
     <!-- Outer ring -->
     <circle cx="24" cy="24" r="22" stroke="url(#flowGradientDark)" stroke-width="3" fill="none"/>
-    
+
     <!-- Flow arrows (spiral effect) -->
     <path d="M24 8 L24 24 L36 24" stroke="url(#flowGradientDark)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - top right arc -->
     <path d="M38 10 C44 16, 44 32, 38 38" stroke="url(#accentGradientDark)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - bottom left arc -->
     <path d="M10 38 C4 32, 4 16, 10 10" stroke="url(#flowGradientDark)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-    
+
     <!-- Center dot -->
     <circle cx="24" cy="24" r="3" fill="url(#flowGradientDark)"/>
   </g>
-  
+
   <!-- Text: TimeFlowPro -->
   <g font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif">
     <!-- Time -->
@@ -152,21 +152,21 @@ Ahora voy a crear los archivos de Brand Identity. Comenzaré con los logos SVG y
       <stop offset="100%" stop-color="#FF8A4C"/>
     </linearGradient>
   </defs>
-  
+
   <!-- Clock Circle with Flow -->
   <g transform="translate(4, 4)">
     <!-- Outer ring -->
     <circle cx="20" cy="20" r="18" stroke="url(#iconFlowGradient)" stroke-width="2.5" fill="none"/>
-    
+
     <!-- Clock hands forming arrow/flow -->
     <path d="M20 6 L20 20 L32 20" stroke="url(#iconFlowGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - outer arc -->
     <path d="M34 8 C40 14, 40 26, 34 32" stroke="url(#iconAccentGradient)" stroke-width="2" stroke-linecap="round" fill="none"/>
-    
+
     <!-- Dynamic flow indicator - inner arc -->
     <path d="M6 32 C0 26, 0 14, 6 8" stroke="url(#iconFlowGradient)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
-    
+
     <!-- Center dot -->
     <circle cx="20" cy="20" r="2.5" fill="url(#iconFlowGradient)"/>
   </g>
@@ -193,113 +193,113 @@ Ahora creo los design tokens CSS:
    * PRIMARY - Blue Professional
    * Use: Primary actions, links, focus states
    * ============================================ */
-  --color-primary-50: #EBF5FF;
-  --color-primary-100: #E1EFFE;
-  --color-primary-200: #C3DDFD;
-  --color-primary-300: #A4CAFE;
-  --color-primary-400: #76A9FA;
-  --color-primary-500: #3F83F8;  /* Principal */
-  --color-primary-600: #1C64F2;  /* Hover */
-  --color-primary-700: #1A56DB;  /* Active */
-  --color-primary-800: #1E429F;
+  --color-primary-50: #ebf5ff;
+  --color-primary-100: #e1effe;
+  --color-primary-200: #c3ddfd;
+  --color-primary-300: #a4cafe;
+  --color-primary-400: #76a9fa;
+  --color-primary-500: #3f83f8; /* Principal */
+  --color-primary-600: #1c64f2; /* Hover */
+  --color-primary-700: #1a56db; /* Active */
+  --color-primary-800: #1e429f;
   --color-primary-900: #233876;
 
   /* ============================================
    * SECONDARY - Teal Flow
    * Use: Secondary actions, flow indicators
    * ============================================ */
-  --color-secondary-50: #EDFAFA;
-  --color-secondary-100: #D5F5F6;
-  --color-secondary-200: #AFECEF;
-  --color-secondary-300: #7EDCE2;
-  --color-secondary-400: #16BDCA;
-  --color-secondary-500: #0694A2;  /* Principal */
-  --color-secondary-600: #047481;  /* Hover */
+  --color-secondary-50: #edfafa;
+  --color-secondary-100: #d5f5f6;
+  --color-secondary-200: #afecef;
+  --color-secondary-300: #7edce2;
+  --color-secondary-400: #16bdca;
+  --color-secondary-500: #0694a2; /* Principal */
+  --color-secondary-600: #047481; /* Hover */
   --color-secondary-700: #036672;
-  --color-secondary-800: #05505C;
+  --color-secondary-800: #05505c;
   --color-secondary-900: #014451;
 
   /* ============================================
    * ACCENT - Orange Energy
    * Use: Important CTAs, highlights, notifications
    * ============================================ */
-  --color-accent-50: #FFF8F1;
-  --color-accent-100: #FEECDC;
-  --color-accent-200: #FCD9BD;
-  --color-accent-300: #FDBA8C;
-  --color-accent-400: #FF8A4C;
-  --color-accent-500: #FF5A1F;  /* Principal - CTAs importantes */
-  --color-accent-600: #D03801;
-  --color-accent-700: #B43403;
-  --color-accent-800: #8A2C0D;
-  --color-accent-900: #73230D;
+  --color-accent-50: #fff8f1;
+  --color-accent-100: #feecdc;
+  --color-accent-200: #fcd9bd;
+  --color-accent-300: #fdba8c;
+  --color-accent-400: #ff8a4c;
+  --color-accent-500: #ff5a1f; /* Principal - CTAs importantes */
+  --color-accent-600: #d03801;
+  --color-accent-700: #b43403;
+  --color-accent-800: #8a2c0d;
+  --color-accent-900: #73230d;
 
   /* ============================================
    * NEUTRALS - Grays
    * Use: Text, backgrounds, borders
    * ============================================ */
-  --color-gray-50: #F9FAFB;
-  --color-gray-100: #F3F4F6;
-  --color-gray-200: #E5E7EB;
-  --color-gray-300: #D1D5DB;
-  --color-gray-400: #9CA3AF;
-  --color-gray-500: #6B7280;
-  --color-gray-600: #4B5563;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
   --color-gray-700: #374151;
-  --color-gray-800: #1F2937;
+  --color-gray-800: #1f2937;
   --color-gray-900: #111827;
 
   /* ============================================
    * SEMANTIC - Status Colors
    * Use: Success, warning, error, info states
    * ============================================ */
-  --color-success-50: #F0FDF4;
-  --color-success-100: #DEF7EC;
-  --color-success-500: #0E9F6E;
-  --color-success-600: #057A55;
-  --color-success-700: #046C4E;
+  --color-success-50: #f0fdf4;
+  --color-success-100: #def7ec;
+  --color-success-500: #0e9f6e;
+  --color-success-600: #057a55;
+  --color-success-700: #046c4e;
 
-  --color-warning-50: #FFFBEB;
-  --color-warning-100: #FDF6B2;
-  --color-warning-500: #C27803;
-  --color-warning-600: #9F580A;
-  --color-warning-700: #8E4B10;
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fdf6b2;
+  --color-warning-500: #c27803;
+  --color-warning-600: #9f580a;
+  --color-warning-700: #8e4b10;
 
-  --color-error-50: #FEF2F2;
-  --color-error-100: #FDE8E8;
-  --color-error-500: #F05252;
-  --color-error-600: #E02424;
-  --color-error-700: #C81E1E;
+  --color-error-50: #fef2f2;
+  --color-error-100: #fde8e8;
+  --color-error-500: #f05252;
+  --color-error-600: #e02424;
+  --color-error-700: #c81e1e;
 
-  --color-info-50: #EBF5FF;
-  --color-info-100: #E1EFFE;
-  --color-info-500: #3F83F8;
-  --color-info-600: #1C64F2;
-  --color-info-700: #1A56DB;
+  --color-info-50: #ebf5ff;
+  --color-info-100: #e1effe;
+  --color-info-500: #3f83f8;
+  --color-info-600: #1c64f2;
+  --color-info-700: #1a56db;
 
   /* ============================================
    * CALENDAR SPECIFIC
    * Use: Calendar events, blocks, availability
    * ============================================ */
-  --color-appointment: #3F83F8;        /* Citas normales - Primary */
-  --color-appointment-hover: #1C64F2;
-  --color-travel-block: #F59E0B;       /* Bloques de traslado - Amber */
-  --color-travel-block-hover: #D97706;
-  --color-personal-block: #8B5CF6;     /* Bloqueos personales - Purple */
-  --color-personal-block-hover: #7C3AED;
-  --color-available: #10B981;          /* Slots disponibles - Green */
+  --color-appointment: #3f83f8; /* Citas normales - Primary */
+  --color-appointment-hover: #1c64f2;
+  --color-travel-block: #f59e0b; /* Bloques de traslado - Amber */
+  --color-travel-block-hover: #d97706;
+  --color-personal-block: #8b5cf6; /* Bloqueos personales - Purple */
+  --color-personal-block-hover: #7c3aed;
+  --color-available: #10b981; /* Slots disponibles - Green */
   --color-available-hover: #059669;
-  --color-unavailable: #EF4444;        /* No disponible - Red */
-  --color-unavailable-hover: #DC2626;
+  --color-unavailable: #ef4444; /* No disponible - Red */
+  --color-unavailable-hover: #dc2626;
 
   /* ============================================
    * BACKGROUND & SURFACE
    * Use: Page backgrounds, cards, overlays
    * ============================================ */
-  --color-background: #FFFFFF;
-  --color-background-alt: #F9FAFB;
-  --color-surface: #FFFFFF;
-  --color-surface-hover: #F3F4F6;
+  --color-background: #ffffff;
+  --color-background-alt: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
   --color-overlay: rgba(17, 24, 39, 0.5);
 
   /* ============================================
@@ -307,18 +307,18 @@ Ahora creo los design tokens CSS:
    * Use: Primary, secondary, muted text
    * ============================================ */
   --color-text-primary: #111827;
-  --color-text-secondary: #4B5563;
-  --color-text-muted: #6B7280;
-  --color-text-disabled: #9CA3AF;
-  --color-text-inverse: #FFFFFF;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --color-text-disabled: #9ca3af;
+  --color-text-inverse: #ffffff;
 
   /* ============================================
    * BORDER
    * Use: Borders, dividers
    * ============================================ */
-  --color-border: #E5E7EB;
-  --color-border-hover: #D1D5DB;
-  --color-border-focus: #3F83F8;
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  --color-border-focus: #3f83f8;
 }
 
 /* ============================================
@@ -329,22 +329,22 @@ Ahora creo los design tokens CSS:
   :root {
     /* Background & Surface */
     --color-background: #111827;
-    --color-background-alt: #1F2937;
-    --color-surface: #1F2937;
+    --color-background-alt: #1f2937;
+    --color-surface: #1f2937;
     --color-surface-hover: #374151;
     --color-overlay: rgba(0, 0, 0, 0.7);
 
     /* Text */
-    --color-text-primary: #F9FAFB;
-    --color-text-secondary: #D1D5DB;
-    --color-text-muted: #9CA3AF;
-    --color-text-disabled: #6B7280;
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+    --color-text-disabled: #6b7280;
     --color-text-inverse: #111827;
 
     /* Border */
     --color-border: #374151;
-    --color-border-hover: #4B5563;
-    --color-border-focus: #76A9FA;
+    --color-border-hover: #4b5563;
+    --color-border-focus: #76a9fa;
   }
 }
 
@@ -352,24 +352,23 @@ Ahora creo los design tokens CSS:
 .dark {
   /* Background & Surface */
   --color-background: #111827;
-  --color-background-alt: #1F2937;
-  --color-surface: #1F2937;
+  --color-background-alt: #1f2937;
+  --color-surface: #1f2937;
   --color-surface-hover: #374151;
   --color-overlay: rgba(0, 0, 0, 0.7);
 
   /* Text */
-  --color-text-primary: #F9FAFB;
-  --color-text-secondary: #D1D5DB;
-  --color-text-muted: #9CA3AF;
-  --color-text-disabled: #6B7280;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #9ca3af;
+  --color-text-disabled: #6b7280;
   --color-text-inverse: #111827;
 
   /* Border */
   --color-border: #374151;
-  --color-border-hover: #4B5563;
-  --color-border-focus: #76A9FA;
+  --color-border-hover: #4b5563;
+  --color-border-focus: #76a9fa;
 }
-
 ```
 
 ```css
@@ -389,25 +388,25 @@ Ahora creo los design tokens CSS:
   /* ============================================
    * FONT FAMILIES
    * ============================================ */
-  --font-family-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 
-                      'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 
-                      'Monaco', 'Consolas', monospace;
+  --font-family-sans:
+    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', monospace;
 
   /* ============================================
    * FONT SIZES
    * Scale: 1.25 (Major Third)
    * ============================================ */
-  --font-size-xs: 0.75rem;     /* 12px - Captions, labels */
-  --font-size-sm: 0.875rem;    /* 14px - Secondary text */
-  --font-size-base: 1rem;      /* 16px - Body text */
-  --font-size-lg: 1.125rem;    /* 18px - Large body */
-  --font-size-xl: 1.25rem;     /* 20px - Small headings */
-  --font-size-2xl: 1.5rem;     /* 24px - H4 */
-  --font-size-3xl: 1.875rem;   /* 30px - H3 */
-  --font-size-4xl: 2.25rem;    /* 36px - H2 */
-  --font-size-5xl: 3rem;       /* 48px - H1 */
-  --font-size-6xl: 3.75rem;    /* 60px - Display */
+  --font-size-xs: 0.75rem; /* 12px - Captions, labels */
+  --font-size-sm: 0.875rem; /* 14px - Secondary text */
+  --font-size-base: 1rem; /* 16px - Body text */
+  --font-size-lg: 1.125rem; /* 18px - Large body */
+  --font-size-xl: 1.25rem; /* 20px - Small headings */
+  --font-size-2xl: 1.5rem; /* 24px - H4 */
+  --font-size-3xl: 1.875rem; /* 30px - H3 */
+  --font-size-4xl: 2.25rem; /* 36px - H2 */
+  --font-size-5xl: 3rem; /* 48px - H1 */
+  --font-size-6xl: 3.75rem; /* 60px - Display */
 
   /* ============================================
    * FONT WEIGHTS
@@ -548,7 +547,6 @@ Ahora creo los design tokens CSS:
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-relaxed);
 }
-
 ```
 
 ```css
@@ -568,67 +566,62 @@ Ahora creo los design tokens CSS:
    * ============================================ */
   --space-0: 0;
   --space-px: 1px;
-  --space-0-5: 0.125rem;  /* 2px */
-  --space-1: 0.25rem;     /* 4px */
-  --space-1-5: 0.375rem;  /* 6px */
-  --space-2: 0.5rem;      /* 8px - Base unit */
-  --space-2-5: 0.625rem;  /* 10px */
-  --space-3: 0.75rem;     /* 12px */
-  --space-3-5: 0.875rem;  /* 14px */
-  --space-4: 1rem;        /* 16px */
-  --space-5: 1.25rem;     /* 20px */
-  --space-6: 1.5rem;      /* 24px */
-  --space-7: 1.75rem;     /* 28px */
-  --space-8: 2rem;        /* 32px */
-  --space-9: 2.25rem;     /* 36px */
-  --space-10: 2.5rem;     /* 40px */
-  --space-11: 2.75rem;    /* 44px */
-  --space-12: 3rem;       /* 48px */
-  --space-14: 3.5rem;     /* 56px */
-  --space-16: 4rem;       /* 64px */
-  --space-20: 5rem;       /* 80px */
-  --space-24: 6rem;       /* 96px */
-  --space-28: 7rem;       /* 112px */
-  --space-32: 8rem;       /* 128px */
-  --space-36: 9rem;       /* 144px */
-  --space-40: 10rem;      /* 160px */
-  --space-44: 11rem;      /* 176px */
-  --space-48: 12rem;      /* 192px */
-  --space-52: 13rem;      /* 208px */
-  --space-56: 14rem;      /* 224px */
-  --space-60: 15rem;      /* 240px */
-  --space-64: 16rem;      /* 256px */
-  --space-72: 18rem;      /* 288px */
-  --space-80: 20rem;      /* 320px */
-  --space-96: 24rem;      /* 384px */
+  --space-0-5: 0.125rem; /* 2px */
+  --space-1: 0.25rem; /* 4px */
+  --space-1-5: 0.375rem; /* 6px */
+  --space-2: 0.5rem; /* 8px - Base unit */
+  --space-2-5: 0.625rem; /* 10px */
+  --space-3: 0.75rem; /* 12px */
+  --space-3-5: 0.875rem; /* 14px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 1.75rem; /* 28px */
+  --space-8: 2rem; /* 32px */
+  --space-9: 2.25rem; /* 36px */
+  --space-10: 2.5rem; /* 40px */
+  --space-11: 2.75rem; /* 44px */
+  --space-12: 3rem; /* 48px */
+  --space-14: 3.5rem; /* 56px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-28: 7rem; /* 112px */
+  --space-32: 8rem; /* 128px */
+  --space-36: 9rem; /* 144px */
+  --space-40: 10rem; /* 160px */
+  --space-44: 11rem; /* 176px */
+  --space-48: 12rem; /* 192px */
+  --space-52: 13rem; /* 208px */
+  --space-56: 14rem; /* 224px */
+  --space-60: 15rem; /* 240px */
+  --space-64: 16rem; /* 256px */
+  --space-72: 18rem; /* 288px */
+  --space-80: 20rem; /* 320px */
+  --space-96: 24rem; /* 384px */
 
   /* ============================================
    * BORDER RADIUS
    * ============================================ */
   --radius-none: 0;
-  --radius-sm: 0.125rem;    /* 2px */
+  --radius-sm: 0.125rem; /* 2px */
   --radius-DEFAULT: 0.25rem; /* 4px */
-  --radius-md: 0.375rem;    /* 6px */
-  --radius-lg: 0.5rem;      /* 8px */
-  --radius-xl: 0.75rem;     /* 12px */
-  --radius-2xl: 1rem;       /* 16px */
-  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-md: 0.375rem; /* 6px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
+  --radius-3xl: 1.5rem; /* 24px */
   --radius-full: 9999px;
 
   /* ============================================
    * SHADOWS (Elevation)
    * ============================================ */
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 
-               0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.1), 
-                    0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 
-               0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 
-               0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
-               0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
   --shadow-none: 0 0 #0000;
@@ -642,24 +635,26 @@ Ahora creo los design tokens CSS:
    * ============================================ */
   --z-auto: auto;
   --z-0: 0;
-  --z-10: 10;      /* Floating elements */
-  --z-20: 20;      /* Dropdowns */
-  --z-30: 30;      /* Sticky elements */
-  --z-40: 40;      /* Modals backdrop */
-  --z-50: 50;      /* Modals */
-  --z-60: 60;      /* Toasts */
-  --z-70: 70;      /* Tooltips */
-  --z-max: 9999;   /* Maximum priority */
+  --z-10: 10; /* Floating elements */
+  --z-20: 20; /* Dropdowns */
+  --z-30: 30; /* Sticky elements */
+  --z-40: 40; /* Modals backdrop */
+  --z-50: 50; /* Modals */
+  --z-60: 60; /* Toasts */
+  --z-70: 70; /* Tooltips */
+  --z-max: 9999; /* Maximum priority */
 
   /* ============================================
    * TRANSITIONS
    * ============================================ */
   --transition-none: none;
   --transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-DEFAULT: color, background-color, border-color, text-decoration-color, 
-                        fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-colors: color, background-color, border-color, text-decoration-color, 
-                       fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-DEFAULT:
+    color, background-color, border-color, text-decoration-color, fill,
+    stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors:
+    color, background-color, border-color, text-decoration-color, fill,
+    stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -703,58 +698,47 @@ Ahora creo los design tokens CSS:
   /* ============================================
    * COMPONENT SPECIFIC
    * ============================================ */
-  
+
   /* Button heights */
-  --button-height-xs: 1.75rem;   /* 28px */
-  --button-height-sm: 2rem;      /* 32px */
-  --button-height-md: 2.5rem;    /* 40px */
-  --button-height-lg: 2.75rem;   /* 44px */
-  --button-height-xl: 3rem;      /* 48px */
+  --button-height-xs: 1.75rem; /* 28px */
+  --button-height-sm: 2rem; /* 32px */
+  --button-height-md: 2.5rem; /* 40px */
+  --button-height-lg: 2.75rem; /* 44px */
+  --button-height-xl: 3rem; /* 48px */
 
   /* Input heights */
-  --input-height-sm: 2rem;       /* 32px */
-  --input-height-md: 2.5rem;     /* 40px */
-  --input-height-lg: 2.75rem;    /* 44px */
+  --input-height-sm: 2rem; /* 32px */
+  --input-height-md: 2.5rem; /* 40px */
+  --input-height-lg: 2.75rem; /* 44px */
 
   /* Sidebar width */
-  --sidebar-width: 16rem;        /* 256px */
+  --sidebar-width: 16rem; /* 256px */
   --sidebar-width-collapsed: 4rem; /* 64px */
 
   /* Header height */
-  --header-height: 4rem;         /* 64px */
+  --header-height: 4rem; /* 64px */
 }
 
 /* Dark mode shadow adjustments */
 @media (prefers-color-scheme: dark) {
   :root {
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 
-                 0 1px 2px -1px rgb(0 0 0 / 0.3);
-    --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.3), 
-                      0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 
-                 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 
-                 0 4px 6px -4px rgb(0 0 0 / 0.3);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 
-                 0 8px 10px -6px rgb(0 0 0 / 0.3);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+    --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
     --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
   }
 }
 
 .dark {
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 
-               0 1px 2px -1px rgb(0 0 0 / 0.3);
-  --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.3), 
-                    0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 
-               0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 
-               0 4px 6px -4px rgb(0 0 0 / 0.3);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 
-               0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
 }
-
 ```
 
 Ahora creo el archivo globals.css y los archivos restantes:
@@ -793,31 +777,35 @@ Ahora creo el archivo globals.css y los archivos restantes:
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
-  
+
   @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2')
+      format('woff2');
   }
 }
 
@@ -850,7 +838,12 @@ Ahora creo el archivo globals.css y los archivos restantes:
   }
 
   /* Headings */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-family-sans);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
@@ -858,12 +851,24 @@ Ahora creo el archivo globals.css y los archivos restantes:
     margin: 0;
   }
 
-  h1 { font-size: var(--font-size-5xl); }
-  h2 { font-size: var(--font-size-4xl); }
-  h3 { font-size: var(--font-size-3xl); }
-  h4 { font-size: var(--font-size-2xl); }
-  h5 { font-size: var(--font-size-xl); }
-  h6 { font-size: var(--font-size-lg); }
+  h1 {
+    font-size: var(--font-size-5xl);
+  }
+  h2 {
+    font-size: var(--font-size-4xl);
+  }
+  h3 {
+    font-size: var(--font-size-3xl);
+  }
+  h4 {
+    font-size: var(--font-size-2xl);
+  }
+  h5 {
+    font-size: var(--font-size-xl);
+  }
+  h6 {
+    font-size: var(--font-size-lg);
+  }
 
   /* Links */
   a {
@@ -884,7 +889,10 @@ Ahora creo el archivo globals.css y los archivos restantes:
   }
 
   /* Code */
-  code, pre, kbd, samp {
+  code,
+  pre,
+  kbd,
+  samp {
     font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
   }
@@ -952,13 +960,16 @@ Ahora creo el archivo globals.css y los archivos restantes:
   }
 
   /* Input reset */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-family: inherit;
     font-size: inherit;
   }
 
   /* Image */
-  img, svg {
+  img,
+  svg {
     display: block;
     max-width: 100%;
     height: auto;
@@ -971,7 +982,8 @@ Ahora creo el archivo globals.css y los archivos restantes:
   }
 
   /* List reset */
-  ul, ol {
+  ul,
+  ol {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -1046,18 +1058,38 @@ Ahora creo el archivo globals.css y los archivos restantes:
  * ============================================ */
 @layer utilities {
   /* Calendar specific colors */
-  .bg-appointment { background-color: var(--color-appointment); }
-  .bg-travel-block { background-color: var(--color-travel-block); }
-  .bg-personal-block { background-color: var(--color-personal-block); }
-  .bg-available { background-color: var(--color-available); }
-  .bg-unavailable { background-color: var(--color-unavailable); }
+  .bg-appointment {
+    background-color: var(--color-appointment);
+  }
+  .bg-travel-block {
+    background-color: var(--color-travel-block);
+  }
+  .bg-personal-block {
+    background-color: var(--color-personal-block);
+  }
+  .bg-available {
+    background-color: var(--color-available);
+  }
+  .bg-unavailable {
+    background-color: var(--color-unavailable);
+  }
 
   /* Text colors */
-  .text-appointment { color: var(--color-appointment); }
-  .text-travel-block { color: var(--color-travel-block); }
-  .text-personal-block { color: var(--color-personal-block); }
-  .text-available { color: var(--color-available); }
-  .text-unavailable { color: var(--color-unavailable); }
+  .text-appointment {
+    color: var(--color-appointment);
+  }
+  .text-travel-block {
+    color: var(--color-travel-block);
+  }
+  .text-personal-block {
+    color: var(--color-personal-block);
+  }
+  .text-available {
+    color: var(--color-available);
+  }
+  .text-unavailable {
+    color: var(--color-unavailable);
+  }
 
   /* Animation for loading states */
   .animate-pulse-slow {
@@ -1065,7 +1097,8 @@ Ahora creo el archivo globals.css y los archivos restantes:
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -1081,7 +1114,6 @@ Ahora creo el archivo globals.css y los archivos restantes:
     background-clip: text;
   }
 }
-
 ```
 
 ```xml
@@ -1097,16 +1129,16 @@ Ahora creo el archivo globals.css y los archivos restantes:
       <stop offset="100%" stop-color="#FF8A4C"/>
     </linearGradient>
   </defs>
-  
+
   <!-- Outer ring -->
   <circle cx="16" cy="16" r="14" stroke="url(#favGradient)" stroke-width="2" fill="none"/>
-  
+
   <!-- Clock hands -->
   <path d="M16 5 L16 16 L25 16" stroke="url(#favGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  
+
   <!-- Flow arc -->
   <path d="M26 8 C30 12, 30 20, 26 24" stroke="url(#favAccent)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-  
+
   <!-- Center dot -->
   <circle cx="16" cy="16" r="2" fill="url(#favGradient)"/>
 </svg>
@@ -1132,22 +1164,22 @@ Ahora creo el archivo globals.css y los archivos restantes:
       <stop offset="100%" stop-color="#FF8A4C"/>
     </linearGradient>
   </defs>
-  
+
   <!-- Background with rounded corners -->
   <rect width="180" height="180" rx="40" fill="url(#bgGradient)"/>
-  
+
   <!-- Icon centered at 90,90 -->
   <g transform="translate(30, 30)">
     <!-- Outer ring -->
     <circle cx="60" cy="60" r="52" stroke="url(#iconGradient)" stroke-width="6" fill="none"/>
-    
+
     <!-- Clock hands -->
     <path d="M60 18 L60 60 L96 60" stroke="url(#iconGradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    
+
     <!-- Dynamic flow arcs -->
     <path d="M104 24 C120 40, 120 80, 104 96" stroke="url(#iconAccent)" stroke-width="5" stroke-linecap="round" fill="none"/>
     <path d="M16 96 C0 80, 0 40, 16 24" stroke="url(#iconGradient)" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5"/>
-    
+
     <!-- Center dot -->
     <circle cx="60" cy="60" r="7" fill="url(#iconGradient)"/>
   </g>
@@ -1183,10 +1215,10 @@ Ahora creo el archivo globals.css y los archivos restantes:
       </feMerge>
     </filter>
   </defs>
-  
+
   <!-- Background -->
   <rect width="1200" height="630" fill="url(#ogBgGradient)"/>
-  
+
   <!-- Decorative grid pattern -->
   <g opacity="0.1" stroke="#3F83F8" stroke-width="1">
     <line x1="0" y1="0" x2="1200" y2="630"/>
@@ -1194,35 +1226,35 @@ Ahora creo el archivo globals.css y los archivos restantes:
     <line x1="600" y1="0" x2="600" y2="630"/>
     <line x1="0" y1="315" x2="1200" y2="315"/>
   </g>
-  
+
   <!-- Logo Icon - Left side -->
   <g transform="translate(150, 165)" filter="url(#glow)">
     <!-- Outer ring -->
     <circle cx="150" cy="150" r="130" stroke="url(#ogFlowGradient)" stroke-width="8" fill="none"/>
-    
+
     <!-- Clock hands -->
     <path d="M150 40 L150 150 L240 150" stroke="url(#ogFlowGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    
+
     <!-- Dynamic flow arcs -->
     <path d="M260 60 C300 100, 300 200, 260 240" stroke="url(#ogAccentGradient)" stroke-width="6" stroke-linecap="round" fill="none"/>
     <path d="M40 240 C0 200, 0 100, 40 60" stroke="url(#ogFlowGradient)" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
-    
+
     <!-- Center dot -->
     <circle cx="150" cy="150" r="15" fill="url(#ogFlowGradient)"/>
   </g>
-  
+
   <!-- Text Content - Right side -->
   <g font-family="'Plus Jakarta Sans', -apple-system, sans-serif">
     <!-- Brand Name -->
     <text x="520" y="280" font-size="72" font-weight="700" fill="#F9FAFB">Time</text>
     <text x="710" y="280" font-size="72" font-weight="700" fill="url(#ogFlowGradient)">Flow</text>
     <text x="910" y="280" font-size="72" font-weight="600" fill="#9CA3AF">Pro</text>
-    
+
     <!-- Tagline -->
     <text x="520" y="340" font-size="28" font-weight="500" fill="#9CA3AF">
       Gestión inteligente de agendas para profesionales móviles
     </text>
-    
+
     <!-- Features -->
     <g fill="#6B7280" font-size="20" font-weight="400">
       <text x="520" y="420">📍 Multi-ubicación</text>
@@ -1233,7 +1265,7 @@ Ahora creo el archivo globals.css y los archivos restantes:
       <text x="800" y="490">💼 Gestión profesional</text>
     </g>
   </g>
-  
+
   <!-- URL Footer -->
   <text x="600" y="590" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="500" fill="#4B5563" text-anchor="middle">
     timeflowpro.app
@@ -1272,36 +1304,36 @@ Ahora creo los archivos de documentación y scripts para generar los favicons:
   "lang": "es",
   "dir": "ltr"
 }
-
 ```
 
 ```markdown
 # 🎨 TimeFlowPro - Brand Assets
 
 ## Estructura de Archivos
-
 ```
+
 public/
-├── logo.svg                 # Logo principal (modo claro)
-├── logo-dark.svg           # Logo para modo oscuro
-├── logo-icon.svg           # Ícono solo (sin texto)
-├── favicon.svg             # Favicon vectorial (32x32)
-├── favicon.ico             # Favicon tradicional (generado)
-├── apple-touch-icon.svg    # Ícono iOS (180x180 base)
-├── apple-touch-icon.png    # Ícono iOS (generado)
-├── og-image.svg            # Open Graph image (1200x630)
-├── og-image.png            # Open Graph (generado)
-├── icon-192.png            # PWA icon (generado)
-├── icon-512.png            # PWA icon (generado)
-└── site.webmanifest        # PWA manifest
+├── logo.svg # Logo principal (modo claro)
+├── logo-dark.svg # Logo para modo oscuro
+├── logo-icon.svg # Ícono solo (sin texto)
+├── favicon.svg # Favicon vectorial (32x32)
+├── favicon.ico # Favicon tradicional (generado)
+├── apple-touch-icon.svg # Ícono iOS (180x180 base)
+├── apple-touch-icon.png # Ícono iOS (generado)
+├── og-image.svg # Open Graph image (1200x630)
+├── og-image.png # Open Graph (generado)
+├── icon-192.png # PWA icon (generado)
+├── icon-512.png # PWA icon (generado)
+└── site.webmanifest # PWA manifest
 
 src/styles/
-├── globals.css             # Estilos globales + imports
+├── globals.css # Estilos globales + imports
 └── tokens/
-    ├── colors.css          # Paleta de colores
-    ├── typography.css      # Sistema tipográfico
-    └── spacing.css         # Espaciado y layout
-```
+├── colors.css # Paleta de colores
+├── typography.css # Sistema tipográfico
+└── spacing.css # Espaciado y layout
+
+````
 
 ---
 
@@ -1317,7 +1349,7 @@ pnpm add -D sharp
 
 # Crear script de generación
 node scripts/generate-icons.js
-```
+````
 
 ### Opción 2: Usando Inkscape (CLI)
 
@@ -1347,38 +1379,43 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
 ## 🎨 Paleta de Colores
 
 ### Primary - Azul Profesional
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable              | Hex       | Uso             |
+| --------------------- | --------- | --------------- |
 | `--color-primary-500` | `#3F83F8` | Color principal |
-| `--color-primary-600` | `#1C64F2` | Hover |
-| `--color-primary-700` | `#1A56DB` | Active |
+| `--color-primary-600` | `#1C64F2` | Hover           |
+| `--color-primary-700` | `#1A56DB` | Active          |
 
 ### Secondary - Teal Flow
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable                | Hex       | Uso              |
+| ----------------------- | --------- | ---------------- |
 | `--color-secondary-500` | `#0694A2` | Flujo/Movimiento |
-| `--color-secondary-400` | `#16BDCA` | Highlight |
+| `--color-secondary-400` | `#16BDCA` | Highlight        |
 
 ### Accent - Naranja Energía
-| Variable | Hex | Uso |
-|----------|-----|-----|
+
+| Variable             | Hex       | Uso              |
+| -------------------- | --------- | ---------------- |
 | `--color-accent-500` | `#FF5A1F` | CTAs importantes |
-| `--color-accent-400` | `#FF8A4C` | Highlights |
+| `--color-accent-400` | `#FF8A4C` | Highlights       |
 
 ### Calendar Específicos
-| Variable | Hex | Uso |
-|----------|-----|-----|
-| `--color-appointment` | `#3F83F8` | Citas |
-| `--color-travel-block` | `#F59E0B` | Traslados |
+
+| Variable                 | Hex       | Uso                 |
+| ------------------------ | --------- | ------------------- |
+| `--color-appointment`    | `#3F83F8` | Citas               |
+| `--color-travel-block`   | `#F59E0B` | Traslados           |
 | `--color-personal-block` | `#8B5CF6` | Bloqueos personales |
-| `--color-available` | `#10B981` | Disponible |
-| `--color-unavailable` | `#EF4444` | No disponible |
+| `--color-available`      | `#10B981` | Disponible          |
+| `--color-unavailable`    | `#EF4444` | No disponible       |
 
 ---
 
 ## 📝 Tipografía
 
 ### Font Family
+
 - **Primary:** Plus Jakarta Sans (Google Fonts)
 - **Mono:** JetBrains Mono (código)
 
@@ -1389,11 +1426,11 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
   <!-- Preconnect para performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
+
   <!-- Fonts -->
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" 
-    rel="stylesheet" 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
   />
 </head>
 ```
@@ -1402,14 +1439,14 @@ inkscape public/og-image.svg --export-filename=public/og-image.png --export-widt
 
 ```typescript
 // app/layout.tsx
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-plus-jakarta-sans',
   display: 'swap',
-});
+})
 ```
 
 ---
@@ -1430,6 +1467,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 ## 📋 Uso en Código
 
 ### CSS Variables
+
 ```css
 .my-element {
   background-color: var(--color-primary-500);
@@ -1441,8 +1479,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 ```
 
 ### Con Tailwind (después de configurar)
+
 ```html
-<button class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md">
+<button
+  class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md"
+>
   Crear Cita
 </button>
 ```
@@ -1451,7 +1492,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 **Referencia:** [Documentacion/6-TicketsTrabajo.md - T-0-01](../../../Documentacion/6-TicketsTrabajo.md)
 
-```
+````
 
 ```javascript
 /**
@@ -1602,11 +1643,11 @@ async function main() {
 
 main().catch(console.error);
 
-```
+````
 
 Ahora leo el README existente y lo actualizo:
 
-```markdown
+````markdown
 # 🕐 TimeFlowPro
 
 <div align="center">
@@ -1642,11 +1683,13 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 > "Las agendas tradicionales están pensadas para lugares fijos y tiempos rígidos, no para profesionales móviles ni para servicios que evolucionan con el cliente."
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
+
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
+
 - Los servicios duran 45 min por defecto, pero algunos pacientes solo necesitan 30 min
 - El sistema no considera que necesita 20 min para trasladarse entre ubicaciones
 - Termina con "huecos muertos" que nadie puede reservar
@@ -1659,18 +1702,18 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ### MVP (Fase 1)
 
-| Funcionalidad | Descripción |
-|---------------|-------------|
-| 🔐 **Auth con Google** | Login sin contraseñas, trial de 14 días |
-| 📍 **Multi-ubicación** | Gestiona múltiples lugares de trabajo |
-| 🛠️ **Servicios flexibles** | Duración, precio, reserva online |
-| 👥 **Gestión de clientes** | Historial y datos de contacto |
-| 📅 **Calendario inteligente** | Vista diaria/semanal con colores |
-| ⏱️ **Duración adaptativa** | Aprende del historial cliente-servicio |
-| 🚗 **Travel blocks** | Bloquea tiempo de traslado automáticamente |
-| 🌐 **Portal público** | Clientes reservan sin registrarse |
-| 📆 **Google Calendar** | Sincronización bidireccional |
-| 🔒 **Bloqueos personales** | Almuerzo, vacaciones, tiempo personal |
+| Funcionalidad                 | Descripción                                |
+| ----------------------------- | ------------------------------------------ |
+| 🔐 **Auth con Google**        | Login sin contraseñas, trial de 14 días    |
+| 📍 **Multi-ubicación**        | Gestiona múltiples lugares de trabajo      |
+| 🛠️ **Servicios flexibles**    | Duración, precio, reserva online           |
+| 👥 **Gestión de clientes**    | Historial y datos de contacto              |
+| 📅 **Calendario inteligente** | Vista diaria/semanal con colores           |
+| ⏱️ **Duración adaptativa**    | Aprende del historial cliente-servicio     |
+| 🚗 **Travel blocks**          | Bloquea tiempo de traslado automáticamente |
+| 🌐 **Portal público**         | Clientes reservan sin registrarse          |
+| 📆 **Google Calendar**        | Sincronización bidireccional               |
+| 🔒 **Bloqueos personales**    | Almuerzo, vacaciones, tiempo personal      |
 
 ### Fase 2 (Roadmap)
 
@@ -1683,14 +1726,14 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|------------|
+| Capa         | Tecnología                                     |
+| ------------ | ---------------------------------------------- |
 | **Frontend** | Next.js 14 (App Router), React 18, TailwindCSS |
-| **Backend** | Supabase (PostgreSQL + Auth + Edge Functions) |
-| **Lenguaje** | TypeScript 5.3 |
-| **Hosting** | Vercel (Frontend), Supabase Cloud (Backend) |
-| **CI/CD** | GitHub Actions |
-| **Testing** | Vitest, Testing Library, Playwright (local) |
+| **Backend**  | Supabase (PostgreSQL + Auth + Edge Functions)  |
+| **Lenguaje** | TypeScript 5.3                                 |
+| **Hosting**  | Vercel (Frontend), Supabase Cloud (Backend)    |
+| **CI/CD**    | GitHub Actions                                 |
+| **Testing**  | Vitest, Testing Library, Playwright (local)    |
 
 ### Arquitectura
 
@@ -1700,18 +1743,19 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
 ```
+````
 
 ---
 
@@ -1795,27 +1839,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 📋 Pendiente |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado       |
+| --------------------------------- | ----------------------- | ------------ |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 📋 Pendiente |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente |
 
 ---
 
@@ -1881,8 +1925,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 # 🕐 TimeFlowPro
@@ -1921,7 +1964,7 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
@@ -1978,18 +2021,18 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
-```
+````
 
 ---
 
@@ -2073,27 +2116,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 📋 Pendiente |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado       |
+| --------------------------------- | ----------------------- | ------------ |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 📋 Pendiente |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente |
 | [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente |
 
 ---
 
@@ -2137,6 +2180,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -2149,6 +2193,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -2200,8 +2245,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 # 🕐 TimeFlowPro
@@ -2240,7 +2284,7 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
@@ -2297,18 +2341,18 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
-```
+````
 
 ---
 
@@ -2392,27 +2436,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (1/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (1/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -2456,6 +2500,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -2468,6 +2513,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -2518,7 +2564,6 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 [⬆ Volver arriba](#-timeflowpro)
 
 </div>
-
 
 ```
 
@@ -2533,26 +2578,28 @@ He implementado completamente la identidad visual de **TimeFlowPro**. Aquí est�
 ### 📁 Estructura de Archivos Creados
 
 ```
+
 apps/web/
 ├── public/
-│   ├── logo.svg              # Logo principal (modo claro)
-│   ├── logo-dark.svg         # Logo para modo oscuro
-│   ├── logo-icon.svg         # Ícono solo (sin texto)
-│   ├── favicon.svg           # Favicon vectorial (32x32)
-│   ├── apple-touch-icon.svg  # Ícono iOS (180x180)
-│   ├── og-image.svg          # Open Graph (1200x630)
-│   └── site.webmanifest      # PWA manifest
+│ ├── logo.svg # Logo principal (modo claro)
+│ ├── logo-dark.svg # Logo para modo oscuro
+│ ├── logo-icon.svg # Ícono solo (sin texto)
+│ ├── favicon.svg # Favicon vectorial (32x32)
+│ ├── apple-touch-icon.svg # Ícono iOS (180x180)
+│ ├── og-image.svg # Open Graph (1200x630)
+│ └── site.webmanifest # PWA manifest
 ├── src/styles/
-│   ├── globals.css           # Estilos globales + imports
-│   └── tokens/
-│       ├── colors.css        # 🎨 Paleta completa
-│       ├── typography.css    # 📝 Sistema tipográfico
-│       └── spacing.css       # 📐 Espaciado y layout
-└── BRAND-ASSETS.md           # Documentación de assets
+│ ├── globals.css # Estilos globales + imports
+│ └── tokens/
+│ ├── colors.css # 🎨 Paleta completa
+│ ├── typography.css # 📝 Sistema tipográfico
+│ └── spacing.css # 📐 Espaciado y layout
+└── BRAND-ASSETS.md # Documentación de assets
 
 scripts/
-└── generate-icons.js         # Script para generar PNGs
-```
+└── generate-icons.js # Script para generar PNGs
+
+````
 
 ### 🎨 Paleta de Colores
 
@@ -2608,7 +2655,7 @@ apps/web/
 
 scripts/
 └── generate-icons.js         # Script para generar PNGs
-```
+````
 
 ---
 
@@ -2629,22 +2676,22 @@ realiza el Commit
 
 ### Archivos incluidos en el commit:
 
-| Archivo | Tipo |
-|---------|------|
-| `apps/web/public/logo.svg` | Logo principal |
-| `apps/web/public/logo-dark.svg` | Logo modo oscuro |
-| `apps/web/public/logo-icon.svg` | Ícono solo |
-| `apps/web/public/favicon.svg` | Favicon |
-| `apps/web/public/apple-touch-icon.svg` | Ícono iOS |
-| `apps/web/public/og-image.svg` | Open Graph |
-| `apps/web/public/site.webmanifest` | PWA manifest |
-| `apps/web/src/styles/globals.css` | Estilos globales |
-| `apps/web/src/styles/tokens/colors.css` | Tokens de color |
+| Archivo                                     | Tipo              |
+| ------------------------------------------- | ----------------- |
+| `apps/web/public/logo.svg`                  | Logo principal    |
+| `apps/web/public/logo-dark.svg`             | Logo modo oscuro  |
+| `apps/web/public/logo-icon.svg`             | Ícono solo        |
+| `apps/web/public/favicon.svg`               | Favicon           |
+| `apps/web/public/apple-touch-icon.svg`      | Ícono iOS         |
+| `apps/web/public/og-image.svg`              | Open Graph        |
+| `apps/web/public/site.webmanifest`          | PWA manifest      |
+| `apps/web/src/styles/globals.css`           | Estilos globales  |
+| `apps/web/src/styles/tokens/colors.css`     | Tokens de color   |
 | `apps/web/src/styles/tokens/typography.css` | Tokens tipografía |
-| `apps/web/src/styles/tokens/spacing.css` | Tokens espaciado |
-| `apps/web/BRAND-ASSETS.md` | Documentación |
-| `scripts/generate-icons.js` | Script generación |
-| `README.md` | Actualizado |
+| `apps/web/src/styles/tokens/spacing.css`    | Tokens espaciado  |
+| `apps/web/BRAND-ASSETS.md`                  | Documentación     |
+| `scripts/generate-icons.js`                 | Script generación |
+| `README.md`                                 | Actualizado       |
 
 ---
 
@@ -2676,21 +2723,21 @@ To https://github.com/rcontreras1337/TimeFlowPro.git
 
 ## 🎉 Ticket T-0-01 Completado y Publicado
 
-| Campo | Valor |
-|-------|-------|
+| Campo      | Valor                                |
+| ---------- | ------------------------------------ |
 | **Ticket** | T-0-01: Definición de Brand Identity |
-| **Estado** | ✅ Completado |
-| **Commit** | `d3f21c9` |
-| **Branch** | `main` |
+| **Estado** | ✅ Completado                        |
+| **Commit** | `d3f21c9`                            |
+| **Branch** | `main`                               |
 
 ### Próximo ticket disponible
 
 Según el diagrama de dependencias del Sprint 0, ahora puedes continuar con:
 
-| ID | Título | Bloqueado por |
-|----|--------|---------------|
+| ID         | Título                                      | Bloqueado por          |
+| ---------- | ------------------------------------------- | ---------------------- |
 | **T-0-02** | Setup Monorepo + Next.js 14 + Design Tokens | ✅ T-0-01 (completado) |
-| **T-0-03** | Configuración Supabase Local (Docker) | - (independiente) |
+| **T-0-03** | Configuración Supabase Local (Docker)       | - (independiente)      |
 
 ¿Deseas que implemente el siguiente ticket?
 
@@ -2721,7 +2768,6 @@ Perfecto, ya estoy en la rama `feature/T-0-02-setup-monorepo-nextjs`. Voy a impl
 packages:
   - 'apps/*'
   - 'packages/*'
-
 ```
 
 ```properties
@@ -2768,7 +2814,6 @@ shamefully-hoist=true
     "typescript": "^5.3.3"
   }
 }
-
 ```
 
 ```json
@@ -2791,7 +2836,6 @@ shamefully-hoist=true
     "typescript": "^5.3.3"
   }
 }
-
 ```
 
 ```typescript
@@ -2801,9 +2845,8 @@ shamefully-hoist=true
  * Shared types and utilities across the monorepo
  */
 
-export * from './types';
-export * from './utils';
-
+export * from './types'
+export * from './utils'
 ```
 
 ```typescript
@@ -2812,8 +2855,7 @@ export * from './utils';
  */
 
 // Re-export all types
-export * from './common.types';
-
+export * from './common.types'
 ```
 
 ```typescript
@@ -2823,69 +2865,68 @@ export * from './common.types';
 
 /** API Response wrapper */
 export interface ApiResponse<T> {
-  data: T | null;
-  error: ApiError | null;
-  success: boolean;
+  data: T | null
+  error: ApiError | null
+  success: boolean
 }
 
 /** API Error structure */
 export interface ApiError {
-  code: string;
-  message: string;
-  details?: Record<string, unknown>;
+  code: string
+  message: string
+  details?: Record<string, unknown>
 }
 
 /** Pagination params */
 export interface PaginationParams {
-  page?: number;
-  limit?: number;
-  offset?: number;
+  page?: number
+  limit?: number
+  offset?: number
 }
 
 /** Pagination response metadata */
 export interface PaginationMeta {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+  hasNext: boolean
+  hasPrev: boolean
 }
 
 /** Paginated response */
 export interface PaginatedResponse<T> {
-  data: T[];
-  meta: PaginationMeta;
+  data: T[]
+  meta: PaginationMeta
 }
 
 /** Sort direction */
-export type SortDirection = 'asc' | 'desc';
+export type SortDirection = 'asc' | 'desc'
 
 /** Sort params */
 export interface SortParams {
-  orderBy?: string;
-  orderDir?: SortDirection;
+  orderBy?: string
+  orderDir?: SortDirection
 }
 
 /** Date range filter */
 export interface DateRangeFilter {
-  startDate?: string;
-  endDate?: string;
+  startDate?: string
+  endDate?: string
 }
 
 /** Common entity fields */
 export interface BaseEntity {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  createdAt: string
+  updatedAt: string
 }
 
 /** Soft deletable entity */
 export interface SoftDeletable {
-  deletedAt: string | null;
-  isDeleted: boolean;
+  deletedAt: string | null
+  isDeleted: boolean
 }
-
 ```
 
 ```typescript
@@ -2893,9 +2934,8 @@ export interface SoftDeletable {
  * Shared utilities for TimeFlowPro
  */
 
-export * from './format';
-export * from './validation';
-
+export * from './format'
+export * from './validation'
 ```
 
 ```typescript
@@ -2911,13 +2951,13 @@ export function formatDate(
   locale: string = 'es-CL',
   options?: Intl.DateTimeFormatOptions
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date
   return dateObj.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     ...options,
-  });
+  })
 }
 
 /**
@@ -2928,23 +2968,20 @@ export function formatTime(
   locale: string = 'es-CL',
   options?: Intl.DateTimeFormatOptions
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date
   return dateObj.toLocaleTimeString(locale, {
     hour: '2-digit',
     minute: '2-digit',
     ...options,
-  });
+  })
 }
 
 /**
  * Format a datetime to locale string
  */
-export function formatDateTime(
-  date: Date | string,
-  locale: string = 'es-CL'
-): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return `${formatDate(dateObj, locale)} ${formatTime(dateObj, locale)}`;
+export function formatDateTime(date: Date | string, locale: string = 'es-CL'): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  return `${formatDate(dateObj, locale)} ${formatTime(dateObj, locale)}`
 }
 
 /**
@@ -2952,14 +2989,14 @@ export function formatDateTime(
  */
 export function formatDuration(minutes: number): string {
   if (minutes < 60) {
-    return `${minutes} min`;
+    return `${minutes} min`
   }
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
+  const hours = Math.floor(minutes / 60)
+  const remainingMinutes = minutes % 60
   if (remainingMinutes === 0) {
-    return `${hours}h`;
+    return `${hours}h`
   }
-  return `${hours}h ${remainingMinutes}min`;
+  return `${hours}h ${remainingMinutes}min`
 }
 
 /**
@@ -2975,7 +3012,7 @@ export function formatCurrency(
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(amount)
 }
 
 /**
@@ -2983,21 +3020,20 @@ export function formatCurrency(
  */
 export function formatPhone(phone: string): string {
   // Remove all non-digits
-  const cleaned = phone.replace(/\D/g, '');
+  const cleaned = phone.replace(/\D/g, '')
 
   // Format as +56 9 XXXX XXXX
   if (cleaned.length === 11 && cleaned.startsWith('569')) {
-    return `+56 9 ${cleaned.slice(3, 7)} ${cleaned.slice(7)}`;
+    return `+56 9 ${cleaned.slice(3, 7)} ${cleaned.slice(7)}`
   }
 
   // Format as 9 XXXX XXXX
   if (cleaned.length === 9 && cleaned.startsWith('9')) {
-    return `9 ${cleaned.slice(1, 5)} ${cleaned.slice(5)}`;
+    return `9 ${cleaned.slice(1, 5)} ${cleaned.slice(5)}`
   }
 
-  return phone;
+  return phone
 }
-
 ```
 
 ```typescript
@@ -3009,8 +3045,8 @@ export function formatPhone(phone: string): string {
  * Validate email format
  */
 export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
 }
 
 /**
@@ -3018,19 +3054,19 @@ export function isValidEmail(email: string): boolean {
  * Accepts: +56912345678, 56912345678, 912345678
  */
 export function isValidChileanPhone(phone: string): boolean {
-  const cleaned = phone.replace(/\D/g, '');
+  const cleaned = phone.replace(/\D/g, '')
 
   // Full format with country code: 56912345678 (11 digits)
   if (cleaned.length === 11) {
-    return cleaned.startsWith('569');
+    return cleaned.startsWith('569')
   }
 
   // Without country code: 912345678 (9 digits starting with 9)
   if (cleaned.length === 9) {
-    return cleaned.startsWith('9');
+    return cleaned.startsWith('9')
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -3038,38 +3074,38 @@ export function isValidChileanPhone(phone: string): boolean {
  */
 export function isValidRut(rut: string): boolean {
   // Remove dots and dashes
-  const cleaned = rut.replace(/\./g, '').replace(/-/g, '');
+  const cleaned = rut.replace(/\./g, '').replace(/-/g, '')
 
-  if (cleaned.length < 2) return false;
+  if (cleaned.length < 2) return false
 
-  const body = cleaned.slice(0, -1);
-  const verifier = cleaned.slice(-1).toUpperCase();
+  const body = cleaned.slice(0, -1)
+  const verifier = cleaned.slice(-1).toUpperCase()
 
   // Calculate verification digit
-  let sum = 0;
-  let multiplier = 2;
+  let sum = 0
+  let multiplier = 2
 
   for (let i = body.length - 1; i >= 0; i--) {
-    sum += parseInt(body[i] ?? '0', 10) * multiplier;
-    multiplier = multiplier === 7 ? 2 : multiplier + 1;
+    sum += parseInt(body[i] ?? '0', 10) * multiplier
+    multiplier = multiplier === 7 ? 2 : multiplier + 1
   }
 
-  const expectedVerifier = 11 - (sum % 11);
-  let expectedChar: string;
+  const expectedVerifier = 11 - (sum % 11)
+  let expectedChar: string
 
-  if (expectedVerifier === 11) expectedChar = '0';
-  else if (expectedVerifier === 10) expectedChar = 'K';
-  else expectedChar = expectedVerifier.toString();
+  if (expectedVerifier === 11) expectedChar = '0'
+  else if (expectedVerifier === 10) expectedChar = 'K'
+  else expectedChar = expectedVerifier.toString()
 
-  return verifier === expectedChar;
+  return verifier === expectedChar
 }
 
 /**
  * Validate time format (HH:MM)
  */
 export function isValidTime(time: string): boolean {
-  const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
-  return timeRegex.test(time);
+  const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/
+  return timeRegex.test(time)
 }
 
 /**
@@ -3077,16 +3113,16 @@ export function isValidTime(time: string): boolean {
  */
 export function isEndAfterStart(startTime: string, endTime: string): boolean {
   if (!isValidTime(startTime) || !isValidTime(endTime)) {
-    return false;
+    return false
   }
 
-  const [startHour, startMin] = startTime.split(':').map(Number);
-  const [endHour, endMin] = endTime.split(':').map(Number);
+  const [startHour, startMin] = startTime.split(':').map(Number)
+  const [endHour, endMin] = endTime.split(':').map(Number)
 
-  const startMinutes = (startHour ?? 0) * 60 + (startMin ?? 0);
-  const endMinutes = (endHour ?? 0) * 60 + (endMin ?? 0);
+  const startMinutes = (startHour ?? 0) * 60 + (startMin ?? 0)
+  const endMinutes = (endHour ?? 0) * 60 + (endMin ?? 0)
 
-  return endMinutes > startMinutes;
+  return endMinutes > startMinutes
 }
 
 /**
@@ -3094,13 +3130,12 @@ export function isEndAfterStart(startTime: string, endTime: string): boolean {
  */
 export function isValidUrl(url: string): boolean {
   try {
-    new URL(url);
-    return true;
+    new URL(url)
+    return true
   } catch {
-    return false;
+    return false
   }
 }
-
 ```
 
 ```jsonc
@@ -3117,12 +3152,11 @@ export function isValidUrl(url: string): boolean {
     "declarationMap": true,
     "composite": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
 }
-
 ```
 
 ```json
@@ -3173,7 +3207,6 @@ export function isValidUrl(url: string): boolean {
     "vitest": "^2.1.8"
   }
 }
-
 ```
 
 ```jsonc
@@ -3199,7 +3232,7 @@ export function isValidUrl(url: string): boolean {
       "@/lib/*": ["./src/lib/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/services/*": ["./src/services/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/types/*": ["./src/types/*"],
     },
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -3212,12 +3245,11 @@ export function isValidUrl(url: string): boolean {
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
-
 ```
 
 ```javascript
@@ -3263,7 +3295,7 @@ const nextConfig = {
           },
         ],
       },
-    ];
+    ]
   },
 
   // Experimental features
@@ -3271,14 +3303,13 @@ const nextConfig = {
     // Enable typed routes
     typedRoutes: true,
   },
-};
+}
 
-export default nextConfig;
-
+export default nextConfig
 ```
 
 ```typescript
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: 'class',
@@ -3415,14 +3446,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
-};
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+}
 
-export default config;
-
+export default config
 ```
 
 ```javascript
@@ -3432,29 +3459,27 @@ const config = {
     tailwindcss: {},
     autoprefixer: {},
   },
-};
+}
 
-export default config;
-
+export default config
 ```
 
 ```jsonc
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ],
+  "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
-    "@typescript-eslint/no-unused-vars": ["error", { 
-      "argsIgnorePattern": "^_",
-      "varsIgnorePattern": "^_"
-    }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+      },
+    ],
     "@typescript-eslint/no-explicit-any": "warn",
     "prefer-const": "error",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
-  }
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+  },
 }
-
 ```
 
 ```typescript
@@ -3463,14 +3488,13 @@ export default config;
 
 // NOTE: This file should not be edited
 // see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.
-
 ```
 
 Ahora creo los archivos principales de la aplicación:
 
 ```typescript
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 /**
  * Combines Tailwind CSS classes intelligently
@@ -3480,9 +3504,8 @@ import { twMerge } from 'tailwind-merge';
  * cn('px-4 py-2', isActive && 'bg-primary-500', className)
  */
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
-
 ```
 
 ```typescript
@@ -3490,8 +3513,7 @@ export function cn(...inputs: ClassValue[]): string {
  * Utility functions for the web app
  */
 
-export { cn } from './cn';
-
+export { cn } from './cn'
 ```
 
 ```typescriptreact
@@ -3870,7 +3892,6 @@ export default function HomePage() {
     display: none;
   }
 }
-
 ```
 
 ```typescriptreact
@@ -4358,8 +4379,8 @@ export {
  * All components are accessible and follow WCAG guidelines.
  */
 
-export { Button, buttonVariants, type ButtonProps } from './button';
-export { Input, inputVariants, type InputProps } from './input';
+export { Button, buttonVariants, type ButtonProps } from './button'
+export { Input, inputVariants, type InputProps } from './input'
 export {
   Card,
   CardHeader,
@@ -4369,8 +4390,7 @@ export {
   CardFooter,
   cardVariants,
   type CardProps,
-} from './card';
-
+} from './card'
 ```
 
 Necesito añadir la dependencia de Radix Slot y crear algunos archivos adicionales:
@@ -4424,8 +4444,6 @@ Necesito añadir la dependencia de Radix Slot y crear algunos archivos adicional
     "vitest": "^2.1.8"
   }
 }
-
-
 ```
 
 ```shellscript
@@ -4529,12 +4547,11 @@ yarn-error.log*
  */
 
 // Re-export shared types
-export * from '@timeflowpro/shared';
+export * from '@timeflowpro/shared'
 
 // Export local types
-export * from './api';
-export * from './database';
-
+export * from './api'
+export * from './database'
 ```
 
 ```typescript
@@ -4543,8 +4560,7 @@ export * from './database';
  */
 
 // Placeholder - will be populated with API response types
-export {};
-
+export {}
 ```
 
 ```typescript
@@ -4558,24 +4574,22 @@ export {};
 // Placeholder - will be generated from Supabase schema
 export type Database = {
   public: {
-    Tables: Record<string, never>;
-    Views: Record<string, never>;
-    Functions: Record<string, never>;
-    Enums: Record<string, never>;
-  };
-};
+    Tables: Record<string, never>
+    Views: Record<string, never>
+    Functions: Record<string, never>
+    Enums: Record<string, never>
+  }
+}
 
 export type Tables<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Row'];
+  Database['public']['Tables'][T]['Row']
 
-export type Enums<T extends keyof Database['public']['Enums']> =
-  Database['public']['Enums'][T];
-
+export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T]
 ```
 
 ```typescript
-import { createBrowserClient } from '@supabase/ssr';
-import type { Database } from '@/types/database';
+import { createBrowserClient } from '@supabase/ssr'
+import type { Database } from '@/types/database'
 
 /**
  * Create a Supabase client for browser/client-side usage
@@ -4586,15 +4600,14 @@ export function createClient() {
   return createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  )
 }
-
 ```
 
 ```typescript
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import type { Database } from '@/types/database';
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import type { Database } from '@/types/database'
 
 /**
  * Create a Supabase client for server-side usage (Server Components, Route Handlers)
@@ -4602,7 +4615,7 @@ import type { Database } from '@/types/database';
  * @returns Supabase client instance
  */
 export async function createClient() {
-  const cookieStore = await cookies();
+  const cookieStore = await cookies()
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -4610,13 +4623,13 @@ export async function createClient() {
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll();
+          return cookieStore.getAll()
         },
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
-            });
+              cookieStore.set(name, value, options)
+            })
           } catch {
             // The `setAll` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing user sessions.
@@ -4624,15 +4637,14 @@ export async function createClient() {
         },
       },
     }
-  );
+  )
 }
-
 ```
 
 ```typescript
-import { createServerClient } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
-import type { Database } from '@/types/database';
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+import type { Database } from '@/types/database'
 
 /**
  * Update Supabase session in middleware
@@ -4643,7 +4655,7 @@ import type { Database } from '@/types/database';
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
-  });
+  })
 
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -4651,43 +4663,40 @@ export async function updateSession(request: NextRequest) {
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll();
+          return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
-          });
+          })
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
-          );
+          )
         },
       },
     }
-  );
+  )
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   // Define public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/callback'];
+  const publicRoutes = ['/', '/login', '/callback']
   const isPublicRoute = publicRoutes.some(
     (route) =>
-      request.nextUrl.pathname === route ||
-      request.nextUrl.pathname.startsWith('/reservar/')
-  );
+      request.nextUrl.pathname === route || request.nextUrl.pathname.startsWith('/reservar/')
+  )
 
   // Redirect to login if not authenticated and trying to access protected route
   if (!user && !isPublicRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
@@ -4703,17 +4712,16 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  return supabaseResponse;
+  return supabaseResponse
 }
-
 ```
 
 ```typescript
-import { type NextRequest } from 'next/server';
-import { updateSession } from '@/lib/supabase/middleware';
+import { type NextRequest } from 'next/server'
+import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  return await updateSession(request)
 }
 
 export const config = {
@@ -4727,11 +4735,10 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-};
-
+}
 ```
 
-```markdown
+````markdown
 # 🕐 TimeFlowPro
 
 <div align="center">
@@ -4767,11 +4774,13 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 > "Las agendas tradicionales están pensadas para lugares fijos y tiempos rígidos, no para profesionales móviles ni para servicios que evolucionan con el cliente."
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
+
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
+
 - Los servicios duran 45 min por defecto, pero algunos pacientes solo necesitan 30 min
 - El sistema no considera que necesita 20 min para trasladarse entre ubicaciones
 - Termina con "huecos muertos" que nadie puede reservar
@@ -4784,18 +4793,18 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ### MVP (Fase 1)
 
-| Funcionalidad | Descripción |
-|---------------|-------------|
-| 🔐 **Auth con Google** | Login sin contraseñas, trial de 14 días |
-| 📍 **Multi-ubicación** | Gestiona múltiples lugares de trabajo |
-| 🛠️ **Servicios flexibles** | Duración, precio, reserva online |
-| 👥 **Gestión de clientes** | Historial y datos de contacto |
-| 📅 **Calendario inteligente** | Vista diaria/semanal con colores |
-| ⏱️ **Duración adaptativa** | Aprende del historial cliente-servicio |
-| 🚗 **Travel blocks** | Bloquea tiempo de traslado automáticamente |
-| 🌐 **Portal público** | Clientes reservan sin registrarse |
-| 📆 **Google Calendar** | Sincronización bidireccional |
-| 🔒 **Bloqueos personales** | Almuerzo, vacaciones, tiempo personal |
+| Funcionalidad                 | Descripción                                |
+| ----------------------------- | ------------------------------------------ |
+| 🔐 **Auth con Google**        | Login sin contraseñas, trial de 14 días    |
+| 📍 **Multi-ubicación**        | Gestiona múltiples lugares de trabajo      |
+| 🛠️ **Servicios flexibles**    | Duración, precio, reserva online           |
+| 👥 **Gestión de clientes**    | Historial y datos de contacto              |
+| 📅 **Calendario inteligente** | Vista diaria/semanal con colores           |
+| ⏱️ **Duración adaptativa**    | Aprende del historial cliente-servicio     |
+| 🚗 **Travel blocks**          | Bloquea tiempo de traslado automáticamente |
+| 🌐 **Portal público**         | Clientes reservan sin registrarse          |
+| 📆 **Google Calendar**        | Sincronización bidireccional               |
+| 🔒 **Bloqueos personales**    | Almuerzo, vacaciones, tiempo personal      |
 
 ### Fase 2 (Roadmap)
 
@@ -4808,14 +4817,14 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|------------|
+| Capa         | Tecnología                                     |
+| ------------ | ---------------------------------------------- |
 | **Frontend** | Next.js 14 (App Router), React 18, TailwindCSS |
-| **Backend** | Supabase (PostgreSQL + Auth + Edge Functions) |
-| **Lenguaje** | TypeScript 5.3 |
-| **Hosting** | Vercel (Frontend), Supabase Cloud (Backend) |
-| **CI/CD** | GitHub Actions |
-| **Testing** | Vitest, Testing Library, Playwright (local) |
+| **Backend**  | Supabase (PostgreSQL + Auth + Edge Functions)  |
+| **Lenguaje** | TypeScript 5.3                                 |
+| **Hosting**  | Vercel (Frontend), Supabase Cloud (Backend)    |
+| **CI/CD**    | GitHub Actions                                 |
+| **Testing**  | Vitest, Testing Library, Playwright (local)    |
 
 ### Arquitectura
 
@@ -4825,18 +4834,19 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
 ```
+````
 
 ---
 
@@ -4920,27 +4930,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (1/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (1/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -4984,6 +4994,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -4996,6 +5007,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -5019,6 +5031,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -5028,6 +5041,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -5096,8 +5110,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 # 🕐 TimeFlowPro
@@ -5136,7 +5149,7 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
@@ -5193,18 +5206,18 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
-```
+````
 
 ---
 
@@ -5288,27 +5301,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (2/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (2/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -5352,6 +5365,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -5364,6 +5378,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -5387,6 +5402,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -5396,6 +5412,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -5464,8 +5481,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 Ahora instalo las dependencias para verificar que todo funciona:
 
@@ -5516,17 +5532,17 @@ export async function createClient() {
 }
 
 
-```
+````
 
 ```typescript
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
-import type { Database } from '@/types/database';
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+import type { Database } from '@/types/database'
 
 interface CookieToSet {
-  name: string;
-  value: string;
-  options: CookieOptions;
+  name: string
+  value: string
+  options: CookieOptions
 }
 
 /**
@@ -5538,7 +5554,7 @@ interface CookieToSet {
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
-  });
+  })
 
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -5546,43 +5562,40 @@ export async function updateSession(request: NextRequest) {
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll();
+          return request.cookies.getAll()
         },
         setAll(cookiesToSet: CookieToSet[]) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
-          });
+          })
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
-          );
+          )
         },
       },
     }
-  );
+  )
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   // Define public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/callback'];
+  const publicRoutes = ['/', '/login', '/callback']
   const isPublicRoute = publicRoutes.some(
     (route) =>
-      request.nextUrl.pathname === route ||
-      request.nextUrl.pathname.startsWith('/reservar/')
-  );
+      request.nextUrl.pathname === route || request.nextUrl.pathname.startsWith('/reservar/')
+  )
 
   // Redirect to login if not authenticated and trying to access protected route
   if (!user && !isPublicRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
@@ -5598,10 +5611,8 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  return supabaseResponse;
+  return supabaseResponse
 }
-
-
 ```
 
 ¡Perfecto! Todo compila correctamente. Ahora hago el commit y creo el PR:
@@ -5612,28 +5623,31 @@ export async function updateSession(request: NextRequest) {
 
 ### 📋 Resumen
 
-| Campo | Valor |
-|-------|-------|
-| **Ticket** | T-0-02: Setup Monorepo + Next.js 14 |
-| **Estado** | ✅ Completado |
-| **Branch** | `feature/T-0-02-setup-monorepo-nextjs` |
-| **Commit** | `7a83487` |
-| **PR** | [#1](https://github.com/rcontreras1337/TimeFlowPro/pull/1) |
+| Campo      | Valor                                                      |
+| ---------- | ---------------------------------------------------------- |
+| **Ticket** | T-0-02: Setup Monorepo + Next.js 14                        |
+| **Estado** | ✅ Completado                                              |
+| **Branch** | `feature/T-0-02-setup-monorepo-nextjs`                     |
+| **Commit** | `7a83487`                                                  |
+| **PR**     | [#1](https://github.com/rcontreras1337/TimeFlowPro/pull/1) |
 
 ### 📁 Archivos Creados (38 archivos, +7,156 líneas)
 
 **Monorepo:**
+
 - `package.json` - Root package
 - `pnpm-workspace.yaml` - Workspace config
 - `.npmrc`, `.gitignore`, `.env.example`
 
 **App Web:**
+
 - `apps/web/` - Next.js 14 app completa
 - Componentes UI: Button, Input, Card
 - Supabase clients configurados
 - Arquitectura hexagonal
 
 **Package Shared:**
+
 - `packages/shared/` - Tipos y utilidades compartidas
 - Formatters, validadores, tipos comunes
 
@@ -5680,22 +5694,23 @@ Ahora actualizo la rama local y commiteo los cambios adicionales del `.gitignore
 
 ### 📊 Estado del Sprint 0
 
-| ID | Título | Estado |
-|----|--------|--------|
+| ID     | Título                       | Estado        |
+| ------ | ---------------------------- | ------------- |
 | T-0-01 | Definición de Brand Identity | ✅ Completado |
-| T-0-02 | Setup Monorepo + Next.js 14 | ✅ Completado |
-| T-0-03 | Supabase Local (Docker) | ⬜ Pendiente |
-| T-0-04 | GitHub Actions CI/CD | ⬜ Pendiente |
-| T-0-05 | Husky + Commitlint + ESLint | ⬜ Pendiente |
-| T-0-06 | Sistema de Mensajes (i18n) | ⬜ Pendiente |
+| T-0-02 | Setup Monorepo + Next.js 14  | ✅ Completado |
+| T-0-03 | Supabase Local (Docker)      | ⬜ Pendiente  |
+| T-0-04 | GitHub Actions CI/CD         | ⬜ Pendiente  |
+| T-0-05 | Husky + Commitlint + ESLint  | ⬜ Pendiente  |
+| T-0-06 | Sistema de Mensajes (i18n)   | ⬜ Pendiente  |
 
 **Progreso:** 2/6 tickets completados 🎉
 
 ### 🚀 Próximos Pasos
 
 Los siguientes tickets ya están desbloqueados:
+
 - **T-0-03**: Configuración Supabase Local (Docker)
-- **T-0-04**: GitHub Actions CI/CD Pipeline  
+- **T-0-04**: GitHub Actions CI/CD Pipeline
 - **T-0-05**: Husky + Commitlint + ESLint + Prettier
 - **T-0-06**: Sistema de Mensajes (i18n)
 
@@ -5726,14 +5741,14 @@ pnpm dev
 
 T-0-02: [Infra] Setup Monorepo + Next.js 14 + Design Tokens
 Información General
-Campo	Valor
-Tipo	Infra
-Prioridad	🔴 P0 (Crítica)
-Estimación	5 Story Points
-Sprint	0 - Setup
-HDUs Relacionadas	Ninguna (Infraestructura)
-Bloqueado por	T-0-01
-Bloquea a	T-0-03, T-0-04, T-0-05
+Campo Valor
+Tipo Infra
+Prioridad 🔴 P0 (Crítica)
+Estimación 5 Story Points
+Sprint 0 - Setup
+HDUs Relacionadas Ninguna (Infraestructura)
+Bloqueado por T-0-01
+Bloquea a T-0-03, T-0-04, T-0-05
 Descripción
 Configurar la estructura base del proyecto siguiendo las mejores prácticas:
 
@@ -5744,28 +5759,36 @@ TypeScript estricto
 Estructura de carpetas siguiendo Arquitectura Hexagonal
 Pasos de Implementación
 Paso 1: Inicializar Monorepo
+
 # Crear estructura base
+
 mkdir timeflowpro && cd timeflowpro
 pnpm init
 
 # Crear pnpm-workspace.yaml
+
 cat > pnpm-workspace.yaml << 'EOF'
 packages:
-  - 'apps/*'
-  - 'packages/*'
-EOF
+
+- 'apps/\*'
+- 'packages/\*'
+  EOF
 
 # Crear .npmrc
+
 cat > .npmrc << 'EOF'
 auto-install-peers=true
 strict-peer-dependencies=false
 EOF
 Paso 2: Crear App Next.js 14
+
 # Crear app web
+
 cd apps
-pnpm create next-app@latest web --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+pnpm create next-app@latest web --typescript --tailwind --eslint --app --src-dir --import-alias "@/\*"
 
 # Instalar dependencias adicionales
+
 cd web
 pnpm add @supabase/supabase-js @supabase/ssr
 pnpm add @tanstack/react-query
@@ -5775,48 +5798,50 @@ pnpm add -D @types/node
 Paso 3: Configurar TypeScript Estricto
 // apps/web/tsconfig.json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "ES2022"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/types/*": ["./src/types/*"]
-    },
-    // === STRICT MODE ===
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+"compilerOptions": {
+"target": "ES2022",
+"lib": ["dom", "dom.iterable", "ES2022"],
+"allowJs": true,
+"skipLibCheck": true,
+"strict": true,
+"noEmit": true,
+"esModuleInterop": true,
+"module": "esnext",
+"moduleResolution": "bundler",
+"resolveJsonModule": true,
+"isolatedModules": true,
+"jsx": "preserve",
+"incremental": true,
+"plugins": [{ "name": "next" }],
+"paths": {
+"@/_": ["./src/_"],
+"@/components/_": ["./src/components/_"],
+"@/lib/_": ["./src/lib/_"],
+"@/hooks/_": ["./src/hooks/_"],
+"@/services/_": ["./src/services/_"],
+"@/types/_": ["./src/types/_"]
+},
+// === STRICT MODE ===
+"noImplicitAny": true,
+"strictNullChecks": true,
+"strictFunctionTypes": true,
+"strictBindCallApply": true,
+"strictPropertyInitialization": true,
+"noImplicitThis": true,
+"alwaysStrict": true,
+"noUnusedLocals": true,
+"noUnusedParameters": true,
+"noImplicitReturns": true,
+"noFallthroughCasesInSwitch": true,
+"noUncheckedIndexedAccess": true
+},
+"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+"exclude": ["node_modules"]
 }
 Paso 4: Estructura de Carpetas (Arquitectura Hexagonal)
+
 # Crear estructura
+
 mkdir -p src/{app,components,lib,hooks,services,types,styles}
 mkdir -p src/components/{ui,layout,features}
 mkdir -p src/lib/{supabase,utils}
@@ -5824,152 +5849,153 @@ mkdir -p src/services/{api,domain}
 mkdir -p src/types/{database,api}
 
 # Estructura final:
+
 apps/web/src/
-├── app/                          # Next.js App Router
-│   ├── (auth)/                   # Rutas de autenticación
-│   │   ├── login/
-│   │   └── callback/
-│   ├── (dashboard)/              # Rutas protegidas
-│   │   ├── layout.tsx
-│   │   ├── page.tsx              # Dashboard principal
-│   │   ├── appointments/
-│   │   ├── clients/
-│   │   ├── locations/
-│   │   ├── services/
-│   │   └── settings/
-│   ├── (public)/                 # Portal público
-│   │   └── [slug]/
-│   ├── admin/                    # Panel admin
-│   ├── layout.tsx
-│   ├── page.tsx                  # Landing
-│   └── globals.css
+├── app/ # Next.js App Router
+│ ├── (auth)/ # Rutas de autenticación
+│ │ ├── login/
+│ │ └── callback/
+│ ├── (dashboard)/ # Rutas protegidas
+│ │ ├── layout.tsx
+│ │ ├── page.tsx # Dashboard principal
+│ │ ├── appointments/
+│ │ ├── clients/
+│ │ ├── locations/
+│ │ ├── services/
+│ │ └── settings/
+│ ├── (public)/ # Portal público
+│ │ └── [slug]/
+│ ├── admin/ # Panel admin
+│ ├── layout.tsx
+│ ├── page.tsx # Landing
+│ └── globals.css
 ├── components/
-│   ├── ui/                       # Componentes base (Button, Input, etc.)
-│   ├── layout/                   # Header, Sidebar, Footer
-│   └── features/                 # Componentes de negocio
-│       ├── appointments/
-│       ├── calendar/
-│       ├── clients/
-│       └── auth/
+│ ├── ui/ # Componentes base (Button, Input, etc.)
+│ ├── layout/ # Header, Sidebar, Footer
+│ └── features/ # Componentes de negocio
+│ ├── appointments/
+│ ├── calendar/
+│ ├── clients/
+│ └── auth/
 ├── lib/
-│   ├── supabase/
-│   │   ├── client.ts             # Cliente browser
-│   │   ├── server.ts             # Cliente server
-│   │   └── middleware.ts         # Auth middleware
-│   └── utils/
-│       ├── cn.ts                 # Classnames helper
-│       └── format.ts             # Formatters
+│ ├── supabase/
+│ │ ├── client.ts # Cliente browser
+│ │ ├── server.ts # Cliente server
+│ │ └── middleware.ts # Auth middleware
+│ └── utils/
+│ ├── cn.ts # Classnames helper
+│ └── format.ts # Formatters
 ├── hooks/
-│   ├── use-auth.ts
-│   ├── use-appointments.ts
-│   └── use-availability.ts
+│ ├── use-auth.ts
+│ ├── use-appointments.ts
+│ └── use-availability.ts
 ├── services/
-│   ├── api/                      # Llamadas a API
-│   └── domain/                   # Lógica de negocio
+│ ├── api/ # Llamadas a API
+│ └── domain/ # Lógica de negocio
 ├── types/
-│   ├── database.types.ts         # Generado por Supabase
-│   └── api.types.ts
+│ ├── database.types.ts # Generado por Supabase
+│ └── api.types.ts
 └── styles/
-    ├── tokens/
-    │   ├── colors.css
-    │   └── typography.css
-    └── globals.css
+├── tokens/
+│ ├── colors.css
+│ └── typography.css
+└── globals.css
 Paso 5: Configurar TailwindCSS con Design Tokens
 // apps/web/tailwind.config.ts
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: 'class',
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      colors: {
-        // Primary - Azul Profesional
-        primary: {
-          50: '#EBF5FF',
-          100: '#E1EFFE',
-          200: '#C3DDFD',
-          300: '#A4CAFE',
-          400: '#76A9FA',
-          500: '#3F83F8',
-          600: '#1C64F2',
-          700: '#1A56DB',
-          800: '#1E429F',
-          900: '#233876',
-        },
-        // Secondary - Teal Flow
-        secondary: {
-          50: '#EDFAFA',
-          100: '#D5F5F6',
-          200: '#AFECEF',
-          300: '#7EDCE2',
-          400: '#16BDCA',
-          500: '#0694A2',
-          600: '#047481',
-          700: '#036672',
-          800: '#05505C',
-          900: '#014451',
-        },
-        // Accent - Naranja Energía
-        accent: {
-          50: '#FFF8F1',
-          100: '#FEECDC',
-          200: '#FCD9BD',
-          300: '#FDBA8C',
-          400: '#FF8A4C',
-          500: '#FF5A1F',
-          600: '#D03801',
-          700: '#B43403',
-          800: '#8A2C0D',
-          900: '#73230D',
-        },
-        // Calendar specific
-        calendar: {
-          appointment: '#3F83F8',
-          travel: '#F59E0B',
-          personal: '#8B5CF6',
-          available: '#10B981',
-          unavailable: '#EF4444',
-        },
-      },
-      fontFamily: {
-        sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'monospace'],
-      },
-      fontSize: {
-        xs: ['0.75rem', { lineHeight: '1rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem' }],
-        base: ['1rem', { lineHeight: '1.5rem' }],
-        lg: ['1.125rem', { lineHeight: '1.75rem' }],
-        xl: ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        '5xl': ['3rem', { lineHeight: '1' }],
-      },
-      borderRadius: {
-        'sm': '0.25rem',
-        'md': '0.375rem',
-        'lg': '0.5rem',
-        'xl': '0.75rem',
-        '2xl': '1rem',
-      },
-      boxShadow: {
-        'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-        'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1)',
-      },
-    },
-  },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+darkMode: 'class',
+content: [
+'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
+'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
+],
+theme: {
+extend: {
+colors: {
+// Primary - Azul Profesional
+primary: {
+50: '#EBF5FF',
+100: '#E1EFFE',
+200: '#C3DDFD',
+300: '#A4CAFE',
+400: '#76A9FA',
+500: '#3F83F8',
+600: '#1C64F2',
+700: '#1A56DB',
+800: '#1E429F',
+900: '#233876',
+},
+// Secondary - Teal Flow
+secondary: {
+50: '#EDFAFA',
+100: '#D5F5F6',
+200: '#AFECEF',
+300: '#7EDCE2',
+400: '#16BDCA',
+500: '#0694A2',
+600: '#047481',
+700: '#036672',
+800: '#05505C',
+900: '#014451',
+},
+// Accent - Naranja Energía
+accent: {
+50: '#FFF8F1',
+100: '#FEECDC',
+200: '#FCD9BD',
+300: '#FDBA8C',
+400: '#FF8A4C',
+500: '#FF5A1F',
+600: '#D03801',
+700: '#B43403',
+800: '#8A2C0D',
+900: '#73230D',
+},
+// Calendar specific
+calendar: {
+appointment: '#3F83F8',
+travel: '#F59E0B',
+personal: '#8B5CF6',
+available: '#10B981',
+unavailable: '#EF4444',
+},
+},
+fontFamily: {
+sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+mono: ['var(--font-jetbrains)', 'monospace'],
+},
+fontSize: {
+xs: ['0.75rem', { lineHeight: '1rem' }],
+sm: ['0.875rem', { lineHeight: '1.25rem' }],
+base: ['1rem', { lineHeight: '1.5rem' }],
+lg: ['1.125rem', { lineHeight: '1.75rem' }],
+xl: ['1.25rem', { lineHeight: '1.75rem' }],
+'2xl': ['1.5rem', { lineHeight: '2rem' }],
+'3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+'4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+'5xl': ['3rem', { lineHeight: '1' }],
+},
+borderRadius: {
+'sm': '0.25rem',
+'md': '0.375rem',
+'lg': '0.5rem',
+'xl': '0.75rem',
+'2xl': '1rem',
+},
+boxShadow: {
+'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+'md': '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+},
+},
+},
+plugins: [
+require('@tailwindcss/forms'),
+require('@tailwindcss/typography'),
+],
 }
 
 export default config
@@ -5978,138 +6004,140 @@ Paso 6: Crear Utilidad cn (Classnames)
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Combina clases de Tailwind de forma inteligente
- * Evita conflictos y permite condicionales
- * 
- * @example
- * cn('px-4 py-2', isActive && 'bg-primary-500', className)
- */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-Paso 7: Componente Button Base
-// apps/web/src/components/ui/button.tsx
-import { forwardRef, type ButtonHTMLAttributes } from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils/cn'
+/\*\*
 
-/**
- * Variants del botón siguiendo Design System de TimeFlowPro
- * 
- * @principle Single Responsibility - Solo maneja estilos y variantes
- * @principle Open/Closed - Extensible via className, cerrado para modificación
- */
-const buttonVariants = cva(
+- Combina clases de Tailwind de forma inteligente
+- Evita conflictos y permite condicionales
+-
+- @example
+- cn('px-4 py-2', isActive && 'bg-primary-500', className)
+  \*/
+  export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+  }
+  Paso 7: Componente Button Base
+  // apps/web/src/components/ui/button.tsx
+  import { forwardRef, type ButtonHTMLAttributes } from 'react'
+  import { cva, type VariantProps } from 'class-variance-authority'
+  import { cn } from '@/lib/utils/cn'
+
+/\*\*
+
+- Variants del botón siguiendo Design System de TimeFlowPro
+-
+- @principle Single Responsibility - Solo maneja estilos y variantes
+- @principle Open/Closed - Extensible via className, cerrado para modificación
+  \*/
+  const buttonVariants = cva(
   // Base styles
   [
-    'inline-flex items-center justify-center',
-    'rounded-lg font-medium',
-    'transition-colors duration-200',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-    'disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center',
+  'rounded-lg font-medium',
+  'transition-colors duration-200',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+  'disabled:pointer-events-none disabled:opacity-50',
   ],
   {
-    variants: {
-      variant: {
-        primary: [
-          'bg-primary-500 text-white',
-          'hover:bg-primary-600',
-          'focus-visible:ring-primary-500',
-        ],
-        secondary: [
-          'bg-secondary-500 text-white',
-          'hover:bg-secondary-600',
-          'focus-visible:ring-secondary-500',
-        ],
-        accent: [
-          'bg-accent-500 text-white',
-          'hover:bg-accent-600',
-          'focus-visible:ring-accent-500',
-        ],
-        outline: [
-          'border-2 border-primary-500 text-primary-500',
-          'hover:bg-primary-50',
-          'focus-visible:ring-primary-500',
-        ],
-        ghost: [
-          'text-gray-700',
-          'hover:bg-gray-100',
-          'focus-visible:ring-gray-500',
-        ],
-        destructive: [
-          'bg-red-500 text-white',
-          'hover:bg-red-600',
-          'focus-visible:ring-red-500',
-        ],
-      },
-      size: {
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-10 px-4 text-base',
-        lg: 'h-12 px-6 text-lg',
-        icon: 'h-10 w-10',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
-    },
+  variants: {
+  variant: {
+  primary: [
+  'bg-primary-500 text-white',
+  'hover:bg-primary-600',
+  'focus-visible:ring-primary-500',
+  ],
+  secondary: [
+  'bg-secondary-500 text-white',
+  'hover:bg-secondary-600',
+  'focus-visible:ring-secondary-500',
+  ],
+  accent: [
+  'bg-accent-500 text-white',
+  'hover:bg-accent-600',
+  'focus-visible:ring-accent-500',
+  ],
+  outline: [
+  'border-2 border-primary-500 text-primary-500',
+  'hover:bg-primary-50',
+  'focus-visible:ring-primary-500',
+  ],
+  ghost: [
+  'text-gray-700',
+  'hover:bg-gray-100',
+  'focus-visible:ring-gray-500',
+  ],
+  destructive: [
+  'bg-red-500 text-white',
+  'hover:bg-red-600',
+  'focus-visible:ring-red-500',
+  ],
+  },
+  size: {
+  sm: 'h-8 px-3 text-sm',
+  md: 'h-10 px-4 text-base',
+  lg: 'h-12 px-6 text-lg',
+  icon: 'h-10 w-10',
+  },
+  },
+  defaultVariants: {
+  variant: 'primary',
+  size: 'md',
+  },
   }
-)
+  )
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  isLoading?: boolean
+extends ButtonHTMLAttributes<HTMLButtonElement>,
+VariantProps<typeof buttonVariants> {
+isLoading?: boolean
 }
 
-/**
- * Componente Button base de TimeFlowPro
- * 
- * @example
- * <Button variant="primary" size="lg">Guardar</Button>
- * <Button variant="outline" isLoading>Procesando...</Button>
- */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+/\*\*
+
+- Componente Button base de TimeFlowPro
+-
+- @example
+- <Button variant="primary" size="lg">Guardar</Button>
+- <Button variant="outline" isLoading>Procesando...</Button>
+  \*/
+  export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, isLoading, children, disabled, ...props }, ref) => {
-    return (
-      <button
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        disabled={disabled || isLoading}
-        {...props}
-      >
-        {isLoading ? (
-          <>
-            <svg
-              className="mr-2 h-4 w-4 animate-spin"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              />
-            </svg>
-            Cargando...
-          </>
-        ) : (
-          children
-        )}
-      </button>
-    )
+  return (
+  <button
+  className={cn(buttonVariants({ variant, size, className }))}
+  ref={ref}
+  disabled={disabled || isLoading}
+  {...props} >
+  {isLoading ? (
+  <>
+  <svg
+                className="mr-2 h-4 w-4 animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+  <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+  <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
+  </svg>
+  Cargando...
+  </>
+  ) : (
+  children
+  )}
+  </button>
+  )
   }
-)
+  )
 
 Button.displayName = 'Button'
 
@@ -6121,94 +6149,94 @@ import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
 const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-jakarta',
-  display: 'swap',
+subsets: ['latin'],
+variable: '--font-jakarta',
+display: 'swap',
 })
 
 const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
+subsets: ['latin'],
+variable: '--font-jetbrains',
+display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: {
-    default: 'TimeFlowPro - Agenda Inteligente para Profesionales Móviles',
-    template: '%s | TimeFlowPro',
-  },
-  description:
-    'La primera agenda digital que entiende que los profesionales se mueven. Calcula traslados, adapta duraciones y optimiza tu jornada.',
-  keywords: [
-    'agenda profesional',
-    'kinesiólogo',
-    'barbero',
-    'profesional móvil',
-    'gestión de citas',
-  ],
-  authors: [{ name: 'TimeFlowPro Team' }],
-  openGraph: {
-    type: 'website',
-    locale: 'es_CL',
-    url: 'https://timeflowpro.app',
-    title: 'TimeFlowPro - Agenda Inteligente',
-    description: 'Optimiza tu agenda con duraciones adaptativas y gestión de traslados',
-    siteName: 'TimeFlowPro',
-  },
+title: {
+default: 'TimeFlowPro - Agenda Inteligente para Profesionales Móviles',
+template: '%s | TimeFlowPro',
+},
+description:
+'La primera agenda digital que entiende que los profesionales se mueven. Calcula traslados, adapta duraciones y optimiza tu jornada.',
+keywords: [
+'agenda profesional',
+'kinesiólogo',
+'barbero',
+'profesional móvil',
+'gestión de citas',
+],
+authors: [{ name: 'TimeFlowPro Team' }],
+openGraph: {
+type: 'website',
+locale: 'es_CL',
+url: 'https://timeflowpro.app',
+title: 'TimeFlowPro - Agenda Inteligente',
+description: 'Optimiza tu agenda con duraciones adaptativas y gestión de traslados',
+siteName: 'TimeFlowPro',
+},
 }
 
 export default function RootLayout({
-  children,
+children,
 }: {
-  children: React.ReactNode
+children: React.ReactNode
 }) {
-  return (
-    <html lang="es" className={`${jakarta.variable} ${jetbrains.variable}`}>
-      <body className="font-sans antialiased bg-gray-50 text-gray-900">
-        {children}
-      </body>
-    </html>
-  )
+return (
+
+<html lang="es" className={`${jakarta.variable} ${jetbrains.variable}`}>
+<body className="font-sans antialiased bg-gray-50 text-gray-900">
+{children}
+</body>
+</html>
+)
 }
 Criterios de Aceptación Técnicos
- pnpm install ejecuta sin errores
- pnpm dev inicia servidor en localhost:3000
- pnpm build compila sin errores ni warnings
- pnpm typecheck pasa sin errores
- Colores del Design Token visibles en página de prueba
- Componente Button renderiza en todas las variantes
- Fuente Plus Jakarta Sans carga correctamente
+pnpm install ejecuta sin errores
+pnpm dev inicia servidor en localhost:3000
+pnpm build compila sin errores ni warnings
+pnpm typecheck pasa sin errores
+Colores del Design Token visibles en página de prueba
+Componente Button renderiza en todas las variantes
+Fuente Plus Jakarta Sans carga correctamente
 Archivos a Crear/Modificar
 timeflowpro/
 ├── pnpm-workspace.yaml
 ├── .npmrc
 ├── package.json
 └── apps/
-    └── web/
-        ├── package.json
-        ├── tsconfig.json
-        ├── tailwind.config.ts
-        ├── next.config.js
-        ├── public/
-        │   ├── logo.svg
-        │   └── favicon.ico
-        └── src/
-            ├── app/
-            │   ├── layout.tsx
-            │   ├── page.tsx
-            │   └── globals.css
-            ├── components/
-            │   └── ui/
-            │       └── button.tsx
-            └── lib/
-                └── utils/
-                    └── cn.ts
+└── web/
+├── package.json
+├── tsconfig.json
+├── tailwind.config.ts
+├── next.config.js
+├── public/
+│ ├── logo.svg
+│ └── favicon.ico
+└── src/
+├── app/
+│ ├── layout.tsx
+│ ├── page.tsx
+│ └── globals.css
+├── components/
+│ └── ui/
+│ └── button.tsx
+└── lib/
+└── utils/
+└── cn.ts
 Tests
-Tipo	Descripción	Ubicación
-Unit	Button renderiza correctamente	tests/unit/components/button.test.tsx
-Unit	cn() combina clases sin conflictos	tests/unit/lib/cn.test.ts
-E2E	Página principal carga sin errores	tests/e2e/home.spec.ts (Solo Local)
-
+Tipo Descripción Ubicación
+Unit Button renderiza correctamente tests/unit/components/button.test.tsx
+Unit cn() combina clases sin conflictos tests/unit/lib/cn.test.ts
+E2E Página principal carga sin errores tests/e2e/home.spec.ts (Solo Local)
 
 Deseo Validar que todo se ejecuto en este ticket y que est atodo bien
 
@@ -6325,15 +6353,15 @@ Todo funciona correctamente. Ahora commiteo los cambios adicionales:
 
 ### 📋 Criterios de Aceptación
 
-| # | Criterio | Estado | Evidencia |
-|---|----------|--------|-----------|
-| 1 | `pnpm install` ejecuta sin errores | ✅ | Done in 805ms |
-| 2 | `pnpm dev` inicia servidor en localhost:3000 | ✅ | Ready in 1564ms |
-| 3 | `pnpm build` compila sin errores ni warnings | ✅ | Compiled successfully |
-| 4 | `pnpm typecheck` pasa sin errores | ✅ | Sin errores |
-| 5 | Colores del Design Token visibles | ✅ | Primary blue en hero |
-| 6 | Componente Button renderiza | ✅ | CTAs funcionando |
-| 7 | Fuente Plus Jakarta Sans carga | ✅ | Visible en screenshots |
+| #   | Criterio                                     | Estado | Evidencia              |
+| --- | -------------------------------------------- | ------ | ---------------------- |
+| 1   | `pnpm install` ejecuta sin errores           | ✅     | Done in 805ms          |
+| 2   | `pnpm dev` inicia servidor en localhost:3000 | ✅     | Ready in 1564ms        |
+| 3   | `pnpm build` compila sin errores ni warnings | ✅     | Compiled successfully  |
+| 4   | `pnpm typecheck` pasa sin errores            | ✅     | Sin errores            |
+| 5   | Colores del Design Token visibles            | ✅     | Primary blue en hero   |
+| 6   | Componente Button renderiza                  | ✅     | CTAs funcionando       |
+| 7   | Fuente Plus Jakarta Sans carga               | ✅     | Visible en screenshots |
 
 ### 📁 Estructura de Carpetas (Arquitectura Hexagonal)
 
@@ -6361,9 +6389,9 @@ Todo funciona correctamente. Ahora commiteo los cambios adicionales:
 
 ### 🖼️ Screenshots de Validación
 
-| Página | Estado |
-|--------|--------|
-| Landing (/) | ✅ Funciona - Hero, Features, CTA |
+| Página         | Estado                                |
+| -------------- | ------------------------------------- |
+| Landing (/)    | ✅ Funciona - Hero, Features, CTA     |
 | Login (/login) | ✅ Funciona - Placeholder para T-1-03 |
 
 ### 📦 Commits Realizados
@@ -6375,19 +6403,19 @@ Todo funciona correctamente. Ahora commiteo los cambios adicionales:
 
 ### 🎯 Resumen
 
-| Métrica | Valor |
-|---------|-------|
-| **Archivos creados** | 40 |
-| **Líneas de código** | +7,228 |
-| **Componentes UI** | 3 (Button, Input, Card) |
-| **Dependencias** | 22 (prod + dev) |
-| **Build size** | 94.1 kB (First Load JS) |
+| Métrica              | Valor                   |
+| -------------------- | ----------------------- |
+| **Archivos creados** | 40                      |
+| **Líneas de código** | +7,228                  |
+| **Componentes UI**   | 3 (Button, Input, Card) |
+| **Dependencias**     | 22 (prod + dev)         |
+| **Build size**       | 94.1 kB (First Load JS) |
 
 ---
 
 **✅ El ticket T-0-02 está completamente validado y funcionando.**
 
-El servidor de desarrollo sigue corriendo en `http://localhost:3000`. 
+El servidor de desarrollo sigue corriendo en `http://localhost:3000`.
 
 ¿Deseas continuar con el siguiente ticket del Sprint 0?
 
@@ -6424,14 +6452,14 @@ El servidor de desarrollo sigue corriendo en `http://localhost:3000`.
 
 T-0-03: [Infra] Configuración Supabase Local (Docker)
 Información General
-Campo	Valor
-Tipo	Infra
-Prioridad	🔴 P0 (Crítica)
-Estimación	3 Story Points
-Sprint	0 - Setup
-HDUs Relacionadas	Ninguna (Infraestructura)
-Bloqueado por	T-0-02
-Bloquea a	T-1-01
+Campo Valor
+Tipo Infra
+Prioridad 🔴 P0 (Crítica)
+Estimación 3 Story Points
+Sprint 0 - Setup
+HDUs Relacionadas Ninguna (Infraestructura)
+Bloqueado por T-0-02
+Bloquea a T-1-01
 Descripción
 Configurar Supabase local para desarrollo usando Docker:
 
@@ -6441,21 +6469,26 @@ Generación de tipos TypeScript automática
 Scripts de seed para datos de prueba
 Pasos de Implementación
 Paso 1: Instalar Supabase CLI
+
 # Instalar CLI globalmente
+
 pnpm add -g supabase
 
 # Verificar instalación
+
 supabase --version
 Paso 2: Inicializar Supabase
 cd timeflowpro
 supabase init
 
 # Estructura creada:
+
 supabase/
-├── config.toml           # Configuración
-├── seed.sql              # Datos iniciales
-└── migrations/           # Migraciones SQL
+├── config.toml # Configuración
+├── seed.sql # Datos iniciales
+└── migrations/ # Migraciones SQL
 Paso 3: Configurar config.toml
+
 # supabase/config.toml
 
 [api]
@@ -6486,8 +6519,8 @@ api_url = "http://127.0.0.1"
 enabled = true
 site_url = "http://127.0.0.1:3000"
 additional_redirect_urls = [
-  "http://127.0.0.1:3000/auth/callback",
-  "http://localhost:3000/auth/callback"
+"http://127.0.0.1:3000/auth/callback",
+"http://localhost:3000/auth/callback"
 ]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
@@ -6507,141 +6540,148 @@ file_size_limit = "50MiB"
 [realtime]
 enabled = true
 Paso 4: Crear .env.local
+
 # apps/web/.env.local
 
 # Supabase Local
+
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 # Google OAuth (obtener de Google Cloud Console)
+
 GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-client-secret
 
 # App
+
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 Paso 5: Crear Cliente Supabase (Browser)
 // apps/web/src/lib/supabase/client.ts
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from '@/types/database.types'
 
-/**
- * Cliente Supabase para componentes del lado del cliente
- * 
- * @principle Singleton - Una única instancia por sesión
- */
-export function createClient() {
-  return createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-}
-Paso 6: Crear Cliente Supabase (Server)
-// apps/web/src/lib/supabase/server.ts
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import type { Database } from '@/types/database.types'
+/\*\*
 
-/**
- * Cliente Supabase para Server Components y Route Handlers
- * Maneja cookies automáticamente para auth
- */
-export async function createClient() {
+- Cliente Supabase para componentes del lado del cliente
+-
+- @principle Singleton - Una única instancia por sesión
+  \*/
+  export function createClient() {
+  return createBrowserClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+  }
+  Paso 6: Crear Cliente Supabase (Server)
+  // apps/web/src/lib/supabase/server.ts
+  import { createServerClient, type CookieOptions } from '@supabase/ssr'
+  import { cookies } from 'next/headers'
+  import type { Database } from '@/types/database.types'
+
+/\*\*
+
+- Cliente Supabase para Server Components y Route Handlers
+- Maneja cookies automáticamente para auth
+  \*/
+  export async function createClient() {
   const cookieStore = await cookies()
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          } catch {
-            // Puede fallar en Server Components, es esperado
-          }
-        },
-      },
-    }
-  )
+return createServerClient<Database>(
+process.env.NEXT_PUBLIC_SUPABASE_URL!,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+{
+cookies: {
+getAll() {
+return cookieStore.getAll()
+},
+setAll(cookiesToSet) {
+try {
+cookiesToSet.forEach(({ name, value, options }) =>
+cookieStore.set(name, value, options)
+)
+} catch {
+// Puede fallar en Server Components, es esperado
+}
+},
+},
+}
+)
 }
 Paso 7: Script de Generación de Tipos
 // package.json (root)
 {
-  "scripts": {
-    "supabase:start": "supabase start",
-    "supabase:stop": "supabase stop",
-    "supabase:status": "supabase status",
-    "supabase:reset": "supabase db reset",
-    "supabase:types": "supabase gen types typescript --local > apps/web/src/types/database.types.ts",
-    "supabase:migrate": "supabase db push",
-    "supabase:seed": "supabase db reset --debug"
-  }
+"scripts": {
+"supabase:start": "supabase start",
+"supabase:stop": "supabase stop",
+"supabase:status": "supabase status",
+"supabase:reset": "supabase db reset",
+"supabase:types": "supabase gen types typescript --local > apps/web/src/types/database.types.ts",
+"supabase:migrate": "supabase db push",
+"supabase:seed": "supabase db reset --debug"
+}
 }
 Paso 8: Placeholder para Tipos
 // apps/web/src/types/database.types.ts
-/**
- * ARCHIVO AUTO-GENERADO
- * No modificar manualmente
- * Ejecutar: pnpm supabase:types
- */
+/\*\*
+
+- ARCHIVO AUTO-GENERADO
+- No modificar manualmente
+- Ejecutar: pnpm supabase:types
+  \*/
 
 export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+| string
+| number
+| boolean
+| null
+| { [key: string]: Json | undefined }
+| Json[]
 
 export interface Database {
-  public: {
-    Tables: {
-      // Se generará automáticamente después de T-1-01
-    }
-    Views: {}
-    Functions: {}
-    Enums: {}
-  }
+public: {
+Tables: {
+// Se generará automáticamente después de T-1-01
+}
+Views: {}
+Functions: {}
+Enums: {}
+}
 }
 
 // Helpers de tipos
-export type Tables<T extends keyof Database['public']['Tables']> = 
-  Database['public']['Tables'][T]['Row']
-export type Enums<T extends keyof Database['public']['Enums']> = 
-  Database['public']['Enums'][T]
+export type Tables<T extends keyof Database['public']['Tables']> =
+Database['public']['Tables'][T]['Row']
+export type Enums<T extends keyof Database['public']['Enums']> =
+Database['public']['Enums'][T]
 Criterios de Aceptación Técnicos
- supabase start levanta contenedores sin errores
- Supabase Studio accesible en http://localhost:54323
- API REST accesible en http://localhost:54321
- supabase db reset ejecuta seed correctamente
- pnpm supabase:types genera tipos TypeScript
- Variables de entorno configuradas en .env.local
+supabase start levanta contenedores sin errores
+Supabase Studio accesible en http://localhost:54323
+API REST accesible en http://localhost:54321
+supabase db reset ejecuta seed correctamente
+pnpm supabase:types genera tipos TypeScript
+Variables de entorno configuradas en .env.local
 Archivos a Crear/Modificar
 timeflowpro/
 ├── supabase/
-│   ├── config.toml
-│   ├── seed.sql
-│   └── migrations/
-│       └── .gitkeep
+│ ├── config.toml
+│ ├── seed.sql
+│ └── migrations/
+│ └── .gitkeep
 ├── package.json (scripts)
 └── apps/web/
-    ├── .env.local
-    ├── .env.example
-    └── src/
-        ├── lib/supabase/
-        │   ├── client.ts
-        │   └── server.ts
-        └── types/
-            └── database.types.ts
+├── .env.local
+├── .env.example
+└── src/
+├── lib/supabase/
+│ ├── client.ts
+│ └── server.ts
+└── types/
+└── database.types.ts
 Tests
-Tipo	Descripción	Ubicación
-Integration	Conexión a Supabase local	tests/integration/supabase-connection.test.ts
-Unit	Cliente browser se crea correctamente	tests/unit/lib/supabase-client.test.ts
+Tipo Descripción Ubicación
+Integration Conexión a Supabase local tests/integration/supabase-connection.test.ts
+Unit Cliente browser se crea correctamente tests/unit/lib/supabase-client.test.ts
 
 Valida que si existen los archivos no los crees otras vez editalos, si tienes dudas consulta
 
@@ -7457,11 +7497,11 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 -- Example:
 --
 -- INSERT INTO profiles (id, email, full_name, role, status)
--- VALUES 
+-- VALUES
 --   ('00000000-0000-0000-0000-000000000001', 'demo@timeflowpro.app', 'Usuario Demo', 'professional', 'active');
 --
 -- INSERT INTO locations (id, user_id, name, address, is_active)
--- VALUES 
+-- VALUES
 --   ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', 'Oficina Principal', 'Av. Principal 123', true);
 
 -- For now, just log that seed was executed
@@ -7559,13 +7599,7 @@ NEXT_PUBLIC_APP_ENV=development
  * =============================================
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export interface Database {
   public: {
@@ -7622,7 +7656,7 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
         Database[PublicTableNameOrOptions['schema']]['Views'])
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
       Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
@@ -7645,12 +7679,10 @@ export type Tables<
  * @example type NewProfile = TablesInsert<'profiles'>
  */
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof Database['public']['Tables']
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
@@ -7670,12 +7702,10 @@ export type TablesInsert<
  * @example type ProfileUpdate = TablesUpdate<'profiles'>
  */
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof Database['public']['Tables']
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
@@ -7695,18 +7725,15 @@ export type TablesUpdate<
  * @example type UserRole = Enums<'user_role'>
  */
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof Database['public']['Enums']
-    | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
-    : never = never
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never
-
 ```
 
 ```typescript
@@ -7717,16 +7744,7 @@ export type Enums<
  * Run `pnpm supabase:types` to regenerate after schema changes.
  */
 
-export type {
-  Database,
-  Tables,
-  TablesInsert,
-  TablesUpdate,
-  Enums,
-  Json,
-} from '../database.types';
-
-
+export type { Database, Tables, TablesInsert, TablesUpdate, Enums, Json } from '../database.types'
 ```
 
 ```json
@@ -7768,8 +7786,6 @@ export type {
     "typescript": "^5.3.3"
   }
 }
-
-
 ```
 
 ---
@@ -7780,14 +7796,14 @@ continua
 
 continua por favor T-0-03: [Infra] Configuración Supabase Local (Docker)
 Información General
-Campo	Valor
-Tipo	Infra
-Prioridad	🔴 P0 (Crítica)
-Estimación	3 Story Points
-Sprint	0 - Setup
-HDUs Relacionadas	Ninguna (Infraestructura)
-Bloqueado por	T-0-02
-Bloquea a	T-1-01
+Campo Valor
+Tipo Infra
+Prioridad 🔴 P0 (Crítica)
+Estimación 3 Story Points
+Sprint 0 - Setup
+HDUs Relacionadas Ninguna (Infraestructura)
+Bloqueado por T-0-02
+Bloquea a T-1-01
 Descripción
 Configurar Supabase local para desarrollo usando Docker:
 
@@ -7797,21 +7813,26 @@ Generación de tipos TypeScript automática
 Scripts de seed para datos de prueba
 Pasos de Implementación
 Paso 1: Instalar Supabase CLI
+
 # Instalar CLI globalmente
+
 pnpm add -g supabase
 
 # Verificar instalación
+
 supabase --version
 Paso 2: Inicializar Supabase
 cd timeflowpro
 supabase init
 
 # Estructura creada:
+
 supabase/
-├── config.toml           # Configuración
-├── seed.sql              # Datos iniciales
-└── migrations/           # Migraciones SQL
+├── config.toml # Configuración
+├── seed.sql # Datos iniciales
+└── migrations/ # Migraciones SQL
 Paso 3: Configurar config.toml
+
 # supabase/config.toml
 
 [api]
@@ -7842,8 +7863,8 @@ api_url = "http://127.0.0.1"
 enabled = true
 site_url = "http://127.0.0.1:3000"
 additional_redirect_urls = [
-  "http://127.0.0.1:3000/auth/callback",
-  "http://localhost:3000/auth/callback"
+"http://127.0.0.1:3000/auth/callback",
+"http://localhost:3000/auth/callback"
 ]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
@@ -7863,141 +7884,148 @@ file_size_limit = "50MiB"
 [realtime]
 enabled = true
 Paso 4: Crear .env.local
+
 # apps/web/.env.local
 
 # Supabase Local
+
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 # Google OAuth (obtener de Google Cloud Console)
+
 GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-client-secret
 
 # App
+
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 Paso 5: Crear Cliente Supabase (Browser)
 // apps/web/src/lib/supabase/client.ts
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from '@/types/database.types'
 
-/**
- * Cliente Supabase para componentes del lado del cliente
- * 
- * @principle Singleton - Una única instancia por sesión
- */
-export function createClient() {
-  return createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-}
-Paso 6: Crear Cliente Supabase (Server)
-// apps/web/src/lib/supabase/server.ts
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import type { Database } from '@/types/database.types'
+/\*\*
 
-/**
- * Cliente Supabase para Server Components y Route Handlers
- * Maneja cookies automáticamente para auth
- */
-export async function createClient() {
+- Cliente Supabase para componentes del lado del cliente
+-
+- @principle Singleton - Una única instancia por sesión
+  \*/
+  export function createClient() {
+  return createBrowserClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+  }
+  Paso 6: Crear Cliente Supabase (Server)
+  // apps/web/src/lib/supabase/server.ts
+  import { createServerClient, type CookieOptions } from '@supabase/ssr'
+  import { cookies } from 'next/headers'
+  import type { Database } from '@/types/database.types'
+
+/\*\*
+
+- Cliente Supabase para Server Components y Route Handlers
+- Maneja cookies automáticamente para auth
+  \*/
+  export async function createClient() {
   const cookieStore = await cookies()
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          } catch {
-            // Puede fallar en Server Components, es esperado
-          }
-        },
-      },
-    }
-  )
+return createServerClient<Database>(
+process.env.NEXT_PUBLIC_SUPABASE_URL!,
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+{
+cookies: {
+getAll() {
+return cookieStore.getAll()
+},
+setAll(cookiesToSet) {
+try {
+cookiesToSet.forEach(({ name, value, options }) =>
+cookieStore.set(name, value, options)
+)
+} catch {
+// Puede fallar en Server Components, es esperado
+}
+},
+},
+}
+)
 }
 Paso 7: Script de Generación de Tipos
 // package.json (root)
 {
-  "scripts": {
-    "supabase:start": "supabase start",
-    "supabase:stop": "supabase stop",
-    "supabase:status": "supabase status",
-    "supabase:reset": "supabase db reset",
-    "supabase:types": "supabase gen types typescript --local > apps/web/src/types/database.types.ts",
-    "supabase:migrate": "supabase db push",
-    "supabase:seed": "supabase db reset --debug"
-  }
+"scripts": {
+"supabase:start": "supabase start",
+"supabase:stop": "supabase stop",
+"supabase:status": "supabase status",
+"supabase:reset": "supabase db reset",
+"supabase:types": "supabase gen types typescript --local > apps/web/src/types/database.types.ts",
+"supabase:migrate": "supabase db push",
+"supabase:seed": "supabase db reset --debug"
+}
 }
 Paso 8: Placeholder para Tipos
 // apps/web/src/types/database.types.ts
-/**
- * ARCHIVO AUTO-GENERADO
- * No modificar manualmente
- * Ejecutar: pnpm supabase:types
- */
+/\*\*
+
+- ARCHIVO AUTO-GENERADO
+- No modificar manualmente
+- Ejecutar: pnpm supabase:types
+  \*/
 
 export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+| string
+| number
+| boolean
+| null
+| { [key: string]: Json | undefined }
+| Json[]
 
 export interface Database {
-  public: {
-    Tables: {
-      // Se generará automáticamente después de T-1-01
-    }
-    Views: {}
-    Functions: {}
-    Enums: {}
-  }
+public: {
+Tables: {
+// Se generará automáticamente después de T-1-01
+}
+Views: {}
+Functions: {}
+Enums: {}
+}
 }
 
 // Helpers de tipos
-export type Tables<T extends keyof Database['public']['Tables']> = 
-  Database['public']['Tables'][T]['Row']
-export type Enums<T extends keyof Database['public']['Enums']> = 
-  Database['public']['Enums'][T]
+export type Tables<T extends keyof Database['public']['Tables']> =
+Database['public']['Tables'][T]['Row']
+export type Enums<T extends keyof Database['public']['Enums']> =
+Database['public']['Enums'][T]
 Criterios de Aceptación Técnicos
- supabase start levanta contenedores sin errores
- Supabase Studio accesible en http://localhost:54323
- API REST accesible en http://localhost:54321
- supabase db reset ejecuta seed correctamente
- pnpm supabase:types genera tipos TypeScript
- Variables de entorno configuradas en .env.local
+supabase start levanta contenedores sin errores
+Supabase Studio accesible en http://localhost:54323
+API REST accesible en http://localhost:54321
+supabase db reset ejecuta seed correctamente
+pnpm supabase:types genera tipos TypeScript
+Variables de entorno configuradas en .env.local
 Archivos a Crear/Modificar
 timeflowpro/
 ├── supabase/
-│   ├── config.toml
-│   ├── seed.sql
-│   └── migrations/
-│       └── .gitkeep
+│ ├── config.toml
+│ ├── seed.sql
+│ └── migrations/
+│ └── .gitkeep
 ├── package.json (scripts)
 └── apps/web/
-    ├── .env.local
-    ├── .env.example
-    └── src/
-        ├── lib/supabase/
-        │   ├── client.ts
-        │   └── server.ts
-        └── types/
-            └── database.types.ts
+├── .env.local
+├── .env.example
+└── src/
+├── lib/supabase/
+│ ├── client.ts
+│ └── server.ts
+└── types/
+└── database.types.ts
 Tests
-Tipo	Descripción	Ubicación
-Integration	Conexión a Supabase local	tests/integration/supabase-connection.test.ts
-Unit	Cliente browser se crea correctamente	tests/unit/lib/supabase-client.test.ts
+Tipo Descripción Ubicación
+Integration Conexión a Supabase local tests/integration/supabase-connection.test.ts
+Unit Cliente browser se crea correctamente tests/unit/lib/supabase-client.test.ts
 
 ---
 
@@ -8014,6 +8042,7 @@ Voy a verificar la generación de tipos y completar los tests de integración.
 Los tipos se generaron correctamente. Vamos a verificar el archivo generado y crear los tests.
 
 Excelente, los tipos se generaron correctamente. Ahora voy a:
+
 1. Agregar header de documentación al archivo de tipos
 2. Crear los tests de integración y unitarios
 3. Actualizar el README
@@ -8024,18 +8053,12 @@ Excelente, los tipos se generaron correctamente. Ahora voy a:
  * ARCHIVO AUTO-GENERADO POR SUPABASE CLI
  * No modificar manualmente
  * Ejecutar: pnpm supabase:types
- * 
+ *
  * @generated
  * @see https://supabase.com/docs/guides/api/generating-types
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
   graphql_public: {
@@ -8082,33 +8105,31 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -8117,23 +8138,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+    | keyof DefaultSchema['Tables']
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -8142,23 +8163,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+    | keyof DefaultSchema['Tables']
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -8167,36 +8188,36 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
+    | keyof DefaultSchema['Enums']
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
+    | keyof DefaultSchema['CompositeTypes']
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
@@ -8207,8 +8228,6 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
-
 ```
 
 Vitest ya está instalado. Voy a crear la configuración de vitest y los tests requeridos.
@@ -8224,19 +8243,11 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
-    include: [
-      './tests/**/*.test.ts',
-      './tests/**/*.test.tsx',
-    ],
+    include: ['./tests/**/*.test.ts', './tests/**/*.test.tsx'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.*',
-      ],
+      exclude: ['node_modules/', 'tests/', '**/*.d.ts', '**/*.config.*'],
     },
   },
   resolve: {
@@ -8245,7 +8256,6 @@ export default defineConfig({
     },
   },
 })
-
 ```
 
 ```typescript
@@ -8259,7 +8269,6 @@ vi.stubEnv('NEXT_PUBLIC_APP_URL', 'http://localhost:3000')
 
 // Mock de console.warn para tests silenciosos
 vi.spyOn(console, 'warn').mockImplementation(() => {})
-
 ```
 
 ```typescript
@@ -8344,18 +8353,17 @@ describe('Supabase Browser Client', () => {
 describe('Supabase Client Environment Variables', () => {
   it('debe lanzar error si SUPABASE_URL no está definida', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', '')
-    
+
     // El cliente de Supabase debería manejar esto
     expect(process.env.NEXT_PUBLIC_SUPABASE_URL).toBe('')
   })
 
   it('debe lanzar error si ANON_KEY no está definida', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', '')
-    
+
     expect(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY).toBe('')
   })
 })
-
 ```
 
 ```typescript
@@ -8364,17 +8372,18 @@ import { createClient } from '@supabase/supabase-js'
 
 /**
  * Tests de integración para conexión a Supabase Local
- * 
+ *
  * PREREQUISITOS:
  * - Docker debe estar corriendo
  * - Ejecutar `pnpm supabase:start` antes de los tests
- * 
+ *
  * @ticket T-0-03
  */
 
 const SUPABASE_URL = 'http://127.0.0.1:54321'
 // Anon key generado por supabase local (valor por defecto)
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
 
 describe('Supabase Local Connection', () => {
   let supabase: ReturnType<typeof createClient>
@@ -8390,21 +8399,18 @@ describe('Supabase Local Connection', () => {
   describe('API Health Check', () => {
     it('debe conectar al API REST de Supabase', async () => {
       // Hacer una consulta simple para verificar conectividad
-      const { error } = await supabase
-        .from('_non_existent_table_')
-        .select('*')
-        .limit(1)
+      const { error } = await supabase.from('_non_existent_table_').select('*').limit(1)
 
       // Esperamos un error de tabla no encontrada, no de conexión
       // Si el error es de conexión (network), el test falla
       if (error) {
         // Error 42P01 = tabla no existe (comportamiento esperado)
         // PGRST116 = tabla no existe en schema
-        const isExpectedError = 
-          error.code === '42P01' || 
+        const isExpectedError =
+          error.code === '42P01' ||
           error.code === 'PGRST116' ||
           error.message.includes('does not exist')
-        
+
         expect(isExpectedError).toBe(true)
       }
     })
@@ -8412,7 +8418,7 @@ describe('Supabase Local Connection', () => {
     it('debe poder acceder al schema public', async () => {
       // Verificar que el schema public está accesible
       const { data, error } = await supabase.rpc('version')
-      
+
       // Es posible que la función no exista, pero no debería ser error de conexión
       if (error) {
         expect(error.message).not.toContain('Failed to fetch')
@@ -8424,7 +8430,7 @@ describe('Supabase Local Connection', () => {
   describe('Auth Service', () => {
     it('debe tener el servicio de auth disponible', async () => {
       const { data, error } = await supabase.auth.getSession()
-      
+
       // No debería haber error de conexión
       expect(error).toBeNull()
       // No hay sesión activa por defecto
@@ -8435,10 +8441,10 @@ describe('Supabase Local Connection', () => {
       // Verificar que el servicio de auth responde
       const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
         headers: {
-          'apikey': SUPABASE_ANON_KEY,
+          apikey: SUPABASE_ANON_KEY,
         },
       })
-      
+
       expect(response.ok).toBe(true)
       const settings = await response.json()
       expect(settings).toBeDefined()
@@ -8448,7 +8454,7 @@ describe('Supabase Local Connection', () => {
   describe('Storage Service', () => {
     it('debe tener el servicio de storage disponible', async () => {
       const { data, error } = await supabase.storage.listBuckets()
-      
+
       // No debería haber error de conexión
       if (error) {
         expect(error.message).not.toContain('Failed to fetch')
@@ -8461,11 +8467,11 @@ describe('Supabase Local Connection', () => {
   describe('Realtime Service', () => {
     it('debe poder crear una suscripción de realtime', () => {
       const channel = supabase.channel('test-channel')
-      
+
       expect(channel).toBeDefined()
       expect(typeof channel.subscribe).toBe('function')
       expect(typeof channel.unsubscribe).toBe('function')
-      
+
       // Limpiar
       channel.unsubscribe()
     })
@@ -8480,14 +8486,14 @@ describe('Supabase Studio Accessibility', () => {
       const response = await fetch(STUDIO_URL, {
         method: 'GET',
       })
-      
+
       // Studio debería responder (puede ser 200 o redirect)
       expect(response.status).toBeLessThan(500)
     } catch (error) {
       // Si hay error de conexión, el test debe fallar con mensaje claro
       throw new Error(
         `No se pudo conectar a Supabase Studio en ${STUDIO_URL}. ` +
-        'Asegúrate de ejecutar `pnpm supabase:start` antes de los tests.'
+          'Asegúrate de ejecutar `pnpm supabase:start` antes de los tests.'
       )
     }
   })
@@ -8496,18 +8502,17 @@ describe('Supabase Studio Accessibility', () => {
 describe('Database Direct Connection', () => {
   it('debe poder hacer queries SQL básicas via RPC', async () => {
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    
+
     // Intentar ejecutar una función RPC simple
     // Esta prueba verifica que PostgreSQL está respondiendo
     const { error } = await supabase.rpc('pg_sleep', { seconds: 0 })
-    
+
     if (error) {
       // Es válido que la función no exista
       expect(error.code).not.toBe('PGRST000') // Connection error
     }
   })
 })
-
 ```
 
 Ahora voy a crear la configuración de tests en la raíz y actualizar los scripts.
@@ -8523,13 +8528,8 @@ import path from 'path'
 export default defineConfig({
   test: {
     globals: true,
-    include: [
-      './tests/**/*.test.ts',
-    ],
-    exclude: [
-      'node_modules/',
-      'apps/*/node_modules/',
-    ],
+    include: ['./tests/**/*.test.ts'],
+    exclude: ['node_modules/', 'apps/*/node_modules/'],
     testTimeout: 30000, // 30s para tests de integración
     hookTimeout: 30000,
   },
@@ -8539,7 +8539,6 @@ export default defineConfig({
     },
   },
 })
-
 ```
 
 ```json
@@ -8583,8 +8582,6 @@ export default defineConfig({
     "typescript": "^5.3.3"
   }
 }
-
-
 ```
 
 ```json
@@ -8629,8 +8626,6 @@ export default defineConfig({
     "vitest": "^2.1.8"
   }
 }
-
-
 ```
 
 ```typescript
@@ -8639,17 +8634,18 @@ import { createClient } from '@supabase/supabase-js'
 
 /**
  * Tests de integración para conexión a Supabase Local
- * 
+ *
  * PREREQUISITOS:
  * - Docker debe estar corriendo
  * - Ejecutar `pnpm supabase:start` antes de los tests
- * 
+ *
  * @ticket T-0-03
  */
 
 const SUPABASE_URL = 'http://127.0.0.1:54321'
 // Anon key generado por supabase local (valor por defecto)
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
 
 describe('Supabase Local Connection', () => {
   let supabase: ReturnType<typeof createClient>
@@ -8665,22 +8661,19 @@ describe('Supabase Local Connection', () => {
   describe('API Health Check', () => {
     it('debe conectar al API REST de Supabase', async () => {
       // Hacer una consulta simple para verificar conectividad
-      const { error } = await supabase
-        .from('_non_existent_table_')
-        .select('*')
-        .limit(1)
+      const { error } = await supabase.from('_non_existent_table_').select('*').limit(1)
 
       // Esperamos un error de tabla no encontrada, no de conexión
       // Si el error es de conexión (network), el test falla
       if (error) {
         // Verificar que NO es un error de conexión/red
-        const isNetworkError = 
+        const isNetworkError =
           error.message.includes('Failed to fetch') ||
           error.message.includes('NetworkError') ||
           error.message.includes('ECONNREFUSED')
-        
+
         expect(isNetworkError).toBe(false)
-        
+
         // Cualquier otro error es aceptable (tabla no existe, permisos, etc.)
         expect(error).toBeDefined()
       }
@@ -8689,7 +8682,7 @@ describe('Supabase Local Connection', () => {
     it('debe poder acceder al schema public', async () => {
       // Verificar que el schema public está accesible
       const { data, error } = await supabase.rpc('version')
-      
+
       // Es posible que la función no exista, pero no debería ser error de conexión
       if (error) {
         expect(error.message).not.toContain('Failed to fetch')
@@ -8701,7 +8694,7 @@ describe('Supabase Local Connection', () => {
   describe('Auth Service', () => {
     it('debe tener el servicio de auth disponible', async () => {
       const { data, error } = await supabase.auth.getSession()
-      
+
       // No debería haber error de conexión
       expect(error).toBeNull()
       // No hay sesión activa por defecto
@@ -8712,10 +8705,10 @@ describe('Supabase Local Connection', () => {
       // Verificar que el servicio de auth responde
       const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
         headers: {
-          'apikey': SUPABASE_ANON_KEY,
+          apikey: SUPABASE_ANON_KEY,
         },
       })
-      
+
       expect(response.ok).toBe(true)
       const settings = await response.json()
       expect(settings).toBeDefined()
@@ -8725,7 +8718,7 @@ describe('Supabase Local Connection', () => {
   describe('Storage Service', () => {
     it('debe tener el servicio de storage disponible', async () => {
       const { data, error } = await supabase.storage.listBuckets()
-      
+
       // No debería haber error de conexión
       if (error) {
         expect(error.message).not.toContain('Failed to fetch')
@@ -8738,11 +8731,11 @@ describe('Supabase Local Connection', () => {
   describe('Realtime Service', () => {
     it('debe poder crear una suscripción de realtime', () => {
       const channel = supabase.channel('test-channel')
-      
+
       expect(channel).toBeDefined()
       expect(typeof channel.subscribe).toBe('function')
       expect(typeof channel.unsubscribe).toBe('function')
-      
+
       // Limpiar
       channel.unsubscribe()
     })
@@ -8757,14 +8750,14 @@ describe('Supabase Studio Accessibility', () => {
       const response = await fetch(STUDIO_URL, {
         method: 'GET',
       })
-      
+
       // Studio debería responder (puede ser 200 o redirect)
       expect(response.status).toBeLessThan(500)
     } catch (error) {
       // Si hay error de conexión, el test debe fallar con mensaje claro
       throw new Error(
         `No se pudo conectar a Supabase Studio en ${STUDIO_URL}. ` +
-        'Asegúrate de ejecutar `pnpm supabase:start` antes de los tests.'
+          'Asegúrate de ejecutar `pnpm supabase:start` antes de los tests.'
       )
     }
   })
@@ -8773,24 +8766,22 @@ describe('Supabase Studio Accessibility', () => {
 describe('Database Direct Connection', () => {
   it('debe poder hacer queries SQL básicas via RPC', async () => {
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    
+
     // Intentar ejecutar una función RPC simple
     // Esta prueba verifica que PostgreSQL está respondiendo
     const { error } = await supabase.rpc('pg_sleep', { seconds: 0 })
-    
+
     if (error) {
       // Es válido que la función no exista
       expect(error.code).not.toBe('PGRST000') // Connection error
     }
   })
 })
-
-
 ```
 
 ¡Todos los tests pasan! Ahora voy a actualizar el README y hacer el commit/PR.
 
-```markdown
+````markdown
 # 🕐 TimeFlowPro
 
 <div align="center">
@@ -8826,11 +8817,13 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 > "Las agendas tradicionales están pensadas para lugares fijos y tiempos rígidos, no para profesionales móviles ni para servicios que evolucionan con el cliente."
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
+
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
+
 - Los servicios duran 45 min por defecto, pero algunos pacientes solo necesitan 30 min
 - El sistema no considera que necesita 20 min para trasladarse entre ubicaciones
 - Termina con "huecos muertos" que nadie puede reservar
@@ -8843,18 +8836,18 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ### MVP (Fase 1)
 
-| Funcionalidad | Descripción |
-|---------------|-------------|
-| 🔐 **Auth con Google** | Login sin contraseñas, trial de 14 días |
-| 📍 **Multi-ubicación** | Gestiona múltiples lugares de trabajo |
-| 🛠️ **Servicios flexibles** | Duración, precio, reserva online |
-| 👥 **Gestión de clientes** | Historial y datos de contacto |
-| 📅 **Calendario inteligente** | Vista diaria/semanal con colores |
-| ⏱️ **Duración adaptativa** | Aprende del historial cliente-servicio |
-| 🚗 **Travel blocks** | Bloquea tiempo de traslado automáticamente |
-| 🌐 **Portal público** | Clientes reservan sin registrarse |
-| 📆 **Google Calendar** | Sincronización bidireccional |
-| 🔒 **Bloqueos personales** | Almuerzo, vacaciones, tiempo personal |
+| Funcionalidad                 | Descripción                                |
+| ----------------------------- | ------------------------------------------ |
+| 🔐 **Auth con Google**        | Login sin contraseñas, trial de 14 días    |
+| 📍 **Multi-ubicación**        | Gestiona múltiples lugares de trabajo      |
+| 🛠️ **Servicios flexibles**    | Duración, precio, reserva online           |
+| 👥 **Gestión de clientes**    | Historial y datos de contacto              |
+| 📅 **Calendario inteligente** | Vista diaria/semanal con colores           |
+| ⏱️ **Duración adaptativa**    | Aprende del historial cliente-servicio     |
+| 🚗 **Travel blocks**          | Bloquea tiempo de traslado automáticamente |
+| 🌐 **Portal público**         | Clientes reservan sin registrarse          |
+| 📆 **Google Calendar**        | Sincronización bidireccional               |
+| 🔒 **Bloqueos personales**    | Almuerzo, vacaciones, tiempo personal      |
 
 ### Fase 2 (Roadmap)
 
@@ -8867,14 +8860,14 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|------------|
+| Capa         | Tecnología                                     |
+| ------------ | ---------------------------------------------- |
 | **Frontend** | Next.js 14 (App Router), React 18, TailwindCSS |
-| **Backend** | Supabase (PostgreSQL + Auth + Edge Functions) |
-| **Lenguaje** | TypeScript 5.3 |
-| **Hosting** | Vercel (Frontend), Supabase Cloud (Backend) |
-| **CI/CD** | GitHub Actions |
-| **Testing** | Vitest, Testing Library, Playwright (local) |
+| **Backend**  | Supabase (PostgreSQL + Auth + Edge Functions)  |
+| **Lenguaje** | TypeScript 5.3                                 |
+| **Hosting**  | Vercel (Frontend), Supabase Cloud (Backend)    |
+| **CI/CD**    | GitHub Actions                                 |
+| **Testing**  | Vitest, Testing Library, Playwright (local)    |
 
 ### Arquitectura
 
@@ -8884,18 +8877,19 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
 ```
+````
 
 ---
 
@@ -8979,27 +8973,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (3/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (3/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -9043,6 +9037,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -9055,6 +9050,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -9078,6 +9074,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -9087,6 +9084,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -9155,8 +9153,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 # 🕐 TimeFlowPro
@@ -9195,7 +9192,7 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
@@ -9252,18 +9249,18 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
-```
+````
 
 ---
 
@@ -9347,27 +9344,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (3/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (3/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -9411,6 +9408,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -9423,6 +9421,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -9446,6 +9445,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -9455,6 +9455,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -9495,6 +9496,7 @@ packages/shared/
 ```
 
 #### T-0-03: Configuración Supabase Local (Docker) ✅
+
 - 🐳 **Supabase CLI** instalado y configurado
 - 🔧 **config.toml** configurado con:
   - PostgreSQL 16 en puerto 54322
@@ -9510,6 +9512,7 @@ packages/shared/
 - 🧪 **Tests unitarios** para clientes Supabase (browser/server)
 
 #### Archivos Añadidos T-0-03
+
 ```
 ./
 ├── supabase/
@@ -9564,8 +9567,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 Ahora voy a hacer el commit y crear el PR.
 
@@ -9621,7 +9623,7 @@ Configuracion de Supabase local para desarrollo usando Docker.
 
 Closes T-0-03
 
-```
+````
 
 **T-0-03 completado exitosamente.** 🎉
 
@@ -9629,26 +9631,26 @@ Closes T-0-03
 
 ### ✅ Tareas Completadas
 
-| Paso | Descripción | Estado |
-|------|-------------|--------|
-| 1 | Crear rama `feature/T-0-03-supabase-local` | ✅ |
-| 2 | Instalar Supabase CLI (via Scoop) | ✅ |
-| 3 | Inicializar Supabase (`supabase init`) | ✅ |
-| 4 | Configurar `config.toml` | ✅ |
-| 5 | Crear `seed.sql` inicial | ✅ |
-| 6 | Actualizar `.env.local` y crear `.env.example` | ✅ |
-| 7 | Crear `database.types.ts` placeholder | ✅ |
-| 8 | Validar `supabase start` y Studio | ✅ |
-| 9 | Crear tests de integración y unitarios | ✅ |
-| 10 | Actualizar README y crear PR | ✅ |
+| Paso | Descripción                                    | Estado |
+| ---- | ---------------------------------------------- | ------ |
+| 1    | Crear rama `feature/T-0-03-supabase-local`     | ✅     |
+| 2    | Instalar Supabase CLI (via Scoop)              | ✅     |
+| 3    | Inicializar Supabase (`supabase init`)         | ✅     |
+| 4    | Configurar `config.toml`                       | ✅     |
+| 5    | Crear `seed.sql` inicial                       | ✅     |
+| 6    | Actualizar `.env.local` y crear `.env.example` | ✅     |
+| 7    | Crear `database.types.ts` placeholder          | ✅     |
+| 8    | Validar `supabase start` y Studio              | ✅     |
+| 9    | Crear tests de integración y unitarios         | ✅     |
+| 10   | Actualizar README y crear PR                   | ✅     |
 
 ### 🐳 Servicios Configurados
 
-| Servicio | Puerto | URL |
-|----------|--------|-----|
-| API REST | 54321 | http://127.0.0.1:54321 |
-| PostgreSQL | 54322 | postgresql://postgres:postgres@127.0.0.1:54322/postgres |
-| Studio | 54323 | http://127.0.0.1:54323 |
+| Servicio   | Puerto | URL                                                     |
+| ---------- | ------ | ------------------------------------------------------- |
+| API REST   | 54321  | http://127.0.0.1:54321                                  |
+| PostgreSQL | 54322  | postgresql://postgres:postgres@127.0.0.1:54322/postgres |
+| Studio     | 54323  | http://127.0.0.1:54323                                  |
 
 ### 🧪 Tests
 
@@ -9699,14 +9701,14 @@ La rama `feature/T-0-03-supabase-local` se ha conservado tanto en local como en 
 
 ## Estado del Sprint 0
 
-| Ticket | Título | Estado |
-|--------|--------|--------|
-| T-0-01 | Definición de Brand Identity | ✅ Completado |
-| T-0-02 | Setup Monorepo + Next.js 14 | ✅ Completado |
-| T-0-03 | Configuración Supabase Local (Docker) | ✅ Completado |
-| T-0-04 | GitHub Actions CI/CD Pipeline | ⬜ Pendiente |
-| T-0-05 | Husky + Commitlint + ESLint + Prettier | ⬜ Pendiente |
-| T-0-06 | Sistema de Mensajes (i18n) | ⬜ Pendiente |
+| Ticket | Título                                 | Estado        |
+| ------ | -------------------------------------- | ------------- |
+| T-0-01 | Definición de Brand Identity           | ✅ Completado |
+| T-0-02 | Setup Monorepo + Next.js 14            | ✅ Completado |
+| T-0-03 | Configuración Supabase Local (Docker)  | ✅ Completado |
+| T-0-04 | GitHub Actions CI/CD Pipeline          | ⬜ Pendiente  |
+| T-0-05 | Husky + Commitlint + ESLint + Prettier | ⬜ Pendiente  |
+| T-0-06 | Sistema de Mensajes (i18n)             | ⬜ Pendiente  |
 
 **Progreso: 3/6 tickets completados (50%)**
 
@@ -9718,14 +9720,14 @@ La rama `feature/T-0-03-supabase-local` se ha conservado tanto en local como en 
 
 T-0-04: [Infra] GitHub Actions CI/CD Pipeline
 Información General
-Campo	Valor
-Tipo	Infra
-Prioridad	🔴 P0 (Crítica)
-Estimación	5 Story Points
-Sprint	0 - Setup
-HDUs Relacionadas	Ninguna (Infraestructura)
-Bloqueado por	T-0-02
-Bloquea a	Todos los tickets siguientes
+Campo Valor
+Tipo Infra
+Prioridad 🔴 P0 (Crítica)
+Estimación 5 Story Points
+Sprint 0 - Setup
+HDUs Relacionadas Ninguna (Infraestructura)
+Bloqueado por T-0-02
+Bloquea a Todos los tickets siguientes
 Descripción
 Configurar pipeline de CI/CD completo:
 
@@ -9735,33 +9737,38 @@ Build de producción
 Deploy automático a Vercel (staging/prod)
 Pasos de Implementación
 Paso 1: Crear Workflow Principal
+
 # .github/workflows/ci.yml
+
 name: CI Pipeline
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+push:
+branches: [main, develop]
+pull_request:
+branches: [main, develop]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+group: ${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true
 
 env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '9'
+NODE_VERSION: '20'
+PNPM_VERSION: '9'
 
 jobs:
-  # ============================================
-  # JOB 1: Lint y Type Check
-  # ============================================
-  lint:
-    name: 🔍 Lint & Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+
+# ============================================
+
+# JOB 1: Lint y Type Check
+
+# ============================================
+
+lint:
+name: 🔍 Lint & Type Check
+runs-on: ubuntu-latest
+steps: - name: 📥 Checkout
+uses: actions/checkout@v4
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v3
@@ -9783,16 +9790,18 @@ jobs:
       - name: 📝 Type Check
         run: pnpm typecheck
 
-  # ============================================
-  # JOB 2: Unit Tests
-  # ============================================
-  test-unit:
-    name: 🧪 Unit Tests
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+# ============================================
+
+# JOB 2: Unit Tests
+
+# ============================================
+
+test-unit:
+name: 🧪 Unit Tests
+runs-on: ubuntu-latest
+needs: lint
+steps: - name: 📥 Checkout
+uses: actions/checkout@v4
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v3
@@ -9818,27 +9827,29 @@ jobs:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
 
-  # ============================================
-  # JOB 3: Integration Tests
-  # ============================================
-  test-integration:
-    name: 🔗 Integration Tests
-    runs-on: ubuntu-latest
-    needs: lint
-    services:
-      postgres:
-        image: supabase/postgres:16
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 54322:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+# ============================================
+
+# JOB 3: Integration Tests
+
+# ============================================
+
+test-integration:
+name: 🔗 Integration Tests
+runs-on: ubuntu-latest
+needs: lint
+services:
+postgres:
+image: supabase/postgres:16
+env:
+POSTGRES_USER: postgres
+POSTGRES_PASSWORD: postgres
+POSTGRES_DB: postgres
+ports: - 54322:5432
+options: >-
+--health-cmd pg_isready
+--health-interval 10s
+--health-timeout 5s
+--health-retries 5
 
     steps:
       - name: 📥 Checkout
@@ -9875,16 +9886,18 @@ jobs:
           SUPABASE_URL: http://127.0.0.1:54321
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
-  # ============================================
-  # JOB 4: Build
-  # ============================================
-  build:
-    name: 🏗️ Build
-    runs-on: ubuntu-latest
-    needs: [test-unit, test-integration]
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+# ============================================
+
+# JOB 4: Build
+
+# ============================================
+
+build:
+name: 🏗️ Build
+runs-on: ubuntu-latest
+needs: [test-unit, test-integration]
+steps: - name: 📥 Checkout
+uses: actions/checkout@v4
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v3
@@ -9913,20 +9926,22 @@ jobs:
           path: apps/web/.next
           retention-days: 7
 
-  # ============================================
-  # JOB 5: Deploy Staging
-  # ============================================
-  deploy-staging:
-    name: 🚀 Deploy Staging
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/develop'
-    environment:
-      name: staging
-      url: https://staging.timeflowpro.app
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+# ============================================
+
+# JOB 5: Deploy Staging
+
+# ============================================
+
+deploy-staging:
+name: 🚀 Deploy Staging
+runs-on: ubuntu-latest
+needs: build
+if: github.ref == 'refs/heads/develop'
+environment:
+name: staging
+url: https://staging.timeflowpro.app
+steps: - name: 📥 Checkout
+uses: actions/checkout@v4
 
       - name: 🚀 Deploy to Vercel (Staging)
         uses: amondnet/vercel-action@v25
@@ -9936,20 +9951,22 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: apps/web
 
-  # ============================================
-  # JOB 6: Deploy Production
-  # ============================================
-  deploy-production:
-    name: 🚀 Deploy Production
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: production
-      url: https://timeflowpro.app
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+# ============================================
+
+# JOB 6: Deploy Production
+
+# ============================================
+
+deploy-production:
+name: 🚀 Deploy Production
+runs-on: ubuntu-latest
+needs: build
+if: github.ref == 'refs/heads/main'
+environment:
+name: production
+url: https://timeflowpro.app
+steps: - name: 📥 Checkout
+uses: actions/checkout@v4
 
       - name: 🚀 Deploy to Vercel (Production)
         uses: amondnet/vercel-action@v25
@@ -9959,23 +9976,25 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
           working-directory: apps/web
+
 Paso 2: Crear Workflow de PR
+
 # .github/workflows/pr-check.yml
+
 name: PR Check
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+pull_request:
+types: [opened, synchronize, reopened]
 
 jobs:
-  pr-title:
-    name: 📝 Validate PR Title
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📝 Check PR Title
-        uses: amannn/action-semantic-pull-request@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+pr-title:
+name: 📝 Validate PR Title
+runs-on: ubuntu-latest
+steps: - name: 📝 Check PR Title
+uses: amannn/action-semantic-pull-request@v5
+env:
+GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           types: |
             feat
@@ -9989,44 +10008,43 @@ jobs:
             ci
           requireScope: false
           subjectPattern: ^[A-Z].+$
-          subjectPatternError: |
-            El título del PR debe comenzar con mayúscula.
-            Ejemplo: "feat: Add user authentication"
+subjectPatternError: |
+El título del PR debe comenzar con mayúscula.
+Ejemplo: "feat: Add user authentication"
 
-  size-label:
-    name: 📏 Add Size Label
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📏 Label PR Size
-        uses: codelytv/pr-size-labeler@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          xs_label: 'size/XS'
-          xs_max_size: 10
-          s_label: 'size/S'
-          s_max_size: 100
-          m_label: 'size/M'
-          m_max_size: 500
-          l_label: 'size/L'
-          l_max_size: 1000
-          xl_label: 'size/XL'
-          fail_if_xl: false
+size-label:
+name: 📏 Add Size Label
+runs-on: ubuntu-latest
+steps: - name: 📏 Label PR Size
+uses: codelytv/pr-size-labeler@v1
+with:
+GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+xs_label: 'size/XS'
+xs_max_size: 10
+s_label: 'size/S'
+s_max_size: 100
+m_label: 'size/M'
+m_max_size: 500
+l_label: 'size/L'
+l_max_size: 1000
+xl_label: 'size/XL'
+fail_if_xl: false
 Paso 3: Scripts en package.json
 // apps/web/package.json
 {
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint && eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest",
-    "test:unit": "vitest run --coverage",
-    "test:integration": "vitest run --config vitest.integration.config.ts",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
-  }
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"lint": "next lint && eslint . --ext .ts,.tsx",
+"lint:fix": "eslint . --ext .ts,.tsx --fix",
+"typecheck": "tsc --noEmit",
+"test": "vitest",
+"test:unit": "vitest run --coverage",
+"test:integration": "vitest run --config vitest.integration.config.ts",
+"test:e2e": "playwright test",
+"test:e2e:ui": "playwright test --ui"
+}
 }
 Paso 4: Configurar Vitest
 // apps/web/vitest.config.ts
@@ -10035,77 +10053,77 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./tests/setup.ts'],
-    include: ['tests/unit/**/*.test.{ts,tsx}'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.{ts,js}',
-      ],
-      thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 80,
-        statements: 80,
-      },
-    },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
+plugins: [react()],
+test: {
+environment: 'jsdom',
+globals: true,
+setupFiles: ['./tests/setup.ts'],
+include: ['tests/unit/**/*.test.{ts,tsx}'],
+coverage: {
+provider: 'v8',
+reporter: ['text', 'json', 'html', 'lcov'],
+exclude: [
+'node_modules/',
+'tests/',
+'**/*.d.ts',
+'**/*.config.{ts,js}',
+],
+thresholds: {
+lines: 80,
+functions: 80,
+branches: 80,
+statements: 80,
+},
+},
+},
+resolve: {
+alias: {
+'@': path.resolve(\_\_dirname, './src'),
+},
+},
 })
 Paso 5: Setup de Tests
 // apps/web/tests/setup.ts
 import '@testing-library/jest-dom'
 import { expect, afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
-import * as matchers from '@testing-library/jest-dom/matchers'
+import \* as matchers from '@testing-library/jest-dom/matchers'
 
 // Extender expect con matchers de jest-dom
 expect.extend(matchers)
 
 // Limpiar después de cada test
 afterEach(() => {
-  cleanup()
+cleanup()
 })
 
 // Mock de Next.js router
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn(),
-    refresh: vi.fn(),
-    prefetch: vi.fn(),
-  }),
-  usePathname: () => '/',
-  useSearchParams: () => new URLSearchParams(),
+useRouter: () => ({
+push: vi.fn(),
+replace: vi.fn(),
+back: vi.fn(),
+forward: vi.fn(),
+refresh: vi.fn(),
+prefetch: vi.fn(),
+}),
+usePathname: () => '/',
+useSearchParams: () => new URLSearchParams(),
 }))
 Criterios de Aceptación Técnicos
- Workflow ejecuta en cada push a main/develop
- Workflow ejecuta en cada PR
- Lint + TypeCheck pasan antes de tests
- Tests unitarios ejecutan con coverage
- Build de Next.js completa sin errores
- Deploy a staging automático en develop
- Deploy a producción automático en main
- PR title validation funciona
+Workflow ejecuta en cada push a main/develop
+Workflow ejecuta en cada PR
+Lint + TypeCheck pasan antes de tests
+Tests unitarios ejecutan con coverage
+Build de Next.js completa sin errores
+Deploy a staging automático en develop
+Deploy a producción automático en main
+PR title validation funciona
 Archivos a Crear
 .github/
 ├── workflows/
-│   ├── ci.yml
-│   └── pr-check.yml
+│ ├── ci.yml
+│ └── pr-check.yml
 └── dependabot.yml
 
 apps/web/
@@ -10113,19 +10131,17 @@ apps/web/
 ├── vitest.integration.config.ts
 ├── playwright.config.ts
 └── tests/
-    ├── setup.ts
-    ├── unit/
-    │   └── .gitkeep
-    ├── integration/
-    │   └── .gitkeep
-    └── e2e/
-        └── .gitkeep
+├── setup.ts
+├── unit/
+│ └── .gitkeep
+├── integration/
+│ └── .gitkeep
+└── e2e/
+└── .gitkeep
 Tests
-Tipo	Descripción	Ubicación
-Manual	Verificar que workflow ejecuta en GitHub	GitHub Actions UI
-Unit	Test de ejemplo para validar setup	tests/unit/example.test.ts
-
-
+Tipo Descripción Ubicación
+Manual Verificar que workflow ejecuta en GitHub GitHub Actions UI
+Unit Test de ejemplo para validar setup tests/unit/example.test.ts
 
 Los Test E2E no deben ir en el gitACtion, y el gitAction se debe activar al realizar un PR a la MAIN
 
@@ -10134,6 +10150,7 @@ Los Test E2E no deben ir en el gitACtion, y el gitAction se debe activar al real
 **Cursor**
 
 Perfecto, voy a implementar T-0-04 con las modificaciones indicadas:
+
 - ❌ Sin tests E2E en el GitHub Action
 - ✅ El workflow se activa en PR a `main`
 
@@ -10385,16 +10402,16 @@ jobs:
             "*.key"
             "*secret*"
           )
-          
+
           FOUND_SENSITIVE=false
-          
+
           for pattern in "${SENSITIVE_PATTERNS[@]}"; do
             if git diff --name-only origin/main...HEAD | grep -q "$pattern"; then
               echo "::warning::Archivo sensible detectado: $pattern"
               FOUND_SENSITIVE=true
             fi
           done
-          
+
           if [ "$FOUND_SENSITIVE" = true ]; then
             echo "::warning::Se detectaron archivos potencialmente sensibles. Por favor, revisa antes de mergear."
           fi
@@ -10411,52 +10428,51 @@ jobs:
 version: 2
 updates:
   # Dependencias de npm/pnpm
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "America/Santiago"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'America/Santiago'
     open-pull-requests-limit: 10
     commit-message:
-      prefix: "chore(deps)"
+      prefix: 'chore(deps)'
     labels:
-      - "dependencies"
-      - "automated"
+      - 'dependencies'
+      - 'automated'
     groups:
       # Agrupar actualizaciones menores y patches
       minor-and-patch:
         patterns:
-          - "*"
+          - '*'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
     ignore:
       # Ignorar major updates de estas dependencias (requieren revision manual)
-      - dependency-name: "next"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react-dom"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: 'next'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react-dom'
+        update-types: ['version-update:semver-major']
 
   # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "America/Santiago"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'America/Santiago'
     open-pull-requests-limit: 5
     commit-message:
-      prefix: "ci(deps)"
+      prefix: 'ci(deps)'
     labels:
-      - "dependencies"
-      - "ci"
-      - "automated"
-
+      - 'dependencies'
+      - 'ci'
+      - 'automated'
 ```
 
 ```typescript
@@ -10470,27 +10486,13 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
-    include: [
-      './tests/**/*.test.ts',
-      './tests/**/*.test.tsx',
-    ],
-    exclude: [
-      'node_modules/',
-      'dist/',
-      '.next/',
-    ],
+    include: ['./tests/**/*.test.ts', './tests/**/*.test.tsx'],
+    exclude: ['node_modules/', 'dist/', '.next/'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       reportsDirectory: './coverage',
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '.next/',
-        'src/types/',
-      ],
+      exclude: ['node_modules/', 'tests/', '**/*.d.ts', '**/*.config.*', '.next/', 'src/types/'],
     },
   },
   resolve: {
@@ -10499,8 +10501,6 @@ export default defineConfig({
     },
   },
 })
-
-
 ```
 
 ```json
@@ -10553,8 +10553,6 @@ export default defineConfig({
     "vitest": "^2.1.8"
   }
 }
-
-
 ```
 
 ```typescript
@@ -10588,8 +10586,6 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
 }))
-
-
 ```
 
 ```typescriptreact
@@ -10605,34 +10601,34 @@ describe('Button Component', () => {
   describe('Renderizado', () => {
     it('debe renderizar el texto del boton', () => {
       render(<Button>Click me</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveTextContent('Click me')
     })
 
     it('debe renderizar con la variante default', () => {
       render(<Button>Default</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-primary')
     })
 
     it('debe renderizar con la variante destructive', () => {
       render(<Button variant="destructive">Delete</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-destructive')
     })
 
     it('debe renderizar con la variante outline', () => {
       render(<Button variant="outline">Outline</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('border')
     })
 
     it('debe renderizar con la variante ghost', () => {
       render(<Button variant="ghost">Ghost</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('hover:bg-accent')
     })
@@ -10641,21 +10637,21 @@ describe('Button Component', () => {
   describe('Tamanos', () => {
     it('debe renderizar con tamano default', () => {
       render(<Button size="default">Default Size</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-10')
     })
 
     it('debe renderizar con tamano sm', () => {
       render(<Button size="sm">Small</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-9')
     })
 
     it('debe renderizar con tamano lg', () => {
       render(<Button size="lg">Large</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-11')
     })
@@ -10665,24 +10661,24 @@ describe('Button Component', () => {
     it('debe llamar onClick cuando se hace click', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick}>Click me</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('no debe llamar onClick cuando esta deshabilitado', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick} disabled>Disabled</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
 
     it('debe tener el atributo disabled cuando esta deshabilitado', () => {
       render(<Button disabled>Disabled</Button>)
-      
+
       expect(screen.getByRole('button')).toBeDisabled()
     })
   })
@@ -10690,16 +10686,16 @@ describe('Button Component', () => {
   describe('Accesibilidad', () => {
     it('debe ser focusable', () => {
       render(<Button>Focusable</Button>)
-      
+
       const button = screen.getByRole('button')
       button.focus()
-      
+
       expect(button).toHaveFocus()
     })
 
     it('debe aceptar className adicional', () => {
       render(<Button className="custom-class">Custom</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveClass('custom-class')
     })
   })
@@ -10719,19 +10715,19 @@ describe('cn utility', () => {
   describe('Combinacion basica', () => {
     it('debe combinar multiples clases', () => {
       const result = cn('class1', 'class2', 'class3')
-      
+
       expect(result).toBe('class1 class2 class3')
     })
 
     it('debe filtrar valores falsy', () => {
       const result = cn('class1', null, undefined, false, 'class2')
-      
+
       expect(result).toBe('class1 class2')
     })
 
     it('debe manejar strings vacios', () => {
       const result = cn('class1', '', 'class2')
-      
+
       expect(result).toBe('class1 class2')
     })
   })
@@ -10739,17 +10735,17 @@ describe('cn utility', () => {
   describe('Clases condicionales', () => {
     it('debe manejar objetos de clases', () => {
       const result = cn({
-        'class1': true,
-        'class2': false,
-        'class3': true,
+        class1: true,
+        class2: false,
+        class3: true,
       })
-      
+
       expect(result).toBe('class1 class3')
     })
 
     it('debe combinar strings y objetos', () => {
-      const result = cn('base', { 'conditional': true, 'not-applied': false })
-      
+      const result = cn('base', { conditional: true, 'not-applied': false })
+
       expect(result).toBe('base conditional')
     })
   })
@@ -10757,26 +10753,26 @@ describe('cn utility', () => {
   describe('Tailwind Merge', () => {
     it('debe resolver conflictos de clases Tailwind', () => {
       const result = cn('px-4', 'px-6')
-      
+
       // tailwind-merge deberia mantener solo la ultima
       expect(result).toBe('px-6')
     })
 
     it('debe resolver conflictos de colores', () => {
       const result = cn('text-red-500', 'text-blue-500')
-      
+
       expect(result).toBe('text-blue-500')
     })
 
     it('debe mantener clases no conflictivas', () => {
       const result = cn('px-4', 'py-2', 'text-white')
-      
+
       expect(result).toBe('px-4 py-2 text-white')
     })
 
     it('debe resolver conflictos de padding', () => {
       const result = cn('p-4', 'px-6')
-      
+
       // px-6 deberia sobrescribir el padding horizontal de p-4
       expect(result).toContain('px-6')
     })
@@ -10785,18 +10781,17 @@ describe('cn utility', () => {
   describe('Arrays', () => {
     it('debe manejar arrays de clases', () => {
       const result = cn(['class1', 'class2'], 'class3')
-      
+
       expect(result).toBe('class1 class2 class3')
     })
 
     it('debe manejar arrays anidados', () => {
       const result = cn(['class1', ['class2', 'class3']])
-      
+
       expect(result).toBe('class1 class2 class3')
     })
   })
 })
-
 ```
 
 ```typescript
@@ -10826,14 +10821,14 @@ describe('Example Tests', () => {
   describe('Arrays y objetos', () => {
     it('debe verificar arrays', () => {
       const arr = [1, 2, 3]
-      
+
       expect(arr).toHaveLength(3)
       expect(arr).toContain(2)
     })
 
     it('debe verificar objetos', () => {
       const obj = { name: 'TimeFlowPro', version: '0.1.0' }
-      
+
       expect(obj).toHaveProperty('name')
       expect(obj.name).toBe('TimeFlowPro')
     })
@@ -10841,7 +10836,7 @@ describe('Example Tests', () => {
     it('debe comparar objetos', () => {
       const obj1 = { a: 1, b: 2 }
       const obj2 = { a: 1, b: 2 }
-      
+
       expect(obj1).toEqual(obj2)
     })
   })
@@ -10849,13 +10844,13 @@ describe('Example Tests', () => {
   describe('Async operations', () => {
     it('debe manejar promesas', async () => {
       const promise = Promise.resolve('success')
-      
+
       await expect(promise).resolves.toBe('success')
     })
 
     it('debe manejar rechazos', async () => {
       const promise = Promise.reject(new Error('failure'))
-      
+
       await expect(promise).rejects.toThrow('failure')
     })
   })
@@ -10867,7 +10862,6 @@ describe('Example Tests', () => {
     })
   })
 })
-
 ```
 
 Los tests fallan porque las clases del componente Button son diferentes. Voy a actualizarlos para que coincidan con las clases reales.
@@ -10885,34 +10879,34 @@ describe('Button Component', () => {
   describe('Renderizado', () => {
     it('debe renderizar el texto del boton', () => {
       render(<Button>Click me</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveTextContent('Click me')
     })
 
     it('debe renderizar con la variante default', () => {
       render(<Button>Default</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-primary-500')
     })
 
     it('debe renderizar con la variante destructive', () => {
       render(<Button variant="destructive">Delete</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-error-500')
     })
 
     it('debe renderizar con la variante outline', () => {
       render(<Button variant="outline">Outline</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('border-2')
     })
 
     it('debe renderizar con la variante ghost', () => {
       render(<Button variant="ghost">Ghost</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-transparent')
     })
@@ -10921,21 +10915,21 @@ describe('Button Component', () => {
   describe('Tamanos', () => {
     it('debe renderizar con tamano default', () => {
       render(<Button size="default">Default Size</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-10')
     })
 
     it('debe renderizar con tamano sm', () => {
       render(<Button size="sm">Small</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-9')
     })
 
     it('debe renderizar con tamano lg', () => {
       render(<Button size="lg">Large</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-11')
     })
@@ -10945,24 +10939,24 @@ describe('Button Component', () => {
     it('debe llamar onClick cuando se hace click', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick}>Click me</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('no debe llamar onClick cuando esta deshabilitado', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick} disabled>Disabled</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
 
     it('debe tener el atributo disabled cuando esta deshabilitado', () => {
       render(<Button disabled>Disabled</Button>)
-      
+
       expect(screen.getByRole('button')).toBeDisabled()
     })
   })
@@ -10970,16 +10964,16 @@ describe('Button Component', () => {
   describe('Accesibilidad', () => {
     it('debe ser focusable', () => {
       render(<Button>Focusable</Button>)
-      
+
       const button = screen.getByRole('button')
       button.focus()
-      
+
       expect(button).toHaveFocus()
     })
 
     it('debe aceptar className adicional', () => {
       render(<Button className="custom-class">Custom</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveClass('custom-class')
     })
   })
@@ -11001,34 +10995,34 @@ describe('Button Component', () => {
   describe('Renderizado', () => {
     it('debe renderizar el texto del boton', () => {
       render(<Button>Click me</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveTextContent('Click me')
     })
 
     it('debe renderizar con la variante default', () => {
       render(<Button>Default</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-primary-500')
     })
 
     it('debe renderizar con la variante destructive', () => {
       render(<Button variant="destructive">Delete</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-error-500')
     })
 
     it('debe renderizar con la variante outline', () => {
       render(<Button variant="outline">Outline</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('border-2')
     })
 
     it('debe renderizar con la variante ghost', () => {
       render(<Button variant="ghost">Ghost</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-transparent')
     })
@@ -11037,21 +11031,21 @@ describe('Button Component', () => {
   describe('Tamanos', () => {
     it('debe renderizar con tamano default', () => {
       render(<Button size="default">Default Size</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('px-4')
     })
 
     it('debe renderizar con tamano sm', () => {
       render(<Button size="sm">Small</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-8')
     })
 
     it('debe renderizar con tamano lg', () => {
       render(<Button size="lg">Large</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-11')
     })
@@ -11061,24 +11055,24 @@ describe('Button Component', () => {
     it('debe llamar onClick cuando se hace click', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick}>Click me</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('no debe llamar onClick cuando esta deshabilitado', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick} disabled>Disabled</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
 
     it('debe tener el atributo disabled cuando esta deshabilitado', () => {
       render(<Button disabled>Disabled</Button>)
-      
+
       expect(screen.getByRole('button')).toBeDisabled()
     })
   })
@@ -11086,16 +11080,16 @@ describe('Button Component', () => {
   describe('Accesibilidad', () => {
     it('debe ser focusable', () => {
       render(<Button>Focusable</Button>)
-      
+
       const button = screen.getByRole('button')
       button.focus()
-      
+
       expect(button).toHaveFocus()
     })
 
     it('debe aceptar className adicional', () => {
       render(<Button className="custom-class">Custom</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveClass('custom-class')
     })
   })
@@ -11105,6 +11099,7 @@ describe('Button Component', () => {
 ```
 
 Ahora entiendo mejor el componente. Las variantes son diferentes:
+
 - `primary` (no `default`)
 - `danger` (no `destructive`)
 - Los tamaños son `md`, `sm`, `lg` (no `default`)
@@ -11124,34 +11119,34 @@ describe('Button Component', () => {
   describe('Renderizado', () => {
     it('debe renderizar el texto del boton', () => {
       render(<Button>Click me</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveTextContent('Click me')
     })
 
     it('debe renderizar con la variante primary (default)', () => {
       render(<Button>Primary</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-primary-500')
     })
 
     it('debe renderizar con la variante danger', () => {
       render(<Button variant="danger">Delete</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-error-500')
     })
 
     it('debe renderizar con la variante outline', () => {
       render(<Button variant="outline">Outline</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('border-2')
     })
 
     it('debe renderizar con la variante ghost', () => {
       render(<Button variant="ghost">Ghost</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('bg-transparent')
     })
@@ -11160,21 +11155,21 @@ describe('Button Component', () => {
   describe('Tamanos', () => {
     it('debe renderizar con tamano md (default)', () => {
       render(<Button>Default Size</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-10')
     })
 
     it('debe renderizar con tamano sm', () => {
       render(<Button size="sm">Small</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-8')
     })
 
     it('debe renderizar con tamano lg', () => {
       render(<Button size="lg">Large</Button>)
-      
+
       const button = screen.getByRole('button')
       expect(button).toHaveClass('h-11')
     })
@@ -11184,24 +11179,24 @@ describe('Button Component', () => {
     it('debe llamar onClick cuando se hace click', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick}>Click me</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('no debe llamar onClick cuando esta deshabilitado', () => {
       const handleClick = vi.fn()
       render(<Button onClick={handleClick} disabled>Disabled</Button>)
-      
+
       fireEvent.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
 
     it('debe tener el atributo disabled cuando esta deshabilitado', () => {
       render(<Button disabled>Disabled</Button>)
-      
+
       expect(screen.getByRole('button')).toBeDisabled()
     })
   })
@@ -11209,16 +11204,16 @@ describe('Button Component', () => {
   describe('Accesibilidad', () => {
     it('debe ser focusable', () => {
       render(<Button>Focusable</Button>)
-      
+
       const button = screen.getByRole('button')
       button.focus()
-      
+
       expect(button).toHaveFocus()
     })
 
     it('debe aceptar className adicional', () => {
       render(<Button className="custom-class">Custom</Button>)
-      
+
       expect(screen.getByRole('button')).toHaveClass('custom-class')
     })
   })
@@ -11229,7 +11224,7 @@ describe('Button Component', () => {
 
 ¡Todos los tests pasan! Ahora voy a verificar que el build funciona y luego hacer el commit.
 
-```markdown
+````markdown
 # 🕐 TimeFlowPro
 
 <div align="center">
@@ -11265,11 +11260,13 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 > "Las agendas tradicionales están pensadas para lugares fijos y tiempos rígidos, no para profesionales móviles ni para servicios que evolucionan con el cliente."
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
+
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
+
 - Los servicios duran 45 min por defecto, pero algunos pacientes solo necesitan 30 min
 - El sistema no considera que necesita 20 min para trasladarse entre ubicaciones
 - Termina con "huecos muertos" que nadie puede reservar
@@ -11282,18 +11279,18 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ### MVP (Fase 1)
 
-| Funcionalidad | Descripción |
-|---------------|-------------|
-| 🔐 **Auth con Google** | Login sin contraseñas, trial de 14 días |
-| 📍 **Multi-ubicación** | Gestiona múltiples lugares de trabajo |
-| 🛠️ **Servicios flexibles** | Duración, precio, reserva online |
-| 👥 **Gestión de clientes** | Historial y datos de contacto |
-| 📅 **Calendario inteligente** | Vista diaria/semanal con colores |
-| ⏱️ **Duración adaptativa** | Aprende del historial cliente-servicio |
-| 🚗 **Travel blocks** | Bloquea tiempo de traslado automáticamente |
-| 🌐 **Portal público** | Clientes reservan sin registrarse |
-| 📆 **Google Calendar** | Sincronización bidireccional |
-| 🔒 **Bloqueos personales** | Almuerzo, vacaciones, tiempo personal |
+| Funcionalidad                 | Descripción                                |
+| ----------------------------- | ------------------------------------------ |
+| 🔐 **Auth con Google**        | Login sin contraseñas, trial de 14 días    |
+| 📍 **Multi-ubicación**        | Gestiona múltiples lugares de trabajo      |
+| 🛠️ **Servicios flexibles**    | Duración, precio, reserva online           |
+| 👥 **Gestión de clientes**    | Historial y datos de contacto              |
+| 📅 **Calendario inteligente** | Vista diaria/semanal con colores           |
+| ⏱️ **Duración adaptativa**    | Aprende del historial cliente-servicio     |
+| 🚗 **Travel blocks**          | Bloquea tiempo de traslado automáticamente |
+| 🌐 **Portal público**         | Clientes reservan sin registrarse          |
+| 📆 **Google Calendar**        | Sincronización bidireccional               |
+| 🔒 **Bloqueos personales**    | Almuerzo, vacaciones, tiempo personal      |
 
 ### Fase 2 (Roadmap)
 
@@ -11306,14 +11303,14 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|------------|
+| Capa         | Tecnología                                     |
+| ------------ | ---------------------------------------------- |
 | **Frontend** | Next.js 14 (App Router), React 18, TailwindCSS |
-| **Backend** | Supabase (PostgreSQL + Auth + Edge Functions) |
-| **Lenguaje** | TypeScript 5.3 |
-| **Hosting** | Vercel (Frontend), Supabase Cloud (Backend) |
-| **CI/CD** | GitHub Actions |
-| **Testing** | Vitest, Testing Library, Playwright (local) |
+| **Backend**  | Supabase (PostgreSQL + Auth + Edge Functions)  |
+| **Lenguaje** | TypeScript 5.3                                 |
+| **Hosting**  | Vercel (Frontend), Supabase Cloud (Backend)    |
+| **CI/CD**    | GitHub Actions                                 |
+| **Testing**  | Vitest, Testing Library, Playwright (local)    |
 
 ### Arquitectura
 
@@ -11323,18 +11320,19 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
 ```
+````
 
 ---
 
@@ -11418,27 +11416,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (4/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (4/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -11482,6 +11480,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -11494,6 +11493,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -11517,6 +11517,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -11526,6 +11527,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -11566,6 +11568,7 @@ packages/shared/
 ```
 
 #### T-0-03: Configuración Supabase Local (Docker) ✅
+
 - 🐳 **Supabase CLI** instalado y configurado
 - 🔧 **config.toml** configurado con:
   - PostgreSQL 16 en puerto 54322
@@ -11581,6 +11584,7 @@ packages/shared/
 - 🧪 **Tests unitarios** para clientes Supabase (browser/server)
 
 #### Archivos Añadidos T-0-03
+
 ```
 ./
 ├── supabase/
@@ -11635,8 +11639,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 # 🕐 TimeFlowPro
@@ -11675,7 +11678,7 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
@@ -11732,18 +11735,18 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
-```
+````
 
 ---
 
@@ -11827,27 +11830,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (4/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (4/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -11891,6 +11894,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -11903,6 +11907,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -11926,6 +11931,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -11935,6 +11941,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -11975,6 +11982,7 @@ packages/shared/
 ```
 
 #### T-0-03: Configuración Supabase Local (Docker) ✅
+
 - 🐳 **Supabase CLI** instalado y configurado
 - 🔧 **config.toml** configurado con:
   - PostgreSQL 16 en puerto 54322
@@ -11990,6 +11998,7 @@ packages/shared/
 - 🧪 **Tests unitarios** para clientes Supabase (browser/server)
 
 #### Archivos Añadidos T-0-03
+
 ```
 ./
 ├── supabase/
@@ -12016,6 +12025,7 @@ apps/web/
 ```
 
 #### T-0-04: GitHub Actions CI/CD Pipeline ✅
+
 - 🔄 **CI Pipeline** configurado con GitHub Actions:
   - Lint + TypeCheck en cada PR a main
   - Tests unitarios con coverage
@@ -12030,6 +12040,7 @@ apps/web/
 - 📊 **Coverage** con Codecov integrado
 
 #### Archivos Añadidos T-0-04
+
 ```
 .github/
 ├── workflows/
@@ -12078,8 +12089,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 </div>
 
-
-```
+````
 
 ```markdown
 ## Descripcion
@@ -12120,11 +12130,13 @@ Configuracion de GitHub Actions CI/CD Pipeline para automatizar el proceso de de
 
 ## Tests
 
-```
+````
+
 pnpm test:unit
-Test Files  3 passed (3)
-Tests  33 passed (33)
+Test Files 3 passed (3)
+Tests 33 passed (33)
 Coverage: 100% statements, 75% branches
+
 ```
 
 ## Ticket
@@ -12145,21 +12157,21 @@ Closes T-0-04
 
 ### ✅ Tareas Completadas
 
-| Paso | Descripción | Estado |
-|------|-------------|--------|
-| 1 | Crear rama `feature/T-0-04-github-actions` | ✅ |
-| 2 | Crear workflow `ci.yml` principal | ✅ |
-| 3 | Crear workflow `pr-check.yml` | ✅ |
-| 4 | Crear `dependabot.yml` | ✅ |
-| 5 | Actualizar `vitest.config.ts` y scripts | ✅ |
-| 6 | Crear tests unitarios de ejemplo | ✅ |
-| 7 | Commit y PR | ✅ |
+| Paso | Descripción                                | Estado |
+| ---- | ------------------------------------------ | ------ |
+| 1    | Crear rama `feature/T-0-04-github-actions` | ✅     |
+| 2    | Crear workflow `ci.yml` principal          | ✅     |
+| 3    | Crear workflow `pr-check.yml`              | ✅     |
+| 4    | Crear `dependabot.yml`                     | ✅     |
+| 5    | Actualizar `vitest.config.ts` y scripts    | ✅     |
+| 6    | Crear tests unitarios de ejemplo           | ✅     |
+| 7    | Commit y PR                                | ✅     |
 
 ### 🔄 Workflows Configurados
 
-| Workflow | Trigger | Jobs |
-|----------|---------|------|
-| `ci.yml` | Push/PR a main | Lint → Tests → Build → Deploy |
+| Workflow       | Trigger        | Jobs                                                 |
+| -------------- | -------------- | ---------------------------------------------------- |
+| `ci.yml`       | Push/PR a main | Lint → Tests → Build → Deploy                        |
 | `pr-check.yml` | PR opened/sync | Title validation, Size labels, Sensitive files check |
 
 ### 🧪 Tests Unitarios
@@ -12170,11 +12182,11 @@ Tests  33 passed (33)
 Coverage: 100% statements
 ```
 
-| Archivo | Tests |
-|---------|-------|
+| Archivo           | Tests    |
+| ----------------- | -------- |
 | `button.test.tsx` | 13 tests |
-| `cn.test.ts` | 11 tests |
-| `example.test.ts` | 9 tests |
+| `cn.test.ts`      | 11 tests |
+| `example.test.ts` | 9 tests  |
 
 ### 📦 Archivos Creados
 
@@ -12194,14 +12206,14 @@ Coverage: 100% statements
 
 ## Estado del Sprint 0
 
-| Ticket | Título | Estado |
-|--------|--------|--------|
-| T-0-01 | Definición de Brand Identity | ✅ Completado |
-| T-0-02 | Setup Monorepo + Next.js 14 | ✅ Completado |
-| T-0-03 | Configuración Supabase Local (Docker) | ✅ Completado |
-| T-0-04 | GitHub Actions CI/CD Pipeline | ✅ Completado |
-| T-0-05 | Husky + Commitlint + ESLint + Prettier | ⬜ Pendiente |
-| T-0-06 | Sistema de Mensajes (i18n) | ⬜ Pendiente |
+| Ticket | Título                                 | Estado        |
+| ------ | -------------------------------------- | ------------- |
+| T-0-01 | Definición de Brand Identity           | ✅ Completado |
+| T-0-02 | Setup Monorepo + Next.js 14            | ✅ Completado |
+| T-0-03 | Configuración Supabase Local (Docker)  | ✅ Completado |
+| T-0-04 | GitHub Actions CI/CD Pipeline          | ✅ Completado |
+| T-0-05 | Husky + Commitlint + ESLint + Prettier | ⬜ Pendiente  |
+| T-0-06 | Sistema de Mensajes (i18n)             | ⬜ Pendiente  |
 
 **Progreso: 4/6 tickets completados (67%)**
 
@@ -12245,13 +12257,13 @@ Para conectar con Vercel y que el deploy automático funcione, sigue estos pasos
 
 Cuando importes el proyecto, configura:
 
-| Campo | Valor |
-|-------|-------|
-| **Framework Preset** | Next.js |
-| **Root Directory** | `apps/web` |
-| **Build Command** | `pnpm build` |
-| **Output Directory** | `.next` |
-| **Install Command** | `pnpm install` |
+| Campo                | Valor          |
+| -------------------- | -------------- |
+| **Framework Preset** | Next.js        |
+| **Root Directory**   | `apps/web`     |
+| **Build Command**    | `pnpm build`   |
+| **Output Directory** | `.next`        |
+| **Install Command**  | `pnpm install` |
 
 ### Paso 3: Variables de Entorno en Vercel
 
@@ -12268,6 +12280,7 @@ NEXT_PUBLIC_APP_URL=https://timeflowpro.app
 Necesitas 3 valores para los secrets de GitHub:
 
 #### 4.1 VERCEL_TOKEN
+
 1. Ve a [vercel.com/account/tokens](https://vercel.com/account/tokens)
 2. Click **"Create"**
 3. Nombre: `TimeFlowPro CI/CD`
@@ -12299,19 +12312,19 @@ Ve a tu repositorio en GitHub → **Settings** → **Secrets and variables** →
 
 Agrega estos 3 secrets:
 
-| Secret Name | Valor |
-|-------------|-------|
-| `VERCEL_TOKEN` | *(el token que creaste en vercel.com/account/tokens)* |
-| `VERCEL_ORG_ID` | `team_SSy1b8s8D3YhrFGAFJYSlRDq` |
-| `VERCEL_PROJECT_ID` | `prj_fIblG3ZM0h7vvrGMYU0hflwvczNL` |
+| Secret Name         | Valor                                                 |
+| ------------------- | ----------------------------------------------------- |
+| `VERCEL_TOKEN`      | _(el token que creaste en vercel.com/account/tokens)_ |
+| `VERCEL_ORG_ID`     | `team_SSy1b8s8D3YhrFGAFJYSlRDq`                       |
+| `VERCEL_PROJECT_ID` | `prj_fIblG3ZM0h7vvrGMYU0hflwvczNL`                    |
 
 También agrega los secrets de Supabase para el build:
 
-| Secret Name | Valor |
-|-------------|-------|
-| `NEXT_PUBLIC_SUPABASE_URL` | `http://127.0.0.1:54321` (o tu URL de producción) |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | *(tu anon key)* |
-| `NEXT_PUBLIC_APP_URL` | `https://timeflowpro.vercel.app` |
+| Secret Name                     | Valor                                             |
+| ------------------------------- | ------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | `http://127.0.0.1:54321` (o tu URL de producción) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | _(tu anon key)_                                   |
+| `NEXT_PUBLIC_APP_URL`           | `https://timeflowpro.vercel.app`                  |
 
 ---
 
@@ -12325,14 +12338,14 @@ Ya configuré 5 de 6 secrets. Solo falta **VERCEL_TOKEN**:
 
 ## ✅ Secrets Configurados
 
-| Secret | Estado |
-|--------|--------|
-| `VERCEL_ORG_ID` | ✅ Configurado |
-| `VERCEL_PROJECT_ID` | ✅ Configurado |
-| `NEXT_PUBLIC_SUPABASE_URL` | ✅ Configurado |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ Configurado |
-| `NEXT_PUBLIC_APP_URL` | ✅ Configurado |
-| `VERCEL_TOKEN` | ❌ **Pendiente** |
+| Secret                          | Estado           |
+| ------------------------------- | ---------------- |
+| `VERCEL_ORG_ID`                 | ✅ Configurado   |
+| `VERCEL_PROJECT_ID`             | ✅ Configurado   |
+| `NEXT_PUBLIC_SUPABASE_URL`      | ✅ Configurado   |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ Configurado   |
+| `NEXT_PUBLIC_APP_URL`           | ✅ Configurado   |
+| `VERCEL_TOKEN`                  | ❌ **Pendiente** |
 
 ## 🔑 Crea tu VERCEL_TOKEN
 
@@ -12377,14 +12390,14 @@ gh secret set VERCEL_TOKEN --body "TU_TOKEN_AQUI"
 
 ## ✅ Todos los Secrets Configurados
 
-| Secret | Estado |
-|--------|--------|
-| `VERCEL_TOKEN` | ✅ |
-| `VERCEL_ORG_ID` | ✅ |
-| `VERCEL_PROJECT_ID` | ✅ |
-| `NEXT_PUBLIC_SUPABASE_URL` | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ |
-| `NEXT_PUBLIC_APP_URL` | ✅ |
+| Secret                          | Estado |
+| ------------------------------- | ------ |
+| `VERCEL_TOKEN`                  | ✅     |
+| `VERCEL_ORG_ID`                 | ✅     |
+| `VERCEL_PROJECT_ID`             | ✅     |
+| `NEXT_PUBLIC_SUPABASE_URL`      | ✅     |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅     |
+| `NEXT_PUBLIC_APP_URL`           | ✅     |
 
 Ahora necesitamos configurar Vercel para que use el directorio `apps/web`. Voy a crear el archivo de configuración:
 
@@ -12396,7 +12409,6 @@ Ahora necesitamos configurar Vercel para que use el directorio `apps/web`. Voy a
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
-
 ```
 
 ```json
@@ -12407,7 +12419,6 @@ Ahora necesitamos configurar Vercel para que use el directorio `apps/web`. Voy a
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
-
 ```
 
 Ahora agrego el archivo y hago commit:
@@ -12417,6 +12428,7 @@ Ahora agrego el archivo y hago commit:
 ¡El pipeline está corriendo! 🚀
 
 Veo que:
+
 - ✅ **PR Check** pasó correctamente
 - 🔄 **CI Pipeline** está en progreso (merge a main)
 - 🔄 **Dependabot** está actualizando dependencias
@@ -12452,7 +12464,6 @@ Voy a configurar Vercel correctamente creando el archivo en la raíz:
     }
   ]
 }
-
 ```
 
 El problema es la configuración en el dashboard de Vercel. Necesitas configurar el **Root Directory** manualmente:
@@ -12479,25 +12490,31 @@ El navegador requiere autenticación. Te doy los pasos para que lo configures t�
 ## 📋 Pasos para Configurar Vercel
 
 ### 1. Ve a la configuración del proyecto
+
 Abre: **https://vercel.com/ruben-contreras-projects/web/settings/general**
 
 ### 2. Configura "Root Directory"
+
 Busca la sección **"Root Directory"** y escribe:
+
 ```
 apps/web
 ```
 
 ### 3. Configura "Build & Development Settings"
-| Campo | Valor |
-|-------|-------|
-| **Framework Preset** | Next.js |
-| **Build Command** | (dejar Override vacío o poner `pnpm build`) |
-| **Install Command** | `pnpm install` |
+
+| Campo                | Valor                                       |
+| -------------------- | ------------------------------------------- |
+| **Framework Preset** | Next.js                                     |
+| **Build Command**    | (dejar Override vacío o poner `pnpm build`) |
+| **Install Command**  | `pnpm install`                              |
 
 ### 4. Guarda los cambios
+
 Click en **"Save"**
 
 ### 5. Re-deploy
+
 Una vez guardado, ve a **Deployments** y click en **"Redeploy"** en el último deploy.
 
 ---
@@ -12515,4 +12532,3 @@ apps/web
 lo deje coinectado en mi cuenta de versel
 
 listo
-

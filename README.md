@@ -33,11 +33,13 @@ TimeFlowPro es un sistema de gestión de citas diseñado específicamente para *
 > "Las agendas tradicionales están pensadas para lugares fijos y tiempos rígidos, no para profesionales móviles ni para servicios que evolucionan con el cliente."
 
 **Ejemplo real:** Felipe es kinesiólogo y trabaja en:
+
 - 🏋️ Iron Gym
-- 🏠 Domicilios particulares  
+- 🏠 Domicilios particulares
 - 🏨 Hotel Viejas Escuelas
 
 Con agendas tradicionales, Felipe pierde tiempo porque:
+
 - Los servicios duran 45 min por defecto, pero algunos pacientes solo necesitan 30 min
 - El sistema no considera que necesita 20 min para trasladarse entre ubicaciones
 - Termina con "huecos muertos" que nadie puede reservar
@@ -50,18 +52,18 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ### MVP (Fase 1)
 
-| Funcionalidad | Descripción |
-|---------------|-------------|
-| 🔐 **Auth con Google** | Login sin contraseñas, trial de 14 días |
-| 📍 **Multi-ubicación** | Gestiona múltiples lugares de trabajo |
-| 🛠️ **Servicios flexibles** | Duración, precio, reserva online |
-| 👥 **Gestión de clientes** | Historial y datos de contacto |
-| 📅 **Calendario inteligente** | Vista diaria/semanal con colores |
-| ⏱️ **Duración adaptativa** | Aprende del historial cliente-servicio |
-| 🚗 **Travel blocks** | Bloquea tiempo de traslado automáticamente |
-| 🌐 **Portal público** | Clientes reservan sin registrarse |
-| 📆 **Google Calendar** | Sincronización bidireccional |
-| 🔒 **Bloqueos personales** | Almuerzo, vacaciones, tiempo personal |
+| Funcionalidad                 | Descripción                                |
+| ----------------------------- | ------------------------------------------ |
+| 🔐 **Auth con Google**        | Login sin contraseñas, trial de 14 días    |
+| 📍 **Multi-ubicación**        | Gestiona múltiples lugares de trabajo      |
+| 🛠️ **Servicios flexibles**    | Duración, precio, reserva online           |
+| 👥 **Gestión de clientes**    | Historial y datos de contacto              |
+| 📅 **Calendario inteligente** | Vista diaria/semanal con colores           |
+| ⏱️ **Duración adaptativa**    | Aprende del historial cliente-servicio     |
+| 🚗 **Travel blocks**          | Bloquea tiempo de traslado automáticamente |
+| 🌐 **Portal público**         | Clientes reservan sin registrarse          |
+| 📆 **Google Calendar**        | Sincronización bidireccional               |
+| 🔒 **Bloqueos personales**    | Almuerzo, vacaciones, tiempo personal      |
 
 ### Fase 2 (Roadmap)
 
@@ -74,14 +76,14 @@ Con agendas tradicionales, Felipe pierde tiempo porque:
 
 ## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|------------|
+| Capa         | Tecnología                                     |
+| ------------ | ---------------------------------------------- |
 | **Frontend** | Next.js 14 (App Router), React 18, TailwindCSS |
-| **Backend** | Supabase (PostgreSQL + Auth + Edge Functions) |
-| **Lenguaje** | TypeScript 5.3 |
-| **Hosting** | Vercel (Frontend), Supabase Cloud (Backend) |
-| **CI/CD** | GitHub Actions |
-| **Testing** | Vitest, Testing Library, Playwright (local) |
+| **Backend**  | Supabase (PostgreSQL + Auth + Edge Functions)  |
+| **Lenguaje** | TypeScript 5.3                                 |
+| **Hosting**  | Vercel (Frontend), Supabase Cloud (Backend)    |
+| **CI/CD**    | GitHub Actions                                 |
+| **Testing**  | Vitest, Testing Library, Playwright (local)    |
 
 ### Arquitectura
 
@@ -91,14 +93,14 @@ flowchart TB
         Pro["🧑‍⚕️ Profesional"]
         Cli["👤 Cliente"]
     end
-    
+
     subgraph Frontend
         PWA["Next.js 14 PWA"]
     end
-    
+
     Pro --> PWA
     Cli --> PWA
-    
+
     PWA --> Supabase["☁️ Supabase"]
     Supabase --> PostgreSQL["🗄️ PostgreSQL"]
     Supabase --> GCal["📅 Google Calendar"]
@@ -186,27 +188,27 @@ TimeFlowPro/
 
 ## 📚 Documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md) | Información general y stack |
-| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md) | Funcionalidades y UX |
-| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica |
-| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md) | Esquema de base de datos |
-| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md) | User stories con Gherkin |
-| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md) | Endpoints en OpenAPI |
-| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md) | Tickets detallados |
-| [7-PullRequests](./Documentacion/7-PullRequests.md) | Estándares de PRs |
+| Documento                                                         | Descripción                 |
+| ----------------------------------------------------------------- | --------------------------- |
+| [0-FichaProyecto](./Documentacion/0-FichaProyecto.md)             | Información general y stack |
+| [1-DescripcionGeneral](./Documentacion/1-DescripcionGeneral.md)   | Funcionalidades y UX        |
+| [2-ArquitecturaSistema](./Documentacion/2-ArquitecturaSistema.md) | Arquitectura técnica        |
+| [3-ModeloDatos](./Documentacion/3-ModeloDatos.md)                 | Esquema de base de datos    |
+| [4-HistoriasUsuario](./Documentacion/4-HistoriasUsuario.md)       | User stories con Gherkin    |
+| [5-EspecificacionAPI](./Documentacion/5-EspecificacionAPI.md)     | Endpoints en OpenAPI        |
+| [6-TicketsTrabajo](./Documentacion/6-TicketsTrabajo.md)           | Tickets detallados          |
+| [7-PullRequests](./Documentacion/7-PullRequests.md)               | Estándares de PRs           |
 
 ### RoadMap
 
-| Sprint | Tema | Estado |
-|--------|------|--------|
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos | 🔄 En progreso (4/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación | 📋 Pendiente |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario | 📋 Pendiente |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público | 📋 Pendiente |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar | 📋 Pendiente |
+| Sprint                            | Tema                    | Estado               |
+| --------------------------------- | ----------------------- | -------------------- |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (4/6) |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
 
 ---
 
@@ -250,6 +252,7 @@ pnpm test:e2e
 ### v0.1.0 (2026-01-04) - Sprint 0
 
 #### T-0-01: Brand Identity ✅
+
 - 🎨 **Logo principal** creado en SVG (light, dark, icon-only)
 - 🎨 **Design Tokens** definidos:
   - Paleta de colores (Primary Blue, Secondary Teal, Accent Orange)
@@ -262,6 +265,7 @@ pnpm test:e2e
 - 📚 **Documentación de brand assets** en `apps/web/BRAND-ASSETS.md`
 
 #### Archivos Añadidos
+
 ```
 apps/web/
 ├── public/
@@ -285,6 +289,7 @@ scripts/
 ```
 
 #### T-0-02: Setup Monorepo + Next.js 14 ✅
+
 - 📦 **Monorepo** configurado con pnpm workspaces
 - ⚡ **Next.js 14** con App Router y TypeScript estricto
 - 🎨 **TailwindCSS** integrado con design tokens
@@ -294,6 +299,7 @@ scripts/
 - 📦 **Package shared** con tipos y utilidades comunes
 
 #### Archivos Añadidos T-0-02
+
 ```
 ./
 ├── package.json              # Monorepo root
@@ -334,6 +340,7 @@ packages/shared/
 ```
 
 #### T-0-03: Configuración Supabase Local (Docker) ✅
+
 - 🐳 **Supabase CLI** instalado y configurado
 - 🔧 **config.toml** configurado con:
   - PostgreSQL 16 en puerto 54322
@@ -349,6 +356,7 @@ packages/shared/
 - 🧪 **Tests unitarios** para clientes Supabase (browser/server)
 
 #### Archivos Añadidos T-0-03
+
 ```
 ./
 ├── supabase/
@@ -375,6 +383,7 @@ apps/web/
 ```
 
 #### T-0-04: GitHub Actions CI/CD Pipeline ✅
+
 - 🔄 **CI Pipeline** configurado con GitHub Actions:
   - Lint + TypeCheck en cada PR a main
   - Tests unitarios con coverage
@@ -389,6 +398,7 @@ apps/web/
 - 📊 **Coverage** con Codecov integrado
 
 #### Archivos Añadidos T-0-04
+
 ```
 .github/
 ├── workflows/
@@ -436,4 +446,3 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 [⬆ Volver arriba](#-timeflowpro)
 
 </div>
-

@@ -11,30 +11,30 @@ erDiagram
     %% ========================================
     %% CORE ENTITIES
     %% ========================================
-    
+
     PROFILES ||--o{ LOCATIONS : "works_at"
     PROFILES ||--o{ SERVICES : "offers"
     PROFILES ||--o{ CLIENTS : "has"
     PROFILES ||--o{ WORKING_HOURS : "defines"
     PROFILES ||--|| GOOGLE_CALENDAR_TOKENS : "connects"
-    
+
     CLIENTS ||--o{ APPOINTMENTS : "books"
     CLIENTS ||--o{ CLIENT_SERVICE_DURATIONS : "has_history"
-    
+
     LOCATIONS ||--o{ APPOINTMENTS : "hosts"
     LOCATIONS ||--o{ WORKING_HOURS : "has_schedule"
     LOCATIONS ||--o{ LOCATION_TRAVEL_TIMES : "from"
     LOCATIONS ||--o{ LOCATION_TRAVEL_TIMES : "to"
-    
+
     SERVICES ||--o{ APPOINTMENTS : "provides"
     SERVICES ||--o{ CLIENT_SERVICE_DURATIONS : "tracked_in"
     SERVICES ||--o{ LOCATION_SERVICES : "available_at"
     LOCATIONS ||--o{ LOCATION_SERVICES : "offers"
-    
+
     APPOINTMENTS ||--o| TRAVEL_BLOCKS : "preceded_by"
     APPOINTMENTS ||--o| GOOGLE_CALENDAR_EVENTS : "synced_to"
     APPOINTMENTS ||--o| APPOINTMENTS : "rescheduled_from"
-    
+
     PROFILES ||--o{ PERSONAL_BLOCKS : "blocks"
 
     %% ========================================
@@ -270,7 +270,7 @@ flowchart TB
     C --> A
     L --> A
     S --> A
-    
+
     C --> CSD
     S --> CSD
     A --> TB
@@ -278,7 +278,7 @@ flowchart TB
     L --> WH
     L --> LS
     S --> LS
-    
+
     P --> GCT
     A --> GCE
     P --> PB
@@ -297,22 +297,22 @@ flowchart TB
 
 > Extiende la tabla `auth.users` de Supabase Auth. Almacena información adicional del profesional.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | - | Referencia a `auth.users(id)` |
-| `email` | `VARCHAR(255)` | UNIQUE, NOT NULL | - | Email del profesional |
-| `full_name` | `VARCHAR(255)` | NOT NULL | - | Nombre completo |
-| `phone` | `VARCHAR(20)` | - | NULL | Teléfono de contacto |
-| `slug` | `VARCHAR(50)` | UNIQUE, NOT NULL | - | URL pública `/reservar/{slug}` |
-| `timezone` | `VARCHAR(50)` | NOT NULL | `'America/Santiago'` | Zona horaria IANA |
-| `avatar_url` | `TEXT` | - | NULL | URL de foto de perfil |
-| `role` | `user_role` | NOT NULL | `'professional'` | Enum: professional, superadmin |
-| `account_status` | `account_status` | NOT NULL | `'trial'` | Estado de la cuenta |
-| `trial_expires_at` | `TIMESTAMPTZ` | - | NULL | Fecha expiración del trial |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Cuenta activa (legacy, usar account_status) |
-| `settings` | `JSONB` | NOT NULL | Ver estructura | Configuraciones personalizadas |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo              | Tipo             | Constraints      | Default              | Descripción                                 |
+| ------------------ | ---------------- | ---------------- | -------------------- | ------------------------------------------- |
+| `id`               | `UUID`           | PK, NOT NULL     | -                    | Referencia a `auth.users(id)`               |
+| `email`            | `VARCHAR(255)`   | UNIQUE, NOT NULL | -                    | Email del profesional                       |
+| `full_name`        | `VARCHAR(255)`   | NOT NULL         | -                    | Nombre completo                             |
+| `phone`            | `VARCHAR(20)`    | -                | NULL                 | Teléfono de contacto                        |
+| `slug`             | `VARCHAR(50)`    | UNIQUE, NOT NULL | -                    | URL pública `/reservar/{slug}`              |
+| `timezone`         | `VARCHAR(50)`    | NOT NULL         | `'America/Santiago'` | Zona horaria IANA                           |
+| `avatar_url`       | `TEXT`           | -                | NULL                 | URL de foto de perfil                       |
+| `role`             | `user_role`      | NOT NULL         | `'professional'`     | Enum: professional, superadmin              |
+| `account_status`   | `account_status` | NOT NULL         | `'trial'`            | Estado de la cuenta                         |
+| `trial_expires_at` | `TIMESTAMPTZ`    | -                | NULL                 | Fecha expiración del trial                  |
+| `is_active`        | `BOOLEAN`        | NOT NULL         | `TRUE`               | Cuenta activa (legacy, usar account_status) |
+| `settings`         | `JSONB`          | NOT NULL         | Ver estructura       | Configuraciones personalizadas              |
+| `created_at`       | `TIMESTAMPTZ`    | NOT NULL         | `NOW()`              | Fecha de creación                           |
+| `updated_at`       | `TIMESTAMPTZ`    | NOT NULL         | `NOW()`              | Última actualización                        |
 
 **Estructura de `settings` (JSONB) - Híbrida:**
 
@@ -345,11 +345,12 @@ flowchart TB
 > **Nota:** Estructura híbrida con agrupaciones lógicas de un solo nivel para facilitar acceso (`settings->'cancellation'->>'hours_before'`).
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_profiles_slug ON profiles(slug);
 CREATE INDEX idx_profiles_email ON profiles(email);
 CREATE INDEX idx_profiles_status ON profiles(account_status);
-CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at) 
+CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at)
     WHERE account_status = 'trial';
 ```
 
@@ -359,21 +360,22 @@ CREATE INDEX idx_profiles_trial_expires ON profiles(trial_expires_at)
 
 > Ubicaciones donde el profesional ofrece sus servicios.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Referencia a `profiles(id)` |
-| `name` | `VARCHAR(100)` | NOT NULL | - | Nombre: "Iron Gym", "Hotel VE" |
-| `address` | `TEXT` | - | NULL | Dirección completa |
-| `latitude` | `DECIMAL(10,8)` | - | NULL | Coordenada latitud |
-| `longitude` | `DECIMAL(11,8)` | - | NULL | Coordenada longitud |
-| `color` | `VARCHAR(7)` | NOT NULL | `'#3B82F6'` | Color hex para calendario |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Ubicación activa |
-| `order_index` | `INTEGER` | NOT NULL | `0` | Orden de visualización |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo         | Tipo            | Constraints  | Default             | Descripción                    |
+| ------------- | --------------- | ------------ | ------------------- | ------------------------------ |
+| `id`          | `UUID`          | PK, NOT NULL | `gen_random_uuid()` | Identificador único            |
+| `user_id`     | `UUID`          | FK, NOT NULL | -                   | Referencia a `profiles(id)`    |
+| `name`        | `VARCHAR(100)`  | NOT NULL     | -                   | Nombre: "Iron Gym", "Hotel VE" |
+| `address`     | `TEXT`          | -            | NULL                | Dirección completa             |
+| `latitude`    | `DECIMAL(10,8)` | -            | NULL                | Coordenada latitud             |
+| `longitude`   | `DECIMAL(11,8)` | -            | NULL                | Coordenada longitud            |
+| `color`       | `VARCHAR(7)`    | NOT NULL     | `'#3B82F6'`         | Color hex para calendario      |
+| `is_active`   | `BOOLEAN`       | NOT NULL     | `TRUE`              | Ubicación activa               |
+| `order_index` | `INTEGER`       | NOT NULL     | `0`                 | Orden de visualización         |
+| `created_at`  | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Fecha de creación              |
+| `updated_at`  | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Última actualización           |
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_locations_user_id ON locations(user_id);
 CREATE INDEX idx_locations_active ON locations(user_id, is_active);
@@ -385,23 +387,24 @@ CREATE INDEX idx_locations_active ON locations(user_id, is_active);
 
 > Servicios que ofrece el profesional.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Referencia a `profiles(id)` |
-| `name` | `VARCHAR(100)` | NOT NULL | - | Nombre del servicio |
-| `description` | `TEXT` | - | NULL | Descripción detallada |
-| `default_duration_minutes` | `INTEGER` | NOT NULL | `45` | Duración por defecto |
-| `price` | `DECIMAL(10,2)` | NOT NULL | `0.00` | Precio en CLP |
-| `color` | `VARCHAR(7)` | NOT NULL | `'#10B981'` | Color hex |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Servicio activo |
-| `allow_online_booking` | `BOOLEAN` | NOT NULL | `TRUE` | Permite reserva online |
-| `buffer_time_minutes` | `INTEGER` | NOT NULL | `0` | Tiempo buffer post-cita |
-| `order_index` | `INTEGER` | NOT NULL | `0` | Orden de visualización |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo                      | Tipo            | Constraints  | Default             | Descripción                 |
+| -------------------------- | --------------- | ------------ | ------------------- | --------------------------- |
+| `id`                       | `UUID`          | PK, NOT NULL | `gen_random_uuid()` | Identificador único         |
+| `user_id`                  | `UUID`          | FK, NOT NULL | -                   | Referencia a `profiles(id)` |
+| `name`                     | `VARCHAR(100)`  | NOT NULL     | -                   | Nombre del servicio         |
+| `description`              | `TEXT`          | -            | NULL                | Descripción detallada       |
+| `default_duration_minutes` | `INTEGER`       | NOT NULL     | `45`                | Duración por defecto        |
+| `price`                    | `DECIMAL(10,2)` | NOT NULL     | `0.00`              | Precio en CLP               |
+| `color`                    | `VARCHAR(7)`    | NOT NULL     | `'#10B981'`         | Color hex                   |
+| `is_active`                | `BOOLEAN`       | NOT NULL     | `TRUE`              | Servicio activo             |
+| `allow_online_booking`     | `BOOLEAN`       | NOT NULL     | `TRUE`              | Permite reserva online      |
+| `buffer_time_minutes`      | `INTEGER`       | NOT NULL     | `0`                 | Tiempo buffer post-cita     |
+| `order_index`              | `INTEGER`       | NOT NULL     | `0`                 | Orden de visualización      |
+| `created_at`               | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Fecha de creación           |
+| `updated_at`               | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Última actualización        |
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_services_user_id ON services(user_id);
 CREATE INDEX idx_services_active ON services(user_id, is_active);
@@ -414,22 +417,23 @@ CREATE INDEX idx_services_bookable ON services(user_id, is_active, allow_online_
 
 > Clientes del profesional.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional dueño |
-| `name` | `VARCHAR(255)` | NOT NULL | - | Nombre del cliente |
-| `email` | `VARCHAR(255)` | - | NULL | Email (opcional) |
-| `phone` | `VARCHAR(20)` | - | NULL | Teléfono |
-| `notes` | `TEXT` | - | NULL | Notas internas |
-| `birthdate` | `DATE` | - | NULL | Fecha de nacimiento |
-| `source` | `client_source` | NOT NULL | `'manual'` | Origen del cliente |
-| `custom_fields` | `JSONB` | NOT NULL | `'{}'` | Campos personalizados |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
-| `deleted_at` | `TIMESTAMPTZ` | - | NULL | Soft delete |
+| Campo           | Tipo            | Constraints  | Default             | Descripción           |
+| --------------- | --------------- | ------------ | ------------------- | --------------------- |
+| `id`            | `UUID`          | PK, NOT NULL | `gen_random_uuid()` | Identificador único   |
+| `user_id`       | `UUID`          | FK, NOT NULL | -                   | Profesional dueño     |
+| `name`          | `VARCHAR(255)`  | NOT NULL     | -                   | Nombre del cliente    |
+| `email`         | `VARCHAR(255)`  | -            | NULL                | Email (opcional)      |
+| `phone`         | `VARCHAR(20)`   | -            | NULL                | Teléfono              |
+| `notes`         | `TEXT`          | -            | NULL                | Notas internas        |
+| `birthdate`     | `DATE`          | -            | NULL                | Fecha de nacimiento   |
+| `source`        | `client_source` | NOT NULL     | `'manual'`          | Origen del cliente    |
+| `custom_fields` | `JSONB`         | NOT NULL     | `'{}'`              | Campos personalizados |
+| `created_at`    | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Fecha de creación     |
+| `updated_at`    | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Última actualización  |
+| `deleted_at`    | `TIMESTAMPTZ`   | -            | NULL                | Soft delete           |
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_clients_user_id ON clients(user_id) WHERE deleted_at IS NULL;
 CREATE INDEX idx_clients_email ON clients(user_id, email) WHERE deleted_at IS NULL;
@@ -442,65 +446,67 @@ CREATE INDEX idx_clients_name ON clients(user_id, name) WHERE deleted_at IS NULL
 
 > Citas agendadas.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional |
-| `client_id` | `UUID` | FK, NOT NULL | - | Cliente |
-| `service_id` | `UUID` | FK, NOT NULL | - | Servicio |
-| `location_id` | `UUID` | FK, NOT NULL | - | Ubicación |
-| `start_time` | `TIMESTAMPTZ` | NOT NULL | - | Inicio de la cita |
-| `end_time` | `TIMESTAMPTZ` | NOT NULL | - | Fin de la cita |
-| `duration_minutes` | `INTEGER` | NOT NULL | - | Duración real en minutos |
-| `price_at_booking` | `DECIMAL(10,2)` | NOT NULL | - | Precio al momento de agendar |
-| `status` | `appointment_status` | NOT NULL | `'pending'` | Estado de la cita |
-| `notes` | `TEXT` | - | NULL | Notas de la cita |
-| `cancellation_reason` | `TEXT` | - | NULL | Razón de cancelación |
-| `cancelled_by` | `VARCHAR(20)` | - | NULL | 'client' o 'professional' |
-| `source` | `appointment_source` | NOT NULL | `'manual'` | Origen |
-| `google_event_id` | `VARCHAR(255)` | - | NULL | ID del evento en GCal |
-| `terms_accepted_at` | `TIMESTAMPTZ` | - | NULL | Cuándo aceptó términos |
-| `rescheduled_from` | `UUID` | FK | NULL | ID cita original si fue reagendada |
-| `rescheduled_at` | `TIMESTAMPTZ` | - | NULL | Cuándo se reagendó |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
-| `deleted_at` | `TIMESTAMPTZ` | - | NULL | Soft delete |
+| Campo                 | Tipo                 | Constraints  | Default             | Descripción                        |
+| --------------------- | -------------------- | ------------ | ------------------- | ---------------------------------- |
+| `id`                  | `UUID`               | PK, NOT NULL | `gen_random_uuid()` | Identificador único                |
+| `user_id`             | `UUID`               | FK, NOT NULL | -                   | Profesional                        |
+| `client_id`           | `UUID`               | FK, NOT NULL | -                   | Cliente                            |
+| `service_id`          | `UUID`               | FK, NOT NULL | -                   | Servicio                           |
+| `location_id`         | `UUID`               | FK, NOT NULL | -                   | Ubicación                          |
+| `start_time`          | `TIMESTAMPTZ`        | NOT NULL     | -                   | Inicio de la cita                  |
+| `end_time`            | `TIMESTAMPTZ`        | NOT NULL     | -                   | Fin de la cita                     |
+| `duration_minutes`    | `INTEGER`            | NOT NULL     | -                   | Duración real en minutos           |
+| `price_at_booking`    | `DECIMAL(10,2)`      | NOT NULL     | -                   | Precio al momento de agendar       |
+| `status`              | `appointment_status` | NOT NULL     | `'pending'`         | Estado de la cita                  |
+| `notes`               | `TEXT`               | -            | NULL                | Notas de la cita                   |
+| `cancellation_reason` | `TEXT`               | -            | NULL                | Razón de cancelación               |
+| `cancelled_by`        | `VARCHAR(20)`        | -            | NULL                | 'client' o 'professional'          |
+| `source`              | `appointment_source` | NOT NULL     | `'manual'`          | Origen                             |
+| `google_event_id`     | `VARCHAR(255)`       | -            | NULL                | ID del evento en GCal              |
+| `terms_accepted_at`   | `TIMESTAMPTZ`        | -            | NULL                | Cuándo aceptó términos             |
+| `rescheduled_from`    | `UUID`               | FK           | NULL                | ID cita original si fue reagendada |
+| `rescheduled_at`      | `TIMESTAMPTZ`        | -            | NULL                | Cuándo se reagendó                 |
+| `created_at`          | `TIMESTAMPTZ`        | NOT NULL     | `NOW()`             | Fecha de creación                  |
+| `updated_at`          | `TIMESTAMPTZ`        | NOT NULL     | `NOW()`             | Última actualización               |
+| `deleted_at`          | `TIMESTAMPTZ`        | -            | NULL                | Soft delete                        |
 
 **Constraints:**
+
 ```sql
-ALTER TABLE appointments ADD CONSTRAINT check_end_after_start 
+ALTER TABLE appointments ADD CONSTRAINT check_end_after_start
     CHECK (end_time > start_time);
 
-ALTER TABLE appointments ADD CONSTRAINT check_duration_positive 
+ALTER TABLE appointments ADD CONSTRAINT check_duration_positive
     CHECK (duration_minutes > 0);
 
-ALTER TABLE appointments ADD CONSTRAINT check_price_non_negative 
+ALTER TABLE appointments ADD CONSTRAINT check_price_non_negative
     CHECK (price_at_booking >= 0);
 
-ALTER TABLE appointments ADD CONSTRAINT check_cancelled_by_valid 
+ALTER TABLE appointments ADD CONSTRAINT check_cancelled_by_valid
     CHECK (cancelled_by IS NULL OR cancelled_by IN ('client', 'professional'));
 ```
 
 **Índices:**
+
 ```sql
 -- Índice principal para consultas de calendario
-CREATE INDEX idx_appointments_calendar ON appointments(user_id, start_time, end_time) 
+CREATE INDEX idx_appointments_calendar ON appointments(user_id, start_time, end_time)
     WHERE deleted_at IS NULL;
 
 -- Índice para buscar por cliente
-CREATE INDEX idx_appointments_client ON appointments(client_id, start_time) 
+CREATE INDEX idx_appointments_client ON appointments(client_id, start_time)
     WHERE deleted_at IS NULL;
 
 -- Índice para buscar por ubicación y fecha
-CREATE INDEX idx_appointments_location ON appointments(location_id, start_time) 
+CREATE INDEX idx_appointments_location ON appointments(location_id, start_time)
     WHERE deleted_at IS NULL;
 
 -- Índice para sincronización con Google Calendar
-CREATE INDEX idx_appointments_google ON appointments(google_event_id) 
+CREATE INDEX idx_appointments_google ON appointments(google_event_id)
     WHERE google_event_id IS NOT NULL;
 
 -- Índice para citas reagendadas
-CREATE INDEX idx_appointments_rescheduled ON appointments(rescheduled_from) 
+CREATE INDEX idx_appointments_rescheduled ON appointments(rescheduled_from)
     WHERE rescheduled_from IS NOT NULL;
 ```
 
@@ -510,26 +516,28 @@ CREATE INDEX idx_appointments_rescheduled ON appointments(rescheduled_from)
 
 > Historial de duraciones por cliente y servicio para sugerencia adaptativa.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `client_id` | `UUID` | FK, NOT NULL | - | Cliente |
-| `service_id` | `UUID` | FK, NOT NULL | - | Servicio |
-| `average_duration_minutes` | `INTEGER` | NOT NULL | - | Promedio calculado |
-| `min_duration_minutes` | `INTEGER` | NOT NULL | - | Mínimo registrado |
-| `max_duration_minutes` | `INTEGER` | NOT NULL | - | Máximo registrado |
-| `total_appointments` | `INTEGER` | NOT NULL | `0` | Cantidad de citas |
-| `last_appointment_at` | `TIMESTAMPTZ` | - | NULL | Fecha última cita |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo                      | Tipo          | Constraints  | Default             | Descripción          |
+| -------------------------- | ------------- | ------------ | ------------------- | -------------------- |
+| `id`                       | `UUID`        | PK, NOT NULL | `gen_random_uuid()` | Identificador único  |
+| `client_id`                | `UUID`        | FK, NOT NULL | -                   | Cliente              |
+| `service_id`               | `UUID`        | FK, NOT NULL | -                   | Servicio             |
+| `average_duration_minutes` | `INTEGER`     | NOT NULL     | -                   | Promedio calculado   |
+| `min_duration_minutes`     | `INTEGER`     | NOT NULL     | -                   | Mínimo registrado    |
+| `max_duration_minutes`     | `INTEGER`     | NOT NULL     | -                   | Máximo registrado    |
+| `total_appointments`       | `INTEGER`     | NOT NULL     | `0`                 | Cantidad de citas    |
+| `last_appointment_at`      | `TIMESTAMPTZ` | -            | NULL                | Fecha última cita    |
+| `updated_at`               | `TIMESTAMPTZ` | NOT NULL     | `NOW()`             | Última actualización |
 
 **Constraints:**
+
 ```sql
 -- Unicidad: un registro por combinación cliente-servicio
-ALTER TABLE client_service_durations 
+ALTER TABLE client_service_durations
     ADD CONSTRAINT unique_client_service UNIQUE (client_id, service_id);
 ```
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_csd_client ON client_service_durations(client_id);
 CREATE INDEX idx_csd_service ON client_service_durations(service_id);
@@ -541,20 +549,21 @@ CREATE INDEX idx_csd_service ON client_service_durations(service_id);
 
 > Bloques de tiempo de traslado entre ubicaciones.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional |
-| `appointment_id` | `UUID` | FK, NOT NULL | - | Cita destino |
-| `from_location_id` | `UUID` | FK, NOT NULL | - | Ubicación origen |
-| `to_location_id` | `UUID` | FK, NOT NULL | - | Ubicación destino |
-| `start_time` | `TIMESTAMPTZ` | NOT NULL | - | Inicio del traslado |
-| `end_time` | `TIMESTAMPTZ` | NOT NULL | - | Fin del traslado |
-| `travel_time_minutes` | `INTEGER` | NOT NULL | - | Tiempo en minutos |
-| `source` | `travel_source` | NOT NULL | `'manual'` | Origen del cálculo |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
+| Campo                 | Tipo            | Constraints  | Default             | Descripción         |
+| --------------------- | --------------- | ------------ | ------------------- | ------------------- |
+| `id`                  | `UUID`          | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
+| `user_id`             | `UUID`          | FK, NOT NULL | -                   | Profesional         |
+| `appointment_id`      | `UUID`          | FK, NOT NULL | -                   | Cita destino        |
+| `from_location_id`    | `UUID`          | FK, NOT NULL | -                   | Ubicación origen    |
+| `to_location_id`      | `UUID`          | FK, NOT NULL | -                   | Ubicación destino   |
+| `start_time`          | `TIMESTAMPTZ`   | NOT NULL     | -                   | Inicio del traslado |
+| `end_time`            | `TIMESTAMPTZ`   | NOT NULL     | -                   | Fin del traslado    |
+| `travel_time_minutes` | `INTEGER`       | NOT NULL     | -                   | Tiempo en minutos   |
+| `source`              | `travel_source` | NOT NULL     | `'manual'`          | Origen del cálculo  |
+| `created_at`          | `TIMESTAMPTZ`   | NOT NULL     | `NOW()`             | Fecha de creación   |
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_travel_blocks_calendar ON travel_blocks(user_id, start_time, end_time);
 CREATE INDEX idx_travel_blocks_appointment ON travel_blocks(appointment_id);
@@ -566,22 +575,23 @@ CREATE INDEX idx_travel_blocks_appointment ON travel_blocks(appointment_id);
 
 > Tiempos de traslado predefinidos entre ubicaciones (configuración manual).
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional |
-| `from_location_id` | `UUID` | FK, NOT NULL | - | Ubicación origen |
-| `to_location_id` | `UUID` | FK, NOT NULL | - | Ubicación destino |
-| `travel_time_minutes` | `INTEGER` | NOT NULL | - | Tiempo en minutos |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo                 | Tipo          | Constraints  | Default             | Descripción          |
+| --------------------- | ------------- | ------------ | ------------------- | -------------------- |
+| `id`                  | `UUID`        | PK, NOT NULL | `gen_random_uuid()` | Identificador único  |
+| `user_id`             | `UUID`        | FK, NOT NULL | -                   | Profesional          |
+| `from_location_id`    | `UUID`        | FK, NOT NULL | -                   | Ubicación origen     |
+| `to_location_id`      | `UUID`        | FK, NOT NULL | -                   | Ubicación destino    |
+| `travel_time_minutes` | `INTEGER`     | NOT NULL     | -                   | Tiempo en minutos    |
+| `updated_at`          | `TIMESTAMPTZ` | NOT NULL     | `NOW()`             | Última actualización |
 
 **Constraints:**
+
 ```sql
 -- Unicidad y evitar origen = destino
-ALTER TABLE location_travel_times 
+ALTER TABLE location_travel_times
     ADD CONSTRAINT unique_travel_pair UNIQUE (from_location_id, to_location_id);
 
-ALTER TABLE location_travel_times 
+ALTER TABLE location_travel_times
     ADD CONSTRAINT check_different_locations CHECK (from_location_id != to_location_id);
 ```
 
@@ -591,28 +601,30 @@ ALTER TABLE location_travel_times
 
 > Horarios de trabajo por ubicación.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional |
-| `location_id` | `UUID` | FK, NOT NULL | - | Ubicación |
-| `day_of_week` | `SMALLINT` | NOT NULL | - | 0=Domingo, 1=Lunes... |
-| `start_time` | `TIME` | NOT NULL | - | Hora de inicio |
-| `end_time` | `TIME` | NOT NULL | - | Hora de fin |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Activo |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo         | Tipo          | Constraints  | Default             | Descripción           |
+| ------------- | ------------- | ------------ | ------------------- | --------------------- |
+| `id`          | `UUID`        | PK, NOT NULL | `gen_random_uuid()` | Identificador único   |
+| `user_id`     | `UUID`        | FK, NOT NULL | -                   | Profesional           |
+| `location_id` | `UUID`        | FK, NOT NULL | -                   | Ubicación             |
+| `day_of_week` | `SMALLINT`    | NOT NULL     | -                   | 0=Domingo, 1=Lunes... |
+| `start_time`  | `TIME`        | NOT NULL     | -                   | Hora de inicio        |
+| `end_time`    | `TIME`        | NOT NULL     | -                   | Hora de fin           |
+| `is_active`   | `BOOLEAN`     | NOT NULL     | `TRUE`              | Activo                |
+| `created_at`  | `TIMESTAMPTZ` | NOT NULL     | `NOW()`             | Fecha de creación     |
+| `updated_at`  | `TIMESTAMPTZ` | NOT NULL     | `NOW()`             | Última actualización  |
 
 **Constraints:**
+
 ```sql
-ALTER TABLE working_hours ADD CONSTRAINT check_day_of_week 
+ALTER TABLE working_hours ADD CONSTRAINT check_day_of_week
     CHECK (day_of_week >= 0 AND day_of_week <= 6);
 
-ALTER TABLE working_hours ADD CONSTRAINT check_end_after_start_time 
+ALTER TABLE working_hours ADD CONSTRAINT check_end_after_start_time
     CHECK (end_time > start_time);
 ```
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_working_hours_lookup ON working_hours(user_id, location_id, day_of_week, is_active);
 ```
@@ -623,17 +635,18 @@ CREATE INDEX idx_working_hours_lookup ON working_hours(user_id, location_id, day
 
 > Relación N:M entre ubicaciones y servicios (qué servicios están disponibles en cada ubicación).
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `location_id` | `UUID` | FK, NOT NULL | - | Ubicación |
-| `service_id` | `UUID` | FK, NOT NULL | - | Servicio |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Disponible |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
+| Campo         | Tipo          | Constraints  | Default             | Descripción         |
+| ------------- | ------------- | ------------ | ------------------- | ------------------- |
+| `id`          | `UUID`        | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
+| `location_id` | `UUID`        | FK, NOT NULL | -                   | Ubicación           |
+| `service_id`  | `UUID`        | FK, NOT NULL | -                   | Servicio            |
+| `is_active`   | `BOOLEAN`     | NOT NULL     | `TRUE`              | Disponible          |
+| `created_at`  | `TIMESTAMPTZ` | NOT NULL     | `NOW()`             | Fecha de creación   |
 
 **Constraints:**
+
 ```sql
-ALTER TABLE location_services 
+ALTER TABLE location_services
     ADD CONSTRAINT unique_location_service UNIQUE (location_id, service_id);
 ```
 
@@ -643,19 +656,19 @@ ALTER TABLE location_services
 
 > Tokens de OAuth para sincronización con Google Calendar.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, UNIQUE, NOT NULL | - | Profesional |
-| `access_token` | `TEXT` | NOT NULL | - | Token de acceso (encriptado) |
-| `refresh_token` | `TEXT` | NOT NULL | - | Token de refresh (encriptado) |
-| `token_expires_at` | `TIMESTAMPTZ` | NOT NULL | - | Fecha de expiración |
-| `calendar_id` | `VARCHAR(255)` | NOT NULL | `'primary'` | ID del calendario |
-| `sync_token` | `TEXT` | - | NULL | Token de sincronización incremental |
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Sincronización activa |
-| `last_sync_at` | `TIMESTAMPTZ` | - | NULL | Última sincronización |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo              | Tipo           | Constraints          | Default             | Descripción                         |
+| ------------------ | -------------- | -------------------- | ------------------- | ----------------------------------- |
+| `id`               | `UUID`         | PK, NOT NULL         | `gen_random_uuid()` | Identificador único                 |
+| `user_id`          | `UUID`         | FK, UNIQUE, NOT NULL | -                   | Profesional                         |
+| `access_token`     | `TEXT`         | NOT NULL             | -                   | Token de acceso (encriptado)        |
+| `refresh_token`    | `TEXT`         | NOT NULL             | -                   | Token de refresh (encriptado)       |
+| `token_expires_at` | `TIMESTAMPTZ`  | NOT NULL             | -                   | Fecha de expiración                 |
+| `calendar_id`      | `VARCHAR(255)` | NOT NULL             | `'primary'`         | ID del calendario                   |
+| `sync_token`       | `TEXT`         | -                    | NULL                | Token de sincronización incremental |
+| `is_active`        | `BOOLEAN`      | NOT NULL             | `TRUE`              | Sincronización activa               |
+| `last_sync_at`     | `TIMESTAMPTZ`  | -                    | NULL                | Última sincronización               |
+| `created_at`       | `TIMESTAMPTZ`  | NOT NULL             | `NOW()`             | Fecha de creación                   |
+| `updated_at`       | `TIMESTAMPTZ`  | NOT NULL             | `NOW()`             | Última actualización                |
 
 > ⚠️ **Seguridad:** Los tokens `access_token` y `refresh_token` se almacenan encriptados usando `pgcrypto`.
 
@@ -665,18 +678,18 @@ ALTER TABLE location_services
 
 > Tracking de eventos sincronizados con Google Calendar.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional |
-| `appointment_id` | `UUID` | FK, UNIQUE, NOT NULL | - | Cita vinculada |
-| `google_event_id` | `VARCHAR(255)` | UNIQUE, NOT NULL | - | ID del evento en GCal |
-| `calendar_id` | `VARCHAR(255)` | NOT NULL | - | ID del calendario |
-| `sync_status` | `sync_status` | NOT NULL | `'pending'` | Estado de sync |
-| `last_error` | `TEXT` | - | NULL | Último error |
-| `synced_at` | `TIMESTAMPTZ` | - | NULL | Última sincronización exitosa |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo             | Tipo           | Constraints          | Default             | Descripción                   |
+| ----------------- | -------------- | -------------------- | ------------------- | ----------------------------- |
+| `id`              | `UUID`         | PK, NOT NULL         | `gen_random_uuid()` | Identificador único           |
+| `user_id`         | `UUID`         | FK, NOT NULL         | -                   | Profesional                   |
+| `appointment_id`  | `UUID`         | FK, UNIQUE, NOT NULL | -                   | Cita vinculada                |
+| `google_event_id` | `VARCHAR(255)` | UNIQUE, NOT NULL     | -                   | ID del evento en GCal         |
+| `calendar_id`     | `VARCHAR(255)` | NOT NULL             | -                   | ID del calendario             |
+| `sync_status`     | `sync_status`  | NOT NULL             | `'pending'`         | Estado de sync                |
+| `last_error`      | `TEXT`         | -                    | NULL                | Último error                  |
+| `synced_at`       | `TIMESTAMPTZ`  | -                    | NULL                | Última sincronización exitosa |
+| `created_at`      | `TIMESTAMPTZ`  | NOT NULL             | `NOW()`             | Fecha de creación             |
+| `updated_at`      | `TIMESTAMPTZ`  | NOT NULL             | `NOW()`             | Última actualización          |
 
 ---
 
@@ -684,26 +697,27 @@ ALTER TABLE location_services
 
 > Configuración global del sistema, gestionada por el superadmin.
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `key` | `VARCHAR(100)` | UNIQUE, NOT NULL | - | Clave de configuración |
-| `value` | `JSONB` | NOT NULL | - | Valor de configuración |
-| `description` | `TEXT` | - | NULL | Descripción de la config |
-| `updated_by` | `UUID` | FK | NULL | Quién actualizó |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+| Campo         | Tipo           | Constraints      | Default             | Descripción              |
+| ------------- | -------------- | ---------------- | ------------------- | ------------------------ |
+| `id`          | `UUID`         | PK, NOT NULL     | `gen_random_uuid()` | Identificador único      |
+| `key`         | `VARCHAR(100)` | UNIQUE, NOT NULL | -                   | Clave de configuración   |
+| `value`       | `JSONB`        | NOT NULL         | -                   | Valor de configuración   |
+| `description` | `TEXT`         | -                | NULL                | Descripción de la config |
+| `updated_by`  | `UUID`         | FK               | NULL                | Quién actualizó          |
+| `created_at`  | `TIMESTAMPTZ`  | NOT NULL         | `NOW()`             | Fecha de creación        |
+| `updated_at`  | `TIMESTAMPTZ`  | NOT NULL         | `NOW()`             | Última actualización     |
 
 **Configuraciones iniciales (keys agrupadas):**
 
-| key | value | Descripción |
-|-----|-------|-------------|
-| `trial_settings` | `{"default_trial_days": 14, "warning_days_before": 3, "extend_max_days": 30}` | Configuración del período de prueba |
+| key              | value                                                                                                 | Descripción                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| `trial_settings` | `{"default_trial_days": 14, "warning_days_before": 3, "extend_max_days": 30}`                         | Configuración del período de prueba   |
 | `admin_settings` | `{"notify_email": "admin@timeflowpro.com", "notify_on_signup": true, "notify_on_trial_expire": true}` | Configuración de notificaciones admin |
 
 > **Nota:** Se usa estructura de keys agrupadas para facilitar extensibilidad. Cada key agrupa configuraciones relacionadas.
 
 **Índices:**
+
 ```sql
 CREATE INDEX idx_system_config_key ON system_config(key);
 ```
@@ -714,38 +728,40 @@ CREATE INDEX idx_system_config_key ON system_config(key);
 
 > Bloqueos personales del profesional (almuerzo, vacaciones, etc.).
 
-| Campo | Tipo | Constraints | Default | Descripción |
-|-------|------|-------------|---------|-------------|
-| `id` | `UUID` | PK, NOT NULL | `gen_random_uuid()` | Identificador único |
-| `user_id` | `UUID` | FK, NOT NULL | - | Profesional dueño |
-| `title` | `VARCHAR(100)` | NOT NULL | - | Título: "Almuerzo", "Vacaciones" |
-| `block_type` | `block_type` | NOT NULL | `'personal'` | Tipo de bloqueo |
-| `start_time` | `TIMESTAMPTZ` | NOT NULL | - | Inicio del bloqueo |
-| `end_time` | `TIMESTAMPTZ` | NOT NULL | - | Fin del bloqueo |
-| `all_day` | `BOOLEAN` | NOT NULL | `FALSE` | ¿Bloqueo de día completo? |
-| `recurrence_type` | `recurrence_type` | NOT NULL | `'none'` | Tipo de recurrencia |
-| `recurrence_end_date` | `DATE` | - | NULL | Hasta cuándo se repite |
-| `notes` | `TEXT` | - | NULL | Notas adicionales |
+| Campo                 | Tipo              | Constraints  | Default             | Descripción                      |
+| --------------------- | ----------------- | ------------ | ------------------- | -------------------------------- |
+| `id`                  | `UUID`            | PK, NOT NULL | `gen_random_uuid()` | Identificador único              |
+| `user_id`             | `UUID`            | FK, NOT NULL | -                   | Profesional dueño                |
+| `title`               | `VARCHAR(100)`    | NOT NULL     | -                   | Título: "Almuerzo", "Vacaciones" |
+| `block_type`          | `block_type`      | NOT NULL     | `'personal'`        | Tipo de bloqueo                  |
+| `start_time`          | `TIMESTAMPTZ`     | NOT NULL     | -                   | Inicio del bloqueo               |
+| `end_time`            | `TIMESTAMPTZ`     | NOT NULL     | -                   | Fin del bloqueo                  |
+| `all_day`             | `BOOLEAN`         | NOT NULL     | `FALSE`             | ¿Bloqueo de día completo?        |
+| `recurrence_type`     | `recurrence_type` | NOT NULL     | `'none'`            | Tipo de recurrencia              |
+| `recurrence_end_date` | `DATE`            | -            | NULL                | Hasta cuándo se repite           |
+| `notes`               | `TEXT`            | -            | NULL                | Notas adicionales                |
 
 > **Nota Fase 2:** Campo `recurrence_days INTEGER[]` para patrones personalizados (ej: "solo Lun-Mié-Vie") será agregado en Fase 2. Para MVP, `weekly` repite el mismo día de la semana.
-| `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Activo |
-| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
-| `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
+> | `is_active` | `BOOLEAN` | NOT NULL | `TRUE` | Activo |
+> | `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Fecha de creación |
+> | `updated_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | Última actualización |
 
 **Constraints:**
+
 ```sql
-ALTER TABLE personal_blocks ADD CONSTRAINT check_block_end_after_start 
+ALTER TABLE personal_blocks ADD CONSTRAINT check_block_end_after_start
     CHECK (end_time > start_time);
 ```
 
 **Índices:**
+
 ```sql
 -- Índice para consultas de calendario
-CREATE INDEX idx_personal_blocks_calendar ON personal_blocks(user_id, start_time, end_time) 
+CREATE INDEX idx_personal_blocks_calendar ON personal_blocks(user_id, start_time, end_time)
     WHERE is_active = TRUE;
 
 -- Índice para bloqueos recurrentes
-CREATE INDEX idx_personal_blocks_recurrence ON personal_blocks(user_id, recurrence_type) 
+CREATE INDEX idx_personal_blocks_recurrence ON personal_blocks(user_id, recurrence_type)
     WHERE recurrence_type != 'none';
 ```
 
@@ -860,10 +876,10 @@ CREATE POLICY "Users can CRUD own locations" ON locations
 -- Política para portal público: ver ubicaciones activas del profesional
 CREATE POLICY "Public can view active locations" ON locations
     FOR SELECT USING (
-        is_active = TRUE 
+        is_active = TRUE
         AND EXISTS (
-            SELECT 1 FROM profiles 
-            WHERE profiles.id = locations.user_id 
+            SELECT 1 FROM profiles
+            WHERE profiles.id = locations.user_id
             AND profiles.is_active = TRUE
         )
     );
@@ -878,7 +894,7 @@ CREATE POLICY "Users can CRUD own services" ON services
 
 CREATE POLICY "Public can view bookable services" ON services
     FOR SELECT USING (
-        is_active = TRUE 
+        is_active = TRUE
         AND allow_online_booking = TRUE
     );
 
@@ -903,7 +919,7 @@ CREATE POLICY "Users can CRUD own appointments" ON appointments
 CREATE POLICY "Clients can view own appointments" ON appointments
     FOR SELECT USING (
         client_id IN (
-            SELECT id FROM clients 
+            SELECT id FROM clients
             WHERE email = auth.jwt()->>'email'
         )
     );
@@ -915,8 +931,8 @@ CREATE POLICY "Clients can view own appointments" ON appointments
 CREATE POLICY "Superadmin full access" ON profiles
     FOR ALL USING (
         EXISTS (
-            SELECT 1 FROM profiles 
-            WHERE id = auth.uid() 
+            SELECT 1 FROM profiles
+            WHERE id = auth.uid()
             AND role = 'superadmin'
         )
     );
@@ -962,8 +978,8 @@ BEGIN
     -- Solo cuando status cambia a 'completed'
     IF NEW.status = 'completed' AND OLD.status != 'completed' THEN
         INSERT INTO client_service_durations (
-            client_id, 
-            service_id, 
+            client_id,
+            service_id,
             average_duration_minutes,
             min_duration_minutes,
             max_duration_minutes,
@@ -990,7 +1006,7 @@ BEGIN
             last_appointment_at = NEW.end_time,
             updated_at = NOW();
     END IF;
-    
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -1068,15 +1084,15 @@ CREATE TRIGGER trigger_create_travel_block
 
 ### 3.6.1 Tabla de Índices
 
-| Tabla | Índice | Campos | Tipo | Justificación |
-|-------|--------|--------|------|---------------|
-| `profiles` | `idx_profiles_slug` | `slug` | BTREE | Lookup por URL pública |
-| `appointments` | `idx_appointments_calendar` | `user_id, start_time, end_time` | BTREE | Consultas de calendario |
-| `appointments` | `idx_appointments_client` | `client_id, start_time` | BTREE | Historial de cliente |
-| `appointments` | `idx_appointments_status` | `user_id, status` | BTREE | Filtrado por estado |
-| `clients` | `idx_clients_search` | `user_id, name, email` | GIN (trigram) | Búsqueda fuzzy |
-| `working_hours` | `idx_working_hours_lookup` | `user_id, location_id, day_of_week` | BTREE | Disponibilidad |
-| `travel_blocks` | `idx_travel_blocks_calendar` | `user_id, start_time, end_time` | BTREE | Vista de calendario |
+| Tabla           | Índice                       | Campos                              | Tipo          | Justificación           |
+| --------------- | ---------------------------- | ----------------------------------- | ------------- | ----------------------- |
+| `profiles`      | `idx_profiles_slug`          | `slug`                              | BTREE         | Lookup por URL pública  |
+| `appointments`  | `idx_appointments_calendar`  | `user_id, start_time, end_time`     | BTREE         | Consultas de calendario |
+| `appointments`  | `idx_appointments_client`    | `client_id, start_time`             | BTREE         | Historial de cliente    |
+| `appointments`  | `idx_appointments_status`    | `user_id, status`                   | BTREE         | Filtrado por estado     |
+| `clients`       | `idx_clients_search`         | `user_id, name, email`              | GIN (trigram) | Búsqueda fuzzy          |
+| `working_hours` | `idx_working_hours_lookup`   | `user_id, location_id, day_of_week` | BTREE         | Disponibilidad          |
+| `travel_blocks` | `idx_travel_blocks_calendar` | `user_id, start_time, end_time`     | BTREE         | Vista de calendario     |
 
 ### 3.6.2 Índices para Búsqueda de Texto
 
@@ -1085,8 +1101,8 @@ CREATE TRIGGER trigger_create_travel_block
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 -- Índice para búsqueda de clientes por nombre
-CREATE INDEX idx_clients_name_trgm ON clients 
-    USING GIN (name gin_trgm_ops) 
+CREATE INDEX idx_clients_name_trgm ON clients
+    USING GIN (name gin_trgm_ops)
     WHERE deleted_at IS NULL;
 ```
 
@@ -1145,13 +1161,13 @@ sequenceDiagram
     Pro->>App: Crear cita en Hotel (12:00)
     App->>DB: INSERT appointments
     DB->>Trigger: AFTER INSERT
-    
+
     Trigger->>DB: Buscar cita anterior del día
     DB-->>Trigger: Cita en Gym termina 11:30
-    
+
     Trigger->>DB: Buscar travel_time (Gym → Hotel)
     DB-->>Trigger: 20 minutos
-    
+
     Trigger->>DB: INSERT travel_blocks<br/>(11:30 - 11:50)
     DB-->>App: Cita + Travel Block creados
     App-->>Pro: ✅ Cita agendada<br/>⚠️ 20min de traslado bloqueados
@@ -1406,16 +1422,15 @@ CREATE INDEX idx_working_hours_lookup ON working_hours(user_id, location_id, day
 
 ## 3.10 Referencias
 
-| Documento | Ubicación |
-|-----------|-----------|
-| Ficha del Proyecto | [`0-FichaProyecto.md`](./0-FichaProyecto.md) |
-| Descripción General | [`1-DescripcionGeneral.md`](./1-DescripcionGeneral.md) |
-| Arquitectura del Sistema | [`2-ArquitecturaSistema.md`](./2-ArquitecturaSistema.md) |
-| Supabase Docs - RLS | [supabase.com/docs/guides/auth/row-level-security](https://supabase.com/docs/guides/auth/row-level-security) |
-| PostgreSQL Types | [postgresql.org/docs/15/datatype.html](https://www.postgresql.org/docs/15/datatype.html) |
+| Documento                | Ubicación                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Ficha del Proyecto       | [`0-FichaProyecto.md`](./0-FichaProyecto.md)                                                                 |
+| Descripción General      | [`1-DescripcionGeneral.md`](./1-DescripcionGeneral.md)                                                       |
+| Arquitectura del Sistema | [`2-ArquitecturaSistema.md`](./2-ArquitecturaSistema.md)                                                     |
+| Supabase Docs - RLS      | [supabase.com/docs/guides/auth/row-level-security](https://supabase.com/docs/guides/auth/row-level-security) |
+| PostgreSQL Types         | [postgresql.org/docs/15/datatype.html](https://www.postgresql.org/docs/15/datatype.html)                     |
 
 ---
 
 **Última actualización:** Enero 2026  
 **Versión del documento:** 1.2.0
-

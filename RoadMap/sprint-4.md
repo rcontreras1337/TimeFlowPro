@@ -2,28 +2,28 @@
 
 ## 📊 Resumen
 
-| Métrica | Valor |
-|---------|-------|
-| **Tickets** | 9 |
-| **Story Points** | 44 |
-| **Duración estimada** | 2 semanas |
-| **Objetivo** | Portal público por slug, wizard de reserva, cancelación y reagendamiento |
+| Métrica               | Valor                                                                    |
+| --------------------- | ------------------------------------------------------------------------ |
+| **Tickets**           | 9                                                                        |
+| **Story Points**      | 44                                                                       |
+| **Duración estimada** | 2 semanas                                                                |
+| **Objetivo**          | Portal público por slug, wizard de reserva, cancelación y reagendamiento |
 
 ---
 
 ## 📋 Lista de Tickets
 
-| ID | Título | Tipo | Pts | HDU | Estado | Bloqueado por |
-|----|--------|------|-----|-----|--------|---------------|
-| T-4-01 | Portal público por slug | Frontend | 5 | US-12 | ⬜ Pendiente | T-2-04 |
-| T-4-02 | API Disponibilidad pública | Backend | 5 | US-12, US-13 | ⬜ Pendiente | T-3-04 |
-| T-4-03 | Wizard de reserva online | Frontend | 8 | US-13 | ⬜ Pendiente | T-4-01, T-4-02 |
-| T-4-04 | Términos y condiciones | Backend | 3 | US-23 | ⬜ Pendiente | T-4-02 |
-| T-4-05 | Completar/Cancelar extensión | Backend | 5 | US-11 | ⬜ Pendiente | T-3-03 |
-| T-4-06 | UI Completar cita | Frontend | 3 | US-11 | ⬜ Pendiente | T-4-05, T-3-05 |
-| T-4-07 | Duración adaptativa refinada | Backend | 5 | US-10 | ⬜ Pendiente | T-4-05 |
-| T-4-08 | Cancelación por cliente | Backend | 5 | US-20 | ⬜ Pendiente | T-4-03 |
-| T-4-09 | Reagendamiento de citas | Backend | 5 | US-21 | ⬜ Pendiente | T-4-03 |
+| ID     | Título                       | Tipo     | Pts | HDU          | Estado       | Bloqueado por  |
+| ------ | ---------------------------- | -------- | --- | ------------ | ------------ | -------------- |
+| T-4-01 | Portal público por slug      | Frontend | 5   | US-12        | ⬜ Pendiente | T-2-04         |
+| T-4-02 | API Disponibilidad pública   | Backend  | 5   | US-12, US-13 | ⬜ Pendiente | T-3-04         |
+| T-4-03 | Wizard de reserva online     | Frontend | 8   | US-13        | ⬜ Pendiente | T-4-01, T-4-02 |
+| T-4-04 | Términos y condiciones       | Backend  | 3   | US-23        | ⬜ Pendiente | T-4-02         |
+| T-4-05 | Completar/Cancelar extensión | Backend  | 5   | US-11        | ⬜ Pendiente | T-3-03         |
+| T-4-06 | UI Completar cita            | Frontend | 3   | US-11        | ⬜ Pendiente | T-4-05, T-3-05 |
+| T-4-07 | Duración adaptativa refinada | Backend  | 5   | US-10        | ⬜ Pendiente | T-4-05         |
+| T-4-08 | Cancelación por cliente      | Backend  | 5   | US-20        | ⬜ Pendiente | T-4-03         |
+| T-4-09 | Reagendamiento de citas      | Backend  | 5   | US-21        | ⬜ Pendiente | T-4-03         |
 
 ---
 
@@ -33,17 +33,17 @@
 flowchart TD
     T204["T-2-04<br/>🛠️ Services"] --> T401["T-4-01<br/>🌐 Portal"]
     T304["T-3-04<br/>⚡ Availability"] --> T402["T-4-02<br/>📡 API Pública"]
-    
+
     T401 --> T403["T-4-03<br/>🧙 Wizard"]
     T402 --> T403
     T402 --> T404["T-4-04<br/>📜 T&C"]
-    
+
     T303["T-3-03<br/>📅 Citas"] --> T405["T-4-05<br/>✅ Complete"]
     T405 --> T406["T-4-06<br/>🖥️ UI Complete"]
     T305["T-3-05<br/>📆 Calendar"] --> T406
-    
+
     T405 --> T407["T-4-07<br/>⏱️ Duración"]
-    
+
     T403 --> T408["T-4-08<br/>❌ Cancel"]
     T403 --> T409["T-4-09<br/>🔄 Reschedule"]
 
@@ -84,4 +84,3 @@ flowchart TD
 ---
 
 **Referencia completa:** [Documentacion/6-TicketsTrabajo.md](../Documentacion/6-TicketsTrabajo.md)
-

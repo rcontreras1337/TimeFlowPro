@@ -2,5 +2,4 @@
  * Utility functions for the web app
  */
 
-export { cn } from './cn';
-
+export { cn } from './cn'

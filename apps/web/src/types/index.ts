@@ -3,9 +3,8 @@
  */
 
 // Re-export shared types
-export * from '@timeflowpro/shared';
+export * from '@timeflowpro/shared'
 
 // Export local types
-export * from './api';
-export * from './database';
-
+export * from './api'
+export * from './database'

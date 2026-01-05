@@ -1,20 +1,20 @@
-import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
-import '@/styles/globals.css';
+import type { Metadata, Viewport } from 'next'
+import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
+import '@/styles/globals.css'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-jakarta',
   display: 'swap',
-});
+})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-jetbrains',
   display: 'swap',
-});
+})
 
 export const metadata: Metadata = {
   title: {
@@ -23,15 +23,7 @@ export const metadata: Metadata = {
   },
   description:
     'Sistema de agendamiento inteligente para profesionales móviles. Gestiona múltiples ubicaciones, adapta duraciones por cliente y optimiza tu jornada.',
-  keywords: [
-    'agenda',
-    'citas',
-    'profesionales',
-    'móvil',
-    'gestión',
-    'calendario',
-    'timeflowpro',
-  ],
+  keywords: ['agenda', 'citas', 'profesionales', 'móvil', 'gestión', 'calendario', 'timeflowpro'],
   authors: [{ name: 'Ruben Contreras', url: 'https://github.com/rcontreras1337' }],
   creator: 'TimeFlowPro',
   publisher: 'TimeFlowPro',
@@ -40,9 +32,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
   openGraph: {
     title: 'TimeFlowPro - Gestión Inteligente de Citas',
     description:
@@ -83,7 +73,7 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.svg',
   },
   manifest: '/site.webmanifest',
-};
+}
 
 export const viewport: Viewport = {
   themeColor: [
@@ -93,12 +83,12 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
@@ -110,6 +100,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  );
+  )
 }
-

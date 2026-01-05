@@ -4,25 +4,25 @@
 
 ## 5.1 Información General
 
-| Aspecto | Valor |
-|---------|-------|
-| **Base URL Producción** | `https://api.timeflowpro.app/v1` |
-| **Base URL Staging** | `https://staging.api.timeflowpro.app/v1` |
-| **Formato de Datos** | JSON (`application/json`) |
-| **Autenticación** | Bearer Token (JWT via Supabase Auth) |
-| **Versionado** | URL path (`/v1/`) |
-| **Rate Limiting** | 100 req/min por usuario |
+| Aspecto                 | Valor                                    |
+| ----------------------- | ---------------------------------------- |
+| **Base URL Producción** | `https://api.timeflowpro.app/v1`         |
+| **Base URL Staging**    | `https://staging.api.timeflowpro.app/v1` |
+| **Formato de Datos**    | JSON (`application/json`)                |
+| **Autenticación**       | Bearer Token (JWT via Supabase Auth)     |
+| **Versionado**          | URL path (`/v1/`)                        |
+| **Rate Limiting**       | 100 req/min por usuario                  |
 
 ### Convenciones de la API
 
-| Convención | Descripción |
-|------------|-------------|
+| Convención              | Descripción                                      |
+| ----------------------- | ------------------------------------------------ |
 | **Nombres de recursos** | Plurales en inglés (`/appointments`, `/clients`) |
-| **Parámetros de ruta** | UUID (`/appointments/:id`) |
-| **Fechas** | ISO 8601 (`2026-01-15T10:00:00Z`) |
-| **Paginación** | `?page=1&limit=20` (máx 100) |
-| **Ordenamiento** | `?order_by=start_time&order_dir=asc` |
-| **Filtros** | Query params (`?status=pending&date=2026-01-15`) |
+| **Parámetros de ruta**  | UUID (`/appointments/:id`)                       |
+| **Fechas**              | ISO 8601 (`2026-01-15T10:00:00Z`)                |
+| **Paginación**          | `?page=1&limit=20` (máx 100)                     |
+| **Ordenamiento**        | `?order_by=start_time&order_dir=asc`             |
+| **Filtros**             | Query params (`?status=pending&date=2026-01-15`) |
 
 ---
 
@@ -58,11 +58,11 @@ Accept: application/json
 
 ### Roles y Permisos (RLS)
 
-| Rol | Descripción | Permisos |
-|-----|-------------|----------|
-| `professional` | Profesional móvil | CRUD sobre sus propios recursos |
-| `superadmin` | Administrador del sistema | CRUD global + configuración del sistema |
-| `public` | Cliente sin cuenta | Solo lectura portal público + crear reservas |
+| Rol            | Descripción               | Permisos                                     |
+| -------------- | ------------------------- | -------------------------------------------- |
+| `professional` | Profesional móvil         | CRUD sobre sus propios recursos              |
+| `superadmin`   | Administrador del sistema | CRUD global + configuración del sistema      |
+| `public`       | Cliente sin cuenta        | Solo lectura portal público + crear reservas |
 
 ---
 
@@ -610,7 +610,7 @@ Content-Type: application/json
     operationId: createPublicBooking
     tags:
       - Public Portal
-    security: []  # No auth required
+    security: [] # No auth required
     requestBody:
       required: true
       content:
@@ -896,7 +896,7 @@ Content-Type: application/json
               title:
                 type: string
                 maxLength: 100
-                example: "Almuerzo"
+                example: 'Almuerzo'
               block_type:
                 type: string
                 enum: [lunch, vacation, personal, other]
@@ -1156,19 +1156,19 @@ Content-Type: application/json
 
 ### Códigos de Estado HTTP
 
-| Código | Nombre | Cuándo ocurre |
-|--------|--------|---------------|
-| `200` | OK | Solicitud exitosa |
-| `201` | Created | Recurso creado exitosamente |
-| `204` | No Content | Eliminación exitosa |
-| `400` | Bad Request | Validación fallida, datos incorrectos |
-| `401` | Unauthorized | Token ausente, inválido o expirado |
-| `403` | Forbidden | Sin permisos (cuenta readonly/suspended) |
-| `404` | Not Found | Recurso no existe |
-| `409` | Conflict | Conflicto de horario o duplicado |
-| `422` | Unprocessable Entity | Lógica de negocio no cumplida |
-| `429` | Too Many Requests | Rate limit excedido |
-| `500` | Internal Server Error | Error del servidor |
+| Código | Nombre                | Cuándo ocurre                            |
+| ------ | --------------------- | ---------------------------------------- |
+| `200`  | OK                    | Solicitud exitosa                        |
+| `201`  | Created               | Recurso creado exitosamente              |
+| `204`  | No Content            | Eliminación exitosa                      |
+| `400`  | Bad Request           | Validación fallida, datos incorrectos    |
+| `401`  | Unauthorized          | Token ausente, inválido o expirado       |
+| `403`  | Forbidden             | Sin permisos (cuenta readonly/suspended) |
+| `404`  | Not Found             | Recurso no existe                        |
+| `409`  | Conflict              | Conflicto de horario o duplicado         |
+| `422`  | Unprocessable Entity  | Lógica de negocio no cumplida            |
+| `429`  | Too Many Requests     | Rate limit excedido                      |
+| `500`  | Internal Server Error | Error del servidor                       |
 
 ### Estructura Estándar de Errores
 
@@ -1188,22 +1188,22 @@ Content-Type: application/json
 
 ### Códigos de Error Específicos
 
-| Código | HTTP | Descripción |
-|--------|------|-------------|
-| `VALIDATION_ERROR` | 400 | Campos requeridos faltantes o inválidos |
-| `INVALID_DATE_FORMAT` | 400 | Formato de fecha incorrecto |
-| `TOKEN_EXPIRED` | 401 | JWT expirado, requiere refresh |
-| `INVALID_TOKEN` | 401 | JWT malformado o inválido |
-| `ACCOUNT_READONLY` | 403 | Cuenta en modo solo lectura (trial expirado) |
-| `ACCOUNT_SUSPENDED` | 403 | Cuenta suspendida por admin |
-| `INSUFFICIENT_PERMISSIONS` | 403 | Rol sin permisos para esta acción |
-| `RESOURCE_NOT_FOUND` | 404 | Recurso no existe o no pertenece al usuario |
-| `SCHEDULE_CONFLICT` | 409 | Conflicto de horario con cita/bloqueo existente |
-| `DUPLICATE_RESOURCE` | 409 | Recurso duplicado (ej. slug ya existe) |
-| `PROFESSIONAL_INACTIVE` | 422 | Profesional no acepta reservas |
-| `TERMS_NOT_ACCEPTED` | 422 | Términos y condiciones no aceptados |
-| `INSUFFICIENT_NOTICE` | 422 | No cumple anticipación mínima para cancelar/reagendar |
-| `RATE_LIMIT_EXCEEDED` | 429 | Demasiadas solicitudes |
+| Código                     | HTTP | Descripción                                           |
+| -------------------------- | ---- | ----------------------------------------------------- |
+| `VALIDATION_ERROR`         | 400  | Campos requeridos faltantes o inválidos               |
+| `INVALID_DATE_FORMAT`      | 400  | Formato de fecha incorrecto                           |
+| `TOKEN_EXPIRED`            | 401  | JWT expirado, requiere refresh                        |
+| `INVALID_TOKEN`            | 401  | JWT malformado o inválido                             |
+| `ACCOUNT_READONLY`         | 403  | Cuenta en modo solo lectura (trial expirado)          |
+| `ACCOUNT_SUSPENDED`        | 403  | Cuenta suspendida por admin                           |
+| `INSUFFICIENT_PERMISSIONS` | 403  | Rol sin permisos para esta acción                     |
+| `RESOURCE_NOT_FOUND`       | 404  | Recurso no existe o no pertenece al usuario           |
+| `SCHEDULE_CONFLICT`        | 409  | Conflicto de horario con cita/bloqueo existente       |
+| `DUPLICATE_RESOURCE`       | 409  | Recurso duplicado (ej. slug ya existe)                |
+| `PROFESSIONAL_INACTIVE`    | 422  | Profesional no acepta reservas                        |
+| `TERMS_NOT_ACCEPTED`       | 422  | Términos y condiciones no aceptados                   |
+| `INSUFFICIENT_NOTICE`      | 422  | No cumple anticipación mínima para cancelar/reagendar |
+| `RATE_LIMIT_EXCEEDED`      | 429  | Demasiadas solicitudes                                |
 
 ---
 
@@ -1215,14 +1215,14 @@ info:
   title: TimeFlowPro API
   description: |
     API para gestión de agendas de profesionales móviles.
-    
+
     ## Características principales
     - Gestión de citas con duración adaptativa
     - Bloqueo automático de tiempos de traslado
     - Portal público para reservas sin cuenta
     - Sincronización con Google Calendar
     - Sistema de bloqueos personales
-    
+
     ## Autenticación
     Todos los endpoints (excepto `/public/*`) requieren autenticación via JWT Bearer Token.
   version: 1.0.0
@@ -1231,7 +1231,7 @@ info:
     email: soporte@timeflowpro.app
   license:
     name: Proprietary
-    
+
 servers:
   - url: https://api.timeflowpro.app/v1
     description: Producción
@@ -1462,11 +1462,13 @@ paths:
 ## 5.13 Checklist de Validación
 
 ### Cumplimiento de Estándares
+
 - [x] ¿Es OpenAPI 3.0 válido?
 - [x] ¿Verbos HTTP correctos? (GET leer, POST crear, PUT editar, DELETE borrar)
 - [x] ¿Códigos de estado HTTP precisos? (201 creación, 400 cliente, 401 auth, 403 permisos, 409 conflicto)
 
 ### Consistencia de Datos
+
 - [x] ¿Coincide con el Modelo de Datos (Sección 3)?
   - `appointments.price_at_booking` ✓
   - `appointments.terms_accepted_at` ✓
@@ -1478,40 +1480,40 @@ paths:
 - [x] ¿Manejo de errores consistente y documentado?
 
 ### Usabilidad (DX)
+
 - [x] ¿Ejemplos copy-pasteables en JSON?
 - [x] ¿Seguridad declarada? (Bearer Token en headers)
 - [x] ¿Sin credenciales reales en ejemplos?
 
 ### Trazabilidad con Historias de Usuario
 
-| Historia | Endpoints Documentados |
-|----------|------------------------|
-| US-01 (Auth) | OAuth via Supabase Auth |
-| US-08 (Crear Cita) | `POST /appointments` |
-| US-09 (Ver Calendario) | `GET /appointments` |
+| Historia                    | Endpoints Documentados                  |
+| --------------------------- | --------------------------------------- |
+| US-01 (Auth)                | OAuth via Supabase Auth                 |
+| US-08 (Crear Cita)          | `POST /appointments`                    |
+| US-09 (Ver Calendario)      | `GET /appointments`                     |
 | US-10 (Duración Adaptativa) | `GET /availability` (incluye historial) |
-| US-11 (Completar Cita) | `PUT /appointments/:id/complete` |
-| US-13 (Reserva Online) | `POST /public/bookings` |
-| US-16-18 (Admin) | `GET/PATCH /admin/*` |
-| US-20 (Cancelar) | `POST /public/appointments/:id/cancel` |
-| US-21 (Reagendar) | `PUT /appointments/:id/reschedule` |
-| US-22 (Bloqueos) | `CRUD /personal-blocks` |
-| US-23 (Términos) | `GET /public/professionals/:slug/terms` |
+| US-11 (Completar Cita)      | `PUT /appointments/:id/complete`        |
+| US-13 (Reserva Online)      | `POST /public/bookings`                 |
+| US-16-18 (Admin)            | `GET/PATCH /admin/*`                    |
+| US-20 (Cancelar)            | `POST /public/appointments/:id/cancel`  |
+| US-21 (Reagendar)           | `PUT /appointments/:id/reschedule`      |
+| US-22 (Bloqueos)            | `CRUD /personal-blocks`                 |
+| US-23 (Términos)            | `GET /public/professionals/:slug/terms` |
 
 ---
 
 ## 5.14 Referencias
 
-| Documento | Ubicación |
-|-----------|-----------|
-| Modelo de Datos | `Documentacion/3-ModeloDatos.md` |
-| Historias de Usuario | `Documentacion/4-HistoriasUsuario.md` |
-| Arquitectura del Sistema | `Documentacion/2-ArquitecturaSistema.md` |
-| Scaffolding API | `ScafoldingDocumentacion/4-Especificación de la API.md` |
+| Documento                | Ubicación                                               |
+| ------------------------ | ------------------------------------------------------- |
+| Modelo de Datos          | `Documentacion/3-ModeloDatos.md`                        |
+| Historias de Usuario     | `Documentacion/4-HistoriasUsuario.md`                   |
+| Arquitectura del Sistema | `Documentacion/2-ArquitecturaSistema.md`                |
+| Scaffolding API          | `ScafoldingDocumentacion/4-Especificación de la API.md` |
 
 ---
 
 **Última actualización:** Enero 2026  
 **Versión del documento:** 1.0.0  
 **Autor:** TimeFlowPro Team
-

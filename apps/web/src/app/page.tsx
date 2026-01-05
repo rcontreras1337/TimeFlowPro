@@ -1,6 +1,7 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Clock, Users } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users } from 'lucide-react'
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
 
 /**
  * Landing page for TimeFlowPro
@@ -39,13 +40,12 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
-                La agenda que entiende que{' '}
-                <span className="text-primary-500">te mueves</span>
+                La agenda que entiende que <span className="text-primary-500">te mueves</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                TimeFlowPro es la primera agenda digital diseñada para profesionales
-                móviles. Calcula traslados, adapta duraciones por cliente y optimiza
-                tu jornada automáticamente.
+                TimeFlowPro es la primera agenda digital diseñada para profesionales móviles.
+                Calcula traslados, adapta duraciones por cliente y optimiza tu jornada
+                automáticamente.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Button variant="primary" size="lg" asChild>
@@ -67,8 +67,7 @@ export default function HomePage() {
                 Todo lo que necesitas para gestionar tu agenda
               </h2>
               <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-                Diseñado específicamente para profesionales que trabajan en múltiples
-                ubicaciones.
+                Diseñado específicamente para profesionales que trabajan en múltiples ubicaciones.
               </p>
             </div>
 
@@ -155,6 +154,5 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
-

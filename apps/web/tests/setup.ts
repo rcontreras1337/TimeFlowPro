@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
-import { vi, afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
+import { vi, afterEach } from 'vitest'
 
 // Limpiar despues de cada test
 afterEach(() => {
@@ -28,4 +28,3 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
 }))
-
