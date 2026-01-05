@@ -83,7 +83,7 @@ jobs:
 
       - name: 📊 Upload Coverage
         if: always()
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./apps/web/coverage/lcov.info
