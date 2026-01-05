@@ -64,3 +64,4 @@ yarn-error.log*
 
 # Local development
 *.local
+/.agent
