@@ -1,12 +1,28 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/hooks/use-auth'
 
 /**
- * Login page placeholder
- * Will be implemented in T-1-03
+ * Login page with Google OAuth
+ *
+ * @ticket T-1-03
  */
 export default function LoginPage() {
+  const { signInWithGoogle, isLoading } = useAuth()
+  const [isSigningIn, setIsSigningIn] = useState(false)
+
+  const handleGoogleLogin = () => {
+    setIsSigningIn(true)
+    signInWithGoogle().catch((error: unknown) => {
+      console.error('Error al iniciar sesión con Google:', error)
+      setIsSigningIn(false)
+    })
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-gray-800">
@@ -20,7 +36,13 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-8 space-y-4">
-          <Button variant="outline" fullWidth className="gap-3" disabled>
+          <Button
+            variant="outline"
+            fullWidth
+            className="gap-3"
+            onClick={handleGoogleLogin}
+            disabled={isLoading || isSigningIn}
+          >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -39,11 +61,11 @@ export default function LoginPage() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Continuar con Google
+            {isLoading || isSigningIn ? 'Cargando...' : 'Continuar con Google'}
           </Button>
 
           <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-            (Funcionalidad disponible en Sprint 1 - T-1-03)
+            ¿Nuevo aquí? Obtén 14 días de prueba gratis
           </p>
         </div>
 
