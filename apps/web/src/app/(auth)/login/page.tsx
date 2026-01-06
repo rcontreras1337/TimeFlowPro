@@ -1,74 +1,72 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Suspense } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { useAuth } from '@/hooks/use-auth'
+import { LoginForm } from '@/components/features/auth/login-form'
+
+export const metadata: Metadata = {
+  title: 'Iniciar Sesión | TimeFlowPro',
+  description:
+    'Accede a tu cuenta de TimeFlowPro - La agenda inteligente para profesionales móviles',
+}
 
 /**
- * Login page with Google OAuth
+ * Login page with premium design
  *
  * @ticket T-1-03
  */
 export default function LoginPage() {
-  const { signInWithGoogle, isLoading } = useAuth()
-  const [isSigningIn, setIsSigningIn] = useState(false)
-
-  const handleGoogleLogin = () => {
-    setIsSigningIn(true)
-    signInWithGoogle().catch((error: unknown) => {
-      console.error('Error al iniciar sesión con Google:', error)
-      setIsSigningIn(false)
-    })
-  }
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg dark:bg-gray-800">
-        <div className="text-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-icon.svg" alt="TimeFlowPro" className="mx-auto h-16 w-16" />
-          <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Accede a tu cuenta de TimeFlowPro
+    <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-dark-100 dark:via-dark-200 dark:to-dark-100">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full opacity-20 blur-3xl dark:bg-primary-500 dark:opacity-10" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-200 rounded-full opacity-20 blur-3xl dark:bg-secondary-500 dark:opacity-10" />
+      </div>
+
+      {/* Login card */}
+      <div className="relative z-10 w-full max-w-md px-6">
+        <div className="bg-white rounded-2xl shadow-xl p-8 space-y-8 dark:bg-dark-300 dark:shadow-2xl">
+          {/* Logo */}
+          <div className="flex flex-col items-center space-y-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-icon.svg" alt="TimeFlowPro" className="h-12 w-auto" />
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Bienvenido a TimeFlowPro
+              </h1>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
+                La agenda inteligente para profesionales móviles
+              </p>
+            </div>
+          </div>
+
+          {/* Form */}
+          <Suspense fallback={<LoginFormSkeleton />}>
+            <LoginForm />
+          </Suspense>
+
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+            Al continuar, aceptas nuestros{' '}
+            <a href="/terms" className="text-primary-600 hover:underline dark:text-primary-400">
+              Términos de Servicio
+            </a>{' '}
+            y{' '}
+            <a href="/privacy" className="text-primary-600 hover:underline dark:text-primary-400">
+              Política de Privacidad
+            </a>
           </p>
         </div>
 
-        <div className="mt-8 space-y-4">
-          <Button
-            variant="outline"
-            fullWidth
-            className="gap-3"
-            onClick={handleGoogleLogin}
-            disabled={isLoading || isSigningIn}
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="currentColor"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              />
-              <path
-                fill="currentColor"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              />
-              <path
-                fill="currentColor"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              />
-            </svg>
-            {isLoading || isSigningIn ? 'Cargando...' : 'Continuar con Google'}
-          </Button>
-
-          <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-            ¿Nuevo aquí? Obtén 14 días de prueba gratis
-          </p>
+        {/* Features */}
+        <div className="mt-8 grid grid-cols-3 gap-4 text-center">
+          <Feature icon="⏱️" text="Duración adaptativa" />
+          <Feature icon="🗺️" text="Gestión de traslados" />
+          <Feature icon="📅" text="Sync con Google" />
         </div>
 
+        {/* Back link */}
         <div className="mt-6 text-center">
           <Link
             href="/"
@@ -78,6 +76,23 @@ export default function LoginPage() {
           </Link>
         </div>
       </div>
+    </div>
+  )
+}
+
+function Feature({ icon, text }: { icon: string; text: string }) {
+  return (
+    <div className="flex flex-col items-center space-y-1">
+      <span className="text-2xl">{icon}</span>
+      <span className="text-xs text-gray-600 dark:text-gray-400">{text}</span>
+    </div>
+  )
+}
+
+function LoginFormSkeleton() {
+  return (
+    <div className="space-y-4 animate-pulse">
+      <div className="h-12 bg-gray-200 rounded-lg dark:bg-gray-700" />
     </div>
   )
 }
