@@ -18,3 +18,4 @@ export {
   type CardProps,
 } from './card'
 export { BottomNav } from './bottom-nav'
+export { Alert, alertVariants, type AlertProps } from './alert'
