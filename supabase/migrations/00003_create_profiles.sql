@@ -92,6 +92,11 @@ CREATE POLICY "Users can view own profile" ON profiles
 CREATE POLICY "Users can update own profile" ON profiles
   FOR UPDATE USING (auth.uid() = id);
 
+-- Política para que el trigger handle_new_user pueda crear perfiles
+-- El trigger usa SECURITY DEFINER y esta política permite INSERTs
+CREATE POLICY "Service role can insert profiles" ON profiles
+  FOR INSERT WITH CHECK (true);
+
 -- Superadmin puede ver todos los perfiles
 CREATE POLICY "Superadmin can view all profiles" ON profiles
   FOR SELECT USING (
