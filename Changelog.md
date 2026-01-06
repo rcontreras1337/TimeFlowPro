@@ -25,6 +25,18 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
   - Botones con gradiente y glow sutil
   - Reglas de estilo para IA en `.cursor/rules/estilo.mdc`
 
+- 🌐 **T-0-06**: Sistema de mensajes centralizado (i18n)
+  - `messages.es.yml` con ~400 mensajes en español organizados por módulo
+  - Helper `getMessage()` con interpolación de variables
+  - Función `hasMessage()` para verificar mensajes existentes
+  - Webpack configurado para cargar archivos YML
+  - 14 unit tests para el sistema de mensajes
+  - Reglas de i18n en `.cursor/rules/estilo.mdc`
+
+- 🎨 **Branding**: Logos actualizados con paleta dark
+  - `logo-icon.svg`, `logo.svg`, `logo-dark.svg` con gradiente indigo/violet
+  - Landing page usa logo en lugar de ícono genérico
+
 ### Changed
 
 - Simplificado script de lint en `apps/web` para usar solo `next lint`
