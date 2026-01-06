@@ -1,4 +1,5 @@
-import { Calendar, MapPin, Clock, Users, ArrowRight, Check } from 'lucide-react'
+import { MapPin, Clock, Users, ArrowRight, Check } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -14,7 +15,13 @@ export default function HomePage() {
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
-              <Calendar className="h-4 w-4 text-white" />
+              <Image
+                src="/logo-icon.svg"
+                alt="TimeFlowPro"
+                width={20}
+                height={20}
+                className="h-5 w-5"
+              />
             </div>
             <span className="text-lg font-bold text-white sm:text-xl">
               Time<span className="text-primary-500">Flow</span>
@@ -136,7 +143,13 @@ export default function HomePage() {
               {/* Feature 3 */}
               <div className="group rounded-2xl border border-dark-200/30 bg-dark-400/30 p-5 backdrop-blur-sm transition-all hover:border-primary-500/30 hover:bg-dark-400/50 sm:p-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-500 transition-colors group-hover:bg-accent-500/20 sm:h-12 sm:w-12">
-                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
+                  <Image
+                    src="/logo-icon.svg"
+                    alt="Sync"
+                    width={24}
+                    height={24}
+                    className="h-5 w-5 sm:h-6 sm:w-6"
+                  />
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-white sm:text-base">
                   Sync con Google
