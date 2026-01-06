@@ -1,0 +1,413 @@
+# ===========================================
+# MENSAJES DE USUARIO - TIMEFLOWPRO
+# ===========================================
+# Todos los textos visibles para el usuario
+# Organizado por módulo/funcionalidad
+# ===========================================
+
+# === COMUNES ===
+common:
+  loading: 'Cargando...'
+  saving: 'Guardando...'
+  error: 'Ha ocurrido un error'
+  success: 'Operación exitosa'
+  cancel: 'Cancelar'
+  confirm: 'Confirmar'
+  save: 'Guardar'
+  edit: 'Editar'
+  delete: 'Eliminar'
+  back: 'Volver'
+  next: 'Siguiente'
+  close: 'Cerrar'
+  search: 'Buscar'
+  filter: 'Filtrar'
+  noResults: 'No se encontraron resultados'
+  required: 'Este campo es obligatorio'
+
+# === AUTENTICACIÓN ===
+auth:
+  login:
+    title: 'Iniciar sesión'
+    subtitle: 'Accede a tu cuenta de TimeFlowPro'
+    withGoogle: 'Continuar con Google'
+    loading: 'Iniciando sesión...'
+    success: '¡Bienvenido!'
+    error: 'Error al iniciar sesión'
+  logout:
+    button: 'Cerrar sesión'
+    success: 'Has cerrado sesión correctamente'
+  errors:
+    invalidCredentials: 'Credenciales inválidas'
+    sessionExpired: 'Tu sesión ha expirado'
+    unauthorized: 'No tienes permiso para acceder'
+
+# === CUENTA ===
+account:
+  trial:
+    active: 'Período de prueba activo'
+    daysRemaining: 'Te quedan {days} días de prueba'
+    expired: 'Tu período de prueba ha expirado'
+    readOnlyMode: 'Estás en modo solo lectura'
+    contactAdmin: 'Contacta al administrador para activar tu cuenta'
+  status:
+    active: 'Activa'
+    trial: 'En prueba'
+    suspended: 'Suspendida'
+    readonly: 'Solo lectura'
+
+# === PERFIL ===
+profile:
+  title: 'Mi perfil'
+  edit: 'Editar perfil'
+  fields:
+    name: 'Nombre completo'
+    email: 'Correo electrónico'
+    phone: 'Teléfono'
+    slug: 'URL personalizada'
+    timezone: 'Zona horaria'
+  save:
+    success: 'Perfil actualizado correctamente'
+    error: 'Error al actualizar el perfil'
+  validation:
+    slugTaken: 'Esta URL ya está en uso'
+    slugInvalid: 'La URL solo puede contener letras, números y guiones'
+
+# === UBICACIONES ===
+locations:
+  title: 'Ubicaciones'
+  add: 'Agregar ubicación'
+  edit: 'Editar ubicación'
+  fields:
+    name: 'Nombre'
+    address: 'Dirección'
+    color: 'Color'
+  create:
+    success: 'Ubicación creada correctamente'
+    error: 'Error al crear la ubicación'
+  update:
+    success: 'Ubicación actualizada'
+    error: 'Error al actualizar'
+  delete:
+    confirm: '¿Estás seguro de eliminar esta ubicación?'
+    success: 'Ubicación eliminada'
+    error: 'Error al eliminar'
+    hasAppointments: 'No se puede eliminar: hay citas asociadas'
+
+# === SERVICIOS ===
+services:
+  title: 'Servicios'
+  add: 'Agregar servicio'
+  edit: 'Editar servicio'
+  fields:
+    name: 'Nombre del servicio'
+    description: 'Descripción'
+    duration: 'Duración (minutos)'
+    price: 'Precio'
+    color: 'Color'
+    allowOnlineBooking: 'Permitir reserva online'
+  create:
+    success: 'Servicio creado correctamente'
+    error: 'Error al crear el servicio'
+  update:
+    success: 'Servicio actualizado'
+    error: 'Error al actualizar'
+  delete:
+    confirm: '¿Estás seguro de eliminar este servicio?'
+    success: 'Servicio eliminado'
+    error: 'Error al eliminar'
+
+# === CLIENTES ===
+clients:
+  title: 'Clientes'
+  add: 'Agregar cliente'
+  edit: 'Editar cliente'
+  fields:
+    name: 'Nombre'
+    email: 'Email'
+    phone: 'Teléfono'
+    notes: 'Notas'
+  create:
+    success: 'Cliente agregado correctamente'
+    error: 'Error al agregar cliente'
+  update:
+    success: 'Cliente actualizado'
+    error: 'Error al actualizar'
+  delete:
+    confirm: '¿Estás seguro de eliminar este cliente?'
+    success: 'Cliente eliminado'
+    error: 'Error al eliminar'
+
+# === CITAS ===
+appointments:
+  title: 'Citas'
+  add: 'Nueva cita'
+  edit: 'Editar cita'
+  fields:
+    client: 'Cliente'
+    service: 'Servicio'
+    location: 'Ubicación'
+    date: 'Fecha'
+    time: 'Hora'
+    duration: 'Duración'
+    notes: 'Notas'
+  status:
+    pending: 'Pendiente'
+    confirmed: 'Confirmada'
+    completed: 'Completada'
+    cancelled: 'Cancelada'
+    noShow: 'No asistió'
+  create:
+    success: 'Cita creada exitosamente'
+    error: 'Error al crear la cita'
+  update:
+    success: 'Cita actualizada'
+    error: 'Error al actualizar'
+  complete:
+    title: 'Completar cita'
+    actualDuration: 'Duración real'
+    success: 'Cita completada. Duración registrada.'
+    error: 'Error al completar'
+  cancel:
+    title: 'Cancelar cita'
+    confirm: '¿Estás seguro de cancelar esta cita?'
+    reason: 'Motivo de cancelación'
+    success: 'Cita cancelada'
+    error: 'Error al cancelar'
+    byClient: 'Cancelada por el cliente'
+    byProfessional: 'Cancelada por el profesional'
+    tooLate: 'No se puede cancelar con menos de {hours} horas de anticipación'
+  reschedule:
+    title: 'Reagendar cita'
+    success: 'Cita reagendada exitosamente'
+    error: 'Error al reagendar'
+    tooLate: 'No se puede reagendar con menos de {hours} horas de anticipación'
+  noShow:
+    mark: 'Marcar como no asistió'
+    success: 'Cita marcada como no asistió'
+
+# === CALENDARIO ===
+calendar:
+  title: 'Calendario'
+  today: 'Hoy'
+  week: 'Semana'
+  day: 'Día'
+  noAppointments: 'No hay citas para este día'
+  travelBlock: 'Tiempo de traslado'
+  personalBlock: 'Bloqueo personal'
+
+# === BLOQUEOS PERSONALES ===
+personalBlocks:
+  title: 'Bloqueos'
+  add: 'Bloquear tiempo'
+  edit: 'Editar bloqueo'
+  types:
+    lunch: 'Almuerzo'
+    vacation: 'Vacaciones'
+    personal: 'Personal'
+    other: 'Otro'
+  fields:
+    title: 'Título'
+    type: 'Tipo'
+    startTime: 'Inicio'
+    endTime: 'Fin'
+    recurrence: 'Repetir'
+  recurrence:
+    none: 'Sin repetición'
+    daily: 'Todos los días'
+    weekly: 'Cada semana'
+    monthly: 'Cada mes'
+    until: 'Repetir hasta'
+  create:
+    success: 'Bloqueo creado'
+    error: 'Error al crear bloqueo'
+  delete:
+    confirm: '¿Eliminar este bloqueo?'
+    success: 'Bloqueo eliminado'
+  conflicts: 'Existen {count} cita(s) en el rango seleccionado'
+
+# === DISPONIBILIDAD ===
+availability:
+  title: 'Disponibilidad'
+  noSlots: 'No hay horarios disponibles para este día'
+  selectDate: 'Selecciona una fecha'
+  selectTime: 'Selecciona un horario'
+
+# === HORARIOS ===
+workingHours:
+  title: 'Horarios de trabajo'
+  edit: 'Editar horarios'
+  days:
+    monday: 'Lunes'
+    tuesday: 'Martes'
+    wednesday: 'Miércoles'
+    thursday: 'Jueves'
+    friday: 'Viernes'
+    saturday: 'Sábado'
+    sunday: 'Domingo'
+  closed: 'Cerrado'
+  addSlot: 'Agregar horario'
+  save:
+    success: 'Horarios guardados'
+    error: 'Error al guardar horarios'
+
+# === TIEMPOS DE TRASLADO ===
+travelTimes:
+  title: 'Tiempos de traslado'
+  edit: 'Editar tiempos'
+  from: 'Desde'
+  to: 'Hacia'
+  minutes: 'minutos'
+  save:
+    success: 'Tiempos de traslado guardados'
+    error: 'Error al guardar'
+
+# === PORTAL PÚBLICO ===
+public:
+  portal:
+    available: 'Disponible'
+    notAvailable: 'No disponible'
+    bookNow: 'Reservar ahora'
+    services: 'Servicios disponibles'
+    locations: 'Ubicaciones'
+    professionalInactive: 'Este profesional no está aceptando reservas en este momento'
+  booking:
+    title: 'Reservar cita'
+    step1: 'Servicio'
+    step2: 'Ubicación'
+    step3: 'Fecha y hora'
+    step4: 'Tus datos'
+    step5: 'Condiciones'
+    step6: 'Confirmar'
+    selectService: 'Selecciona un servicio'
+    selectLocation: 'Selecciona una ubicación'
+    selectDateTime: 'Selecciona fecha y hora'
+    yourInfo: 'Tus datos de contacto'
+    termsLabel: 'Términos y condiciones'
+    review: 'Revisa tu reserva'
+    confirm: 'Confirmar reserva'
+    confirming: 'Confirmando...'
+    success:
+      title: '¡Reserva confirmada!'
+      message: 'Recibirás un email con los detalles de tu cita'
+    fields:
+      name: 'Tu nombre'
+      email: 'Tu email'
+      phone: 'Tu teléfono'
+      notes: 'Notas adicionales (opcional)'
+    terms:
+      accept: 'Acepto los términos y condiciones'
+      required: 'Debes aceptar los términos para continuar'
+    errors:
+      slotTaken: 'Este horario ya no está disponible'
+      invalidData: 'Por favor verifica los datos ingresados'
+
+# === INTEGRACIONES ===
+integrations:
+  title: 'Integraciones'
+  googleCalendar:
+    title: 'Google Calendar'
+    description: 'Sincroniza tus citas con Google Calendar'
+    connect: 'Conectar Google Calendar'
+    disconnect: 'Desconectar'
+    connected: 'Conectado'
+    syncEnabled: 'Sincronización automática'
+    lastSync: 'Última sincronización'
+    syncNow: 'Sincronizar ahora'
+    syncing: 'Sincronizando...'
+    success: 'Google Calendar conectado'
+    disconnected: 'Google Calendar desconectado'
+    error: 'Error al conectar'
+  comingSoon: 'Próximamente'
+
+# === ADMIN ===
+admin:
+  dashboard:
+    title: 'Panel de administración'
+    professionals: 'Profesionales'
+    totalProfessionals: 'Total de profesionales'
+    activeTrials: 'Pruebas activas'
+    expiringTrials: 'Por vencer'
+  professionals:
+    table:
+      name: 'Nombre'
+      email: 'Email'
+      status: 'Estado'
+      trialEnds: 'Fin de prueba'
+      actions: 'Acciones'
+    activate: 'Activar'
+    suspend: 'Suspender'
+    activated: 'Profesional activado'
+    suspended: 'Profesional suspendido'
+  config:
+    title: 'Configuración'
+    trialDays: 'Días de prueba'
+    save:
+      success: 'Configuración guardada'
+      error: 'Error al guardar'
+
+# === VALIDACIÓN ===
+validation:
+  required: 'Este campo es obligatorio'
+  email: 'Ingresa un email válido'
+  phone: 'Ingresa un teléfono válido'
+  minLength: 'Mínimo {min} caracteres'
+  maxLength: 'Máximo {max} caracteres'
+  min: 'El valor mínimo es {min}'
+  max: 'El valor máximo es {max}'
+  invalidDate: 'Fecha inválida'
+  invalidTime: 'Hora inválida'
+  pastDate: 'La fecha no puede ser en el pasado'
+
+# === ERRORES HTTP ===
+errors:
+  400: 'Solicitud inválida'
+  401: 'No autorizado'
+  403: 'Acceso denegado'
+  404: 'No encontrado'
+  409: 'Conflicto de datos'
+  422: 'No se pudo procesar la solicitud'
+  429: 'Demasiadas solicitudes. Intenta más tarde'
+  500: 'Error del servidor'
+  network: 'Error de conexión. Verifica tu internet'
+  unknown: 'Error desconocido'
+
+# === NAVEGACIÓN ===
+nav:
+  agenda: 'Agenda'
+  locations: 'Ubicaciones'
+  clients: 'Clientes'
+  settings: 'Ajustes'
+
+# === LANDING PAGE ===
+landing:
+  hero:
+    badge: 'Para profesionales móviles'
+    title: 'La agenda que entiende que'
+    titleAccent: 'te mueves'
+    subtitle: 'Gestiona múltiples ubicaciones, adapta duraciones por cliente y optimiza tu jornada automáticamente.'
+    cta: 'Prueba Gratis 14 Días'
+    secondary: 'Ver Funcionalidades'
+  trust:
+    noCard: 'Sin tarjeta de crédito'
+    cancelAnytime: 'Cancela cuando quieras'
+  features:
+    title: 'Todo lo que necesitas'
+    subtitle: 'Diseñado para profesionales que trabajan en múltiples ubicaciones.'
+    multiLocation:
+      title: 'Multi-ubicación'
+      description: 'Gestiona múltiples lugares con horarios diferenciados.'
+    adaptiveDuration:
+      title: 'Duración Adaptativa'
+      description: 'Ajusta automáticamente según el historial del cliente.'
+    googleSync:
+      title: 'Sync con Google'
+      description: 'Sincroniza con Google Calendar automáticamente.'
+    onlineBooking:
+      title: 'Reservas Online'
+      description: 'Tus clientes reservan 24/7 sin necesidad de registrarse.'
+  cta:
+    title: '¿Listo para optimizar tu agenda?'
+    subtitle: 'Comienza tu prueba gratuita de 14 días. Sin tarjeta de crédito.'
+    button: 'Comenzar Ahora'
+  footer:
+    copyright: '© {year} TimeFlowPro. Todos los derechos reservados.'

@@ -48,6 +48,15 @@ const nextConfig = {
     // Enable typed routes
     typedRoutes: true,
   },
+
+  // Webpack configuration for YAML files (i18n)
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      use: 'yaml-loader',
+    })
+    return config
+  },
 }
 
 export default nextConfig
