@@ -51,6 +51,13 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}/login?error=${AUTH_ERRORS.PROFILE_NOT_FOUND}`)
   }
 
+  // Helper para actualizar estado del perfil
+  // Type assertion needed due to Supabase client type inference issue
+  const updateProfileStatus = async (userId: string, newStatus: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+    await (supabase.from('profiles') as any).update({ account_status: newStatus }).eq('id', userId)
+  }
+
   // Verificar estado de cuenta
   switch (profile.account_status) {
     case 'suspended':
@@ -69,12 +76,7 @@ export async function GET(request: Request) {
     case 'trial':
       // Verificar si el trial expiró
       if (profile.trial_expires_at && new Date(profile.trial_expires_at) < new Date()) {
-        // Actualizar a readonly
-        await supabase
-          .from('profiles')
-          .update({ account_status: 'readonly' as const })
-          .eq('id', data.user.id)
-
+        await updateProfileStatus(data.user.id, 'readonly')
         return NextResponse.redirect(`${origin}/dashboard?trial_expired=true`)
       }
       return NextResponse.redirect(`${origin}${next}`)
