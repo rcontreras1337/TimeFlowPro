@@ -201,14 +201,14 @@ TimeFlowPro/
 
 ### RoadMap
 
-| Sprint                            | Tema                    | Estado               |
-| --------------------------------- | ----------------------- | -------------------- |
-| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | 🔄 En progreso (4/6) |
-| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente         |
-| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente         |
-| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente         |
-| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente         |
-| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente         |
+| Sprint                            | Tema                    | Estado       |
+| --------------------------------- | ----------------------- | ------------ |
+| [Sprint 0](./RoadMap/sprint-0.md) | Setup & Fundamentos     | ☑️ Listo     |
+| [Sprint 1](./RoadMap/sprint-1.md) | Autenticación           | 📋 Pendiente |
+| [Sprint 2](./RoadMap/sprint-2.md) | Ubicaciones y Servicios | 📋 Pendiente |
+| [Sprint 3](./RoadMap/sprint-3.md) | Citas y Calendario      | 📋 Pendiente |
+| [Sprint 4](./RoadMap/sprint-4.md) | Portal Público          | 📋 Pendiente |
+| [Sprint 5](./RoadMap/sprint-5.md) | Google Calendar         | 📋 Pendiente |
 
 ---
 
@@ -434,7 +434,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 ## 📞 Contacto
 
-- **Email:** 4tipruben@gmail.com
+- **Email:** <4tipruben@gmail.com>
 - **GitHub:** [@rcontreras1337](https://github.com/rcontreras1337)
 
 ---

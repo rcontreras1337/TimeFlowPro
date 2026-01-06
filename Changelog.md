@@ -10,6 +10,15 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 🗄️ **T-1-01**: Migración Inicial de Base de Datos
+  - 15 scripts de migración SQL para estructura core
+  - 14 tablas: `profiles`, `appointments`, `clients`, `services`, `locations`, etc.
+  - 9 ENUMs: roles, estados, orígenes, etc.
+  - Triggers de auditoría (`updated_at`) y lógica de negocio
+  - Integración preparada para Google Calendar
+  - Tests de integración para validar esquema y RLS
+  - Tipos TypeScript generados automáticamente
+
 - **T-0-05**: Configuración de herramientas de calidad de código
   - Husky para git hooks (`pre-commit`, `commit-msg`)
   - Commitlint para validar Conventional Commits

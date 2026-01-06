@@ -34,8 +34,6 @@ Estoy trabajando en **TimeFlowPro**, un sistema de agendamiento inteligente para
 
 **ID:** {{TICKET_ID}}
 **Sprint:** {{SPRINT_NUMBER}}
-**Tipo:** {{TIPO}} (Frontend/Backend/Infra/Database)
-**Prioridad:** {{PRIORIDAD}}
 
 ## Descripción
 
@@ -45,14 +43,14 @@ Estoy trabajando en **TimeFlowPro**, un sistema de agendamiento inteligente para
 
 Por favor, lee estos archivos antes de comenzar:
 
-- `Documentacion/6-TicketsTrabajo.md` - Busca el ticket {{TICKET_ID}} para ver todos los detalles
+- `Documentacion/6-TicketsTrabajo.md` - Busca el ticket para ver todos los detalles
 - `Documentacion/2-ArquitecturaSistema.md` - Para seguir la arquitectura definida
 - `Documentacion/3-ModeloDatos.md` - Para referencias de BD
-- `Documentacion/4-HistoriasUsuario.md` - HDU relacionada: {{HDU_RELACIONADA}}
+- `Documentacion/4-HistoriasUsuario.md` - HDU relacionad
 
-## Criterios de Aceptación
+## Rama Codificacion
 
-{{CRITERIOS_DE_ACEPTACION}}
+Realiza una rama con el nombre de la ticket como se explica en Documentacion\7-PullRequests.md
 
 ---
 
@@ -71,8 +69,7 @@ Por favor, lee estos archivos antes de comenzar:
 Todos los mensajes que se muestren al usuario deben:
 
 - Estar en español
-- Venir del archivo `messages.es.yml`
-- Usar el helper `getMessage('key.path')`
+- Venir del archivo yml
 
 Ejemplo:
 
