@@ -28,6 +28,7 @@
     "web:test": "pnpm --filter @timeflowpro/web test",
     "test:unit": "pnpm --filter @timeflowpro/web test",
     "test:integration": "vitest run --config vitest.config.ts",
+    "test:e2e": "playwright test",
     "test:coverage": "pnpm --filter @timeflowpro/web test:coverage",
     "typecheck": "pnpm --filter @timeflowpro/web typecheck",
     "clean": "pnpm -r exec rm -rf node_modules .next .turbo dist",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.3.0",
     "@commitlint/config-conventional": "^20.3.0",
+    "@playwright/test": "^1.57.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "husky": "^9.1.7",

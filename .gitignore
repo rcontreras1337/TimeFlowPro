@@ -65,3 +65,5 @@ yarn-error.log*
 # Local development
 *.local
 /.agent
+/playwright-report
+/test-results

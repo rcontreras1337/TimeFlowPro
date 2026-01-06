@@ -1,6 +1,6 @@
 import { createBrowserClient } from '@supabase/ssr'
 
-import type { Database } from '@/types/database'
+import type { Database } from '@/types/database.types'
 
 // Fallback URLs for build time (never used at runtime)
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co'

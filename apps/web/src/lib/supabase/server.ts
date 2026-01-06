@@ -1,7 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-import type { Database } from '@/types/database'
+import type { Database } from '@/types/database.types'
 
 // Fallback URLs for build time (never used at runtime)
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co'
