@@ -67,3 +67,4 @@ yarn-error.log*
 /.agent
 /playwright-report
 /test-results
+*.ps1
