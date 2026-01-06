@@ -10,6 +10,12 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 🔐 **T-1-02**: Supabase Auth con Google OAuth
+  - `AuthService` con métodos signInWithGoogle, signOut, getSession, getUser
+  - Callback handler con verificación de estado de cuenta
+  - Hook `useAuth` con estado de trial, readonly, días restantes
+  - 15 tests pasando (9 unitarios + 6 integración)
+
 - 🗄️ **T-1-01**: Migración Inicial de Base de Datos
   - 15 scripts de migración SQL para estructura core
   - 14 tablas: `profiles`, `appointments`, `clients`, `services`, `locations`, etc.
