@@ -11,6 +11,7 @@ import { AuthProvider } from '@/components/providers/auth-provider'
  * - Provides auth context to child components
  *
  * @ticket T-1-04
+ * @updated Force reload
  */
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return <AuthProvider>{children}</AuthProvider>
