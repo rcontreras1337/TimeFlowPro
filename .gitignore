@@ -68,3 +68,4 @@ yarn-error.log*
 /playwright-report
 /test-results
 *.ps1
+RoadMap/prompt.md
