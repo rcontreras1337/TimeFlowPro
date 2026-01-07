@@ -13,13 +13,29 @@ interface CookieToSet {
   options: CookieOptions
 }
 
+// Public routes that don't require authentication
+const PUBLIC_ROUTES = ['/', '/login', '/auth/callback', '/terms', '/privacy']
+
+// Admin routes that require superadmin role
+const ADMIN_ROUTES = ['/admin']
+
+// Pattern for public booking pages (slug-based)
+const PUBLIC_SLUG_PATTERN = /^\/reservar\//
+
 /**
  * Update Supabase session in middleware
  *
- * This middleware refreshes the user's session and must be called
- * on every request to keep the session active.
+ * This middleware:
+ * 1. Refreshes the user's session
+ * 2. Protects routes based on authentication
+ * 3. Verifies account status (suspended, readonly)
+ * 4. Restricts admin routes to superadmin role
+ *
+ * @ticket T-1-04
  */
 export async function updateSession(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
   let supabaseResponse = NextResponse.next({
     request,
   })
@@ -41,39 +57,76 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  // IMPORTANT: Avoid writing any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
+  // Get current user
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Define public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/callback']
-  const isPublicRoute = publicRoutes.some(
-    (route) =>
-      request.nextUrl.pathname === route || request.nextUrl.pathname.startsWith('/reservar/')
-  )
+  // === PUBLIC ROUTES ===
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname) || PUBLIC_SLUG_PATTERN.test(pathname)
 
-  // Redirect to login if not authenticated and trying to access protected route
-  if (!user && !isPublicRoute) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  if (isPublicRoute) {
+    // Redirect authenticated users from login to dashboard
+    if (user && pathname === '/login') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    return supabaseResponse
   }
 
-  // IMPORTANT: You *must* return the supabaseResponse object as it is.
-  // If you're creating a new response object with NextResponse.next() make sure to:
-  // 1. Pass the request in it, like so:
-  //    const myNewResponse = NextResponse.next({ request })
-  // 2. Copy over the cookies, like so:
-  //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
-  // 3. Change the myNewResponse object to fit your needs, but avoid changing
-  //    the cookies!
-  // 4. Finally:
-  //    return myNewResponse
-  // If this is not done, you may be causing the browser and server to go out
-  // of sync and terminate the user's session prematurely!
+  // === PROTECTED ROUTES ===
+  if (!user) {
+    const loginUrl = new URL('/login', request.url)
+    loginUrl.searchParams.set('next', pathname)
+    return NextResponse.redirect(loginUrl)
+  }
+
+  // Get user profile to check account status
+  type ProfileData = {
+    role: Database['public']['Enums']['user_role']
+    account_status: Database['public']['Enums']['account_status']
+  }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role, account_status')
+    .eq('id', user.id)
+    .single<ProfileData>()
+
+  if (!profile) {
+    // Profile not found - sign out and redirect
+    await supabase.auth.signOut()
+    return NextResponse.redirect(new URL('/login?error=profile_not_found', request.url))
+  }
+
+  // === SUSPENDED ACCOUNT ===
+  if (profile.account_status === 'suspended') {
+    await supabase.auth.signOut()
+    return NextResponse.redirect(new URL('/login?error=account_suspended', request.url))
+  }
+
+  // === ADMIN ROUTES ===
+  if (ADMIN_ROUTES.some((route) => pathname.startsWith(route))) {
+    if (profile.role !== 'superadmin') {
+      return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url))
+    }
+  }
+
+  // === READONLY MODE ===
+  if (profile.account_status === 'readonly') {
+    // Block mutations (non-GET requests) for readonly accounts
+    if (request.method !== 'GET') {
+      return NextResponse.json(
+        { error: 'Account is in readonly mode. Trial has expired.' },
+        { status: 403 }
+      )
+    }
+
+    // Add header so frontend knows about readonly state
+    supabaseResponse.headers.set('X-Account-Status', 'readonly')
+  }
+
+  // Add account status header for all authenticated requests
+  supabaseResponse.headers.set('X-Account-Status', profile.account_status)
 
   return supabaseResponse
 }
