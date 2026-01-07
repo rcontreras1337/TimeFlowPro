@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui'
-import { getMessage } from '@/lib/messages'
+import { getMessage } from '@/lib/messages/client'
 import { cn } from '@/lib/utils/cn'
 
 interface NavItem {
@@ -16,6 +16,7 @@ interface NavItem {
   icon: React.ElementType
 }
 
+// Mensajes cargados via webpack yaml-loader (client-safe)
 const navItems: NavItem[] = [
   {
     href: '/admin' as Route,

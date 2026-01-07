@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui'
-import { getMessage } from '@/lib/messages'
+import { getMessage } from '@/lib/messages/client'
 import { createClient } from '@/lib/supabase/client'
 
 interface Professional {
