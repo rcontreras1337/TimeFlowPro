@@ -60,7 +60,7 @@ export function LoginForm() {
   const loading = isLoading || authLoading
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {error && (
         <Alert variant="error" onClose={() => setError(null)}>
           {error}
@@ -70,25 +70,16 @@ export function LoginForm() {
       <Button
         onClick={() => void handleGoogleLogin()}
         isLoading={loading}
-        variant="outline"
+        variant="primary"
         size="lg"
         fullWidth
-        className="relative"
+        className="gap-3"
       >
-        {!loading && <GoogleIcon className="absolute left-4 h-5 w-5" />}
+        {!loading && <GoogleIcon className="h-5 w-5" />}
         <span>{getMessage('auth.login.withGoogle')}</span>
       </Button>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-200 dark:border-gray-700" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="bg-white px-4 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-            Autenticación segura con OAuth 2.0
-          </span>
-        </div>
-      </div>
+      <p className="text-center text-xs text-gray-400">🔒 Autenticación segura con OAuth 2.0</p>
     </div>
   )
 }
