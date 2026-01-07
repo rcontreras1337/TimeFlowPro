@@ -18,6 +18,16 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
   - TrialsExpiringCard: muestra trials próximos a vencer
   - ProfessionalsTable: tabla con acciones (activar, suspender, extender trial)
   - Página de configuración de trial y notificaciones admin
+- 🔄 **T-1-06**: Sistema de Trial Automático
+  - Edge Function `expire-trials` para expirar trials diariamente
+  - Edge Function `notify-admin` para notificaciones al administrador
+  - Migraciones para `pg_cron`, `pg_net` y cron jobs automáticos
+  - Trigger `notify_new_registration` para avisar de nuevos registros
+  - `TrialService` frontend con métodos `getTrialStatus`, `getTrialConfig`, `isReadonly`
+  - 9 tests unitarios para TrialService
+  - Tests de integración para Edge Functions
+  - Tests e2e para sistema de trial
+  - Configuración `booking_settings` en seed.sql
 
 - 🔐 **T-1-02**: Supabase Auth con Google OAuth
   - `AuthService` con métodos signInWithGoogle, signOut, getSession, getUser
