@@ -10,6 +10,15 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 🎛️ **T-1-07**: Dashboard Admin - Configuración Trial y Gestión
+  - Layout admin con verificación de rol `superadmin`
+  - AdminSidebar colapsable con navegación
+  - Componentes UI: Badge, Table, Switch, DropdownMenu
+  - AdminStats: estadísticas de profesionales (total, trial, activos, readonly)
+  - TrialsExpiringCard: muestra trials próximos a vencer
+  - ProfessionalsTable: tabla con acciones (activar, suspender, extender trial)
+  - Página de configuración de trial y notificaciones admin
+
 - 🔐 **T-1-02**: Supabase Auth con Google OAuth
   - `AuthService` con métodos signInWithGoogle, signOut, getSession, getUser
   - Callback handler con verificación de estado de cuenta
