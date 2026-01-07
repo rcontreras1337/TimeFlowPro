@@ -1,23 +1,19 @@
 /**
  * Client-safe getMessage helper
  *
- * This module provides the getMessage function for client components
- * without Node.js dependencies (fs, path).
+ * This module provides the getMessage function for client components.
+ * Messages are loaded via webpack's yaml-loader at build time.
  *
- * Messages are loaded via webpack and set by setMessages() at build time.
+ * @ticket T-1-03
  */
+
+// Import messages directly - webpack yaml-loader handles this
+import messagesData from './messages.es.yml'
 
 type NestedObject = { [key: string]: string | NestedObject }
 
-// Messages will be injected by webpack/build process
-let messages: NestedObject = {}
-
-/**
- * Set messages (used by webpack loader or during SSR hydration)
- */
-export function setMessages(loadedMessages: NestedObject): void {
-  messages = loadedMessages
-}
+// Messages loaded from YAML at build time
+const messages: NestedObject = messagesData as NestedObject
 
 /**
  * Get all messages (for debugging/testing)
@@ -46,11 +42,13 @@ export function getMessage(
       result = (result as NestedObject)[key]
     } else {
       // Return path as fallback if message not found
+      console.warn(`[i18n] Message not found: ${messagePath}`)
       return messagePath
     }
   }
 
   if (typeof result !== 'string') {
+    console.warn(`[i18n] Message path does not resolve to string: ${messagePath}`)
     return messagePath
   }
 
