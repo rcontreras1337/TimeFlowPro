@@ -8,6 +8,9 @@ import { defineConfig, devices } from '@playwright/test'
  */
 export default defineConfig({
   testDir: './tests/e2e',
+  // Asegurar que solo busque archivos .spec.ts y evite conflictos con Vitest
+  testMatch: '**/*.spec.ts',
+  testIgnore: ['**/apps/**', '**/node_modules/**'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

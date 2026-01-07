@@ -25,18 +25,18 @@ const buttonVariants = cva(
       variant: {
         primary: [
           'bg-gradient-to-r from-primary-500 to-secondary-500 text-white',
-          'hover:from-primary-600 hover:to-secondary-600',
+          'hover:from-primary-600 hover:to-secondary-600 hover:text-white',
           'focus-visible:ring-primary-500',
           'shadow-glow-sm hover:shadow-glow',
         ],
         secondary: [
           'bg-secondary-500 text-white',
-          'hover:bg-secondary-600',
+          'hover:bg-secondary-600 hover:text-white',
           'focus-visible:ring-secondary-500',
         ],
         accent: [
           'bg-accent-500 text-white',
-          'hover:bg-accent-600',
+          'hover:bg-accent-600 hover:text-white',
           'focus-visible:ring-accent-500',
         ],
         outline: [
@@ -49,7 +49,11 @@ const buttonVariants = cva(
           'hover:bg-dark-300 hover:text-white',
           'focus-visible:ring-gray-500',
         ],
-        danger: ['bg-error-500 text-white', 'hover:bg-error-600', 'focus-visible:ring-error-500'],
+        danger: [
+          'bg-error-500 text-white',
+          'hover:bg-error-600 hover:text-white',
+          'focus-visible:ring-error-500',
+        ],
         link: [
           'text-primary-500 underline-offset-4',
           'hover:underline',
