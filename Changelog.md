@@ -10,6 +10,12 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 🎨 **Sprint 1 Refinamientos**:
+  - Página 404 personalizada con imagen de reloj derretido
+  - Páginas `/privacy` y `/terms` (Política de Privacidad y Términos)
+  - Enlace a Panel Admin en dashboard (solo visible para superadmin)
+  - Imagen decorativa 404 generada con IA
+
 - 🎛️ **T-1-07**: Dashboard Admin - Configuración Trial y Gestión
   - Layout admin con verificación de rol `superadmin`
   - AdminSidebar colapsable con navegación

@@ -1,8 +1,9 @@
-import { Briefcase, Calendar, MapPin, Settings, Users } from 'lucide-react'
+import { Briefcase, Calendar, MapPin, Settings, Shield, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -16,9 +17,49 @@ export const metadata: Metadata = {
  *
  * @ticket T-0-02 (estructura de carpetas)
  */
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  // Verificar si el usuario es superadmin
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  let isSuperAdmin = false
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+    isSuperAdmin = (profile as { role: string } | null)?.role === 'superadmin'
+  }
+
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
+      {/* Admin Link - Solo para superadmin */}
+      {isSuperAdmin && (
+        <Link href="/admin" className="block">
+          <Card
+            variant="interactive"
+            className="border-amber-500/50 bg-gradient-to-r from-amber-500/10 to-orange-500/10"
+          >
+            <CardContent className="flex items-center gap-4 p-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/20 text-amber-500">
+                <Shield className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900 dark:text-white">
+                  Panel de Administración
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Gestiona profesionales y configuración del sistema
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+      )}
+
       {/* Header de bienvenida */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
