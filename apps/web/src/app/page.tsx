@@ -3,11 +3,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/server'
 
 /**
  * Landing page for TimeFlowPro - Mobile-first dark design
+ * Shows "Ir al Dashboard" for authenticated users
  */
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  const isAuthenticated = !!session
+
   return (
     <div className="flex min-h-screen flex-col bg-dark-500">
       {/* Header - Sticky with blur */}
@@ -29,15 +37,23 @@ export default function HomePage() {
             </span>
           </div>
           <nav className="flex items-center gap-2 sm:gap-4">
-            <Link
-              href="/login"
-              className="hidden text-sm font-medium text-gray-400 transition-colors hover:text-white sm:block"
-            >
-              Iniciar Sesión
-            </Link>
-            <Button variant="primary" size="sm" asChild>
-              <Link href="/login">Comenzar</Link>
-            </Button>
+            {isAuthenticated ? (
+              <Button variant="primary" size="sm" asChild>
+                <Link href="/dashboard">Ir al Dashboard</Link>
+              </Button>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="hidden text-sm font-medium text-gray-400 transition-colors hover:text-white sm:block"
+                >
+                  Iniciar Sesión
+                </Link>
+                <Button variant="primary" size="sm" asChild>
+                  <Link href="/login">Comenzar</Link>
+                </Button>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -70,8 +86,11 @@ export default function HomePage() {
               {/* CTA Buttons - Stack on mobile */}
               <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
                 <Button variant="primary" size="lg" className="w-full sm:w-auto" asChild>
-                  <Link href="/login" className="inline-flex items-center justify-center gap-2">
-                    Prueba Gratis 14 Días
+                  <Link
+                    href={isAuthenticated ? '/dashboard' : '/login'}
+                    className="inline-flex items-center justify-center gap-2"
+                  >
+                    {isAuthenticated ? 'Ir al Dashboard' : 'Prueba Gratis 14 Días'}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -186,8 +205,11 @@ export default function HomePage() {
             </p>
             <div className="mt-8">
               <Button variant="primary" size="lg" asChild>
-                <Link href="/login" className="inline-flex items-center gap-2">
-                  Comenzar Ahora
+                <Link
+                  href={isAuthenticated ? '/dashboard' : '/login'}
+                  className="inline-flex items-center gap-2"
+                >
+                  {isAuthenticated ? 'Ir al Dashboard' : 'Comenzar Ahora'}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>

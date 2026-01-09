@@ -24,6 +24,19 @@ common:
   noResults: 'No se encontraron resultados'
   required: 'Este campo es obligatorio'
 
+# === NAVEGACIÓN ===
+navigation:
+  dashboard: 'Dashboard'
+  locations: 'Ubicaciones'
+  services: 'Servicios'
+  clients: 'Clientes'
+  settings: 'Ajustes'
+  admin: 'Administrador'
+  professional: 'Profesional'
+  adminPanel: 'Panel Admin'
+  more: 'Más'
+  goToDashboard: 'Ir al Dashboard'
+
 # === AUTENTICACIÓN ===
 auth:
   login:

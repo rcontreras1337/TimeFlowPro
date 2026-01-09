@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 
-import { AdminSidebar } from '@/components/features/admin/admin-sidebar'
+import { AppSidebar } from '@/components/layout/app-sidebar'
+import { BottomNav } from '@/components/ui/bottom-nav'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -13,8 +14,10 @@ export const metadata = {
  *
  * Verifica que el usuario sea superadmin antes de mostrar el contenido.
  * Redirige a login si no hay sesión, o a dashboard si no es superadmin.
+ * Uses unified AppSidebar and BottomNav for consistent navigation.
  *
  * @ticket T-1-07
+ * @updated Sprint 1 Refinements - Unified navigation
  */
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -41,11 +44,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-dark-100">
-      <AdminSidebar />
-      <main className="lg:pl-64">
-        <div className="p-6">{children}</div>
+    <div className="min-h-screen bg-dark-500">
+      {/* Desktop Sidebar - superadmin role */}
+      <AppSidebar userRole="superadmin" />
+
+      {/* Main content with sidebar offset on desktop */}
+      <main className="lg:pl-64 pb-20 lg:pb-0">
+        <div className="p-4 lg:p-6">{children}</div>
       </main>
+
+      {/* Mobile Bottom Navigation */}
+      <BottomNav userRole="superadmin" />
     </div>
   )
 }

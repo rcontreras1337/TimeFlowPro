@@ -16,6 +16,14 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
   - Enlace a Panel Admin en dashboard (solo visible para superadmin)
   - Imagen decorativa 404 generada con IA
 
+- 📱 **Refinamientos UX Mobile-First**:
+  - `AppSidebar`: navegación unificada con rol dinámico (Admin/Profesional)
+  - `BottomNav`: navegación inferior para mobile con menú desplegable
+  - Iconos más grandes (h-6 w-6) para mejor touch target
+  - Botón de Cerrar Sesión en sidebar y menú mobile
+  - Landing inteligente: muestra "Ir al Dashboard" si usuario autenticado
+  - Sincronización de rol de profiles a JWT (migración 00020)
+
 - 🎛️ **T-1-07**: Dashboard Admin - Configuración Trial y Gestión
   - Layout admin con verificación de rol `superadmin`
   - AdminSidebar colapsable con navegación
