@@ -51,6 +51,12 @@ const moreNavItems: NavItem[] = [
     label: getMessage('admin.dashboard.professionals'),
     adminOnly: true,
   },
+  {
+    href: '/admin/config' as Route,
+    icon: Settings,
+    label: getMessage('admin.config.title'),
+    adminOnly: true,
+  },
 ]
 
 interface BottomNavProps {

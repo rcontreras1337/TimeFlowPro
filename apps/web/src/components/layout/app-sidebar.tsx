@@ -71,6 +71,12 @@ const navItems: NavItem[] = [
     icon: Users,
     adminOnly: true,
   },
+  {
+    href: '/admin/config' as Route,
+    label: getMessage('admin.config.title'),
+    icon: Settings,
+    adminOnly: true,
+  },
 ]
 
 interface AppSidebarProps {
