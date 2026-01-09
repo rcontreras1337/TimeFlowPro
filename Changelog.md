@@ -6,7 +6,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
-## [Unreleased]
+## [1.1.0] - 2026-01-09 - Sprint 1: Autenticación y Perfil ✅
 
 ### Added
 
