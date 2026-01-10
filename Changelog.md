@@ -6,6 +6,18 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [Unreleased] - Sprint 2: Ubicaciones y Servicios
+
+### Added
+
+- 📍 **T-2-01**: CRUD Ubicaciones (Backend API + RLS)
+  - `location.types.ts`: Tipos TypeScript para ubicaciones
+  - `location.service.ts`: Servicio CRUD con validaciones
+  - `use-locations.ts`: Hook TanStack Query con mutations
+  - `query-provider.tsx`: Provider de TanStack Query
+
+---
+
 ## [1.1.0] - 2026-01-09 - Sprint 1: Autenticación y Perfil ✅
 
 ### Added

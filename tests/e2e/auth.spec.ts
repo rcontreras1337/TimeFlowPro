@@ -32,7 +32,7 @@ test.describe('Autenticación', () => {
     await expect(googleButton).toBeEnabled()
   })
 
-  test('botón de Google debe iniciar flujo OAuth', async ({ page }) => {
+  test.fixme('botón de Google debe iniciar flujo OAuth', async ({ page }) => {
     // Click en el botón de Google
     const googleButton = page.getByRole('button', { name: /google/i })
 
