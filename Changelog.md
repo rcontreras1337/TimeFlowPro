@@ -10,6 +10,18 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 📍 **T-2-02**: UI Gestión de Ubicaciones ✨
+  - Componentes UI base: `EmptyState`, `Dialog`, `ColorPicker`
+  - Componente `LocationCard` con indicador de color, badges y menú de acciones
+  - Componente `SortableLocationCard` con drag & drop (@dnd-kit)
+  - Componente `LocationFormModal` con React Hook Form + Zod
+  - Componente `LocationsSkeleton` para estado de carga
+  - Componente `ConfirmDeleteDialog` para confirmación de eliminación
+  - Página `/locations` con lista draggable, modales y estados vacío/error
+  - Tests unitarios para componentes UI y locations
+  - Tests E2E para flujos de ubicaciones
+  - Dependencias: `@radix-ui/react-dialog`, `@dnd-kit/core`, `@dnd-kit/sortable`
+
 - 📍 **T-2-01**: CRUD Ubicaciones (Backend API + RLS)
   - `location.types.ts`: Tipos TypeScript para ubicaciones
   - `location.service.ts`: Servicio CRUD con validaciones
