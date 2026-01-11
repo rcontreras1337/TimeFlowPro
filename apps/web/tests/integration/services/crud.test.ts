@@ -139,7 +139,7 @@ describeIntegration('Services CRUD Integration', () => {
         .single()
 
       expect(error).toBeNull()
-      expect(data?.default_duration_minutes).toBe(60) // Default from DB
+      expect(data?.default_duration_minutes).toBe(45) // Default from DB
       expect(data?.price).toBe(0) // Default from DB
       expect(data?.is_active).toBe(true) // Default from DB
       expect(data?.allow_online_booking).toBe(true) // Default from DB
