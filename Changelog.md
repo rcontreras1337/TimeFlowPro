@@ -10,6 +10,16 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ### Added
 
+- 🛠️ **T-2-03**: CRUD Servicios (API + RLS) ✨
+  - `service.types.ts`: Types TypeScript para servicios
+  - `service.service.ts`: Service CRUD con validaciones (precio >= 0, duración > 0)
+  - `use-services.ts`: Hook TanStack Query con mutations
+  - Validación de citas activas antes de eliminar
+  - Toggle de reserva online y estado activo
+  - 26 tests unitarios pasando
+  - Tests de integración para Supabase local
+  - Mensajes i18n agregados (notFound, hasAppointments, validaciones)
+
 - 📍 **T-2-02**: UI Gestión de Ubicaciones ✨
   - Componentes UI base: `EmptyState`, `Dialog`, `ColorPicker`
   - Componente `LocationCard` con indicador de color, badges y menú de acciones
